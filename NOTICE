@@ -1,0 +1,183 @@
+NOTICE — MyTeam360 Intellectual Property Declaration
+
+═══════════════════════════════════════════════════════════════════
+OWNERSHIP
+═══════════════════════════════════════════════════════════════════
+
+Product Name:       MyTeam360
+Owner:              Praxis Holdings LLC (Nevada LLC)
+Operator:           MyTeam360 LLC (Nevada LLC)
+Managing Director:  Jeremy Brown
+
+All intellectual property including but not limited to:
+  - MyTeam360 software platform (all source code, modules, and APIs)
+  - MyTeam360 name and branding
+  - myteam360.ai domain
+  - launchbrand.co domain
+  - All associated trademarks, trade dress, and service marks
+  - All documentation, designs, and user interface elements
+  - All algorithms, data structures, and system architectures
+  - All trade secrets contained within the Software
+
+are the exclusive property of Praxis Holdings LLC, assigned via the
+Intellectual Property Assignment Agreement executed March 2026.
+
+═══════════════════════════════════════════════════════════════════
+ENTITY STRUCTURE
+═══════════════════════════════════════════════════════════════════
+
+Praxis Holdings LLC (Holding Company)
+  ├── Owns: All IP (software, domains, trademarks)
+  ├── Owns: 100% of MyTeam360 LLC
+  └── Members: Jeremy Brown (40%), Hilda Brown (40%),
+               Jeremy Brown Jr. (10%), Allison Brown (10%)
+
+MyTeam360 LLC (Operating Company)
+  ├── Operates: MyTeam360 SaaS platform
+  ├── Collects: Customer payments (Stripe)
+  ├── Licenses: IP from Praxis Holdings LLC
+  └── Customer-facing entity
+
+═══════════════════════════════════════════════════════════════════
+THIRD-PARTY SOFTWARE
+═══════════════════════════════════════════════════════════════════
+
+MyTeam360 incorporates the following open-source software:
+
+Framework:
+  - Flask (BSD-3-Clause) — https://flask.palletsprojects.com/
+  - Python (PSF License) — https://python.org/
+
+AI Provider SDKs:
+  - anthropic (MIT) — https://github.com/anthropics/anthropic-sdk-python
+  - openai (Apache-2.0) — https://github.com/openai/openai-python
+
+Security:
+  - cryptography (Apache-2.0/BSD) — https://cryptography.io/
+  - pyotp (MIT) — https://github.com/pyauth/pyotp
+  - bcrypt (Apache-2.0) — https://github.com/pyca/bcrypt
+
+Frontend:
+  - Sora Font (SIL Open Font License) — Google Fonts
+  - IBM Plex Mono (SIL Open Font License) — Google Fonts
+
+All third-party components are used in accordance with their respective
+licenses. No third-party license grants any rights to the proprietary
+MyTeam360 code or intellectual property.
+
+═══════════════════════════════════════════════════════════════════
+REGISTRATION
+═══════════════════════════════════════════════════════════════════
+
+Entity Registrations:
+  - Praxis Holdings LLC — Nevada Secretary of State (NRS Chapter 86)
+  - MyTeam360 LLC — Nevada Secretary of State (NRS Chapter 86)
+  - MyTeam360 DBA — Clark County, Nevada (NRS Chapter 602)
+  - Launch Brand DBA — Clark County, Nevada (NRS Chapter 602)
+
+Domain Registrations:
+  - myteam360.ai — Owned by Praxis Holdings LLC
+  - launchbrand.co — Owned by Praxis Holdings LLC
+
+Trademark Status:
+  - "MyTeam360" — Common law trademark (™). Federal registration recommended.
+  - "Launch Brand" — Common law trademark (™). Federal registration recommended.
+  - MyTeam360 circular swirl mark — Common law trademark (™).
+  - MyTeam360 purple/blue color scheme — Trade dress (™).
+
+Visual Identity and Trade Dress:
+  The following visual elements are proprietary trade dress of
+  Praxis Holdings LLC and are claimed as intellectual property:
+
+  The MyTeam360 Circular Swirl Mark:
+    - Animated radial gradient orb with breathing/pulsing animation
+    - Color progression: #ddd6fe (light purple) → #a459f2 (primary purple) →
+      #7c3aed (deep amber) → #7c2d12 (ember brown)
+    - Circular swirl elements with purple-tinted borders
+    - Ambient amber glow halo effect
+    - State-based animation: breathing (idle), pulsing (thinking),
+      flowing (responding)
+    - Persistent mini-orb (24px) positioned bottom-right as brand mark
+
+  Brand Color Palette:
+    Primary:   #a459f2 (Primary Purple)
+    Light:     #c084fc (Light Purple)
+    Dark:      #7c3aed (#7c3aed)
+    Highlight: #ddd6fe (Soft Lavender)
+    Void:      #030308 (Near Black)
+    Surface:   #0d0d22 (Deep Navy)
+
+  Overall Visual Trade Dress:
+    - Dark void background (#030308) with animated purple particle field
+    - Ambient radial gradient atmosphere in warm purple tones
+    - MyTeam360 circular swirl mark as persistent brand element
+    - Card-based Spaces interface with hover-glow effects
+    - Trust shield indicator (bottom-left, green pulse)
+    - Typography: Sora (display) + IBM Plex Mono (technical)
+    - Cinematic scene transitions with staggered fade-in animations
+
+  These visual elements, individually and as a combined trade dress,
+  are distinctive and non-functional, serving solely to identify the
+  source of MyTeam360 services. Unauthorized reproduction or imitation
+  of these elements may constitute trade dress infringement under
+  Section 43(a) of the Lanham Act (15 U.S.C. § 1125(a)).
+
+═══════════════════════════════════════════════════════════════════
+CONFIDENTIALITY
+═══════════════════════════════════════════════════════════════════
+
+This codebase contains trade secrets of Praxis Holdings LLC including:
+  - Proprietary AI agent orchestration algorithms
+  - Voice learning and style profile technology
+  - Smart cost routing and complexity analysis systems
+  - Natural language configuration engine
+  - Client portal architecture
+  - Pipeline execution framework
+  - Shared context knowledge retrieval system
+
+Access to this codebase constitutes acknowledgment of its confidential
+nature and agreement not to disclose its contents to any unauthorized party.
+
+═══════════════════════════════════════════════════════════════════
+LEGAL PROTECTIONS AND ENFORCEMENT
+═══════════════════════════════════════════════════════════════════
+
+This Software is protected by multiple layers of federal and state law:
+
+Federal Protections:
+  - Defend Trade Secrets Act (18 U.S.C. § 1836)
+  - Economic Espionage Act (18 U.S.C. § 1831-1839)
+  - Computer Fraud and Abuse Act (18 U.S.C. § 1030)
+  - Digital Millennium Copyright Act (17 U.S.C. § 1201)
+  - Copyright Act (17 U.S.C. § 101 et seq.)
+  - Wire Fraud Act (18 U.S.C. § 1343)
+
+Nevada State Protections:
+  - Uniform Trade Secrets Act (NRS 600A)
+  - Computer Crime Laws (NRS 205.473-205.513)
+  - Harassment and Stalking Laws (NRS 200.571, 200.575)
+  - Unlawful Use of Computer (NRS 205.4765)
+  - Unfair Trade Practices (NRS 598A)
+
+Penalties for Violation:
+  - Civil: Actual damages, unjust enrichment, exemplary damages (2x),
+    attorney's fees, injunctive relief
+  - Criminal: Fines up to $5,000,000 and imprisonment up to 10 years
+    for trade secret theft (federal)
+  - Criminal: Category B-D felony for computer crime (Nevada)
+
+Zero-Tolerance Policy:
+  Praxis Holdings LLC maintains a zero-tolerance policy regarding
+  intellectual property theft, unauthorized access, harassment,
+  intimidation, sabotage, and any form of misconduct directed at the
+  company, its owners, employees, or affiliates. All violations will
+  be documented, reported to law enforcement, and pursued through both
+  criminal prosecution and civil litigation to the fullest extent of
+  the law.
+
+Report Violations:
+  Email: legal@praxisholdingsllc.com (IP holder)
+  Operational: legal@myteam360.ai (platform operator)
+  Address: 7628 Brisk Ocean Avenue, Las Vegas, Nevada 89178
+
+═══════════════════════════════════════════════════════════════════

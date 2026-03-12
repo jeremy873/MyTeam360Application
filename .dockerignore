@@ -1,0 +1,14 @@
+__pycache__
+*.pyc
+.git
+.env
+data/
+*.db
+*.sqlite
+myteam360-package/
+tests.py
+.pytest_cache
+*.zip
+*.docx
+ip-filings/
+deploy/

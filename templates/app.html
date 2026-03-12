@@ -1,0 +1,207 @@
+<!--
+  MyTeam360 — Dashboard (Vision UI Level)
+  © 2026 Praxis Holdings LLC. PROPRIETARY.
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>MyTeam360 — Dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700;800&family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#060B26;--bg2:#0B1437;--bg3:#111C44;--card:linear-gradient(127deg,rgba(6,11,40,.74),rgba(10,14,35,.71));--cb:rgba(255,255,255,.06);--p:#7C3AED;--pl:#A78BFA;--pd:#6D28D9;--b:#3B82F6;--bl:#60A5FA;--cy:#0075FF;--g:#22C55E;--gl:#4ADE80;--tl:#2DD4BF;--a:#F59E0B;--r:#EF4444;--tx:rgba(255,255,255,.55);--tx2:rgba(255,255,255,.35);--w:#fff;--rm:12px;--rl:16px;--rx:20px}
+html,body{height:100%;overflow:hidden}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--tx);-webkit-font-smoothing:antialiased}
+::selection{background:var(--p);color:#fff}
+a{color:inherit;text-decoration:none}
+h1,h2,h3,h4{font-family:'Outfit',sans-serif;color:var(--w);letter-spacing:-.02em;line-height:1.2;font-weight:700}
+::-webkit-scrollbar{width:4px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:rgba(255,255,255,.06);border-radius:2px}
+
+.shell{display:flex;height:100vh}
+
+/* SIDEBAR */
+.sb{width:250px;background:var(--bg2);display:flex;flex-direction:column;padding:1.2rem .8rem;flex-shrink:0;border-right:1px solid var(--cb);overflow-y:auto;overflow-x:hidden}
+.sb-h{display:flex;align-items:center;gap:.6rem;padding:.3rem .6rem;margin-bottom:1.8rem}
+.sb-h span{font-family:'Outfit',sans-serif;font-weight:700;font-size:1rem;color:var(--w)}
+.sb-sep{font-size:.6rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--tx2);padding:.8rem .6rem .3rem;margin-top:.3rem}
+.si{display:flex;align-items:center;gap:.65rem;padding:.55rem .7rem;border-radius:var(--rm);color:var(--tx);font-size:.84rem;font-weight:500;cursor:pointer;transition:all .2s;position:relative}
+.si:hover{background:rgba(255,255,255,.03);color:rgba(255,255,255,.8)}
+.si.on{background:linear-gradient(135deg,var(--p),var(--cy));color:#fff;box-shadow:0 4px 20px rgba(124,58,237,.35)}
+.si .ic{width:28px;height:28px;border-radius:var(--rm);background:rgba(255,255,255,.04);display:flex;align-items:center;justify-content:center;font-size:.8rem;flex-shrink:0;transition:.2s}
+.si.on .ic{background:rgba(255,255,255,.15)}
+.si:hover .ic{background:rgba(255,255,255,.06)}
+.si .bd{margin-left:auto;background:var(--r);color:#fff;font-size:.55rem;font-weight:700;padding:.1rem .35rem;border-radius:100px;min-width:16px;text-align:center}
+.sb-ft{margin-top:auto;padding:.5rem;border-top:1px solid var(--cb)}
+.sb-u{display:flex;align-items:center;gap:.55rem;padding:.4rem;border-radius:var(--rm);cursor:pointer;transition:.2s}
+.sb-u:hover{background:rgba(255,255,255,.03)}
+.sb-av{width:34px;height:34px;border-radius:var(--rm);background:linear-gradient(135deg,var(--p),var(--cy));display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:800;color:#fff;flex-shrink:0}
+
+/* MAIN */
+.mn{flex:1;display:flex;flex-direction:column;overflow:hidden;position:relative}
+.mn::before{content:'';position:absolute;top:-120px;right:-80px;width:500px;height:400px;background:radial-gradient(ellipse,rgba(124,58,237,.12),rgba(0,117,255,.06),transparent 70%);filter:blur(60px);pointer-events:none;z-index:0}
+
+/* TOPBAR */
+.tb{height:56px;padding:0 1.5rem;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;z-index:2;position:relative}
+.tb-l p{font-size:.7rem;color:var(--tx2)}.tb-l h2{font-size:1rem}
+.tb-r{display:flex;align-items:center;gap:.4rem}
+.tb-s{display:flex;align-items:center;gap:.4rem;padding:.35rem .75rem;background:rgba(255,255,255,.04);border:1px solid var(--cb);border-radius:var(--rm);color:var(--tx2);font-size:.78rem;min-width:160px;cursor:pointer;transition:.2s}
+.tb-s:hover{border-color:rgba(255,255,255,.1)}
+.tb-s kbd{margin-left:auto;font-size:.6rem;padding:.05rem .3rem;border-radius:4px;background:rgba(255,255,255,.05);border:1px solid var(--cb);font-family:'JetBrains Mono',monospace}
+.tb-b{width:34px;height:34px;border-radius:var(--rm);background:rgba(255,255,255,.04);border:1px solid var(--cb);display:flex;align-items:center;justify-content:center;color:var(--tx);font-size:.8rem;cursor:pointer;transition:.2s;position:relative}
+.tb-b:hover{background:rgba(255,255,255,.07);color:var(--w)}
+.tb-b .dt{position:absolute;top:5px;right:5px;width:6px;height:6px;background:var(--r);border-radius:50%;border:1.5px solid var(--bg)}
+
+.ct{flex:1;overflow-y:auto;padding:0 1.5rem 1.5rem;z-index:1;position:relative}
+
+/* GLASS CARD */
+.gc{background:var(--card);backdrop-filter:blur(40px);border:1px solid var(--cb);border-radius:var(--rx);transition:border-color .3s,box-shadow .3s;overflow:hidden}
+.gc:hover{border-color:rgba(255,255,255,.09);box-shadow:0 0 40px rgba(124,58,237,.06)}
+.gc-h{padding:1rem 1.3rem;display:flex;align-items:center;justify-content:space-between}
+.gc-h h3{font-size:.88rem;font-weight:600}
+.gc-b{padding:0 1.3rem 1.3rem}
+
+/* BRIEFING */
+.bf{padding:1rem 1.3rem;background:linear-gradient(135deg,rgba(124,58,237,.08),rgba(0,117,255,.04));border:1px solid rgba(124,58,237,.12);border-radius:var(--rx);display:flex;align-items:center;justify-content:space-between;gap:1rem;margin-bottom:1.2rem;backdrop-filter:blur(20px)}
+.bf h3{font-size:.88rem;font-weight:700;color:var(--w);margin-bottom:.15rem}
+.bf p{font-size:.76rem;color:var(--tx);line-height:1.5}
+.bf button{font-size:.68rem;font-weight:700;padding:.35rem .7rem;border-radius:var(--rm);background:rgba(124,58,237,.12);color:var(--pl);white-space:nowrap;cursor:pointer;transition:.2s;border:none;font-family:inherit}
+.bf button:hover{background:rgba(124,58,237,.22)}
+
+/* STAT CARDS */
+.sg{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-bottom:1.2rem}
+.st{padding:1.2rem}
+.st-t{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:.8rem}
+.st-ic{width:40px;height:40px;border-radius:var(--rm);display:flex;align-items:center;justify-content:center;font-size:1rem}
+.st-ic.p{background:linear-gradient(135deg,var(--p),var(--b));box-shadow:0 4px 15px rgba(124,58,237,.3)}
+.st-ic.b{background:linear-gradient(135deg,var(--cy),var(--bl));box-shadow:0 4px 15px rgba(59,130,246,.3)}
+.st-ic.g{background:linear-gradient(135deg,var(--g),var(--tl));box-shadow:0 4px 15px rgba(34,197,94,.3)}
+.st-ic.a{background:linear-gradient(135deg,var(--a),#F97316);box-shadow:0 4px 15px rgba(245,158,11,.3)}
+.st-lb{font-size:.72rem;color:var(--tx2);font-weight:500;margin-bottom:.25rem}
+.st-v{font-size:1.5rem;font-weight:800;color:var(--w);font-family:'Outfit',sans-serif;letter-spacing:-.03em}
+.st-m{display:flex;align-items:center;gap:.3rem;margin-top:.3rem}
+.st-pc{font-size:.65rem;font-weight:700;color:var(--g)}.st-pc.dn{color:var(--r)}
+.st-ch{font-size:.68rem;color:var(--tx2)}
+.spk{display:flex;align-items:flex-end;gap:2px;height:30px;margin-top:.5rem}
+.spk .s{flex:1;border-radius:2px 2px 0 0;background:rgba(124,58,237,.2);min-width:0}
+
+/* GRIDS */
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1.2rem}
+.g3{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:1rem;margin-bottom:1.2rem}
+
+/* GAUGE */
+.ga{position:relative;width:120px;height:120px;margin:0 auto}
+.ga svg{width:100%;height:100%;transform:rotate(-90deg)}
+.ga-c{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.ga-v{font-size:1.8rem;font-weight:800;color:var(--w);font-family:'Outfit',sans-serif}
+.ga-l{font-size:.65rem;color:var(--tx2)}
+
+/* CHART */
+.cw{position:relative;height:180px;margin-top:.5rem}
+.cw svg{width:100%;height:100%}
+.cl{display:flex;justify-content:space-between;font-size:.6rem;color:var(--tx2);padding-top:.3rem}
+
+/* BARS */
+.bs{display:flex;align-items:flex-end;gap:5px;height:130px}
+.br{flex:1;border-radius:5px 5px 0 0;background:linear-gradient(to top,rgba(0,117,255,.3),rgba(0,117,255,.7));transition:.3s;cursor:pointer;min-width:0}
+.br:hover{background:linear-gradient(to top,rgba(0,117,255,.5),rgba(0,117,255,.95))}
+.br.cu{background:linear-gradient(to top,rgba(124,58,237,.5),var(--p))}
+
+/* FEED */
+.fi{display:flex;align-items:flex-start;gap:.65rem;padding:.55rem 0;border-bottom:1px solid rgba(255,255,255,.03)}
+.fi:last-child{border:none}
+.fi-d{width:8px;height:8px;border-radius:50%;margin-top:.4rem;flex-shrink:0}
+.fi-t{font-size:.8rem;line-height:1.5}.fi-t b{color:var(--w);font-weight:600}
+.fi-tm{font-size:.65rem;color:var(--tx2);margin-top:.1rem}
+
+/* TASKS */
+.tk{display:flex;align-items:center;gap:.5rem;padding:.45rem 0;border-bottom:1px solid rgba(255,255,255,.03)}
+.tk:last-child{border:none}
+.tc{width:18px;height:18px;border-radius:6px;border:1.5px solid rgba(255,255,255,.12);cursor:pointer;transition:.2s;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:.6rem;color:transparent}
+.tc:hover{border-color:var(--pl)}.tc.dn{background:var(--g);border-color:var(--g);color:#fff}
+.tt{flex:1;font-size:.8rem}.tt.dn{text-decoration:line-through;opacity:.3}
+.tp{font-size:.55rem;font-weight:700;padding:.12rem .4rem;border-radius:4px;letter-spacing:.03em}
+.th{background:rgba(239,68,68,.1);color:var(--r)}.tm{background:rgba(245,158,11,.1);color:var(--a)}.tl{background:rgba(34,197,94,.1);color:var(--g)}
+
+/* DEALS */
+.dl{display:flex;align-items:center;justify-content:space-between;padding:.55rem 0;border-bottom:1px solid rgba(255,255,255,.03)}
+.dl:last-child{border:none}
+.dl-l{display:flex;align-items:center;gap:.6rem}
+.dl-a{width:36px;height:36px;border-radius:var(--rm);display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:800;color:#fff;flex-shrink:0}
+.dl-n{font-size:.84rem;font-weight:600;color:var(--w)}.dl-s{font-size:.68rem;color:var(--tx2)}
+.dl-v{font-size:.95rem;font-weight:700;color:var(--w);font-family:'Outfit',sans-serif}
+
+.tag{display:inline-flex;font-size:.65rem;font-weight:600;padding:.15rem .45rem;border-radius:5px}
+.tag-p{background:rgba(124,58,237,.1);color:var(--pl);cursor:pointer}
+
+/* VOICE FAB */
+.vf{position:fixed;bottom:1.5rem;right:1.5rem;z-index:50;width:52px;height:52px;border-radius:var(--rl);background:linear-gradient(135deg,var(--p),var(--cy));color:#fff;font-size:1.15rem;cursor:pointer;border:none;box-shadow:0 6px 30px rgba(124,58,237,.4);transition:.3s;display:flex;align-items:center;justify-content:center}
+.vf:hover{transform:scale(1.08);box-shadow:0 8px 40px rgba(124,58,237,.5)}
+
+@media(max-width:1100px){.sg{grid-template-columns:1fr 1fr}.g3{grid-template-columns:1fr}}
+@media(max-width:800px){.sb{display:none}.sg{grid-template-columns:1fr}.g2{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="shell">
+<aside class="sb">
+  <div class="sb-h"><svg width="22" height="22" viewBox="0 0 44 44"><defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#7C3AED"/><stop offset="100%" stop-color="#0075FF"/></linearGradient></defs><circle cx="22" cy="22" r="19" fill="none" stroke="url(#lg)" stroke-width="3"/><circle cx="22" cy="22" r="9" fill="none" stroke="url(#lg)" stroke-width="2.5"/></svg><span>MyTeam360</span></div>
+  <div class="sb-sep">Main</div>
+  <a class="si on"><div class="ic">⊞</div>Dashboard</a>
+  <a class="si"><div class="ic">◉</div>Daily Briefing<span class="bd" style="background:var(--p)">New</span></a>
+  <a class="si"><div class="ic">◈</div>AI Spaces</a>
+  <div class="sb-sep">Business</div>
+  <a class="si"><div class="ic">◇</div>CRM<span class="bd">3</span></a>
+  <a class="si"><div class="ic">☐</div>Tasks<span class="bd">7</span></a>
+  <a class="si"><div class="ic">⊡</div>Invoicing</a>
+  <a class="si"><div class="ic">◎</div>Social Media</a>
+  <a class="si"><div class="ic">▤</div>Booking Links</a>
+  <div class="sb-sep">Intelligence</div>
+  <a class="si"><div class="ic">◬</div>AI Roundtable</a>
+  <a class="si"><div class="ic">◔</div>Goals</a>
+  <a class="si"><div class="ic">◫</div>Analytics</a>
+  <a class="si"><div class="ic">❖</div>Lifestyle DNA</a>
+  <div class="sb-sep">System</div>
+  <a class="si"><div class="ic">⚿</div>AI Providers</a>
+  <a class="si"><div class="ic">⊕</div>Team</a>
+  <a class="si"><div class="ic">⚙</div>Settings</a>
+  <div class="sb-ft"><div class="sb-u"><div class="sb-av">JB</div><div><div style="font-size:.82rem;font-weight:600;color:var(--w)">Jeremy Brown</div><div style="font-size:.68rem;color:var(--tx2)">Pro Plan</div></div></div></div>
+</aside>
+<main class="mn">
+  <header class="tb"><div class="tb-l"><p>Pages / Dashboard</p><h2>Dashboard</h2></div><div class="tb-r"><div class="tb-s"><span>🔍</span>Search...<kbd>⌘K</kbd></div><button class="tb-b">🔔<span class="dt"></span></button><button class="tb-b">⚙</button></div></header>
+  <div class="ct">
+    <div class="bf"><div><h3>Wednesday Briefing — Client Day</h3><p>Henderson showing 2pm · Leave 1:25 · Carbone 7:30 · SW1234 on time · 7 emails, 3 tasks</p></div><button>View Briefing →</button></div>
+    <div class="sg">
+      <div class="gc st"><div class="st-t"><div><div class="st-lb">Pipeline Value</div><div class="st-v">$285K</div></div><div class="st-ic p">$</div></div><div class="st-m"><span class="st-pc">+12%</span><span class="st-ch">+$30.2K/mo</span></div><div class="spk"><div class="s" style="height:30%"></div><div class="s" style="height:45%"></div><div class="s" style="height:35%"></div><div class="s" style="height:55%"></div><div class="s" style="height:50%"></div><div class="s" style="height:70%"></div><div class="s" style="height:65%"></div><div class="s" style="height:85%"></div></div></div>
+      <div class="gc st"><div class="st-t"><div><div class="st-lb">Monthly Revenue</div><div class="st-v">$12,500</div></div><div class="st-ic b">≡</div></div><div class="st-m"><span class="st-pc">+23%</span><span class="st-ch">vs last month</span></div><div class="spk"><div class="s" style="height:40%;background:rgba(0,117,255,.2)"></div><div class="s" style="height:35%;background:rgba(0,117,255,.2)"></div><div class="s" style="height:50%;background:rgba(0,117,255,.2)"></div><div class="s" style="height:45%;background:rgba(0,117,255,.2)"></div><div class="s" style="height:60%;background:rgba(0,117,255,.2)"></div><div class="s" style="height:55%;background:rgba(0,117,255,.2)"></div><div class="s" style="height:75%;background:rgba(0,117,255,.2)"></div><div class="s" style="height:90%;background:rgba(0,117,255,.25)"></div></div></div>
+      <div class="gc st"><div class="st-t"><div><div class="st-lb">Deals Closed</div><div class="st-v">8</div></div><div class="st-ic g">✓</div></div><div class="st-m"><span class="st-pc">+33%</span><span class="st-ch">this quarter</span></div><div class="spk"><div class="s" style="height:20%;background:rgba(34,197,94,.15)"></div><div class="s" style="height:30%;background:rgba(34,197,94,.15)"></div><div class="s" style="height:45%;background:rgba(34,197,94,.15)"></div><div class="s" style="height:40%;background:rgba(34,197,94,.15)"></div><div class="s" style="height:55%;background:rgba(34,197,94,.2)"></div><div class="s" style="height:65%;background:rgba(34,197,94,.2)"></div><div class="s" style="height:70%;background:rgba(34,197,94,.2)"></div><div class="s" style="height:95%;background:rgba(34,197,94,.25)"></div></div></div>
+      <div class="gc st"><div class="st-t"><div><div class="st-lb">Active Leads</div><div class="st-v">24</div></div><div class="st-ic a">◎</div></div><div class="st-m"><span class="st-pc dn">-3</span><span class="st-ch">need follow-up</span></div><div class="spk"><div class="s" style="height:70%;background:rgba(245,158,11,.15)"></div><div class="s" style="height:60%;background:rgba(245,158,11,.15)"></div><div class="s" style="height:55%;background:rgba(245,158,11,.15)"></div><div class="s" style="height:65%;background:rgba(245,158,11,.15)"></div><div class="s" style="height:50%;background:rgba(245,158,11,.15)"></div><div class="s" style="height:45%;background:rgba(245,158,11,.15)"></div><div class="s" style="height:40%;background:rgba(245,158,11,.15)"></div><div class="s" style="height:35%;background:rgba(245,158,11,.15)"></div></div></div>
+    </div>
+    <!-- WELCOME + GAUGES -->
+    <div class="g3">
+      <div class="gc" style="position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:linear-gradient(135deg,rgba(124,58,237,.15),rgba(0,117,255,.1));pointer-events:none"></div><div style="padding:1.8rem 1.5rem;position:relative;z-index:1"><p style="font-size:.78rem;color:var(--tx);margin-bottom:.3rem">Welcome back,</p><h2 style="font-size:1.6rem;margin-bottom:.6rem">Jeremy Brown</h2><p style="font-size:.82rem;color:var(--tx);line-height:1.6;margin-bottom:1rem">Your Wednesday briefing is ready. Henderson at 2pm. You close 3x more at Carbone.</p><button style="background:none;border:none;color:var(--pl);font-size:.82rem;font-weight:600;cursor:pointer;font-family:inherit;padding:0">Tap to record →</button></div></div>
+      <div class="gc"><div class="gc-h"><h3>Win Rate</h3><span style="font-size:.68rem;color:var(--tx2)">All deals</span></div><div class="gc-b" style="text-align:center"><div class="ga"><svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="52" fill="none" stroke="rgba(255,255,255,.04)" stroke-width="10"/><circle cx="60" cy="60" r="52" fill="none" stroke="url(#gg)" stroke-width="10" stroke-linecap="round" stroke-dasharray="327" stroke-dashoffset="65"/><defs><linearGradient id="gg" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#0075FF"/><stop offset="100%" stop-color="#7C3AED"/></linearGradient></defs></svg><div class="ga-c"><div class="ga-v">80%</div><div class="ga-l">Close rate</div></div></div><div style="display:flex;justify-content:space-between;font-size:.68rem;color:var(--tx2);margin-top:.5rem"><span>0%</span><span style="color:var(--pl);font-weight:600">20 deals</span><span>100%</span></div></div></div>
+      <div class="gc"><div class="gc-h"><h3>Health Score</h3><span style="font-size:.68rem;color:var(--tx2)">Overall</span></div><div class="gc-b"><div style="display:flex;gap:1rem;align-items:center"><div style="flex:1"><div style="margin-bottom:.8rem"><div style="font-size:.72rem;color:var(--tx2)">Pipeline</div><div style="font-size:1.1rem;font-weight:700;color:var(--w)">$285K</div></div><div><div style="font-size:.72rem;color:var(--tx2)">Paid</div><div style="font-size:1.1rem;font-weight:700;color:var(--w)">$13.5K</div></div></div><div class="ga" style="width:90px;height:90px"><svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="52" fill="none" stroke="rgba(255,255,255,.04)" stroke-width="10"/><circle cx="60" cy="60" r="52" fill="none" stroke="url(#hg)" stroke-width="10" stroke-linecap="round" stroke-dasharray="327" stroke-dashoffset="33"/><defs><linearGradient id="hg" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#22C55E"/><stop offset="100%" stop-color="#2DD4BF"/></linearGradient></defs></svg><div class="ga-c"><div class="ga-v" style="font-size:1.4rem">9.1</div><div class="ga-l">Score</div></div></div></div></div></div>
+    </div>
+    <!-- CHARTS -->
+    <div class="g2">
+      <div class="gc"><div class="gc-h"><div><h3>Sales Overview</h3><span style="font-size:.68rem;color:var(--g);font-weight:600">(+5) in 2026</span></div></div><div class="gc-b"><div class="cw"><svg viewBox="0 0 500 180" preserveAspectRatio="none"><defs><linearGradient id="af" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="rgba(0,117,255,.3)"/><stop offset="100%" stop-color="rgba(0,117,255,0)"/></linearGradient></defs><line x1="0" y1="36" x2="500" y2="36" stroke="rgba(255,255,255,.03)"/><line x1="0" y1="72" x2="500" y2="72" stroke="rgba(255,255,255,.03)"/><line x1="0" y1="108" x2="500" y2="108" stroke="rgba(255,255,255,.03)"/><line x1="0" y1="144" x2="500" y2="144" stroke="rgba(255,255,255,.03)"/><path d="M0,150 C40,140 60,130 100,120 C140,110 160,90 200,80 C240,70 260,85 300,75 C340,65 360,45 400,35 C440,28 480,20 500,15 L500,180 L0,180Z" fill="url(#af)"/><path d="M0,150 C40,140 60,130 100,120 C140,110 160,90 200,80 C240,70 260,85 300,75 C340,65 360,45 400,35 C440,28 480,20 500,15" fill="none" stroke="#0075FF" stroke-width="2.5" stroke-linecap="round"/><circle cx="500" cy="15" r="4" fill="#0075FF"/><circle cx="500" cy="15" r="8" fill="rgba(0,117,255,.2)"/></svg></div><div class="cl"><span>Jan</span><span>Feb</span><span>Mar</span><span>Apr</span><span>May</span><span>Jun</span><span>Jul</span><span>Aug</span><span>Sep</span><span>Oct</span><span>Nov</span><span>Dec</span></div></div></div>
+      <div class="gc"><div class="gc-h"><div><h3>Monthly Deals</h3><span style="font-size:.68rem;color:var(--tx2)">(+23%)</span></div></div><div class="gc-b"><div class="bs"><div class="br" style="height:35%"></div><div class="br" style="height:50%"></div><div class="br" style="height:40%"></div><div class="br" style="height:60%"></div><div class="br" style="height:55%"></div><div class="br" style="height:45%"></div><div class="br" style="height:70%"></div><div class="br" style="height:65%"></div><div class="br cu" style="height:90%"></div></div><div class="cl" style="padding-top:.4rem"><span>Apr</span><span>May</span><span>Jun</span><span>Jul</span><span>Aug</span><span>Sep</span><span>Oct</span><span>Nov</span><span style="color:var(--pl);font-weight:600">Dec</span></div><div style="display:flex;gap:1.5rem;margin-top:1rem;padding-top:.8rem;border-top:1px solid var(--cb)"><div><div style="font-size:.65rem;color:var(--tx2)">🟣 Closed</div><div style="font-size:1rem;font-weight:700;color:var(--w)">8</div></div><div><div style="font-size:.65rem;color:var(--tx2)">🔵 Pipeline</div><div style="font-size:1rem;font-weight:700;color:var(--w)">24</div></div><div><div style="font-size:.65rem;color:var(--tx2)">💰 Revenue</div><div style="font-size:1rem;font-weight:700;color:var(--w)">$12.5K</div></div></div></div></div>
+    </div>
+    <!-- BOTTOM ROW -->
+    <div class="g3">
+      <div class="gc"><div class="gc-h"><h3>Recent Activity</h3><span class="tag tag-p">View all</span></div><div class="gc-b"><div class="fi"><div class="fi-d" style="background:var(--g)"></div><div><div class="fi-t">Invoice <b>INV-0042</b> paid — <b>$4,500</b></div><div class="fi-tm">2h ago</div></div></div><div class="fi"><div class="fi-d" style="background:var(--pl)"></div><div><div class="fi-t">Deal <b>Henderson</b> → <b>Negotiation</b></div><div class="fi-tm">3h ago</div></div></div><div class="fi"><div class="fi-d" style="background:var(--cy)"></div><div><div class="fi-t">5 posts published — LinkedIn, IG</div><div class="fi-tm">5h ago</div></div></div><div class="fi"><div class="fi-d" style="background:var(--tl)"></div><div><div class="fi-t">Call logged — <b>Sarah Johnson</b></div><div class="fi-tm">Yesterday</div></div></div><div class="fi"><div class="fi-d" style="background:var(--a)"></div><div><div class="fi-t">Q2 Revenue → <b>68%</b></div><div class="fi-tm">Yesterday</div></div></div></div></div>
+      <div class="gc"><div class="gc-h"><h3>Due Today</h3><span class="tag tag-p">Board →</span></div><div class="gc-b"><div class="tk"><div class="tc"></div><div class="tt">Follow up Henderson</div><span class="tp th">HIGH</span></div><div class="tk"><div class="tc"></div><div class="tt">Send listing photos</div><span class="tp th">HIGH</span></div><div class="tk"><div class="tc"></div><div class="tt">Review closing docs</div><span class="tp tm">MED</span></div><div class="tk"><div class="tc"></div><div class="tt">Prepare CMA — Oak St</div><span class="tp tm">MED</span></div><div class="tk"><div class="tc"></div><div class="tt">Post market update</div><span class="tp tl">LOW</span></div></div></div>
+      <div class="gc"><div class="gc-h"><h3>Top Deals</h3><span class="tag tag-p">CRM →</span></div><div class="gc-b"><div class="dl"><div class="dl-l"><div class="dl-a" style="background:linear-gradient(135deg,var(--p),var(--cy))">H</div><div><div class="dl-n">Henderson</div><div class="dl-s">Offer Pending · 3d</div></div></div><div class="dl-v">$430K</div></div><div class="dl"><div class="dl-l"><div class="dl-a" style="background:linear-gradient(135deg,var(--a),var(--r))">J</div><div><div class="dl-n">Johnson</div><div class="dl-s" style="color:var(--r)">Cold · 8d</div></div></div><div class="dl-v">$445K</div></div><div class="dl"><div class="dl-l"><div class="dl-a" style="background:linear-gradient(135deg,var(--g),var(--tl))">M</div><div><div class="dl-n">Martinez</div><div class="dl-s" style="color:var(--g)">Closing Apr 2</div></div></div><div class="dl-v">$380K</div></div><div class="dl"><div class="dl-l"><div class="dl-a" style="background:linear-gradient(135deg,var(--cy),var(--pl))">W</div><div><div class="dl-n">Williams</div><div class="dl-s">Hot referral</div></div></div><div class="dl-v">$290K</div></div></div></div>
+    </div>
+  </div>
+</main>
+</div>
+<button class="vf" title="Voice Capture">🎙</button>
+<script>
+document.querySelectorAll('.si').forEach(s=>{s.addEventListener('click',()=>{document.querySelectorAll('.si').forEach(x=>x.classList.remove('on'));s.classList.add('on')})});
+document.querySelectorAll('.tc').forEach(c=>{c.addEventListener('click',()=>{c.classList.toggle('dn');c.textContent=c.classList.contains('dn')?'✓':'';const t=c.nextElementSibling;if(t)t.classList.toggle('dn')})});
+</script>
+</body>
+</html>

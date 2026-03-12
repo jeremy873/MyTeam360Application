@@ -1,0 +1,43 @@
+# ═══════════════════════════════════════════════════════
+# MyTeam360 — Dependencies
+# pip install -r requirements.txt --break-system-packages
+# ═══════════════════════════════════════════════════════
+
+# Core Framework
+flask>=3.0
+flask-cors>=4.0
+gunicorn>=23.0
+
+# Database
+psycopg2-binary>=2.9       # PostgreSQL (production)
+
+# Security & Auth
+cryptography>=44.0          # AES-256-GCM encryption
+bcrypt>=4.2                 # Password hashing
+pyotp>=2.9                  # TOTP MFA
+qrcode[pil]>=8.0            # MFA QR code generation
+
+# Document Generation
+python-docx>=1.1            # Word (.docx) export
+openpyxl>=3.1               # Excel (.xlsx) export
+Pillow>=10.0                # Image processing
+
+# PDF Generation (optional — falls back to HTML if not installed)
+# weasyprint>=62.0          # Uncomment for server-side PDF rendering
+# Note: weasyprint requires system libs: apt-get install libcairo2-dev libpango1.0-dev
+
+# Payments
+stripe>=11.0                # Stripe billing integration
+
+# AI Providers
+anthropic>=0.30             # Anthropic Claude API
+openai>=1.30                # OpenAI API
+requests>=2.31              # HTTP client for other providers
+
+# Testing
+pytest>=8.0                 # Test runner
+
+# Optional Integrations (uncomment as needed)
+# slack-bolt>=1.18          # Slack integration
+# python-telegram-bot>=20.0 # Telegram bot
+# twilio>=9.0               # SMS via Twilio

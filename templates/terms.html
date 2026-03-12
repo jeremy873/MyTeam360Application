@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<!--
+  MyTeam360 — AI Platform
+  Copyright © 2026 Praxis Holdings LLC. All rights reserved.
+  
+  PROPRIETARY AND CONFIDENTIAL — TRADE SECRET
+  This software and all associated intellectual property are owned
+  exclusively by Praxis Holdings LLC, a Nevada limited-liability company.
+  Licensed to MyTeam360 LLC for operation.
+  
+  UNAUTHORIZED ACCESS, COPYING, MODIFICATION, DISTRIBUTION, OR USE
+  IS STRICTLY PROHIBITED AND MAY RESULT IN CIVIL LIABILITY AND
+  CRIMINAL PROSECUTION UNDER THE DEFEND TRADE SECRETS ACT
+  (18 U.S.C. § 1836), COMPUTER FRAUD AND ABUSE ACT (18 U.S.C. § 1030),
+  AND NEVADA UNIFORM TRADE SECRETS ACT (NRS 600A).
+  
+  See LICENSE and NOTICE files for full legal terms.
+  Report IP violations: legal@praxisholdingsllc.com
+-->
+
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MyTeam360 — Terms of Service</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --void: #030306; --surface: #0e0e1a; --border: rgba(255,255,255,0.05);
+  --text: #f0f0f8; --text2: #aaaacc; --text3: #666688;
+  --accent: #a459f2; --accent2: #c084fc; --green: #34d399;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { background:var(--void); color:var(--text2); font-family:'DM Sans',sans-serif; -webkit-font-smoothing:antialiased; line-height:1.8; }
+.wrap { max-width:720px; margin:0 auto; padding:80px 32px 120px; }
+h1 { font-family:'Syne',sans-serif; font-size:42px; font-weight:800; letter-spacing:-2px; color:var(--text); margin-bottom:8px; }
+.updated { font-size:13px; color:var(--text3); margin-bottom:48px; font-family:'JetBrains Mono',monospace; }
+h2 { font-family:'Syne',sans-serif; font-size:20px; font-weight:700; color:var(--text); margin:40px 0 12px; letter-spacing:-0.5px; }
+p, li { font-size:15px; margin-bottom:12px; }
+ul { padding-left:24px; margin-bottom:16px; }
+li { margin-bottom:6px; }
+strong { color:var(--text); font-weight:600; }
+.highlight {
+  background: rgba(52,211,153,0.06); border:1px solid rgba(52,211,153,0.15);
+  border-radius:12px; padding:20px 24px; margin:24px 0; font-size:14px;
+}
+.highlight strong { color:var(--green); }
+a { color:var(--accent2); }
+.back { display:inline-block; margin-bottom:32px; font-size:13px; color:var(--text3); text-decoration:none; }
+.back:hover { color:var(--text); }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<a class="back" href="/">← Back to MyTeam360</a>
+
+<h1>Terms of Service</h1>
+<p class="updated">Last updated: March 2026</p>
+
+<div class="highlight">
+<strong>The short version:</strong> MyTeam360 is a platform that connects you to AI agents. You bring your own AI API keys. We store your user ID and subscription status — nothing else. We don't read your conversations, track your usage, or sell your data. Your AI keys are encrypted and never leave your server. You pay $15/month or $129/year for platform access. AI provider charges are separate and are your responsibility — costs vary by model and usage, and we recommend setting limits with your provider.
+</div>
+
+<h2>1. What MyTeam360 Is — Platform as Aggregator</h2>
+<p>MyTeam360 ("the Platform", "we", "us") is operated by <strong>MyTeam360 LLC</strong>, a Nevada limited-liability company, a wholly-owned subsidiary of Praxis Holdings LLC. The Platform provides a web-based interface for interacting with AI agents powered by third-party AI providers (Anthropic, OpenAI, Google, Mistral, DeepSeek, xAI, and others). The Platform routes your messages to these providers using API keys that <strong>you provide and control</strong>.</p>
+<p><strong>MyTeam360 is an aggregator and intermediary — not an AI provider.</strong> We do not create, train, control, or operate the underlying AI models. We provide the interface, routing, and management tools. The AI responses you receive are generated entirely by third-party AI providers using their models, their training data, and their content policies.</p>
+<p><strong>User-directed content generation:</strong> All AI-generated content on the Platform is created at YOUR direction, using YOUR prompts, YOUR configured AI Spaces (agents), and YOUR API keys. You select the AI provider, choose the model, write the instructions for your Spaces, and direct the conversation. MyTeam360 facilitates this process but does not generate, author, endorse, verify, or take responsibility for the content produced by third-party AI models.</p>
+<p><strong>Analogy:</strong> MyTeam360 is to AI what a web browser is to websites. We provide the window through which you access AI services. We don't control what those services produce any more than Chrome controls what websites display.</p>
+<p>We do implement safety systems (content filtering, input screening, output scanning) on a best-effort basis as an additional service to our users, but these systems cannot guarantee the detection or prevention of all harmful content generated by third-party AI providers.</p>
+<p>We are not an AI provider. We do not generate AI responses. We provide the interface, agent configurations, and infrastructure that connects you to the AI providers of your choice.</p>
+
+<h2>2. Your Data — What We Store</h2>
+<div class="highlight">
+<strong>We store exactly five things about you:</strong>
+<ul style="margin-top:8px;margin-bottom:0">
+<li>Your email address (for login)</li>
+<li>Your display name</li>
+<li>A unique user ID</li>
+<li>Your subscription status (active, trialing, canceled)</li>
+<li>A Stripe customer ID (for billing)</li>
+</ul>
+</div>
+
+<h2>3. Your Data — What We Do NOT Store or Access</h2>
+<p>We do not store, access, read, analyze, train on, sell, or share:</p>
+<ul>
+<li>Your conversations with AI agents</li>
+<li>Your AI provider API keys (these are encrypted on your server instance and never transmitted to us)</li>
+<li>Your usage patterns, frequency, or behavioral data</li>
+<li>Your IP address (beyond what is required for authentication security)</li>
+<li>Any analytics, telemetry, or tracking data</li>
+</ul>
+<p><strong>We have no technical ability to read your conversations even if compelled to do so.</strong> Conversations are encrypted at rest in your database using AES-256 encryption. We do not hold the encryption keys.</p>
+
+<h2>4. Third-Party AI Providers</h2>
+<p>When you use MyTeam360, your messages are sent to the AI provider associated with your API key (e.g., Anthropic, OpenAI). <strong>Your relationship with that provider is separate from your relationship with us.</strong> You are subject to their terms of service, privacy policies, and usage policies. We strongly recommend reviewing:</p>
+<ul>
+<li>Anthropic's Usage Policy and Privacy Policy</li>
+<li>OpenAI's Terms of Use and Privacy Policy</li>
+<li>xAI's Terms of Service</li>
+<li>Google's AI Terms of Service</li>
+</ul>
+<p>We are not responsible for how AI providers handle your data once it leaves the Platform.</p>
+
+<h2>5. Billing & Subscription</h2>
+<p><strong>Pricing:</strong> $15/month or $129/year. All prices in USD.</p>
+<p><strong>Free Trial:</strong> New accounts receive a 3-day free trial. No credit card required during the trial. Full platform access during trial.</p>
+<p><strong>Payment:</strong> Processed securely by Stripe. We never see, store, or access your credit card number. Stripe handles all payment processing, receipts, and refunds.</p>
+<p><strong>Cancellation:</strong> You may cancel at any time through the billing portal. Your subscription remains active until the end of the current billing period. No partial refunds for unused time.</p>
+<p><strong>Refunds:</strong> We offer a full refund within 7 days of your first payment if you are not satisfied. Contact us at billing@myteam360.ai.</p>
+
+<h2>6. Age Requirements and Parental Consent</h2>
+<p><strong>Minimum Age:</strong> You must be at least 13 years of age to use the Platform. If you are between 13 and 17 years of age, the following requirements apply:</p>
+<ul>
+<li>You must provide your date of birth during account setup. We use this solely to determine whether parental consent is required.</li>
+<li>A parent or legal guardian <strong>must review and explicitly approve</strong> these Terms of Service before you may use the Platform. Consent must include the parent/guardian's full legal name, email address, and relationship to you.</li>
+<li>Your parent or guardian may <strong>revoke consent at any time</strong>, which will immediately block your access to the Platform.</li>
+<li>Your use of the Platform is subject to <strong>content guardrails</strong> set by your organization's administrator. These guardrails restrict which topics AI may discuss and filter all AI-generated content for appropriateness.</li>
+<li>The Platform may restrict access to certain features (including but not limited to Sales Coach, Digital Marketing, Compliance Watchdog, and other enterprise features) for users under 18.</li>
+</ul>
+<p><strong>Parental Responsibilities:</strong> By granting consent, you (the parent or guardian) acknowledge that:</p>
+<ul>
+<li>You have read and understood these Terms of Service in their entirety</li>
+<li>You consent to your child's use of the Platform under the content guardrails and curriculum restrictions configured by the organization administrator</li>
+<li>You understand that the Platform uses third-party AI providers (as described in Section 4) and that AI-generated content, while filtered, may occasionally contain errors or unexpected material</li>
+<li>You may revoke consent and terminate your child's access at any time by contacting us at legal@myteam360.ai or using the revoke consent feature in the Platform</li>
+<li>You are responsible for monitoring your child's use of the Platform</li>
+</ul>
+<p><strong>COPPA Compliance:</strong> We do not knowingly collect personal information from children under 13. If we learn that we have collected information from a child under 13 without verifiable parental consent, we will delete that information promptly. If you believe a child under 13 is using the Platform, please contact us at legal@myteam360.ai.</p>
+<p><strong>Record Keeping:</strong> We maintain records of parental consent including the parent/guardian's name, email, relationship, timestamp, and a cryptographic hash of the consent transaction. These records are retained for the duration of the account plus 3 years, as required for legal compliance.</p>
+
+<h2>7. Content Guardrails and Approved Curriculum</h2>
+<p>Organization administrators may configure content guardrails that restrict which topics AI Spaces may discuss. When guardrails are active:</p>
+<ul>
+<li>User messages are checked against the approved topic list before being sent to the AI</li>
+<li>AI responses are filtered for inappropriate content before being delivered</li>
+<li>Off-topic requests are blocked with a clear, non-punitive message</li>
+<li>All blocked interactions are logged for administrator review</li>
+<li>Guardrails cannot be overridden by individual users</li>
+</ul>
+<p>Pre-built curriculum templates are available for: General Business, K-12 Education, Higher Education, Healthcare, and Professional Development. Administrators may also define custom allowed and blocked topic lists.</p>
+<p><strong>No Guarantee of Perfection:</strong> While our guardrails use multiple layers of filtering (input scanning, prompt injection, output filtering), no content moderation system is 100% effective. AI-generated content may occasionally contain material outside the approved curriculum. Administrators and parents should monitor usage and report any concerns to support@myteam360.ai.</p>
+
+<h2>8. Acceptable Use and Prohibited Content</h2>
+<p>You agree not to use the Platform for any of the following purposes. Violation may result in immediate account termination and, where applicable, referral to law enforcement.</p>
+<p><strong>Prohibited Uses — You Must Not:</strong></p>
+<ul>
+<li>Use the Platform for any unlawful purpose or to facilitate illegal activity</li>
+<li>Generate, request, or distribute <strong>child sexual abuse material (CSAM)</strong> or any content sexualizing minors</li>
+<li>Generate, request, or distribute <strong>sexually explicit or pornographic content</strong></li>
+<li>Use the Platform to plan, promote, or facilitate <strong>terrorism, extremist violence, or radicalization</strong></li>
+<li>Request instructions for manufacturing <strong>weapons, explosives, poisons, chemical agents, or controlled substances</strong></li>
+<li>Generate <strong>malware, ransomware, hacking tools, or cyberattack code</strong></li>
+<li>Create <strong>deepfakes, non-consensual intimate imagery, or manipulated media</strong> designed to harm</li>
+<li>Use the Platform to <strong>harass, stalk, threaten, bully, or intimidate</strong> any person</li>
+<li>Use the Platform to <strong>doxx</strong> any person (revealing private information without consent)</li>
+<li>Generate <strong>phishing content, scam scripts, or fraud schemes</strong></li>
+<li>Use the Platform to <strong>interfere with elections, suppress votes, or create political disinformation</strong></li>
+<li>Use the Platform to facilitate <strong>human trafficking, forced labor, or exploitation</strong></li>
+<li>Use the Platform to <strong>impersonate real individuals, organizations, or government entities</strong></li>
+<li>Use the Platform to generate content that promotes <strong>self-harm, suicide, or eating disorders</strong></li>
+<li>Attempt to <strong>circumvent, disable, or "jailbreak"</strong> the Platform's safety systems</li>
+<li>Use the Platform to <strong>complete academic assignments</strong> intended to be the student's own work (using the Platform to understand concepts and learn is permitted)</li>
+<li>Resell, redistribute, or sublicense access to the Platform without written permission</li>
+<li>Use automated tools to scrape, crawl, index, mirror, or overload the Platform</li>
+<li>Create multiple accounts to circumvent usage limits or pricing tiers</li>
+</ul>
+<p>The Platform includes automated safety systems that scan input and output for prohibited content. These systems operate continuously and cannot be disabled. Content flagged by these systems may be blocked, redacted, or logged for administrative review. Repeated violations result in permanent account termination.</p>
+
+<h2>8b. Not Professional Advice</h2>
+<p><strong>THE PLATFORM IS NOT A SUBSTITUTE FOR PROFESSIONAL SERVICES.</strong> Specifically:</p>
+<ul>
+<li><strong>Not therapy or mental health treatment.</strong> The Platform is not a therapist, counselor, psychologist, or psychiatrist. It cannot and does not provide mental health diagnosis, treatment, or therapy. If you are in crisis, call 988 (Suicide & Crisis Lifeline) or text HOME to 741741 (Crisis Text Line).</li>
+<li><strong>Not medical advice.</strong> The Platform is not a doctor, nurse, or medical professional. AI responses about health topics are general information only and should not be used to diagnose conditions, prescribe treatments, or make medical decisions. Always consult a qualified healthcare provider.</li>
+<li><strong>Not legal advice.</strong> The Platform is not a lawyer or legal professional. AI responses about legal topics are general information only and do not constitute legal advice. Consult a qualified attorney for your specific situation.</li>
+<li><strong>Not financial advice.</strong> The Platform is not a financial advisor, broker, or investment professional. AI responses about financial topics are general information only and should not be used to make investment decisions. Consult a licensed financial advisor.</li>
+</ul>
+<p>By using the Platform, you acknowledge that you understand and accept these limitations. You agree not to rely on Platform outputs as a substitute for professional judgment in any of these fields.</p>
+
+<h2>9. Reverse Engineering and Proprietary Protection</h2>
+<p>You expressly agree that you will NOT:</p>
+<ul>
+<li><strong>Reverse engineer, decompile, disassemble, or otherwise attempt to derive the source code, algorithms, data structures, or trade secrets</strong> of the Platform, including but not limited to the voice learning engine, smart routing algorithms, compliance scanning rules, confidence scoring system, policy engine, roundtable orchestration, or any other proprietary system</li>
+<li><strong>Copy, replicate, or create derivative works</strong> from any features, functions, user interface designs, visual elements, workflows, animations, or graphics of the Platform</li>
+<li><strong>Remove, alter, or obscure</strong> any copyright notices, trademark notices, trade dress elements, watermarks, or proprietary legends embedded in the Platform or its outputs</li>
+<li><strong>Access or use the Platform's API responses, data formats, or output structures</strong> to build, design, or inform the development of any competing product or service</li>
+<li><strong>Circumvent, disable, or interfere</strong> with any technical protection measures, rate limiting, access controls, watermarking, or security features of the Platform</li>
+</ul>
+<p>Violation of this section constitutes a material breach of these Terms and may result in immediate account termination, civil liability under the Defend Trade Secrets Act (DTSA, 18 U.S.C. § 1836), the Computer Fraud and Abuse Act (18 U.S.C. § 1030), and/or the Digital Millennium Copyright Act (DMCA, 17 U.S.C. § 1201), and criminal prosecution where applicable.</p>
+
+<h2>10. Competitive Restrictions</h2>
+<p>During the period of your subscription and for twelve (12) months following termination:</p>
+<ul>
+<li>You may not use knowledge gained through the Platform to build a substantially similar product or service</li>
+<li>You may not solicit, recruit, or hire any employee or contractor of Praxis Holdings LLC, MyTeam360 LLC, or their affiliates</li>
+<li>If you are an employee, contractor, or agent of a company that offers or develops AI platform services, SaaS team collaboration tools, or AI-powered governance products, you must disclose this affiliation before creating an account</li>
+</ul>
+<p>These restrictions do not prevent you from using general AI knowledge or publicly available AI tools. They specifically protect the proprietary methods, trade secrets, and competitive advantages unique to the MyTeam360 platform.</p>
+
+<h2>11. Your API Keys & Provider Costs</h2>
+<p>You are solely responsible for your AI provider API keys and all associated costs. You agree to:</p>
+<ul>
+<li>Keep your API keys confidential</li>
+<li>Monitor your usage and costs with your AI provider directly</li>
+<li>Immediately revoke keys if you suspect unauthorized use</li>
+<li>Set spending limits with your AI provider to avoid unexpected charges</li>
+</ul>
+<p><strong>How Your Keys Work:</strong> You enter your own API keys into your own server instance. MyTeam360 LLC does not access, transfer, broker, resell, or share your API keys with any third party. Your keys are encrypted at rest on your server using AES-256-GCM encryption. Your relationship with each AI provider (Anthropic, OpenAI, Google, Mistral, etc.) is direct and entirely separate from your relationship with MyTeam360 LLC. We act as a software interface that sends your requests to the provider of your choice using your own credentials — we are not a middleman, reseller, or proxy for AI services.</p>
+<div class="highlight" style="border-color:rgba(251,191,36,0.2);background:rgba(251,191,36,0.04)">
+<strong style="color:#c084fc">⚠ API Cost Warning:</strong> AI provider charges (Anthropic, OpenAI, xAI, Google, etc.) are billed directly to you by the provider. These costs are entirely separate from your MyTeam360 subscription. API costs vary significantly based on the model you select and how much you use it. <strong>Heavy usage can result in charges of $50–$500+ per month or more.</strong> MyTeam360 includes a spend estimate dashboard, but this is an approximation only — actual charges are determined solely by your AI provider. <strong>We strongly recommend setting usage limits in your provider's dashboard and reviewing your provider billing regularly.</strong> MyTeam360 is not responsible for, and has no control over, any charges incurred on your AI provider accounts.
+</div>
+<p>We encrypt your keys at rest using AES-256-GCM encryption. However, <strong>we are not liable for charges incurred on your AI provider accounts under any circumstances, including but not limited to unexpected usage, account compromise, or billing errors by the provider.</strong></p>
+
+<h2>12. Account Security</h2>
+<p>You are responsible for maintaining the security of your account credentials. We provide MFA/TOTP support, and we strongly recommend enabling it. We will never ask for your password via email or chat.</p>
+
+<h2>13. Service Availability</h2>
+<p>We aim for high availability but do not guarantee 100% uptime. The Platform may be temporarily unavailable for maintenance, updates, or due to circumstances beyond our control. We are not liable for any losses resulting from service interruptions.</p>
+
+<h2>14. Disclaimer of Warranties</h2>
+<p><strong>THE PLATFORM IS PROVIDED "AS IS" AND "AS AVAILABLE" WITHOUT WARRANTIES OF ANY KIND, WHETHER EXPRESS, IMPLIED, OR STATUTORY.</strong> We specifically disclaim all implied warranties of merchantability, fitness for a particular purpose, accuracy, and non-infringement. We do not warrant that:</p>
+<ul>
+<li>AI-generated content will be accurate, complete, current, or error-free</li>
+<li>The Platform will be uninterrupted, secure, or free of bugs or viruses</li>
+<li>AI outputs will be suitable for any particular purpose, including professional, medical, legal, or financial use</li>
+<li>The Platform's safety systems will catch all harmful content</li>
+<li>Information provided through the Platform will be appropriate for your jurisdiction</li>
+</ul>
+<p>AI systems generate probabilistic outputs based on patterns in training data. They can produce inaccurate, incomplete, biased, or inappropriate content despite safety measures. You are solely responsible for evaluating and verifying all AI-generated content before acting on it.</p>
+
+<h2>15. Limitation of Liability</h2>
+<p><strong>TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW:</strong></p>
+<ul>
+<li>Praxis Holdings LLC, MyTeam360 LLC, and their officers, directors, employees, agents, and affiliates shall NOT be liable for any <strong>indirect, incidental, special, consequential, exemplary, or punitive damages</strong>, including but not limited to loss of profits, data, business opportunities, goodwill, or revenue, regardless of the cause of action or theory of liability</li>
+<li>This limitation applies whether the claim is based on warranty, contract, tort (including negligence), strict liability, or any other legal theory</li>
+<li>We are not liable for any decisions you make based on AI-generated content</li>
+<li>We are not liable for any harm resulting from content generated by third-party AI providers (Anthropic, OpenAI, Google, etc.) through the Platform</li>
+<li>As an aggregator and intermediary, we are not the author, creator, or publisher of AI-generated content — all content is generated by third-party AI providers at your direction using your configured Spaces and API keys</li>
+<li>We are not liable for the accuracy, completeness, legality, or suitability of AI-generated content for any purpose</li>
+<li>We are not liable for any charges incurred on your AI provider accounts</li>
+<li>We are not liable for unauthorized access to your account caused by your failure to maintain adequate security (including enabling MFA)</li>
+</ul>
+<p>Our <strong>total aggregate liability</strong> to you for all claims arising from your use of the Platform shall not exceed <strong>the lesser of (a) the amount you have paid us in the 12 months preceding the claim, or (b) $100 USD</strong>.</p>
+<p>Some jurisdictions do not allow the exclusion of certain warranties or limitations of liability. In such jurisdictions, our liability is limited to the maximum extent permitted by law.</p>
+
+<h2>16. Indemnification</h2>
+<p>You agree to <strong>defend, indemnify, and hold harmless</strong> Praxis Holdings LLC, MyTeam360 LLC, and their officers, directors, employees, agents, and affiliates from and against any and all claims, damages, losses, liabilities, costs, and expenses (including reasonable attorneys' fees) arising from:</p>
+<ul>
+<li>Your use or misuse of the Platform</li>
+<li>Content you input into or generate through the Platform</li>
+<li>Your violation of these Terms, any applicable law, or any third-party rights</li>
+<li>Your use of AI-generated content in professional, commercial, or personal contexts</li>
+<li>Any harm resulting from your reliance on AI-generated content as professional advice</li>
+<li>Your failure to comply with the Acceptable Use and Prohibited Content policies</li>
+</ul>
+
+<h2>17. Safety Policy and Three-Strikes Enforcement</h2>
+<p>By using the Platform, you acknowledge that:</p>
+<ul>
+<li>The Platform includes automated safety systems that scan all input and output</li>
+<li>These systems may block, redact, or modify content that violates safety policies</li>
+<li>The Platform maintains logs of safety violations for administrative review</li>
+<li>Critical safety violations (involving minors, terrorism, or threats) may be reported to law enforcement</li>
+<li>The Platform's safety systems operate on a best-effort basis and cannot guarantee the detection of all harmful content</li>
+</ul>
+
+<p><strong>Three-Strikes Enforcement Policy (Rolling 12-Month Window):</strong></p>
+<ul>
+<li><strong>Strike 1:</strong> Your message is blocked. You receive a warning email with the specific violation, TOS section, date/time, and your exact query. A <strong>mandatory acknowledgment popup</strong> requires you to confirm you have read and understood the violation before you can continue using the Platform. This acknowledgment is timestamped and logged with your IP address.</li>
+<li><strong>Strike 2:</strong> Your message is blocked. You receive a FINAL WARNING email with full violation details. A <strong>mandatory acknowledgment popup</strong> must again be confirmed before continued use. Your account is flagged.</li>
+<li><strong>Strike 3:</strong> Your account is <strong>permanently terminated</strong>. Any active subscription is cancelled immediately. No refund is provided for the current billing period. This action is not reversible.</li>
+</ul>
+<p><strong>Rolling 12-Month Window:</strong> Strikes expire after 12 months of clean behavior. Only active (non-expired) strikes count toward the three-strike limit. For example, if your first strike was on January 1, 2026, and you have no further violations, that strike expires on January 1, 2027, and your record resets to zero active strikes. We believe in second chances.</p>
+<p><strong>Mandatory Acknowledgment:</strong> After each strike (except termination), you must acknowledge the violation through an on-screen popup before using any Platform feature. The acknowledgment records: the specific violation, the TOS section, the date and time, your exact query, your IP address, and the time you acknowledged. This creates a legally binding record that you were informed of the violation.</p>
+<p><strong>Immediate Termination:</strong> The following violations result in <strong>instant permanent termination</strong> without prior warnings:</p>
+<ul>
+<li>Any content involving the sexual exploitation of minors (CSAM)</li>
+<li>Any content planning, promoting, or facilitating terrorism</li>
+<li>Any content facilitating human trafficking or exploitation</li>
+</ul>
+<p>MyTeam360 LLC reserves the right to report criminal violations to appropriate law enforcement agencies.</p>
+
+<h2>18. Intellectual Property</h2>
+<p>The MyTeam360 platform — including all software, source code, algorithms, database schemas, API designs, user interface designs, visual elements (including the circular swirl mark, purple/blue color palette (#a459f2, #3b82f6), and overall trade dress), agent configurations, compliance rules, documentation, trademarks, and branding — is the <strong>exclusive intellectual property of Praxis Holdings LLC</strong>, a Nevada limited-liability company, and is licensed to MyTeam360 LLC for operation.</p>
+<p><strong>Your Content:</strong> Content generated by AI agents through the Platform belongs to you, subject to the terms of your AI provider. You retain all rights to your conversations, business data, knowledge base documents, and any deliverables generated at your direction.</p>
+<p><strong>Our IP:</strong> You may not copy, modify, distribute, sublicense, reverse-engineer, or create derivative works from any part of the Platform. The "MyTeam360" name, the "Launch Brand" name, the MyTeam360 circular swirl mark, and all related logos, designs, color schemes, and visual elements are trademarks and trade dress of Praxis Holdings LLC. Unauthorized use may constitute trademark infringement under the Lanham Act (15 U.S.C. § 1125) and copyright infringement under the Copyright Act (17 U.S.C. § 501).</p>
+<p><strong>Feedback:</strong> If you provide suggestions, feature requests, or feedback about the Platform, you grant Praxis Holdings LLC a perpetual, irrevocable, royalty-free license to use that feedback to improve the Platform without obligation to you.</p>
+
+<h2>19. Termination</h2>
+<p>We may suspend or terminate your account if you violate these terms. You may delete your account at any time by contacting us. Upon termination, your subscription data (user ID, Stripe customer ID, subscription status) will be deleted within 30 days.</p>
+
+<h2>20. Changes to These Terms</h2>
+<p>We may update these terms from time to time. We will notify you of material changes via email or a notice in the Platform. Continued use of the Platform after changes take effect constitutes acceptance of the new terms.</p>
+
+<h2>21. Mandatory Arbitration and Dispute Resolution</h2>
+<p><strong>PLEASE READ THIS SECTION CAREFULLY. IT AFFECTS YOUR LEGAL RIGHTS, INCLUDING YOUR RIGHT TO FILE A LAWSUIT IN COURT AND TO HAVE A JURY TRIAL.</strong></p>
+
+<p><strong>Agreement to Arbitrate:</strong> You and MyTeam360 LLC (and its parent, Praxis Holdings LLC) agree that any dispute, claim, or controversy arising out of or relating to these Terms, the Platform, or your use of the Platform — including claims about the scope, applicability, or enforceability of this arbitration provision — shall be resolved exclusively through <strong>binding individual arbitration</strong> administered by the American Arbitration Association ("AAA") under its Consumer Arbitration Rules, except as otherwise provided herein.</p>
+
+<p><strong>No Class Actions:</strong> YOU AND MYTEAM360 LLC EACH WAIVE THE RIGHT TO PARTICIPATE IN A CLASS ACTION, CLASS ARBITRATION, REPRESENTATIVE ACTION, OR PRIVATE ATTORNEY GENERAL ACTION. All claims must be brought in the parties' individual capacity, not as a plaintiff or class member in any purported class, consolidated, or representative proceeding.</p>
+
+<p><strong>Liability Cap in Arbitration:</strong> Consistent with Section 15 (Limitation of Liability), any arbitration award shall not exceed <strong>$100 USD or the total amount you have paid to MyTeam360 LLC in the 12 months preceding the claim, whichever is less</strong>. The arbitrator may not award punitive, incidental, consequential, or indirect damages of any kind.</p>
+
+<p><strong>Informal Resolution First:</strong> Before initiating arbitration, you must send a written description of your claim to <a href="mailto:legal@myteam360.ai">legal@myteam360.ai</a> and allow 60 days for resolution. Most disputes can be resolved without formal proceedings.</p>
+
+<p><strong>Arbitration Process:</strong></p>
+<ul>
+<li>Arbitration will be conducted in Clark County, Nevada, or by telephone/video conference at your election</li>
+<li>The arbitration will be conducted by a single arbitrator</li>
+<li>The arbitrator's decision will be final and binding</li>
+<li>Judgment on the arbitration award may be entered in any court of competent jurisdiction</li>
+<li>If your claim is less than $10,000, MyTeam360 LLC will pay all AAA filing and arbitrator fees</li>
+</ul>
+
+<p><strong>Small Claims Exception:</strong> Either party may bring qualifying claims in small claims court in Clark County, Nevada, as an alternative to arbitration.</p>
+
+<p><strong>Governing Law:</strong> These Terms shall be governed by and construed in accordance with the laws of the State of Nevada, without regard to conflict of law principles.</p>
+
+<p><strong>Opt-Out Right:</strong> You may opt out of this arbitration provision by sending written notice to legal@myteam360.ai within 30 days of creating your account. If you opt out, disputes will be resolved in the state or federal courts located in Clark County, Nevada.</p>
+
+<p><strong>Severability:</strong> If the class action waiver is found unenforceable, then the entirety of this arbitration provision shall be null and void. If any other portion of this arbitration provision is found unenforceable, the remaining portions shall remain in full effect.</p>
+
+<h2>22. Data Breach Notification</h2>
+<p>In the event of a confirmed security breach that compromises your personal data, we will:</p>
+<ul>
+<li>Notify affected users via email within <strong>72 hours</strong> of confirming the breach</li>
+<li>Describe the nature of the breach and the types of data affected</li>
+<li>Describe the measures taken to address the breach</li>
+<li>Provide recommendations for steps you can take to protect yourself</li>
+<li>Notify relevant regulatory authorities as required by applicable law</li>
+</ul>
+<p>Because the Platform supports zero-knowledge encryption, data encrypted with user-derived keys cannot be read even in the event of a database breach.</p>
+
+<h2>23. DMCA and Copyright</h2>
+<p>MyTeam360 LLC respects intellectual property rights and complies with the Digital Millennium Copyright Act (DMCA).</p>
+<p><strong>DMCA Takedown:</strong> If you believe that content on the Platform infringes your copyright, please send a written notice to our designated DMCA agent at <a href="mailto:legal@praxisholdingsllc.com">legal@praxisholdingsllc.com</a> containing:</p>
+<ul>
+<li>Identification of the copyrighted work claimed to be infringed</li>
+<li>Identification of the allegedly infringing material and its location on the Platform</li>
+<li>Your contact information (name, address, telephone, email)</li>
+<li>A statement that you have a good faith belief that the use is not authorized</li>
+<li>A statement, under penalty of perjury, that the information is accurate and you are the copyright owner or authorized to act on behalf of the owner</li>
+<li>Your physical or electronic signature</li>
+</ul>
+<p><strong>Safe Harbor:</strong> As a service provider, MyTeam360 LLC does not generate content directly. AI-generated content is produced by third-party AI providers at the user's direction. We provide tools for users to interact with these services and are not liable for copyright infringement in user-directed AI outputs.</p>
+
+<h2>24. CCPA / California Privacy Rights</h2>
+<p>If you are a California resident, you have the following rights under the California Consumer Privacy Act (CCPA) and California Privacy Rights Act (CPRA):</p>
+<ul>
+<li><strong>Right to Know:</strong> You may request disclosure of the categories and specific pieces of personal information we have collected about you</li>
+<li><strong>Right to Delete:</strong> You may request deletion of your personal information (see our GDPR erasure feature at /api/security/gdpr/erase)</li>
+<li><strong>Right to Opt-Out of Sale:</strong> <strong>We do not sell personal information.</strong> We never have and never will sell, rent, or trade your data to third parties for monetary or other valuable consideration</li>
+<li><strong>Right to Non-Discrimination:</strong> We will not discriminate against you for exercising your privacy rights</li>
+</ul>
+<p>To exercise these rights, contact <a href="mailto:legal@myteam360.ai">legal@myteam360.ai</a>. We will respond within 45 days.</p>
+
+<h2>25. Export Controls and Sanctions</h2>
+<p>The Platform is operated from the United States. You may not use the Platform if you are:</p>
+<ul>
+<li>Located in, or a resident of, any country subject to comprehensive U.S. sanctions (currently: Cuba, Iran, North Korea, Syria, and the Crimea, Donetsk, and Luhansk regions of Ukraine)</li>
+<li>Listed on the U.S. Treasury Department's Specially Designated Nationals (SDN) list, the U.S. Commerce Department's Entity List, or any other applicable restricted party list</li>
+<li>Using the Platform to develop, design, manufacture, or produce weapons, missiles, nuclear material, or chemical/biological weapons</li>
+</ul>
+<p>By using the Platform, you represent and warrant that you are not subject to any of the above restrictions. Violation of export control laws may result in criminal penalties.</p>
+
+<h2>26. Law Enforcement Requests</h2>
+<p>We will comply with valid legal process (subpoenas, court orders, warrants) from law enforcement agencies. We will:</p>
+<ul>
+<li>Require valid legal process before disclosing user data</li>
+<li>Notify affected users of requests unless legally prohibited from doing so (e.g., by court order or gag order)</li>
+<li>Provide only the minimum data required by the legal process</li>
+<li>Maintain a record of all law enforcement requests received</li>
+</ul>
+<p>Because the Platform supports zero-knowledge encryption, encrypted data cannot be decrypted by us even if compelled by legal process. We can only provide data we have access to (account information, subscription status, audit logs). Conversation content encrypted with user-derived keys is inaccessible to us.</p>
+<p>We may voluntarily report to law enforcement without legal process in cases involving: imminent threat to life, child exploitation (CSAM), or terrorism. See Section 17 (Safety Policy).</p>
+
+<h2>27. Survival</h2>
+<p>The following sections survive termination of your account or these Terms: Sections 8 (Acceptable Use), 8b (Not Professional Advice), 9 (Reverse Engineering), 10 (Competitive Restrictions), 14 (Disclaimer of Warranties), 15 (Limitation of Liability), 16 (Indemnification), 17 (Safety Policy), 18 (Intellectual Property), 21 (Mandatory Arbitration), 22 (Data Breach Notification), and 27 (Survival).</p>
+
+<h2>28. Entire Agreement</h2>
+<p>These Terms, together with our Privacy Policy and any additional terms presented at the time of subscription or feature activation, constitute the entire agreement between you and MyTeam360 LLC regarding the Platform. These Terms supersede all prior agreements, representations, and understandings. No oral or written statement not contained herein shall be binding.</p>
+
+<h2>29. Contact</h2>
+<p>Questions about these terms? Email us at <a href="mailto:legal@myteam360.ai">legal@myteam360.ai</a></p>
+<p style="font-size:13px;color:var(--text3);margin-top:8px">MyTeam360 LLC<br>7628 Brisk Ocean Avenue<br>Las Vegas, Nevada 89178</p>
+
+<div class="highlight" style="margin-top:48px;">
+<strong>In plain English:</strong> We built MyTeam360 because we believe AI tools shouldn't spy on you. We charge a fair price for the platform. You bring your own AI keys. We don't see your conversations. We don't sell your data. We don't track what you do. We're here to give you the best AI team interface possible — that's it.
+</div>
+
+</div>
+</body>
+</html>

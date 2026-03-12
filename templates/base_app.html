@@ -1,0 +1,270 @@
+<!--
+  MyTeam360 — Base Layout
+  © 2026 Praxis Holdings LLC. All rights reserved.
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>{% block title %}Dashboard{% endblock %} — MyTeam360</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Sora:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/static/css/app.css">
+{% block head %}{% endblock %}
+</head>
+<body>
+<div class="app-shell">
+
+  <!-- ═══ SIDEBAR ═══ -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sb-header">
+      <img class="sb-logo" src="/static/img/logo.png" alt="MyTeam360"
+           onerror="this.style.display='none'">
+      <span class="sb-brand">MyTeam360</span>
+    </div>
+
+    <nav class="sb-nav">
+      <!-- MAIN -->
+      <div class="sb-section">
+        <div class="sb-section-label">Main</div>
+        <a href="/app/dashboard" class="sb-item {% if page == 'dashboard' %}active{% endif %}">
+          <span class="sb-icon">⊞</span><span class="sb-label">Dashboard</span>
+        </a>
+        <a href="/app/briefing" class="sb-item {% if page == 'briefing' %}active{% endif %}">
+          <span class="sb-icon">◉</span><span class="sb-label">Daily Briefing</span>
+          <span class="sb-badge purple">New</span>
+        </a>
+        <a href="/app/spaces" class="sb-item {% if page == 'spaces' %}active{% endif %}">
+          <span class="sb-icon">◈</span><span class="sb-label">AI Spaces</span>
+        </a>
+      </div>
+
+      <!-- BUSINESS -->
+      <div class="sb-section">
+        <div class="sb-section-label">Business</div>
+        <a href="/app/crm" class="sb-item {% if page == 'crm' %}active{% endif %}">
+          <span class="sb-icon">◇</span><span class="sb-label">CRM</span>
+          <span class="sb-badge">3</span>
+        </a>
+        <a href="/app/tasks" class="sb-item {% if page == 'tasks' %}active{% endif %}">
+          <span class="sb-icon">☐</span><span class="sb-label">Tasks</span>
+          <span class="sb-badge">7</span>
+        </a>
+        <a href="/app/invoicing" class="sb-item {% if page == 'invoicing' %}active{% endif %}">
+          <span class="sb-icon">⊡</span><span class="sb-label">Invoicing</span>
+        </a>
+        <a href="/app/social" class="sb-item {% if page == 'social' %}active{% endif %}">
+          <span class="sb-icon">◎</span><span class="sb-label">Social Media</span>
+        </a>
+        <a href="/app/bookings" class="sb-item {% if page == 'bookings' %}active{% endif %}">
+          <span class="sb-icon">▤</span><span class="sb-label">Booking Links</span>
+        </a>
+      </div>
+
+      <!-- INTELLIGENCE -->
+      <div class="sb-section">
+        <div class="sb-section-label">Intelligence</div>
+        <a href="/app/roundtable" class="sb-item {% if page == 'roundtable' %}active{% endif %}">
+          <span class="sb-icon">◬</span><span class="sb-label">AI Roundtable</span>
+        </a>
+        <a href="/app/goals" class="sb-item {% if page == 'goals' %}active{% endif %}">
+          <span class="sb-icon">◔</span><span class="sb-label">Goals</span>
+        </a>
+        <a href="/app/analytics" class="sb-item {% if page == 'analytics' %}active{% endif %}">
+          <span class="sb-icon">◫</span><span class="sb-label">Analytics</span>
+        </a>
+        <a href="/app/dna" class="sb-item {% if page == 'dna' %}active{% endif %}">
+          <span class="sb-icon">❖</span><span class="sb-label">Lifestyle DNA</span>
+        </a>
+      </div>
+
+      <!-- SYSTEM -->
+      <div class="sb-section">
+        <div class="sb-section-label">System</div>
+        <a href="/app/providers" class="sb-item {% if page == 'providers' %}active{% endif %}">
+          <span class="sb-icon">⚿</span><span class="sb-label">AI Providers</span>
+        </a>
+        <a href="/app/team" class="sb-item {% if page == 'team' %}active{% endif %}">
+          <span class="sb-icon">⊕</span><span class="sb-label">Team</span>
+        </a>
+        <a href="/app/settings" class="sb-item {% if page == 'settings' %}active{% endif %}">
+          <span class="sb-icon">⚙</span><span class="sb-label">Settings</span>
+        </a>
+      </div>
+    </nav>
+
+    <div class="sb-footer">
+      <div class="sb-user">
+        <div class="sb-avatar">JB</div>
+        <div class="sb-user-info">
+          <div class="sb-user-name">Jeremy Brown</div>
+          <div class="sb-user-role">Pro Plan</div>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ═══ MAIN CONTENT ═══ -->
+  <main class="main">
+    <!-- TOPBAR -->
+    <header class="topbar">
+      <div class="tb-left">
+        {% block topbar_left %}
+        <div>
+          <div class="tb-title">{% block page_title %}Dashboard{% endblock %}</div>
+          <div class="tb-subtitle">{% block page_subtitle %}{% endblock %}</div>
+        </div>
+        {% endblock %}
+      </div>
+      <div class="tb-right">
+        <div class="tb-search" onclick="document.getElementById('cmdbar').focus()">
+          <span>⌕</span>
+          <span>Search or command...</span>
+          <kbd>⌘K</kbd>
+        </div>
+        <button class="tb-icon-btn" title="Notifications">
+          🔔<span class="dot"></span>
+        </button>
+        <button class="tb-icon-btn" title="Help">?</button>
+      </div>
+    </header>
+
+    <!-- PAGE CONTENT -->
+    <div class="content">
+      {% block content %}{% endblock %}
+    </div>
+  </main>
+</div>
+
+<!-- ═══ VOICE CAPTURE FAB ═══ -->
+<button class="voice-fab" id="voiceFab" title="Voice Capture">
+  🎙
+</button>
+
+<!-- ═══ VOICE OVERLAY ═══ -->
+<div class="voice-overlay" id="voiceOverlay">
+  <div class="voice-modal">
+    <div class="voice-wave" id="voiceWave">🎙</div>
+    <div class="voice-text" id="voiceText">Listening...</div>
+    <div class="voice-sub" id="voiceSub">Speak naturally. Say anything.</div>
+    <div class="voice-results" id="voiceResults" style="display:none"></div>
+    <div style="margin-top:1.5rem;display:flex;gap:0.5rem;justify-content:center">
+      <button class="btn btn-ghost btn-sm" onclick="closeVoice()">Cancel</button>
+      <button class="btn btn-primary btn-sm" id="voiceDone" style="display:none" onclick="closeVoice()">Done</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ COMMAND BAR (hidden input) ═══ -->
+<input type="text" id="cmdbar" style="position:fixed;opacity:0;pointer-events:none">
+
+<script>
+// Voice Capture
+const fab = document.getElementById('voiceFab');
+const overlay = document.getElementById('voiceOverlay');
+let recording = false;
+
+fab.addEventListener('click', () => {
+  if (!recording) {
+    recording = true;
+    fab.classList.add('recording');
+    overlay.classList.add('active');
+    startListening();
+  }
+});
+
+function closeVoice() {
+  recording = false;
+  fab.classList.remove('recording');
+  overlay.classList.remove('active');
+  document.getElementById('voiceResults').style.display = 'none';
+  document.getElementById('voiceDone').style.display = 'none';
+  document.getElementById('voiceText').textContent = 'Listening...';
+  document.getElementById('voiceSub').textContent = 'Speak naturally. Say anything.';
+}
+
+function startListening() {
+  if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
+    document.getElementById('voiceText').textContent = 'Voice not supported in this browser';
+    document.getElementById('voiceSub').textContent = 'Try Chrome or Edge for voice capture';
+    return;
+  }
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  const rec = new SR();
+  rec.continuous = false; rec.interimResults = true; rec.lang = 'en-US';
+  rec.onresult = (e) => {
+    const t = Array.from(e.results).map(r => r[0].transcript).join('');
+    document.getElementById('voiceText').textContent = t || 'Listening...';
+    if (e.results[0].isFinal) {
+      processVoice(t);
+    }
+  };
+  rec.onerror = () => {
+    document.getElementById('voiceText').textContent = 'Could not hear you';
+    document.getElementById('voiceSub').textContent = 'Tap the mic to try again';
+  };
+  rec.onend = () => { fab.classList.remove('recording'); };
+  rec.start();
+}
+
+function processVoice(text) {
+  document.getElementById('voiceSub').textContent = 'Processing...';
+  // Send to backend
+  fetch('/api/voice/capture', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({text: text})
+  })
+  .then(r => r.json())
+  .then(data => {
+    const results = document.getElementById('voiceResults');
+    results.innerHTML = '';
+    if (data.actions) {
+      data.actions.forEach(a => {
+        const d = document.createElement('div');
+        d.className = 'voice-result tag-' + (a.color || 'green');
+        d.textContent = (a.icon || '✓') + ' ' + a.label;
+        results.appendChild(d);
+      });
+    }
+    results.style.display = 'grid';
+    document.getElementById('voiceDone').style.display = 'inline-flex';
+    document.getElementById('voiceSub').textContent = (data.actions?.length || 0) + ' actions captured';
+  })
+  .catch(() => {
+    document.getElementById('voiceSub').textContent = 'Captured — will process when online';
+    document.getElementById('voiceDone').style.display = 'inline-flex';
+  });
+}
+
+// Keyboard shortcuts
+document.addEventListener('keydown', (e) => {
+  if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+    e.preventDefault();
+    document.querySelector('.tb-search').click();
+  }
+  if (e.key === 'Escape') {
+    if (recording) closeVoice();
+  }
+});
+
+// Sidebar active state
+document.querySelectorAll('.sb-item').forEach(item => {
+  item.addEventListener('click', function(e) {
+    // Navigation handled by href, but add visual feedback
+  });
+});
+
+// Task checkboxes
+document.addEventListener('click', (e) => {
+  if (e.target.classList.contains('task-check')) {
+    e.target.classList.toggle('done');
+    e.target.textContent = e.target.classList.contains('done') ? '✓' : '';
+    const text = e.target.nextElementSibling;
+    if (text) text.classList.toggle('done');
+  }
+});
+</script>
+{% block scripts %}{% endblock %}
+</body>
+</html>

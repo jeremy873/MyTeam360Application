@@ -1,0 +1,1307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>MyTeam360</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600;700;800&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+/* ══════════════════════════════════════════════════════════ */
+/*  FOUNDATION                                               */
+/* ══════════════════════════════════════════════════════════ */
+:root {
+  --void: #050509;
+  --deep: #0a0a12;
+  --surface: #10101c;
+  --surface2: #16162a;
+  --surface3: #1c1c36;
+  --glass: rgba(16,16,28,0.85);
+  --glass2: rgba(22,22,42,0.9);
+  --border: rgba(255,255,255,0.06);
+  --border-hover: rgba(255,255,255,0.12);
+  --text: #eeeef5;
+  --text2: #b0b0cc;
+  --text3: #6a6a8e;
+  --text4: #3e3e5c;
+  --purple: #8b5cf6;
+  --purple-l: #a78bfa;
+  --purple-d: #6d28d9;
+  --purple-glow: rgba(139,92,246,0.25);
+  --blue: #60a5fa;
+  --green: #4ade80;
+  --amber: #fbbf24;
+  --red: #f87171;
+  --pink: #f472b6;
+  --cyan: #22d3ee;
+  --font: 'Outfit', -apple-system, sans-serif;
+  --mono: 'JetBrains Mono', monospace;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { height: 100%; overflow: hidden; background: var(--void); color: var(--text); font-family: var(--font); -webkit-font-smoothing: antialiased; }
+::selection { background: var(--purple); color: white; }
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--surface3); border-radius: 5px; }
+
+/* ══════════════════════════════════════════════════════════ */
+/*  PARTICLE CANVAS (Behind everything)                      */
+/* ══════════════════════════════════════════════════════════ */
+#particles {
+  position: fixed; inset: 0; z-index: 0; pointer-events: none;
+}
+
+/* ══════════════════════════════════════════════════════════ */
+/*  SCENES                                                   */
+/* ══════════════════════════════════════════════════════════ */
+.scene {
+  position: fixed; inset: 0; z-index: 1;
+  display: flex; align-items: center; justify-content: center; flex-direction: column;
+  opacity: 0; visibility: hidden;
+  transition: opacity 0.8s cubic-bezier(0.4,0,0.2,1), visibility 0.8s;
+}
+.scene.active { opacity: 1; visibility: visible; }
+
+/* ══════════════════════════════════════════════════════════ */
+/*  THE ORB — The living heart of the app                    */
+/* ══════════════════════════════════════════════════════════ */
+.orb-wrap {
+  position: relative; display: flex; align-items: center; justify-content: center;
+}
+.orb-wrap.lg { width: 160px; height: 160px; }
+.orb-wrap.md { width: 100px; height: 100px; }
+.orb-wrap.sm { width: 48px; height: 48px; }
+.orb-wrap.xs { width: 32px; height: 32px; }
+
+.orb-core {
+  position: absolute; border-radius: 50%;
+  background: radial-gradient(circle at 38% 35%, #c4b5fd, #8b5cf6 40%, #5b21b6 70%, #3b0764);
+  animation: orbLive 5s ease-in-out infinite;
+}
+.orb-wrap.lg .orb-core { width: 100px; height: 100px; box-shadow: 0 0 60px rgba(139,92,246,0.5), 0 0 140px rgba(139,92,246,0.15), inset 0 0 30px rgba(255,255,255,0.1); }
+.orb-wrap.md .orb-core { width: 60px; height: 60px; box-shadow: 0 0 40px rgba(139,92,246,0.4), 0 0 80px rgba(139,92,246,0.1); }
+.orb-wrap.sm .orb-core { width: 34px; height: 34px; box-shadow: 0 0 20px rgba(139,92,246,0.4); }
+.orb-wrap.xs .orb-core { width: 24px; height: 24px; box-shadow: 0 0 14px rgba(139,92,246,0.3); }
+
+.orb-ring {
+  position: absolute; border-radius: 50%;
+  border: 1px solid rgba(139,92,246,0.15);
+  animation: orbSpin 12s linear infinite;
+}
+.orb-wrap.lg .orb-ring:nth-child(1) { width: 130px; height: 130px; }
+.orb-wrap.lg .orb-ring:nth-child(2) { width: 155px; height: 155px; animation-duration: 18s; animation-direction: reverse; border-color: rgba(139,92,246,0.08); }
+.orb-wrap.md .orb-ring:nth-child(1) { width: 80px; height: 80px; }
+.orb-wrap.md .orb-ring:nth-child(2) { width: 96px; height: 96px; animation-duration: 16s; animation-direction: reverse; border-color: rgba(139,92,246,0.08); }
+
+.orb-thinking .orb-core { animation: orbThink 1s ease-in-out infinite !important; }
+
+@keyframes orbLive {
+  0%, 100% { transform: scale(1); filter: brightness(1); }
+  50% { transform: scale(1.06); filter: brightness(1.15); }
+}
+@keyframes orbThink {
+  0%, 100% { transform: scale(1); filter: brightness(1.1); }
+  50% { transform: scale(1.12); filter: brightness(1.35); }
+}
+@keyframes orbSpin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* ══════════════════════════════════════════════════════════ */
+/*  SCENE: LOGIN                                             */
+/* ══════════════════════════════════════════════════════════ */
+#scene-login { gap: 0; }
+
+.login-orb { margin-bottom: 48px; }
+
+.login-title {
+  font-size: 52px; font-weight: 800; letter-spacing: -2.5px; line-height: 1;
+  background: linear-gradient(135deg, #fff 0%, #c4b5fd 50%, #8b5cf6 100%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  margin-bottom: 10px; text-align: center;
+  animation: titleReveal 1s ease both 0.3s;
+}
+.login-sub {
+  font-size: 16px; font-weight: 300; color: var(--text3);
+  letter-spacing: 0.5px; margin-bottom: 52px; text-align: center;
+  animation: titleReveal 1s ease both 0.5s;
+}
+
+@keyframes titleReveal {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.login-box {
+  width: 360px; display: flex; flex-direction: column; gap: 14px;
+  animation: titleReveal 0.8s ease both 0.7s;
+}
+
+.field {
+  position: relative;
+}
+.field-input {
+  width: 100%; padding: 16px 20px; background: var(--surface);
+  border: 1px solid var(--border); border-radius: 14px;
+  color: var(--text); font-family: var(--font); font-size: 15px;
+  outline: none; transition: all 0.3s ease;
+}
+.field-input:focus {
+  border-color: rgba(139,92,246,0.5);
+  box-shadow: 0 0 0 4px rgba(139,92,246,0.1);
+  background: var(--surface2);
+}
+.field-input::placeholder { color: var(--text4); }
+
+.login-go {
+  margin-top: 8px; padding: 16px; border: none; border-radius: 14px;
+  font-family: var(--font); font-size: 15px; font-weight: 600;
+  color: white; cursor: pointer; position: relative; overflow: hidden;
+  background: linear-gradient(135deg, #8b5cf6 0%, #6d28d9 50%, #5b21b6 100%);
+  box-shadow: 0 4px 24px rgba(139,92,246,0.3);
+  transition: all 0.3s ease;
+}
+.login-go:hover { transform: translateY(-2px); box-shadow: 0 8px 40px rgba(139,92,246,0.45); }
+.login-go:active { transform: translateY(0); }
+.login-go:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+.login-go::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+  transform: translateX(-100%); transition: transform 0.6s;
+}
+.login-go:hover::after { transform: translateX(100%); }
+
+.login-err {
+  text-align: center; color: var(--red); font-size: 13px;
+  min-height: 20px; opacity: 0; transition: opacity 0.3s;
+}
+.login-err.show { opacity: 1; }
+
+.login-foot {
+  position: absolute; bottom: 32px;
+  font-size: 11px; color: var(--text4); letter-spacing: 0.5px;
+  font-family: var(--mono);
+}
+.login-foot em { font-style: normal; color: var(--purple-l); }
+
+/* ══════════════════════════════════════════════════════════ */
+/*  SCENE: AWAKENING (Meet your team)                        */
+/* ══════════════════════════════════════════════════════════ */
+#scene-awaken {
+  overflow-y: auto; padding: 60px 32px 80px;
+}
+
+.awaken-head {
+  text-align: center; margin-bottom: 56px;
+}
+.awaken-tag {
+  font-family: var(--mono); font-size: 11px; color: var(--purple-l);
+  text-transform: uppercase; letter-spacing: 4px; margin-bottom: 18px;
+  opacity: 0; animation: fadeUp 0.7s ease both 0.2s;
+}
+.awaken-title {
+  font-size: 56px; font-weight: 800; letter-spacing: -3px; line-height: 1.05;
+  background: linear-gradient(135deg, #fff 10%, #c4b5fd 40%, #a78bfa 70%, #6d28d9 100%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  margin-bottom: 16px;
+  opacity: 0; animation: fadeUp 0.7s ease both 0.35s;
+}
+.awaken-desc {
+  font-size: 17px; color: var(--text3); max-width: 520px; margin: 0 auto;
+  line-height: 1.65; font-weight: 300;
+  opacity: 0; animation: fadeUp 0.7s ease both 0.5s;
+}
+
+.team-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 16px; max-width: 1120px; width: 100%; margin: 0 auto 48px;
+}
+
+.dept-card {
+  background: var(--surface);
+  border: 1px solid var(--border); border-radius: 20px;
+  padding: 28px 28px 24px; cursor: default;
+  transition: all 0.4s cubic-bezier(0.4,0,0.2,1);
+  opacity: 0; animation: cardIn 0.6s ease both;
+  position: relative; overflow: hidden;
+}
+.dept-card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  background: var(--accent, var(--purple)); opacity: 0;
+  transition: opacity 0.4s;
+}
+.dept-card:hover {
+  border-color: var(--border-hover);
+  transform: translateY(-4px);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+}
+.dept-card:hover::before { opacity: 1; }
+
+@keyframes cardIn {
+  from { opacity: 0; transform: translateY(24px) scale(0.97); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.dept-top { display: flex; align-items: center; gap: 14px; margin-bottom: 12px; }
+.dept-icon {
+  width: 44px; height: 44px; border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 22px; background: var(--surface2);
+}
+.dept-name { font-size: 18px; font-weight: 700; letter-spacing: -0.5px; }
+.dept-count { font-size: 12px; color: var(--text3); font-weight: 400; }
+.dept-desc { font-size: 13px; color: var(--text3); line-height: 1.6; margin-bottom: 18px; }
+
+.agent-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.agent-tag {
+  padding: 6px 14px; border-radius: 20px; font-size: 12px;
+  background: var(--surface2); border: 1px solid var(--border);
+  color: var(--text2); font-weight: 400;
+  transition: all 0.3s;
+}
+.dept-card:hover .agent-tag {
+  border-color: var(--border-hover); color: var(--text);
+}
+
+.awaken-go {
+  display: flex; justify-content: center;
+  opacity: 0; animation: fadeUp 0.7s ease both 0.6s;
+}
+.go-btn {
+  padding: 18px 52px; border: none; border-radius: 50px;
+  font-family: var(--font); font-size: 16px; font-weight: 600;
+  color: white; cursor: pointer;
+  background: linear-gradient(135deg, #8b5cf6 0%, #6d28d9 100%);
+  box-shadow: 0 4px 32px rgba(139,92,246,0.35);
+  transition: all 0.3s ease;
+  letter-spacing: 0.3px;
+}
+.go-btn:hover { transform: translateY(-3px); box-shadow: 0 8px 48px rgba(139,92,246,0.5); }
+
+/* ══════════════════════════════════════════════════════════ */
+/*  SCENE: APP                                               */
+/* ══════════════════════════════════════════════════════════ */
+#scene-app { flex-direction: row; align-items: stretch; justify-content: stretch; }
+
+/* ─── Sidebar ─── */
+.side {
+  width: 280px; min-width: 280px; height: 100vh;
+  background: var(--surface); border-right: 1px solid var(--border);
+  display: flex; flex-direction: column;
+  animation: sideIn 0.5s ease both;
+}
+@keyframes sideIn { from { opacity: 0; transform: translateX(-16px); } }
+
+.side-brand {
+  padding: 20px 22px; display: flex; align-items: center; gap: 14px;
+  border-bottom: 1px solid var(--border);
+}
+.side-brand-name { font-size: 17px; font-weight: 700; letter-spacing: -0.5px; }
+
+.side-search-wrap {
+  padding: 14px 16px;
+}
+.side-search {
+  width: 100%; padding: 10px 16px; background: var(--surface2);
+  border: 1px solid var(--border); border-radius: 12px;
+  color: var(--text); font-family: var(--font); font-size: 13px;
+  outline: none; transition: all 0.3s;
+}
+.side-search:focus { border-color: rgba(139,92,246,0.4); box-shadow: 0 0 0 3px rgba(139,92,246,0.08); }
+
+.side-label {
+  padding: 6px 22px; font-family: var(--mono); font-size: 9px;
+  color: var(--text4); text-transform: uppercase; letter-spacing: 2.5px;
+}
+
+.side-agents {
+  flex: 1; overflow-y: auto; padding: 4px 10px;
+}
+
+.side-agent {
+  display: flex; align-items: center; gap: 12px;
+  padding: 11px 14px; border-radius: 12px; cursor: pointer;
+  transition: all 0.25s; margin-bottom: 2px;
+  border: 1px solid transparent;
+}
+.side-agent:hover { background: var(--surface2); }
+.side-agent.on { background: var(--surface2); border-color: var(--border-hover); }
+
+.side-av {
+  width: 38px; height: 38px; border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 17px; flex-shrink: 0;
+  background: var(--surface3);
+}
+.side-info { flex: 1; min-width: 0; }
+.side-name { font-size: 13px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.side-dept { font-size: 11px; color: var(--text4); }
+
+.side-dot {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: var(--green); flex-shrink: 0;
+  box-shadow: 0 0 8px rgba(74,222,128,0.5);
+  animation: dotPulse 3s ease-in-out infinite;
+}
+@keyframes dotPulse { 0%,100% { opacity: 0.6; } 50% { opacity: 1; } }
+
+.side-foot {
+  padding: 16px 20px; border-top: 1px solid var(--border);
+  display: flex; align-items: center; gap: 12px;
+}
+.side-user-av {
+  width: 34px; height: 34px; border-radius: 10px;
+  background: linear-gradient(135deg, var(--purple), #3b82f6);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px; font-weight: 700; flex-shrink: 0;
+}
+.side-user-name { font-size: 13px; font-weight: 500; flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.side-gear {
+  width: 34px; height: 34px; border-radius: 10px;
+  background: none; border: 1px solid var(--border); color: var(--text3);
+  cursor: pointer; display: flex; align-items: center; justify-content: center;
+  font-size: 15px; transition: all 0.2s;
+}
+.side-gear:hover { background: var(--surface2); color: var(--text); border-color: var(--border-hover); }
+
+/* ─── Chat ─── */
+.chat { flex: 1; display: flex; flex-direction: column; height: 100vh; background: var(--deep); }
+
+.chat-top {
+  padding: 14px 28px; border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; gap: 14px;
+  background: var(--glass2); backdrop-filter: blur(20px);
+  display: none;
+}
+.chat-top-name { font-size: 15px; font-weight: 600; }
+.chat-top-dept { font-size: 11px; color: var(--text3); }
+.chat-top-right { margin-left: auto; display: flex; gap: 8px; }
+.chat-top-btn {
+  padding: 7px 14px; border-radius: 10px; font-size: 12px;
+  background: var(--surface); border: 1px solid var(--border);
+  color: var(--text3); cursor: pointer; font-family: var(--font);
+  transition: all 0.2s; display: flex; align-items: center; gap: 5px;
+}
+.chat-top-btn:hover { background: var(--surface2); color: var(--text); border-color: var(--border-hover); }
+
+/* Welcome state */
+.chat-empty {
+  flex: 1; display: flex; flex-direction: column;
+  align-items: center; justify-content: center; gap: 16px;
+  animation: fadeUp 0.5s ease;
+}
+.chat-empty h2 { font-size: 28px; font-weight: 700; letter-spacing: -1px; }
+.chat-empty p { color: var(--text3); font-size: 15px; max-width: 420px; text-align: center; line-height: 1.65; }
+
+.prompts { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-top: 16px; }
+.prompt {
+  padding: 12px 20px; border-radius: 14px; font-size: 13px;
+  background: var(--surface); border: 1px solid var(--border);
+  color: var(--text2); cursor: pointer; font-family: var(--font);
+  transition: all 0.3s; max-width: 240px; text-align: left; line-height: 1.4;
+}
+.prompt:hover { border-color: rgba(139,92,246,0.4); color: var(--text); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.2); }
+.prompt-icon { margin-right: 6px; }
+
+/* Messages */
+.chat-msgs {
+  flex: 1; overflow-y: auto; padding: 28px; display: none;
+  flex-direction: column; gap: 24px;
+}
+
+.msg { display: flex; gap: 14px; animation: msgPop 0.35s ease both; max-width: 80%; }
+.msg.usr { margin-left: auto; flex-direction: row-reverse; }
+
+.msg-av {
+  width: 36px; height: 36px; border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 15px; flex-shrink: 0;
+}
+.msg.ai .msg-av { background: var(--surface3); }
+.msg.usr .msg-av { background: linear-gradient(135deg, var(--purple), #3b82f6); font-size: 12px; font-weight: 700; }
+
+.msg-body {
+  padding: 16px 20px; border-radius: 18px; line-height: 1.65; font-size: 14px;
+  font-weight: 400;
+}
+.msg.ai .msg-body { background: var(--surface); border: 1px solid var(--border); border-top-left-radius: 4px; }
+.msg.usr .msg-body { background: var(--purple-d); border-top-right-radius: 4px; }
+
+.msg-meta { font-size: 10px; color: var(--text4); margin-top: 6px; padding: 0 4px; }
+
+@keyframes msgPop { from { opacity: 0; transform: translateY(10px) scale(0.98); } }
+
+/* Typing */
+.thinking { display: flex; gap: 14px; animation: msgPop 0.3s ease; max-width: 80%; }
+.think-dots { display: flex; gap: 5px; padding: 16px 20px; background: var(--surface); border: 1px solid var(--border); border-radius: 18px; border-top-left-radius: 4px; }
+.think-dot {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: var(--text3); animation: bounce 1.4s ease-in-out infinite;
+}
+.think-dot:nth-child(2) { animation-delay: 0.15s; }
+.think-dot:nth-child(3) { animation-delay: 0.3s; }
+@keyframes bounce { 0%,60%,100% { transform: translateY(0); } 30% { transform: translateY(-7px); } }
+
+/* Input area */
+.chat-input-area {
+  padding: 14px 28px 22px; border-top: 1px solid var(--border);
+  background: var(--glass2); backdrop-filter: blur(20px);
+}
+.dlp-bar {
+  display: none; padding: 10px 16px; margin-bottom: 10px;
+  background: rgba(248,113,113,0.08); border: 1px solid rgba(248,113,113,0.2);
+  border-radius: 12px; color: var(--red); font-size: 12px;
+}
+.dlp-bar.on { display: block; animation: fadeUp 0.3s ease; }
+
+.input-row {
+  display: flex; align-items: flex-end; gap: 8px;
+  background: var(--surface); border: 1px solid var(--border); border-radius: 16px;
+  padding: 6px 6px 6px 4px; transition: all 0.3s;
+}
+.input-row:focus-within { border-color: rgba(139,92,246,0.45); box-shadow: 0 0 0 4px rgba(139,92,246,0.08); }
+
+.input-text {
+  flex: 1; background: none; border: none; color: var(--text);
+  font-family: var(--font); font-size: 14px; padding: 10px 16px;
+  outline: none; resize: none; max-height: 140px; line-height: 1.5;
+}
+.input-text::placeholder { color: var(--text4); }
+
+.ibtn {
+  width: 40px; height: 40px; border-radius: 12px; border: none;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; transition: all 0.2s; font-size: 17px; flex-shrink: 0;
+}
+.ibtn-mic { background: var(--surface2); color: var(--text3); }
+.ibtn-mic:hover { background: var(--surface3); color: var(--text); }
+.ibtn-mic.rec { background: var(--red); color: white; animation: pulse 1s infinite; }
+@keyframes pulse { 50% { opacity: 0.7; } }
+
+.ibtn-send { background: var(--purple); color: white; }
+.ibtn-send:hover { background: var(--purple-d); }
+.ibtn-send:disabled { opacity: 0.25; cursor: default; }
+
+/* ─── Settings Drawer ─── */
+.drawer-bg {
+  position: fixed; inset: 0; z-index: 90;
+  background: rgba(0,0,0,0.55); opacity: 0; visibility: hidden;
+  transition: all 0.35s;
+}
+.drawer-bg.on { opacity: 1; visibility: visible; }
+
+.drawer {
+  position: fixed; top: 0; right: -440px; bottom: 0; width: 420px;
+  z-index: 91; background: var(--surface);
+  border-left: 1px solid var(--border);
+  transition: right 0.4s cubic-bezier(0.4,0,0.2,1);
+  overflow-y: auto; padding: 28px;
+}
+.drawer.on { right: 0; }
+
+.drawer-head {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 28px;
+}
+.drawer-title { font-size: 20px; font-weight: 700; }
+.drawer-x {
+  width: 34px; height: 34px; border-radius: 10px;
+  background: var(--surface2); border: 1px solid var(--border);
+  color: var(--text3); cursor: pointer; display: flex;
+  align-items: center; justify-content: center; font-size: 16px;
+  transition: all 0.2s;
+}
+.drawer-x:hover { color: var(--text); border-color: var(--border-hover); }
+
+.set-section { margin-bottom: 28px; }
+.set-label { font-family: var(--mono); font-size: 9px; color: var(--text4); text-transform: uppercase; letter-spacing: 2.5px; margin-bottom: 10px; }
+.set-row {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 12px 16px; background: var(--surface2); border: 1px solid var(--border);
+  border-radius: 12px; margin-bottom: 6px; font-size: 13px;
+}
+.set-val { color: var(--text3); }
+.badge { padding: 3px 10px; border-radius: 10px; font-size: 11px; font-weight: 600; }
+.b-on { background: rgba(74,222,128,0.12); color: var(--green); }
+.b-off { background: rgba(251,191,36,0.12); color: var(--amber); }
+.b-role { background: rgba(139,92,246,0.12); color: var(--purple-l); }
+
+.set-logout {
+  padding: 12px 16px; background: var(--surface2); border: 1px solid var(--border);
+  border-radius: 12px; font-size: 13px; color: var(--red);
+  cursor: pointer; text-align: center; transition: all 0.2s;
+}
+.set-logout:hover { background: rgba(248,113,113,0.08); border-color: rgba(248,113,113,0.3); }
+
+/* ─── Animations ─── */
+@keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes headShake { 0%{transform:translateX(0)} 15%{transform:translateX(-4px)} 30%{transform:translateX(4px)} 45%{transform:translateX(-3px)} 60%{transform:translateX(2px)} 75%{transform:translateX(-1px)} 100%{transform:translateX(0)} }
+
+/* ─── Key Setup Modal ─── */
+
+/* ─── Billing / TOS Gate ─── */
+.gate-bg {
+  position: fixed; inset: 0; z-index: 90;
+  background: rgba(3,3,6,0.95); backdrop-filter: blur(16px);
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0; visibility: hidden; transition: all 0.4s;
+}
+.gate-bg.on { opacity: 1; visibility: visible; }
+.gate {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 24px; padding: 40px; width: 520px; max-width: 92vw;
+  max-height: 85vh; overflow-y: auto;
+  animation: fadeUp 0.5s ease;
+}
+.gate-title { font-size: 28px; font-weight: 700; letter-spacing: -1.5px; margin-bottom: 8px; }
+.gate-sub { font-size: 14px; color: var(--text3); line-height: 1.7; margin-bottom: 24px; }
+.gate-tos-box {
+  background: var(--surface2); border: 1px solid var(--border);
+  border-radius: 14px; padding: 20px; max-height: 200px; overflow-y: auto;
+  font-size: 12px; color: var(--text3); line-height: 1.7; margin-bottom: 20px;
+}
+.gate-check { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 24px; cursor: pointer; }
+.gate-check input { margin-top: 3px; accent-color: var(--purple); }
+.gate-check label { font-size: 13px; color: var(--text2); cursor: pointer; }
+.gate-btn {
+  width: 100%; padding: 16px; border: none; border-radius: 14px;
+  font-family: var(--font); font-size: 15px; font-weight: 600;
+  cursor: pointer; transition: all 0.3s;
+}
+.gate-btn-primary { background: linear-gradient(135deg, var(--purple), #6d28d9); color: white; box-shadow: 0 4px 24px rgba(139,92,246,0.3); }
+.gate-btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 36px rgba(139,92,246,0.45); }
+.gate-btn-primary:disabled { opacity: 0.4; cursor: default; transform: none; box-shadow: none; }
+
+.gate-plans { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 24px; }
+.gate-plan {
+  background: var(--surface2); border: 2px solid var(--border);
+  border-radius: 16px; padding: 20px; text-align: center; cursor: pointer;
+  transition: all 0.3s;
+}
+.gate-plan:hover { border-color: var(--border-hover); }
+.gate-plan.selected { border-color: var(--purple); background: rgba(139,92,246,0.06); }
+.gate-plan-price { font-size: 28px; font-weight: 700; letter-spacing: -1px; }
+.gate-plan-period { font-size: 12px; color: var(--text3); margin-top: 2px; }
+.gate-plan-save { font-size: 11px; color: var(--purple-l); margin-top: 6px; font-weight: 600; }
+
+.gate-trial-badge {
+  display: inline-block; padding: 6px 14px; border-radius: 8px; font-size: 12px; font-weight: 600;
+  background: rgba(139,92,246,0.1); color: var(--purple-l); margin-bottom: 16px;
+}
+.gate-feature { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--text2); margin-bottom: 8px; }
+.gate-feature::before { content: '✓'; color: var(--green); font-weight: 700; font-size: 14px; }
+
+/* ─── Key Setup Modal ─── */
+.modal-bg {
+  position: fixed; inset: 0; z-index: 80;
+  background: rgba(0,0,0,0.7); backdrop-filter: blur(8px);
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0; visibility: hidden; transition: all 0.35s;
+}
+.modal-bg.on { opacity: 1; visibility: visible; }
+
+.modal {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 24px; padding: 36px; width: 480px; max-width: 90vw;
+  max-height: 85vh; overflow-y: auto;
+  animation: fadeUp 0.4s ease;
+}
+.modal-title { font-size: 24px; font-weight: 700; letter-spacing: -1px; margin-bottom: 6px; }
+.modal-desc { font-size: 14px; color: var(--text3); line-height: 1.6; margin-bottom: 28px; }
+
+.provider-card {
+  background: var(--surface2); border: 1px solid var(--border);
+  border-radius: 16px; padding: 20px; margin-bottom: 12px;
+  transition: all 0.3s;
+}
+.provider-card:hover { border-color: var(--border-hover); }
+.provider-top { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+.provider-icon {
+  width: 40px; height: 40px; border-radius: 10px; background: var(--surface3);
+  display: flex; align-items: center; justify-content: center; font-size: 18px;
+}
+.provider-name { font-size: 15px; font-weight: 600; }
+.provider-tag { font-size: 11px; color: var(--text3); }
+.provider-status { margin-left: auto; }
+
+.key-input-row { display: flex; gap: 8px; }
+.key-input {
+  flex: 1; padding: 11px 14px; background: var(--surface3);
+  border: 1px solid var(--border); border-radius: 10px;
+  color: var(--text); font-family: var(--mono); font-size: 12px;
+  outline: none; transition: all 0.3s;
+}
+.key-input:focus { border-color: rgba(139,92,246,0.4); box-shadow: 0 0 0 3px rgba(139,92,246,0.08); }
+.key-input::placeholder { color: var(--text4); }
+
+.key-save {
+  padding: 10px 18px; border-radius: 10px; border: none;
+  background: var(--purple); color: white; font-family: var(--font);
+  font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.2s;
+  white-space: nowrap;
+}
+.key-save:hover { background: var(--purple-d); }
+.key-save:disabled { opacity: 0.4; cursor: default; }
+
+.key-status { font-size: 11px; margin-top: 8px; min-height: 16px; }
+.key-status.ok { color: var(--green); }
+.key-status.err { color: var(--red); }
+
+.key-link {
+  font-size: 12px; color: var(--purple-l); text-decoration: none;
+  display: inline-flex; align-items: center; gap: 4px;
+  transition: color 0.2s;
+}
+.key-link:hover { color: var(--purple); }
+
+.modal-skip {
+  display: block; margin: 20px auto 0; padding: 12px 32px;
+  background: var(--surface2); border: 1px solid var(--border);
+  border-radius: 12px; color: var(--text3); font-family: var(--font);
+  font-size: 13px; cursor: pointer; transition: all 0.2s;
+}
+.modal-skip:hover { color: var(--text); border-color: var(--border-hover); }
+
+.modal-done {
+  display: block; margin: 20px auto 0; padding: 14px 40px;
+  background: linear-gradient(135deg, var(--purple), var(--purple-d));
+  border: none; border-radius: 14px; color: white; font-family: var(--font);
+  font-size: 15px; font-weight: 600; cursor: pointer; transition: all 0.2s;
+  box-shadow: 0 4px 24px rgba(139,92,246,0.3);
+}
+.modal-done:hover { transform: translateY(-2px); box-shadow: 0 8px 36px rgba(139,92,246,0.45); }
+
+/* ─── Responsive ─── */
+@media (max-width: 768px) {
+  .side { display: none; }
+  .login-title { font-size: 38px; }
+  .awaken-title { font-size: 36px; }
+  .team-grid { grid-template-columns: 1fr; }
+  .prompts { flex-direction: column; align-items: center; }
+}
+</style>
+</head>
+<body>
+<canvas id="particles"></canvas>
+
+<!-- ════════ LOGIN ════════ -->
+<div id="scene-login" class="scene active">
+  <div class="orb-wrap lg login-orb">
+    <div class="orb-ring"></div>
+    <div class="orb-ring"></div>
+    <div class="orb-core"></div>
+  </div>
+  <div class="login-title">MyTeam360</div>
+  <div class="login-sub">Your AI team is ready</div>
+  <form class="login-box" onsubmit="doLogin(event)">
+    <a class="login-go" id="google-btn" href="/api/auth/google/start" style="text-align:center;text-decoration:none;display:none;background:white;color:#333;font-weight:500;letter-spacing:0;box-shadow:0 2px 12px rgba(0,0,0,0.15)">
+      <span style="display:flex;align-items:center;justify-content:center;gap:10px">
+        <svg width="18" height="18" viewBox="0 0 18 18"><path d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844a4.14 4.14 0 01-1.796 2.716v2.259h2.908c1.702-1.567 2.684-3.875 2.684-6.615z" fill="#4285F4"/><path d="M9 18c2.43 0 4.467-.806 5.956-2.18l-2.908-2.259c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332A8.997 8.997 0 009 18z" fill="#34A853"/><path d="M3.964 10.71A5.41 5.41 0 013.682 9c0-.593.102-1.17.282-1.71V4.958H.957A8.997 8.997 0 000 9c0 1.452.348 2.827.957 4.042l3.007-2.332z" fill="#FBBC05"/><path d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0A8.997 8.997 0 00.957 4.958L3.964 6.29C4.672 4.163 6.656 2.58 9 2.58z" fill="#EA4335"/></svg>
+        Continue with Google
+      </span>
+    </a>
+    <div id="divider-or" style="display:none;text-align:center;color:var(--text4);font-size:12px;margin:4px 0;position:relative"><span style="background:var(--void);padding:0 12px;position:relative;z-index:1">or</span><div style="position:absolute;top:50%;left:0;right:0;height:1px;background:var(--border)"></div></div>
+    <div class="field"><input class="field-input" type="email" id="f-email" placeholder="Email" value="admin@localhost" autocomplete="email"></div>
+    <div class="field"><input class="field-input" type="password" id="f-pass" placeholder="Password" value="admin123" autocomplete="current-password"></div>
+    <button class="login-go" type="submit" id="go-btn">Enter</button>
+    <div class="login-err" id="login-err"></div>
+  </form>
+  <div class="login-foot">secured with <em>end-to-end encryption</em> & <em>DLP protection</em> · <a href="/security" style="color:var(--purple-l);text-decoration:none">our security →</a></div>
+</div>
+
+<!-- ════════ AWAKEN ════════ -->
+<div id="scene-awaken" class="scene">
+  <div class="awaken-head">
+    <div class="awaken-tag">✦ &nbsp;your team is online</div>
+    <div class="awaken-title">Meet Your<br>AI Team</div>
+    <div class="awaken-desc">18 specialized agents across 8 departments. Each with their own expertise, personality, and voice. They work for you.</div>
+  </div>
+  <div class="team-grid" id="team-grid"></div>
+  <div class="awaken-go">
+    <button class="go-btn" onclick="enterApp()">Start Working &nbsp;→</button>
+  </div>
+</div>
+
+<!-- ════════ APP ════════ -->
+<div id="scene-app" class="scene">
+  <nav class="side">
+    <div class="side-brand">
+      <div class="orb-wrap xs"><div class="orb-core"></div></div>
+      <div class="side-brand-name">MyTeam360</div>
+    </div>
+    <div class="side-search-wrap"><input class="side-search" placeholder="Search agents…" oninput="filterAgents(this.value)"></div>
+    <div class="side-label">Your Team</div>
+    <div class="side-agents" id="side-agents"></div>
+    <div class="side-foot">
+      <div class="side-user-av" id="side-uav"></div>
+      <div class="side-user-name" id="side-uname"></div>
+      <button class="side-gear" onclick="openDrawer()">⚙</button>
+    </div>
+  </nav>
+
+  <div class="chat">
+    <div class="chat-top" id="chat-top">
+      <div class="side-av" id="ct-av" style="width:36px;height:36px;border-radius:10px;font-size:16px;"></div>
+      <div><div class="chat-top-name" id="ct-name"></div><div class="chat-top-dept" id="ct-dept"></div></div>
+      <div class="chat-top-right">
+        <button class="chat-top-btn" onclick="doExport()">↓ Export</button>
+        <button class="chat-top-btn" onclick="openVoice()">🎤 Voice</button>
+      </div>
+    </div>
+
+    <div class="chat-empty" id="chat-empty">
+      <div class="orb-wrap md"><div class="orb-ring"></div><div class="orb-core"></div></div>
+      <h2>How can your team help?</h2>
+      <p>Pick an agent from the sidebar, or describe what you need — we'll route you to the right person.</p>
+      <div class="prompts">
+        <div class="prompt" onclick="quickGo('Draft a professional sales outreach email')"><span class="prompt-icon">✉️</span> Write a sales email</div>
+        <div class="prompt" onclick="quickGo('Review this contract for risks')"><span class="prompt-icon">⚖️</span> Review a contract</div>
+        <div class="prompt" onclick="quickGo('Create an engaging social media post')"><span class="prompt-icon">📱</span> Social media post</div>
+        <div class="prompt" onclick="quickGo('Analyze my monthly spending')"><span class="prompt-icon">📊</span> Financial analysis</div>
+      </div>
+    </div>
+
+    <div class="chat-msgs" id="chat-msgs"></div>
+
+    <div class="chat-input-area">
+      <div class="dlp-bar" id="dlp-bar"></div>
+      <div class="input-row">
+        <textarea class="input-text" id="inp" placeholder="Message your team…" rows="1" onkeydown="onKey(event)" oninput="grow(this)"></textarea>
+        <button class="ibtn ibtn-mic" id="mic-btn" onclick="toggleMic()">🎤</button>
+        <button class="ibtn ibtn-send" id="send-btn" onclick="send()">↑</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════ TOS Gate ════════ -->
+<div class="gate-bg" id="tos-gate">
+  <div class="gate">
+    <div class="gate-title">Welcome to MyTeam360</div>
+    <div class="gate-sub">Before you meet your AI team, please review and accept the following.</div>
+    <div class="gate-tos-box">
+      <strong>Terms of Service</strong><br>
+      MyTeam360 connects you to AI agents using your own API keys. We store your user ID and subscription status — nothing else. We don't read your conversations, track your usage, or sell your data. Your AI keys are encrypted and never leave your server. Platform access is $15/month or $129/year after a 3-day free trial. <a href="/terms" target="_blank" style="color:var(--purple-l)">Read full Terms →</a>
+    </div>
+    <div class="gate-check">
+      <input type="checkbox" id="tos-agree">
+      <label for="tos-agree">I have read and agree to the <a href="/terms" target="_blank" style="color:var(--purple-l)">Terms of Service</a></label>
+    </div>
+
+    <div style="background:rgba(251,191,36,0.05);border:1px solid rgba(251,191,36,0.15);border-radius:12px;padding:16px 18px;margin-bottom:16px">
+      <div style="font-size:13px;font-weight:600;color:#fbbf24;margin-bottom:6px">⚠ API Cost Acknowledgment</div>
+      <div style="font-size:12px;color:var(--text3);line-height:1.6">AI provider charges (Anthropic, OpenAI, xAI, Google, etc.) are billed directly to you by the provider based on your usage. These costs are <strong style="color:var(--text2)">separate from your MyTeam360 subscription</strong> and are entirely your responsibility. Costs vary significantly by model and volume — <strong style="color:var(--text2)">heavy usage can result in charges of $50–$500+/month or more</strong>. MyTeam360 provides optional spend estimates, but actual charges are determined by your provider. We strongly recommend setting usage limits in your provider's dashboard. <strong style="color:var(--text2)">MyTeam360 is not responsible for any API charges on your account.</strong></div>
+    </div>
+    <div class="gate-check">
+      <input type="checkbox" id="cost-agree">
+      <label for="cost-agree">I understand that AI provider costs are separate from MyTeam360, vary by usage, and are entirely my responsibility</label>
+    </div>
+
+    <button class="gate-btn gate-btn-primary" id="tos-accept-btn" disabled onclick="acceptTOS()">Accept & Start 3-Day Free Trial</button>
+    <div style="text-align:center;margin-top:10px;font-size:11px;color:var(--text4)">Your agreement is recorded with timestamp, IP, and browser for your protection</div>
+  </div>
+</div>
+
+<!-- ════════ Paywall Gate ════════ -->
+<div class="gate-bg" id="pay-gate">
+  <div class="gate">
+    <div class="gate-title">Your trial has ended</div>
+    <div class="gate-sub">Your 3-day free trial is over. Choose a plan to keep working with your AI team.</div>
+
+    <div class="gate-plans">
+      <div class="gate-plan selected" id="plan-monthly" onclick="selectPlan('monthly')">
+        <div class="gate-plan-price">$15</div>
+        <div class="gate-plan-period">per month</div>
+      </div>
+      <div class="gate-plan" id="plan-annual" onclick="selectPlan('annual')">
+        <div class="gate-plan-price">$129</div>
+        <div class="gate-plan-period">per year</div>
+        <div class="gate-plan-save">Save 28%</div>
+      </div>
+    </div>
+
+    <div style="margin-bottom:24px">
+      <div class="gate-feature">18 AI agents across 8 departments</div>
+      <div class="gate-feature">Voice chat with unique agent voices</div>
+      <div class="gate-feature">AES encryption, DLP, MFA</div>
+      <div class="gate-feature">Unlimited conversations</div>
+      <div class="gate-feature">All future updates included</div>
+    </div>
+
+    <button class="gate-btn gate-btn-primary" onclick="checkout()">Subscribe Now →</button>
+    <div style="text-align:center;margin-top:12px;font-size:11px;color:var(--text4)">7-day money-back guarantee · Cancel anytime · Powered by Stripe</div>
+  </div>
+</div>
+
+<!-- ════════ API Key Setup Modal ════════ -->
+<div class="modal-bg" id="key-modal-bg">
+  <div class="modal" id="key-modal">
+    <div class="modal-title">Power Up Your Team</div>
+    <div class="modal-desc">Your AI agents need a brain. Add an API key from any provider below — it takes 30 seconds. Your key is encrypted and never leaves your server.</div>
+    <div id="key-providers"></div>
+    <div style="background:rgba(251,191,36,0.04);border:1px solid rgba(251,191,36,0.12);border-radius:10px;padding:12px 14px;margin-top:16px">
+      <div style="font-size:11px;color:var(--text3);line-height:1.5">⚠ Remember: AI provider charges are billed directly by your provider and are separate from MyTeam360. We recommend <strong style="color:var(--text2)">setting usage limits</strong> in your provider's dashboard.</div>
+    </div>
+    <button class="modal-skip" id="key-skip-btn" onclick="closeKeyModal()">I'll do this later</button>
+  </div>
+</div>
+
+<!-- ════════ Settings Drawer ════════ -->
+<div class="drawer-bg" id="drawer-bg" onclick="closeDrawer()"></div>
+<div class="drawer" id="drawer">
+  <div class="drawer-head">
+    <div class="drawer-title">Settings</div>
+    <button class="drawer-x" onclick="closeDrawer()">✕</button>
+  </div>
+  <div id="drawer-body"></div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!--  SCRIPT                                                   -->
+<!-- ══════════════════════════════════════════════════════════ -->
+<script>
+/* ═══ PARTICLES ═══ */
+(function(){
+  const c=document.getElementById('particles'),x=c.getContext('2d');
+  let W,H,pts=[];
+  function sz(){W=c.width=innerWidth;H=c.height=innerHeight;pts=[];
+    for(let i=0;i<60;i++) pts.push({x:Math.random()*W,y:Math.random()*H,r:Math.random()*1.5+0.3,dx:(Math.random()-0.5)*0.3,dy:(Math.random()-0.5)*0.2,a:Math.random()*0.4+0.1});}
+  function draw(){x.clearRect(0,0,W,H);
+    pts.forEach(p=>{p.x+=p.dx;p.y+=p.dy;
+      if(p.x<0)p.x=W;if(p.x>W)p.x=0;if(p.y<0)p.y=H;if(p.y>H)p.y=0;
+      x.beginPath();x.arc(p.x,p.y,p.r,0,Math.PI*2);
+      x.fillStyle=`rgba(139,92,246,${p.a})`;x.fill();});
+    requestAnimationFrame(draw);}
+  sz();draw();addEventListener('resize',sz);
+})();
+
+/* ═══ STATE ═══ */
+const API=location.origin;
+let token=null,user=null,agents=[],depts=[],curAgent=null,convId=null,msgs=[];
+
+const DMETA={
+  'executive':{ic:'👔',cl:'#8b5cf6'},'c-suite':{ic:'👔',cl:'#8b5cf6'},
+  'sales':{ic:'🎯',cl:'#3b82f6'},'marketing':{ic:'📢',cl:'#ec4899'},
+  'finance':{ic:'💰',cl:'#22c55e'},'legal':{ic:'⚖️',cl:'#fbbf24'},
+  'hr':{ic:'🤝',cl:'#22d3ee'},'human resources':{ic:'🤝',cl:'#22d3ee'},
+  'it':{ic:'💻',cl:'#6366f1'},'engineering':{ic:'💻',cl:'#6366f1'},
+  'operations':{ic:'⚡',cl:'#f97316'},'support':{ic:'💬',cl:'#a78bfa'},
+  'research':{ic:'🔬',cl:'#06b6d4'},'product':{ic:'🚀',cl:'#f472b6'},
+};
+function dm(name){const n=(name||'').toLowerCase();for(const[k,v]of Object.entries(DMETA)) if(n.includes(k)) return v;return {ic:'🤖',cl:'#8b5cf6'};}
+
+/* ═══ API ═══ */
+async function rpc(path,opts={}){
+  const h={'Content-Type':'application/json',...(opts.headers||{})};
+  if(token)h['Authorization']=`Bearer ${token}`;
+  const r=await fetch(API+path,{...opts,headers:h});
+  const d=await r.json().catch(()=>({}));
+  if(!r.ok&&d.error==='policy_acceptance_required'){await acceptAUP(d.policy_id);return rpc(path,opts);}
+  return {ok:r.ok,s:r.status,d};
+}
+async function acceptAUP(pid){
+  const a=await rpc('/api/policy/active');
+  const id=pid||a.d?.policy?.id||'default';
+  await rpc('/api/policy/accept',{method:'POST',body:JSON.stringify({policy_id:id})});
+}
+
+/* ═══ SCENES ═══ */
+function go(name){document.querySelectorAll('.scene').forEach(s=>s.classList.remove('active'));document.getElementById('scene-'+name).classList.add('active');}
+
+/* ═══ LOGIN ═══ */
+async function doLogin(e){
+  e.preventDefault();
+  const btn=document.getElementById('go-btn'),err=document.getElementById('login-err');
+  btn.disabled=true;btn.textContent='Connecting…';err.classList.remove('show');err.textContent='';
+  try{
+    const r=await rpc('/api/auth/login',{method:'POST',body:JSON.stringify({email:document.getElementById('f-email').value,password:document.getElementById('f-pass').value})});
+    if(r.ok&&r.d.token){token=r.d.token;user=r.d.user;localStorage.setItem('mt_t',token);localStorage.setItem('mt_u',JSON.stringify(user));await postAuth();}
+    else{err.textContent=r.d.error||'Invalid credentials';err.classList.add('show');btn.disabled=false;btn.textContent='Enter';}
+  }catch(ex){err.textContent='Cannot reach server';err.classList.add('show');btn.disabled=false;btn.textContent='Enter';}
+}
+
+async function postAuth(){
+  try{await acceptAUP();}catch{}
+  const st=await rpc('/api/setup/state');
+  if(!st.d?.completed&&!st.d?.setup_completed) await rpc('/api/setup/complete',{method:'POST',body:'{}'});
+  await Promise.all([loadAgents(),loadDepts()]);
+  if(agents.length>0){go('awaken');renderAwaken();}else enterApp();
+}
+
+async function loadAgents(){const r=await rpc('/api/agents');agents=r.d?.agents||r.d||[];}
+async function loadDepts(){const r=await rpc('/api/departments');depts=r.d?.departments||r.d||[];}
+
+/* ═══ AWAKEN ═══ */
+function renderAwaken(){
+  const g=document.getElementById('team-grid');g.innerHTML='';
+  const map={};
+  depts.forEach(d=>{map[d.id]={...d,ag:[]};});
+  agents.forEach(a=>{if(map[a.department_id])map[a.department_id].ag.push(a);});
+  Object.values(map).forEach((dept,i)=>{
+    if(!dept.ag.length)return;
+    const m=dm(dept.name);
+    const c=document.createElement('div');c.className='dept-card';
+    c.style.cssText=`--accent:${m.cl};animation-delay:${0.15+i*0.08}s`;
+    c.innerHTML=`<div class="dept-top"><div class="dept-icon" style="background:${m.cl}15">${m.ic}</div><div><div class="dept-name">${dept.name}</div><div class="dept-count">${dept.ag.length} agent${dept.ag.length>1?'s':''}</div></div></div><div class="dept-desc">${dept.description||''}</div><div class="agent-tags">${dept.ag.map(a=>`<span class="agent-tag">${a.name}</span>`).join('')}</div>`;
+    g.appendChild(c);
+  });
+}
+
+/* ═══ APP ═══ */
+let hasAnyKey=false;
+let selectedPlan='monthly';
+
+async function enterApp(){
+  go('app');renderSide();updateUser();
+  const billing=await checkBilling();
+  if(billing) await checkKeys();
+}
+
+/* ═══ BILLING GATE ═══ */
+async function checkBilling(){
+  const r=await rpc('/api/billing/status');
+  const b=r.d||{};
+  if(!b.stripe_configured&&!b.tos_accepted){return true;}
+  if(b.reason==='no_tos'){document.getElementById('tos-gate').classList.add('on');return false;}
+  if(b.has_access){
+    if(b.reason==='trialing'&&b.days_remaining) showTrialBadge(b.days_remaining);
+    return true;
+  }
+  if(b.reason==='expired'||b.reason==='no_subscription'){document.getElementById('pay-gate').classList.add('on');return false;}
+  return true;
+}
+
+function showTrialBadge(days){
+  const sb=document.querySelector('.side-brand');
+  if(sb&&!document.getElementById('trial-badge')){
+    const badge=document.createElement('div');badge.id='trial-badge';
+    badge.style.cssText='font-size:10px;color:var(--purple-l);background:rgba(139,92,246,0.1);padding:4px 10px;border-radius:6px;margin-top:8px;text-align:center;font-family:var(--mono)';
+    badge.textContent=days+' day'+(days>1?'s':'')+' left in trial';
+    sb.appendChild(badge);
+  }
+}
+
+document.getElementById('tos-agree')?.addEventListener('change',updateTosBtn);
+document.getElementById('cost-agree')?.addEventListener('change',updateTosBtn);
+function updateTosBtn(){
+  const tos=document.getElementById('tos-agree')?.checked;
+  const cost=document.getElementById('cost-agree')?.checked;
+  document.getElementById('tos-accept-btn').disabled=!(tos&&cost);
+}
+
+async function acceptTOS(){
+  const btn=document.getElementById('tos-accept-btn');
+  btn.textContent='Recording agreement...';btn.disabled=true;
+  await rpc('/api/billing/accept-tos',{method:'POST',body:'{}'});
+  document.getElementById('tos-gate').classList.remove('on');
+  showTrialBadge(3);
+  await checkKeys();
+}
+
+function selectPlan(p){
+  selectedPlan=p;
+  document.getElementById('plan-monthly').classList.toggle('selected',p==='monthly');
+  document.getElementById('plan-annual').classList.toggle('selected',p==='annual');
+}
+
+async function checkout(){
+  const r=await rpc('/api/billing/checkout',{method:'POST',body:JSON.stringify({plan:selectedPlan})});
+  if(r.d?.url) window.location.href=r.d.url;
+  else alert(r.d?.error||'Could not start checkout.');
+}
+
+async function checkKeys(){
+  const r=await rpc('/api/providers');
+  const provs=r.d?.providers||r.d||[];
+  hasAnyKey=provs.some(p=>p.configured||p.has_key||p.has_api_key);
+  if(!hasAnyKey) openKeyModal();
+}
+
+/* ═══ KEY MODAL ═══ */
+const PICONS={'anthropic':'🟣','openai':'🟢','xai':'⚡','google':'🔵','azure_openai':'☁️','ollama':'🦙'};
+
+async function openKeyModal(){
+  document.getElementById('key-modal-bg').classList.add('on');
+  const el=document.getElementById('key-providers');
+  el.innerHTML='<div style="color:var(--text3);font-size:13px">Loading providers…</div>';
+  const r=await rpc('/api/providers');
+  const provs=r.d?.providers||r.d||[];
+  // Show main 3 first, then others
+  const order=['anthropic','openai','xai','google'];
+  const sorted=[...provs].sort((a,b)=>{
+    const ai=order.indexOf(a.provider||a.id);const bi=order.indexOf(b.provider||b.id);
+    return (ai===-1?99:ai)-(bi===-1?99:bi);
+  });
+  el.innerHTML=sorted.filter(p=>p.provider!=='ollama'&&p.provider!=='azure_openai').map(p=>{
+    const pid=p.provider||p.id;
+    const hasKey=p.configured||p.has_key||p.has_api_key;
+    return `<div class="provider-card" id="pc-${pid}">
+      <div class="provider-top">
+        <div class="provider-icon">${PICONS[pid]||'🤖'}</div>
+        <div><div class="provider-name">${p.display_name||p.name||pid}</div>
+        <div class="provider-tag">${p.default_model||''}</div></div>
+        <div class="provider-status">${hasKey?'<span class="badge b-on">Connected</span>':''}</div>
+      </div>
+      ${hasKey?`<div class="key-status ok">✓ API key configured</div>`:`
+      <div class="key-input-row">
+        <input class="key-input" id="ki-${pid}" type="password" placeholder="${p.key_prefix||'sk-'}…" spellcheck="false" autocomplete="off">
+        <button class="key-save" onclick="saveKey('${pid}')">Save</button>
+      </div>
+      <div class="key-status" id="ks-${pid}"></div>
+      <a class="key-link" href="${p.api_key_url||'#'}" target="_blank" style="margin-top:8px;display:inline-block">Get a key →</a>`}
+    </div>`;
+  }).join('');
+  // If any key now exists, change skip to done
+  if(provs.some(p=>p.configured||p.has_key||p.has_api_key)){
+    document.getElementById('key-skip-btn').textContent='Done';
+    document.getElementById('key-skip-btn').className='modal-done';
+  }
+}
+
+async function saveKey(pid){
+  const inp=document.getElementById('ki-'+pid);
+  const st=document.getElementById('ks-'+pid);
+  const key=inp.value.trim();
+  if(!key){st.textContent='Enter a key';st.className='key-status err';return;}
+  st.textContent='Saving…';st.className='key-status';
+  const r=await rpc(`/api/providers/${pid}/api-key`,{method:'POST',body:JSON.stringify({api_key:key})});
+  if(r.ok){
+    st.textContent='✓ Connected!';st.className='key-status ok';hasAnyKey=true;
+    // Refresh the card
+    setTimeout(()=>openKeyModal(),600);
+  }else{
+    st.textContent=r.d?.error||'Failed to save';st.className='key-status err';
+  }
+}
+
+function closeKeyModal(){document.getElementById('key-modal-bg').classList.remove('on');}
+
+function renderSide(filter=''){
+  const el=document.getElementById('side-agents');el.innerHTML='';
+  const f=filter.toLowerCase();
+  agents.forEach(a=>{
+    if(f&&!a.name.toLowerCase().includes(f)&&!(a.description||'').toLowerCase().includes(f))return;
+    const dept=depts.find(d=>d.id===a.department_id);
+    const m=dm(dept?.name||'');
+    const d=document.createElement('div');
+    d.className=`side-agent${curAgent?.id===a.id?' on':''}`;
+    d.onclick=()=>pickAgent(a);
+    d.innerHTML=`<div class="side-av" style="background:${m.cl}12">${m.ic}</div><div class="side-info"><div class="side-name">${a.name}</div><div class="side-dept">${dept?.name||'General'}</div></div><div class="side-dot"></div>`;
+    el.appendChild(d);
+  });
+}
+function filterAgents(v){renderSide(v);}
+function updateUser(){if(!user)return;const ini=(user.display_name||user.email||'?').slice(0,2).toUpperCase();document.getElementById('side-uav').textContent=ini;document.getElementById('side-uname').textContent=user.display_name||user.email;}
+
+/* ═══ CHAT ═══ */
+async function pickAgent(a){
+  curAgent=a;convId=null;msgs=[];renderSide();
+  const dept=depts.find(d=>d.id===a.department_id);const m=dm(dept?.name||'');
+  document.getElementById('chat-top').style.display='flex';
+  document.getElementById('ct-av').textContent=m.ic;document.getElementById('ct-av').style.background=m.cl+'15';
+  document.getElementById('ct-name').textContent=a.name;document.getElementById('ct-dept').textContent=dept?.name||'General';
+  document.getElementById('chat-empty').style.display='none';
+  const cm=document.getElementById('chat-msgs');cm.style.display='flex';cm.innerHTML='';
+  const intro=a.system_instructions?a.system_instructions.slice(0,120).replace(/You are .*/i,'').trim():'';
+  addMsg('ai',`Hey! I'm **${a.name}**. ${intro?intro+'…':''} How can I help you today?`);
+  document.getElementById('inp').focus();
+}
+
+function addMsg(role,text){msgs.push({role,text,t:new Date()});renderMsgs();}
+
+function renderMsgs(){
+  const el=document.getElementById('chat-msgs');el.innerHTML='';
+  msgs.forEach(m=>{
+    const d=document.createElement('div');d.className=`msg ${m.role==='ai'?'ai':'usr'}`;
+    const time=m.t?new Date(m.t).toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'}):'';
+    const dept=depts.find(dd=>dd.id===curAgent?.department_id);const mt=dm(dept?.name||'');
+    if(m.role==='ai'){
+      d.innerHTML=`<div class="msg-av" style="background:${mt.cl}12">${mt.ic}</div><div><div class="msg-body">${fmt(m.text)}</div><div class="msg-meta">${curAgent?.name} · ${time}</div></div>`;
+    }else{
+      d.innerHTML=`<div class="msg-av">${(user?.display_name||'?')[0]}</div><div><div class="msg-body">${esc(m.text)}</div><div class="msg-meta">${time}</div></div>`;
+    }
+    el.appendChild(d);
+  });
+  el.scrollTop=el.scrollHeight;
+}
+
+function fmt(t){return (t||'').replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>').replace(/</g,'&lt;').replace(/&lt;strong&gt;/g,'<strong>').replace(/&lt;\/strong&gt;/g,'</strong>').replace(/\n/g,'<br>').replace(/`\[setupkey\]`/g,'<button onclick="openKeyModal()" style="margin-top:8px;padding:10px 20px;border-radius:12px;background:var(--purple);color:white;border:none;font-family:var(--font);font-size:13px;font-weight:600;cursor:pointer">Set Up AI Key →</button>');}
+function esc(t){return (t||'').replace(/</g,'&lt;').replace(/\n/g,'<br>');}
+
+/* ═══ SEND ═══ */
+async function send(){
+  const inp=document.getElementById('inp');const text=inp.value.trim();if(!text)return;
+  // DLP
+  try{const dl=await rpc('/api/security/dlp/scan',{method:'POST',body:JSON.stringify({text})});
+    if(dl.d?.blocked){const b=document.getElementById('dlp-bar');b.textContent='⚠ Sensitive data detected — message blocked for your protection.';b.classList.add('on');setTimeout(()=>b.classList.remove('on'),4000);return;}}catch{}
+  inp.value='';grow(inp);addMsg('usr',text);showThink();
+  try{
+    if(!convId){const cv=await rpc('/api/conversations',{method:'POST',body:JSON.stringify({agent_id:curAgent?.id})});convId=cv.d?.conversation?.id||cv.d?.id;}
+    const r=await rpc('/api/chat',{method:'POST',body:JSON.stringify({message:text,agent_id:curAgent?.id,conversation_id:convId})});
+    hideThink();
+    if(r.d?.response)addMsg('ai',r.d.response);
+    else if(r.d?.error)addMsg('ai',r.d.error==='No API key configured'?'I need an AI provider key to respond. Click **Set Up AI Key** below to unlock real conversations.\n\n`[setupkey]`':r.d.error);
+    else addMsg('ai','Message received. Click **Set Up AI Key** to enable AI responses.\n\n`[setupkey]`');
+  }catch(e){hideThink();addMsg('ai','Something went wrong. Please try again.');}
+}
+
+function showThink(){
+  const el=document.getElementById('chat-msgs');
+  const dept=depts.find(d=>d.id===curAgent?.department_id);const m=dm(dept?.name||'');
+  const d=document.createElement('div');d.className='thinking';d.id='thinker';
+  d.innerHTML=`<div class="msg-av" style="background:${m.cl}12">${m.ic}</div><div class="think-dots"><div class="think-dot"></div><div class="think-dot"></div><div class="think-dot"></div></div>`;
+  el.appendChild(d);el.scrollTop=el.scrollHeight;
+}
+function hideThink(){document.getElementById('thinker')?.remove();}
+
+function onKey(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();send();}}
+function grow(el){el.style.height='auto';el.style.height=Math.min(el.scrollHeight,140)+'px';}
+
+/* ═══ QUICK ROUTE ═══ */
+async function quickGo(text){
+  try{const r=await rpc('/api/routing/classify',{method:'POST',body:JSON.stringify({message:text})});
+    if(r.d?.agent_id){const a=agents.find(ag=>ag.id===r.d.agent_id);if(a){await pickAgent(a);document.getElementById('inp').value=text;await send();return;}}}catch{}
+  if(agents.length){await pickAgent(agents[0]);document.getElementById('inp').value=text;await send();}
+}
+
+/* ═══ VOICE ═══ */
+function openVoice(){window.open('/voice-chat','_blank');}
+let recog=null;
+function toggleMic(){
+  const btn=document.getElementById('mic-btn');
+  if(recog){recog.stop();recog=null;btn.classList.remove('rec');return;}
+  const SR=window.SpeechRecognition||window.webkitSpeechRecognition;if(!SR){alert('Use Chrome for voice input');return;}
+  recog=new SR();recog.continuous=true;recog.interimResults=true;
+  recog.onresult=e=>{let t='';for(let i=0;i<e.results.length;i++)t+=e.results[i][0].transcript;document.getElementById('inp').value=t;};
+  recog.onend=()=>{recog=null;btn.classList.remove('rec');};
+  recog.start();btn.classList.add('rec');
+}
+
+/* ═══ EXPORT ═══ */
+function doExport(){if(!convId)return;window.open(`${API}/api/conversations/${convId}/export/markdown`,'_blank');}
+
+/* ═══ SETTINGS ═══ */
+function openDrawer(){document.getElementById('drawer').classList.add('on');document.getElementById('drawer-bg').classList.add('on');loadSettings();}
+function closeDrawer(){document.getElementById('drawer').classList.remove('on');document.getElementById('drawer-bg').classList.remove('on');}
+
+async function loadSettings(){
+  const b=document.getElementById('drawer-body');b.innerHTML='<div style="color:var(--text3);font-size:13px">Loading…</div>';
+  const[sr,pr]=await Promise.all([rpc('/api/security/dashboard'),rpc('/api/providers')]);
+  const sec=sr.d||{};const provs=pr.d?.providers||pr.d||[];
+  b.innerHTML=`
+    <div class="set-section"><div class="set-label">AI Providers</div>
+      <div style="font-size:10px;color:var(--text4);margin-bottom:12px;line-height:1.5;padding:8px 10px;background:var(--surface2);border-radius:8px">⚠ Provider charges are separate from MyTeam360. Costs vary by model and usage. We recommend setting limits in your provider dashboard.</div>
+      ${provs.filter(p=>p.provider!=='ollama'&&p.provider!=='azure_openai').map(p=>{
+        const pid=p.provider||p.id;const hasKey=p.configured||p.has_key||p.has_api_key;
+        return `<div style="background:var(--surface2);border:1px solid var(--border);border-radius:12px;padding:14px 16px;margin-bottom:8px">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:${hasKey?'0':'10px'}">
+            <span style="font-size:13px">${PICONS[pid]||'🤖'} ${p.display_name||p.name||pid}</span>
+            <span class="badge ${hasKey?'b-on':'b-off'}">${hasKey?'Connected':'No Key'}</span>
+          </div>
+          ${hasKey?'':`<div class="key-input-row"><input class="key-input" id="ski-${pid}" type="password" placeholder="${p.key_prefix||'sk-'}…" style="font-size:11px" spellcheck="false"><button class="key-save" onclick="saveKeySettings('${pid}')" style="padding:8px 14px;font-size:12px">Save</button></div>
+          <div class="key-status" id="sks-${pid}" style="font-size:10px"></div>
+          <a class="key-link" href="${p.api_key_url||'#'}" target="_blank" style="margin-top:6px;display:inline-block;font-size:11px">Get a key →</a>`}
+        </div>`;}).join('')}
+    </div>
+    <div class="set-section"><div class="set-label">Security</div>
+      <div class="set-row"><span>Encryption</span><span class="badge b-on">Active</span></div>
+      <div class="set-row"><span>DLP Scanning</span><span class="badge b-on">Active</span></div>
+      <div class="set-row"><span>MFA</span><span class="badge ${sec.mfa_coverage>0?'b-on':'b-off'}">${sec.mfa_coverage>0?'Enabled':'Not Set Up'}</span></div>
+    </div>
+    <div class="set-section"><div class="set-label">Platform</div>
+      <div class="set-row"><span>Agents</span><span class="set-val">${agents.length}</span></div>
+      <div class="set-row"><span>Departments</span><span class="set-val">${depts.length}</span></div>
+      <div class="set-row"><span>Role</span><span class="badge b-role">${user?.role||'member'}</span></div>
+    </div>
+    <div class="set-section"><div class="set-label">Account</div>
+      <div class="set-row" id="sub-status-row"><span>Subscription</span><span class="badge b-off">Loading...</span></div>
+      <div class="set-row" id="spend-dash-row" style="cursor:pointer" onclick="toggleSpendDash()">
+        <span>Spend Estimates</span>
+        <span id="spend-dash-badge" class="badge b-off">Off</span>
+      </div>
+      <div id="spend-dash-note" style="display:none;font-size:10px;color:var(--text4);padding:4px 10px 12px;line-height:1.5">
+        Shows estimated API costs based on token usage. These are <strong>estimates only</strong> — actual charges are determined by your AI provider. Enabling logs your opt-in consent.
+      </div>
+      <div class="set-logout" id="manage-sub-btn" style="display:none;background:var(--surface2);color:var(--text2);margin-bottom:8px" onclick="manageSub()">Manage Subscription</div>
+      <div class="set-logout" onclick="logout()">Sign Out</div>
+    </div>`;
+  loadSubStatus();
+  loadSpendDashStatus();
+}
+
+async function loadSubStatus(){
+  const r=await rpc('/api/billing/status');
+  const b=r.d||{};
+  const el=document.getElementById('sub-status-row');
+  const mgBtn=document.getElementById('manage-sub-btn');
+  if(!el)return;
+  let badge='';
+  if(b.status==='active') badge='<span class="badge b-on">Active</span>';
+  else if(b.status==='trialing') badge=`<span class="badge" style="background:rgba(139,92,246,0.1);color:var(--purple-l)">Trial · ${b.days_remaining||0}d left</span>`;
+  else if(b.status==='past_due') badge='<span class="badge" style="background:rgba(251,191,36,0.1);color:#fbbf24">Past Due</span>';
+  else badge='<span class="badge b-off">Inactive</span>';
+  el.innerHTML=`<span>Subscription</span>${badge}`;
+  if(b.status==='active'||b.status==='past_due'){mgBtn.style.display='block';}
+}
+
+async function manageSub(){
+  const r=await rpc('/api/billing/portal',{method:'POST',body:'{}'});
+  if(r.d?.url) window.location.href=r.d.url;
+}
+
+async function loadSpendDashStatus(){
+  const r=await rpc('/api/billing/spend-dashboard');
+  const on=r.d?.enabled||false;
+  const badge=document.getElementById('spend-dash-badge');
+  const note=document.getElementById('spend-dash-note');
+  if(badge){badge.className='badge '+(on?'b-on':'b-off');badge.textContent=on?'On':'Off';}
+  if(note){note.style.display=on?'none':'block';}
+}
+
+async function toggleSpendDash(){
+  const r=await rpc('/api/billing/spend-dashboard');
+  const current=r.d?.enabled||false;
+  if(!current){
+    if(!confirm('Enable spend estimate dashboard?\\n\\nAll cost figures shown are estimates only. Actual charges are determined by your AI provider and may differ. By enabling, you acknowledge this.')) return;
+  }
+  await rpc('/api/billing/spend-dashboard',{method:'POST',body:JSON.stringify({enable:!current})});
+  loadSpendDashStatus();
+}
+
+async function saveKeySettings(pid){
+  const inp=document.getElementById('ski-'+pid);
+  const st=document.getElementById('sks-'+pid);
+  const key=inp.value.trim();
+  if(!key){st.textContent='Enter a key';st.className='key-status err';return;}
+  st.textContent='Saving…';st.className='key-status';
+  const r=await rpc(`/api/providers/${pid}/api-key`,{method:'POST',body:JSON.stringify({api_key:key})});
+  if(r.ok){st.textContent='✓ Connected!';st.className='key-status ok';hasAnyKey=true;setTimeout(()=>loadSettings(),800);}
+  else{st.textContent=r.d?.error||'Failed';st.className='key-status err';}
+}
+
+function logout(){
+  token=null;user=null;localStorage.removeItem('mt_t');localStorage.removeItem('mt_u');
+  closeDrawer();go('login');
+  document.getElementById('go-btn').disabled=false;document.getElementById('go-btn').textContent='Enter';
+}
+
+/* ═══ BOOT ═══ */
+async function boot(){
+  // Check if Google OAuth is available
+  try{const g=await fetch(API+'/api/auth/google/status');const j=await g.json();
+    if(j.enabled){document.getElementById('google-btn').style.display='block';document.getElementById('divider-or').style.display='block';}}catch{}
+  const t=localStorage.getItem('mt_t'),u=localStorage.getItem('mt_u');
+  if(t&&u){token=t;user=JSON.parse(u);
+    const ck=await rpc('/api/setup/state');
+    if(ck.ok||ck.s!==401){await postAuth();return;}
+    token=null;user=null;localStorage.removeItem('mt_t');localStorage.removeItem('mt_u');
+  }
+  go('login');
+}
+boot();
+</script>
+</body>
+</html>

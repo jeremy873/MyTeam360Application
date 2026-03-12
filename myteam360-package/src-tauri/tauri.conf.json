@@ -1,0 +1,85 @@
+{
+  "$schema": "https://raw.githubusercontent.com/tauri-apps/tauri/dev/crates/tauri-config-schema/schema.json",
+  "productName": "MyTeam360",
+  "version": "1.0.0",
+  "identifier": "com.myteam360.app",
+  "build": {
+    "frontendDist": "../templates",
+    "devUrl": "http://localhost:5000",
+    "beforeBuildCommand": "",
+    "beforeDevCommand": ""
+  },
+  "app": {
+    "withGlobalTauri": true,
+    "windows": [
+      {
+        "title": "MyTeam360",
+        "width": 1280,
+        "height": 800,
+        "minWidth": 900,
+        "minHeight": 600,
+        "center": true,
+        "resizable": true,
+        "fullscreen": false,
+        "decorations": true,
+        "transparent": false,
+        "titleBarStyle": "Overlay",
+        "hiddenTitle": true
+      }
+    ],
+    "trayIcon": {
+      "iconPath": "icons/icon.png",
+      "iconAsTemplate": true,
+      "tooltip": "MyTeam360"
+    },
+    "security": {
+      "csp": "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; connect-src 'self' http://127.0.0.1:* http://localhost:*; img-src 'self' data: blob:"
+    }
+  },
+  "bundle": {
+    "active": true,
+    "targets": ["dmg", "app"],
+    "icon": [
+      "icons/32x32.png",
+      "icons/128x128.png",
+      "icons/128x128@2x.png",
+      "icons/icon.icns"
+    ],
+    "macOS": {
+      "minimumSystemVersion": "12.0",
+      "signingIdentity": null,
+      "entitlements": "Entitlements.plist",
+      "frameworks": [],
+      "exceptionDomain": "localhost"
+    },
+    "resources": [
+      "../app.py",
+      "../core/**/*",
+      "../templates/**/*",
+      "../requirements.txt"
+    ],
+    "externalBin": [],
+    "category": "Productivity",
+    "shortDescription": "AI-powered team workspace",
+    "longDescription": "MyTeam360 is a self-hosted, multi-user AI workspace with customizable agents, prompt chains, knowledge base, and enterprise security.",
+    "copyright": "Copyright 2026 MyTeam360"
+  },
+  "plugins": {
+    "updater": {
+      "endpoints": [
+        "https://releases.myteam360.com/{{target}}/{{arch}}/{{current_version}}"
+      ],
+      "pubkey": ""
+    },
+    "shell": {
+      "open": true,
+      "scope": [
+        {
+          "name": "python-backend",
+          "cmd": "python3",
+          "args": true
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MyTeam360 — Security</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600;700;800&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --void: #050509;
+  --deep: #0a0a12;
+  --surface: #10101c;
+  --surface2: #16162a;
+  --border: rgba(255,255,255,0.06);
+  --text: #eeeef5;
+  --text2: #b0b0cc;
+  --text3: #6a6a8e;
+  --purple: #8b5cf6;
+  --purple-l: #a78bfa;
+  --green: #4ade80;
+  --red: #f87171;
+  --amber: #fbbf24;
+  --font: 'Outfit', -apple-system, sans-serif;
+  --mono: 'JetBrains Mono', monospace;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior: smooth; }
+body { background: var(--void); color: var(--text); font-family: var(--font); -webkit-font-smoothing: antialiased; line-height: 1.7; }
+::selection { background: var(--purple); color: white; }
+
+.container { max-width: 900px; margin: 0 auto; padding: 0 32px; }
+
+/* Hero */
+.hero {
+  padding: 100px 0 80px; text-align: center;
+  background: radial-gradient(ellipse at 50% 0%, rgba(139,92,246,0.08) 0%, transparent 60%);
+}
+.hero-tag {
+  font-family: var(--mono); font-size: 11px; color: var(--green);
+  text-transform: uppercase; letter-spacing: 4px; margin-bottom: 20px;
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+}
+.hero-tag::before { content: ''; width: 8px; height: 8px; border-radius: 50%; background: var(--green); box-shadow: 0 0 12px rgba(74,222,128,0.6); }
+.hero h1 {
+  font-size: 56px; font-weight: 800; letter-spacing: -3px; line-height: 1.05;
+  background: linear-gradient(135deg, #fff 10%, #c4b5fd 50%, #8b5cf6 100%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  margin-bottom: 20px;
+}
+.hero p { font-size: 18px; color: var(--text3); max-width: 600px; margin: 0 auto; }
+
+/* Section */
+.section { padding: 60px 0; }
+.section-tag {
+  font-family: var(--mono); font-size: 10px; color: var(--purple-l);
+  text-transform: uppercase; letter-spacing: 3px; margin-bottom: 12px;
+}
+.section h2 { font-size: 32px; font-weight: 700; letter-spacing: -1.5px; margin-bottom: 32px; }
+
+/* Comparison Grid */
+.compare-grid { display: flex; flex-direction: column; gap: 16px; }
+
+.compare-row {
+  display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0;
+  background: var(--surface); border: 1px solid var(--border); border-radius: 16px;
+  overflow: hidden;
+  opacity: 0; animation: rowIn 0.5s ease both;
+}
+.compare-row:nth-child(1) { animation-delay: 0.1s; }
+.compare-row:nth-child(2) { animation-delay: 0.15s; }
+.compare-row:nth-child(3) { animation-delay: 0.2s; }
+.compare-row:nth-child(4) { animation-delay: 0.25s; }
+.compare-row:nth-child(5) { animation-delay: 0.3s; }
+.compare-row:nth-child(6) { animation-delay: 0.35s; }
+.compare-row:nth-child(7) { animation-delay: 0.4s; }
+.compare-row:nth-child(8) { animation-delay: 0.45s; }
+.compare-row:nth-child(9) { animation-delay: 0.5s; }
+
+@keyframes rowIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+
+.compare-threat { padding: 20px 24px; border-right: 1px solid var(--border); }
+.compare-them { padding: 20px 24px; border-right: 1px solid var(--border); background: rgba(248,113,113,0.03); }
+.compare-us { padding: 20px 24px; background: rgba(74,222,128,0.03); }
+
+.compare-label { font-size: 13px; font-weight: 600; margin-bottom: 6px; display: flex; align-items: center; gap: 8px; }
+.compare-detail { font-size: 12px; color: var(--text3); line-height: 1.6; }
+
+.icon-bad { color: var(--red); }
+.icon-good { color: var(--green); }
+.icon-warn { color: var(--amber); }
+
+.compare-header {
+  display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0;
+  margin-bottom: 8px; padding: 0 24px;
+}
+.compare-header span {
+  font-family: var(--mono); font-size: 10px; color: var(--text3);
+  text-transform: uppercase; letter-spacing: 2px;
+}
+
+/* Feature Grid */
+.feat-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 16px; margin-top: 20px;
+}
+.feat-card {
+  background: var(--surface); border: 1px solid var(--border); border-radius: 16px;
+  padding: 24px; transition: all 0.3s;
+}
+.feat-card:hover { border-color: rgba(139,92,246,0.3); transform: translateY(-2px); }
+.feat-icon { font-size: 24px; margin-bottom: 12px; }
+.feat-name { font-size: 15px; font-weight: 600; margin-bottom: 6px; }
+.feat-desc { font-size: 13px; color: var(--text3); line-height: 1.6; }
+
+/* Architecture */
+.arch-block {
+  background: var(--surface); border: 1px solid var(--border); border-radius: 16px;
+  padding: 32px; margin-top: 20px; font-family: var(--mono); font-size: 13px;
+  line-height: 2; color: var(--text2);
+}
+.arch-highlight { color: var(--green); font-weight: 500; }
+.arch-dim { color: var(--text3); }
+
+/* CTA */
+.cta {
+  text-align: center; padding: 80px 0 100px;
+}
+.cta h2 { font-size: 36px; font-weight: 700; letter-spacing: -1.5px; margin-bottom: 16px; }
+.cta p { color: var(--text3); font-size: 16px; margin-bottom: 32px; }
+.cta-btn {
+  display: inline-block; padding: 16px 48px; border-radius: 50px;
+  background: linear-gradient(135deg, var(--purple) 0%, #6d28d9 100%);
+  color: white; text-decoration: none; font-weight: 600; font-size: 16px;
+  box-shadow: 0 4px 32px rgba(139,92,246,0.35);
+  transition: all 0.3s;
+}
+.cta-btn:hover { transform: translateY(-3px); box-shadow: 0 8px 48px rgba(139,92,246,0.5); }
+
+/* Footer */
+.footer { border-top: 1px solid var(--border); padding: 32px 0; text-align: center; }
+.footer p { font-size: 12px; color: var(--text3); }
+
+@media (max-width: 768px) {
+  .hero h1 { font-size: 36px; }
+  .compare-row { grid-template-columns: 1fr; }
+  .compare-them, .compare-us { border-right: none; border-top: 1px solid var(--border); }
+  .compare-header { display: none; }
+}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="container">
+    <div class="hero-tag">Security-First Architecture</div>
+    <h1>Built Secure.<br>Not Bolted On.</h1>
+    <p>After OpenClaw exposed thousands of users to data theft, credential leaks, and malware — we designed MyTeam360 to make those attacks structurally impossible.</p>
+  </div>
+</div>
+
+<div class="section">
+  <div class="container">
+    <div class="section-tag">Threat-by-Threat Comparison</div>
+    <h2>Every OpenClaw vulnerability. How we handle it.</h2>
+
+    <div class="compare-header">
+      <span>Threat</span>
+      <span>OpenClaw</span>
+      <span>MyTeam360</span>
+    </div>
+
+    <div class="compare-grid">
+
+      <div class="compare-row">
+        <div class="compare-threat">
+          <div class="compare-label">🌐 Exposed Ports</div>
+          <div class="compare-detail">OpenClaw bound to 0.0.0.0:18789 by default — tens of thousands of instances were exposed to the entire internet.</div>
+        </div>
+        <div class="compare-them">
+          <div class="compare-label"><span class="icon-bad">✗</span> Wide Open by Default</div>
+          <div class="compare-detail">Default config listened on all network interfaces. Tens of thousands of live instances found by Bitsight in healthcare, finance, and government networks.</div>
+        </div>
+        <div class="compare-us">
+          <div class="compare-label"><span class="icon-good">✓</span> Zero Exposed Ports</div>
+          <div class="compare-detail">Binds to 127.0.0.1 only. Production traffic routes through Cloudflare Tunnel — server IP hidden, no public ports open. Optional Tailscale VPN for private-only access.</div>
+        </div>
+      </div>
+
+      <div class="compare-row">
+        <div class="compare-threat">
+          <div class="compare-label">🔑 Credential Theft</div>
+          <div class="compare-detail">API keys, OAuth tokens, and passwords stored in plaintext config files. Malicious skills exfiltrated them via curl to attacker servers.</div>
+        </div>
+        <div class="compare-them">
+          <div class="compare-label"><span class="icon-bad">✗</span> Plaintext Credentials</div>
+          <div class="compare-detail">Keys stored in plaintext YAML/JSON config. 820+ malicious ClawHub skills specifically targeted credential files. One campaign stole crypto wallets from 335 skills.</div>
+        </div>
+        <div class="compare-us">
+          <div class="compare-label"><span class="icon-good">✓</span> Encrypted at Rest</div>
+          <div class="compare-detail">All API keys encrypted with AES-256 in the database. DLP scanner blocks accidental exposure of keys in chat. No third-party plugin system — no supply chain attack vector.</div>
+        </div>
+      </div>
+
+      <div class="compare-row">
+        <div class="compare-threat">
+          <div class="compare-label">🐚 Shell Execution</div>
+          <div class="compare-detail">OpenClaw runs terminal commands, browses the web, and modifies files with full system access. A compromised agent = a compromised machine.</div>
+        </div>
+        <div class="compare-them">
+          <div class="compare-label"><span class="icon-bad">✗</span> Full System Access</div>
+          <div class="compare-detail">Agents can execute arbitrary shell commands, read/write any file, browse the web, and access all connected services. Microsoft recommended isolated VMs only.</div>
+        </div>
+        <div class="compare-us">
+          <div class="compare-label"><span class="icon-good">✓</span> No System Access</div>
+          <div class="compare-detail">Agents are chat-only. They cannot execute commands, access files, browse the web, or touch anything outside the conversation. The AI responds with text — it cannot act on your machine.</div>
+        </div>
+      </div>
+
+      <div class="compare-row">
+        <div class="compare-threat">
+          <div class="compare-label">🧩 Malicious Plugins</div>
+          <div class="compare-detail">ClawHub marketplace had 820+ malicious "skills" including crypto stealers, reverse shells, and credential harvesters — found within minutes of looking.</div>
+        </div>
+        <div class="compare-them">
+          <div class="compare-label"><span class="icon-bad">✗</span> Open Marketplace</div>
+          <div class="compare-detail">Community-submitted skills run as trusted code. A single threat actor published 386 malicious packages. Security researcher found malware within 2 minutes of browsing.</div>
+        </div>
+        <div class="compare-us">
+          <div class="compare-label"><span class="icon-good">✓</span> No Plugin System</div>
+          <div class="compare-detail">There is no marketplace, no user-submitted code, no skill system. Your 18 agents are built-in with fixed capabilities. Nothing external runs on your server.</div>
+        </div>
+      </div>
+
+      <div class="compare-row">
+        <div class="compare-threat">
+          <div class="compare-label">💉 Prompt Injection</div>
+          <div class="compare-detail">Malicious instructions embedded in emails, documents, and web pages could hijack the agent's actions — including sending data to attackers.</div>
+        </div>
+        <div class="compare-them">
+          <div class="compare-label"><span class="icon-bad">✗</span> Actions from Injections</div>
+          <div class="compare-detail">Because OpenClaw can act (run commands, send emails, modify files), a prompt injection = real-world damage. Attackers embedded instructions in Google Docs that auto-executed.</div>
+        </div>
+        <div class="compare-us">
+          <div class="compare-label"><span class="icon-good">✓</span> No Actions to Hijack</div>
+          <div class="compare-detail">Even if a prompt injection succeeds, the agent can only produce text. It cannot execute commands, send emails, modify files, or access external services. The blast radius is zero.</div>
+        </div>
+      </div>
+
+      <div class="compare-row">
+        <div class="compare-threat">
+          <div class="compare-label">🔓 No Authentication</div>
+          <div class="compare-detail">No rate limits on login. No brute force protection. No MFA. WebSocket connections from any website could hijack the agent silently.</div>
+        </div>
+        <div class="compare-them">
+          <div class="compare-label"><span class="icon-bad">✗</span> Minimal Auth</div>
+          <div class="compare-detail">No brute force protection. No rate limits on passwords. CVSS 8.8 vulnerability let any website silently take full control via localhost WebSocket. CVE-2026-25253.</div>
+        </div>
+        <div class="compare-us">
+          <div class="compare-label"><span class="icon-good">✓</span> Full Auth Stack</div>
+          <div class="compare-detail">Rate limiting, account lockout after failed attempts, MFA/TOTP, session management, API token scoping, IP allowlisting, Google OAuth. Every endpoint is authenticated.</div>
+        </div>
+      </div>
+
+      <div class="compare-row">
+        <div class="compare-threat">
+          <div class="compare-label">📡 Data Exfiltration</div>
+          <div class="compare-detail">Skills could silently send data to external servers. Network calls happened without user awareness. Persistent memory files could be poisoned for delayed attacks.</div>
+        </div>
+        <div class="compare-them">
+          <div class="compare-label"><span class="icon-bad">✗</span> Silent Exfiltration</div>
+          <div class="compare-detail">Skills explicitly instructed the agent to curl data to external servers. Silent execution with no user awareness. Memory files (SOUL.md) poisoned for persistent backdoors.</div>
+        </div>
+        <div class="compare-us">
+          <div class="compare-label"><span class="icon-good">✓</span> DLP + No Outbound</div>
+          <div class="compare-detail">DLP scanner blocks SSNs, credit cards, and API keys from leaving chat. Agents have no internet access — they cannot make network calls. Conversations encrypted in the database.</div>
+        </div>
+      </div>
+
+      <div class="compare-row">
+        <div class="compare-threat">
+          <div class="compare-label">🔍 Network Discovery</div>
+          <div class="compare-detail">OpenClaw broadcast its presence via mDNS, exposing filesystem paths, SSH availability, and host details to anyone on the local network.</div>
+        </div>
+        <div class="compare-them">
+          <div class="compare-label"><span class="icon-bad">✗</span> mDNS Broadcasting</div>
+          <div class="compare-detail">Broadcasts hostname, filesystem paths, CLI binary location, and SSH port to the local network. Makes reconnaissance trivial for attackers.</div>
+        </div>
+        <div class="compare-us">
+          <div class="compare-label"><span class="icon-good">✓</span> Invisible</div>
+          <div class="compare-detail">No mDNS, no broadcasting, no local discovery. With Cloudflare Tunnel, even the server IP is unknown. With Tailscale, only your authorized devices know it exists.</div>
+        </div>
+      </div>
+
+      <div class="compare-row">
+        <div class="compare-threat">
+          <div class="compare-label">📋 Audit Trail</div>
+          <div class="compare-detail">Organizations couldn't see what OpenClaw was doing. No logging of actions, no audit trail, no way to detect compromise.</div>
+        </div>
+        <div class="compare-them">
+          <div class="compare-label"><span class="icon-bad">✗</span> No Audit Logging</div>
+          <div class="compare-detail">No built-in audit trail. CrowdStrike and Microsoft both flagged the inability to monitor agent actions as a critical enterprise risk.</div>
+        </div>
+        <div class="compare-us">
+          <div class="compare-label"><span class="icon-good">✓</span> Complete Audit Log</div>
+          <div class="compare-detail">Every login, message, API call, and admin action logged with timestamp, IP, user ID, and action type. Exportable. Filterable by severity.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="section" style="border-top: 1px solid var(--border);">
+  <div class="container">
+    <div class="section-tag">Built-In Protection</div>
+    <h2>Security features, not afterthoughts</h2>
+
+    <div class="feat-grid">
+      <div class="feat-card">
+        <div class="feat-icon">🔐</div>
+        <div class="feat-name">AES Encryption at Rest</div>
+        <div class="feat-desc">Every conversation, every API key, every piece of user data encrypted in the database. Not plaintext. Not ever.</div>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon">🛡️</div>
+        <div class="feat-name">DLP Scanning</div>
+        <div class="feat-desc">Real-time scanning for SSNs, credit card numbers, API keys, and other sensitive data. Blocked before it hits the AI.</div>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon">🔑</div>
+        <div class="feat-name">MFA / TOTP</div>
+        <div class="feat-desc">Two-factor authentication with any authenticator app. Google Authenticator, Authy, 1Password — all work.</div>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon">🚫</div>
+        <div class="feat-name">Rate Limiting & Lockout</div>
+        <div class="feat-desc">Brute force protection on every endpoint. Account lockout after failed attempts. IP-level blocking.</div>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon">☁️</div>
+        <div class="feat-name">Cloudflare Tunnel</div>
+        <div class="feat-desc">Zero exposed ports. Traffic routes through Cloudflare's network. DDoS protection. Your server IP stays hidden.</div>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon">🔒</div>
+        <div class="feat-name">Tailscale VPN</div>
+        <div class="feat-desc">Optional WireGuard mesh network. Only your authorized devices can connect. Everyone else can't even find the server.</div>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon">📋</div>
+        <div class="feat-name">Audit Logging</div>
+        <div class="feat-desc">Every action logged — logins, messages, settings changes, admin actions. Full IP tracking with timestamps.</div>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon">🌐</div>
+        <div class="feat-name">Google OAuth</div>
+        <div class="feat-desc">No passwords to phish. Sign in with Google. Tokens handled server-side, never exposed to the browser.</div>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon">🧠</div>
+        <div class="feat-name">BYOK Model</div>
+        <div class="feat-desc">Your API key. Your conversations. We never see your data or your keys. Everything stays on your server.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section" style="border-top: 1px solid var(--border);">
+  <div class="container">
+    <div class="section-tag">Architecture</div>
+    <h2>Why it's structurally different</h2>
+    <div class="arch-block">
+      <span class="arch-dim">// OpenClaw's architecture</span><br>
+      User → Agent → <span style="color:var(--red)">Shell, Files, Email, Browser, APIs, Plugins</span><br>
+      <span class="arch-dim">// One prompt injection = full system compromise</span><br>
+      <br>
+      <span class="arch-dim">// MyTeam360's architecture</span><br>
+      User → <span class="arch-highlight">Cloudflare Tunnel</span> → <span class="arch-highlight">nginx</span> → <span class="arch-highlight">Auth + Rate Limit + DLP</span> → Agent → <span class="arch-highlight">Text Response</span><br>
+      <span class="arch-dim">// Agent can only produce text. No commands. No files. No network calls.</span><br>
+      <br>
+      <span class="arch-dim">// The fundamental difference:</span><br>
+      <span style="color:var(--red)">OpenClaw agents ACT on your system</span><br>
+      <span class="arch-highlight">MyTeam360 agents TALK to you</span><br>
+      <span class="arch-dim">// You can't hack a conversation into running malware.</span>
+    </div>
+  </div>
+</div>
+
+<div class="cta">
+  <div class="container">
+    <h2>Your AI team. Your server. Your keys.</h2>
+    <p>No marketplace malware. No exposed ports. No shell access. Just AI that works for you, securely.</p>
+    <a class="cta-btn" href="/app">Start Working →</a>
+  </div>
+</div>
+
+<div class="footer">
+  <div class="container">
+    <p>MyTeam360 — Security-first AI team platform. © 2025</p>
+  </div>
+</div>
+
+</body>
+</html>

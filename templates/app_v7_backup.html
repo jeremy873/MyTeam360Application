@@ -1,0 +1,242 @@
+<!--
+  ═══════════════════════════════════════════════════════════════════
+  MyTeam360 — AI Platform
+  Copyright © 2026 Praxis Holdings LLC. All rights reserved.
+
+  PROPRIETARY AND CONFIDENTIAL — TRADE SECRET
+  Report IP violations: legal@praxisholdingsllc.com
+  ═══════════════════════════════════════════════════════════════════
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>MyTeam360 — Dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Sora:wght@600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--purple:#A459F2;--purple-d:#7C3AED;--purple-g:rgba(164,89,242,0.15);--blue:#3B82F6;--teal:#06B6D4;--green:#22C55E;--amber:#F59E0B;--red:#EF4444;--bg:#0B0B12;--sidebar:#0F0F18;--card:#14141F;--card-h:#1A1A28;--surface:#1E1E2D;--text:#E2E8F0;--dim:#94A3B8;--w:#FFF;--border:rgba(255,255,255,0.06);--glow:rgba(164,89,242,0.2);--r:12px}
+*{margin:0;padding:0;box-sizing:border-box}body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(--text);display:flex;height:100vh;overflow:hidden}
+::selection{background:var(--purple);color:#fff}::-webkit-scrollbar{width:6px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:rgba(255,255,255,.1);border-radius:3px}
+
+/* SIDEBAR */
+.sb{width:260px;background:var(--sidebar);border-right:1px solid var(--border);display:flex;flex-direction:column;flex-shrink:0;transition:.3s}
+.sb-logo{padding:1.2rem 1.5rem;display:flex;align-items:center;gap:.6rem;font-weight:800;font-size:1.2rem;color:var(--w);border-bottom:1px solid var(--border)}
+.sb-logo img{height:28px;filter:drop-shadow(0 0 8px var(--glow))}
+.sb-search{padding:.8rem 1rem}.sb-search input{width:100%;background:var(--card);border:1px solid var(--border);border-radius:8px;padding:.55rem .8rem;color:var(--text);font-size:.85rem;outline:none;font-family:'Plus Jakarta Sans',sans-serif}.sb-search input:focus{border-color:var(--purple)}
+.sb-search input::placeholder{color:var(--dim)}.sb-hint{font-size:.65rem;color:var(--dim);text-align:right;margin-top:.2rem;padding-right:.2rem}
+.sb-nav{flex:1;overflow-y:auto;padding:.5rem 0}
+.sb-section{padding:.5rem 1rem .2rem;font-size:.65rem;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:var(--dim)}
+.sb-item{display:flex;align-items:center;gap:.7rem;padding:.55rem 1.2rem;margin:.1rem .5rem;border-radius:8px;cursor:pointer;transition:.15s;font-size:.9rem;color:var(--dim)}
+.sb-item:hover{background:var(--card);color:var(--text)}.sb-item.active{background:var(--purple-g);color:var(--purple);font-weight:600}
+.sb-item .icon{font-size:1rem;width:20px;text-align:center}
+.sb-item .badge{margin-left:auto;background:var(--red);color:#fff;font-size:.65rem;padding:.1rem .4rem;border-radius:50px;font-weight:700}
+.sb-bottom{padding:1rem;border-top:1px solid var(--border)}
+.sb-user{display:flex;align-items:center;gap:.6rem;padding:.5rem;border-radius:8px;cursor:pointer;transition:.15s}
+.sb-user:hover{background:var(--card)}
+.sb-avatar{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--purple),var(--teal));display:flex;align-items:center;justify-content:center;font-size:.8rem;font-weight:700;color:#fff}
+.sb-uname{font-size:.85rem;font-weight:500;color:var(--text)}.sb-uplan{font-size:.7rem;color:var(--dim)}
+
+/* MAIN AREA */
+.main{flex:1;display:flex;flex-direction:column;overflow:hidden}
+.topbar{padding:.8rem 2rem;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);background:var(--sidebar)}
+.topbar h1{font-size:1.3rem;font-weight:700;color:var(--w);font-family:'Sora',sans-serif}.topbar-right{display:flex;align-items:center;gap:1rem}
+.topbar-btn{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:.4rem .8rem;font-size:.8rem;color:var(--text);cursor:pointer;transition:.2s;font-family:'Plus Jakarta Sans',sans-serif;display:flex;align-items:center;gap:.4rem}
+.topbar-btn:hover{border-color:var(--purple);color:var(--w)}
+.content{flex:1;overflow-y:auto;padding:2rem}
+
+/* DASHBOARD GRID */
+.dash{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1.2rem;margin-bottom:2rem}
+.dash-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:1.5rem;transition:.2s}
+.dash-card:hover{border-color:var(--glow)}
+.dash-card .label{font-size:.75rem;color:var(--dim);font-weight:500;text-transform:uppercase;letter-spacing:.05em;margin-bottom:.3rem}
+.dash-card .val{font-size:2rem;font-weight:800;color:var(--w);font-family:'Sora',sans-serif}.dash-card .sub{font-size:.8rem;color:var(--dim);margin-top:.2rem}
+.dash-card .trend{font-size:.8rem;font-weight:600}.trend.up{color:var(--green)}.trend.dn{color:var(--red)}
+
+.briefing{grid-column:span 3;background:linear-gradient(135deg,rgba(164,89,242,.05),rgba(59,130,246,.05));border:1px solid rgba(164,89,242,.15)}
+.briefing h2{font-size:1.1rem;font-weight:700;color:var(--w);margin-bottom:1rem;display:flex;align-items:center;gap:.5rem}
+.brief-items{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem}
+.brief-item{padding:1rem;background:rgba(0,0,0,.2);border-radius:8px;border:1px solid var(--border)}
+.brief-item .bi-icon{font-size:1.2rem;margin-bottom:.4rem}.brief-item .bi-title{font-size:.8rem;font-weight:600;color:var(--w)}.brief-item .bi-val{font-size:.85rem;color:var(--dim);margin-top:.2rem}
+
+/* SECTIONS */
+.section-grid{display:grid;grid-template-columns:2fr 1fr;gap:1.2rem;margin-bottom:2rem}
+.card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:1.5rem}
+.card:hover{border-color:var(--glow)}
+.card h3{font-size:1rem;font-weight:700;color:var(--w);margin-bottom:1rem;display:flex;align-items:center;justify-content:space-between}
+.card h3 .more{font-size:.75rem;color:var(--purple);font-weight:500;cursor:pointer}
+
+/* ACTIVITY FEED */
+.feed-item{display:flex;align-items:flex-start;gap:.8rem;padding:.6rem 0;border-bottom:1px solid var(--border)}
+.feed-item:last-child{border:none}
+.feed-icon{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:.9rem;flex-shrink:0}
+.feed-text{font-size:.85rem;color:var(--text)}.feed-time{font-size:.7rem;color:var(--dim);margin-top:.1rem}
+
+/* TASKS */
+.task-item{display:flex;align-items:center;gap:.6rem;padding:.5rem 0;border-bottom:1px solid var(--border)}
+.task-item:last-child{border:none}
+.task-check{width:18px;height:18px;border-radius:4px;border:2px solid var(--border);cursor:pointer;flex-shrink:0;transition:.2s}
+.task-check:hover{border-color:var(--purple)}
+.task-text{font-size:.85rem;flex:1}.task-priority{font-size:.6rem;padding:.15rem .4rem;border-radius:4px;font-weight:600}
+.task-priority.high{background:rgba(239,68,68,.15);color:var(--red)}
+.task-priority.med{background:rgba(245,158,11,.15);color:var(--amber)}
+
+/* PIPELINE */
+.pipe-stage{display:flex;align-items:center;justify-content:space-between;padding:.5rem 0;border-bottom:1px solid var(--border)}
+.pipe-stage:last-child{border:none}
+.pipe-name{font-size:.85rem;display:flex;align-items:center;gap:.5rem}
+.pipe-dot{width:8px;height:8px;border-radius:50%}
+.pipe-val{font-size:.85rem;font-weight:600;color:var(--w)}.pipe-count{font-size:.75rem;color:var(--dim)}
+
+/* QUICK CAPTURE */
+.capture{position:fixed;bottom:2rem;right:2rem;z-index:50}
+.capture-btn{width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,var(--purple),var(--blue));border:none;color:#fff;font-size:1.5rem;cursor:pointer;box-shadow:0 4px 20px var(--glow);transition:.3s;display:flex;align-items:center;justify-content:center}
+.capture-btn:hover{transform:scale(1.1);box-shadow:0 8px 30px var(--glow)}
+
+/* HEALTH INDICATORS */
+.health{display:flex;gap:.5rem;margin-top:.5rem}
+.health span{font-size:.75rem;padding:.2rem .5rem;border-radius:50px;font-weight:600}
+.health .gr{background:rgba(34,197,94,.15);color:var(--green)}.health .yl{background:rgba(245,158,11,.15);color:var(--amber)}.health .rd{background:rgba(239,68,68,.15);color:var(--red)}
+
+/* RESPONSIVE */
+@media(max-width:768px){.sb{display:none}.dash{grid-template-columns:1fr}.briefing{grid-column:span 1}.brief-items{grid-template-columns:1fr}.section-grid{grid-template-columns:1fr}}
+</style></head>
+<body>
+<!-- SIDEBAR -->
+<div class="sb">
+<div class="sb-logo"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 44 44'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' stop-color='%237C3AED'/%3E%3Cstop offset='100%25' stop-color='%23A459F2'/%3E%3C/linearGradient%3E%3C/defs%3E%3Ccircle cx='22' cy='22' r='19' fill='none' stroke='url(%23g)' stroke-width='3.5'/%3E%3Cpath d='M22 7 A15 15 0 0 1 37 22' fill='none' stroke='url(%23g)' stroke-width='3.5' stroke-linecap='round'/%3E%3Ccircle cx='22' cy='22' r='9' fill='none' stroke='url(%23g)' stroke-width='2.5'/%3E%3C/svg%3E" alt="MyTeam360">MyTeam360</div>
+<div class="sb-search"><input type="text" placeholder="Search everything... ⌘K"><div class="sb-hint">⌘K to search</div></div>
+<div class="sb-nav">
+<div class="sb-section">Home</div>
+<div class="sb-item active"><span class="icon">☀️</span>Dashboard</div>
+<div class="sb-item"><span class="icon">⚡</span>Daily Briefing<span class="badge">3</span></div>
+<div class="sb-section">AI</div>
+<div class="sb-item"><span class="icon">💬</span>Conversations</div>
+<div class="sb-item"><span class="icon">🤖</span>Roundtables</div>
+<div class="sb-item"><span class="icon">🧠</span>AI Agents</div>
+<div class="sb-section">Business</div>
+<div class="sb-item"><span class="icon">👥</span>CRM<span class="badge">2</span></div>
+<div class="sb-item"><span class="icon">🧾</span>Invoicing</div>
+<div class="sb-item"><span class="icon">📋</span>Tasks</div>
+<div class="sb-item"><span class="icon">📱</span>Social Media</div>
+<div class="sb-item"><span class="icon">🎯</span>Goals</div>
+<div class="sb-item"><span class="icon">💰</span>Expenses</div>
+<div class="sb-item"><span class="icon">✉️</span>Email</div>
+<div class="sb-section">Intelligence</div>
+<div class="sb-item"><span class="icon">📊</span>Analytics</div>
+<div class="sb-item"><span class="icon">💚</span>Health Scores</div>
+<div class="sb-item"><span class="icon">📈</span>Forecast</div>
+<div class="sb-section">More</div>
+<div class="sb-item"><span class="icon">📝</span>Notes</div>
+<div class="sb-item"><span class="icon">📅</span>Booking Links</div>
+<div class="sb-item"><span class="icon">✈️</span>Flights</div>
+<div class="sb-item"><span class="icon">🔄</span>Automations</div>
+</div>
+<div class="sb-bottom">
+<div class="sb-user"><div class="sb-avatar">JB</div><div><div class="sb-uname">Jeremy Brown</div><div class="sb-uplan">Pro Plan</div></div></div>
+</div>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+<div class="topbar">
+<h1>☀️ Good morning, Jeremy</h1>
+<div class="topbar-right">
+<div class="topbar-btn">⚡ Quick Capture</div>
+<div class="topbar-btn">🔔 3</div>
+<div class="topbar-btn">⚙️</div>
+</div>
+</div>
+<div class="content">
+
+<!-- BRIEFING -->
+<div class="dash">
+<div class="dash-card briefing">
+<h2>☀️ Wednesday Briefing — Client Day</h2>
+<div class="brief-items">
+<div class="brief-item"><div class="bi-icon">📅</div><div class="bi-title">4 Meetings Today</div><div class="bi-val">Next: Henderson showing at 2:00 PM<br>Location: 856 Oak Street</div></div>
+<div class="brief-item"><div class="bi-icon">🌤️</div><div class="bi-title">72°F Sunny</div><div class="bi-val">Perfect for showings<br>Leave by 1:25 PM (35 min drive)</div></div>
+<div class="brief-item"><div class="bi-icon">✈️</div><div class="bi-title">SW1234 On Time</div><div class="bi-val">Departs 6:15 PM → Phoenix<br>Gate B12 · Terminal 1</div></div>
+<div class="brief-item"><div class="bi-icon">📬</div><div class="bi-title">7 Unread Emails</div><div class="bi-val">2 from clients, 1 from title company<br>1 from Sarah Johnson (counter-offer)</div></div>
+<div class="brief-item"><div class="bi-icon">🔔</div><div class="bi-title">Smart Reminders</div><div class="bi-val">🔴 Oak Street deal — no activity 8 days<br>🟡 Follow up with Mike Smith</div></div>
+<div class="brief-item"><div class="bi-icon">🍽️</div><div class="bi-title">Client Dinner Tonight</div><div class="bi-val">It's Client Day — you prefer Italian, $$$ range<br>Carbone has availability at 7:30 PM</div></div>
+</div>
+</div>
+</div>
+
+<!-- STATS ROW -->
+<div class="dash">
+<div class="dash-card"><div class="label">Pipeline Value</div><div class="val">$285K</div><div class="sub">6 active deals</div><div class="trend up">↑ 12% this month</div></div>
+<div class="dash-card"><div class="label">Revenue (March)</div><div class="val">$12,500</div><div class="sub">3 invoices paid</div><div class="trend up">↑ 23% vs Feb</div></div>
+<div class="dash-card"><div class="label">Tasks Completed</div><div class="val">14</div><div class="sub">3 overdue, 7 due today</div><div class="trend dn">3 overdue</div></div>
+</div>
+
+<!-- FEED + TASKS + PIPELINE -->
+<div class="section-grid">
+<div class="card">
+<h3>Recent Activity <span class="more">View All →</span></h3>
+<div class="feed-item"><div class="feed-icon" style="background:rgba(34,197,94,.1)">💰</div><div><div class="feed-text">Invoice INV-0042 paid by Acme Corp — <strong>$4,500</strong></div><div class="feed-time">2 hours ago</div></div></div>
+<div class="feed-item"><div class="feed-icon" style="background:rgba(164,89,242,.1)">🤝</div><div><div class="feed-text">Deal "Henderson Property" moved to <strong>Negotiation</strong></div><div class="feed-time">3 hours ago</div></div></div>
+<div class="feed-item"><div class="feed-icon" style="background:rgba(59,130,246,.1)">📱</div><div><div class="feed-text">5 social posts published across LinkedIn, Instagram, Twitter</div><div class="feed-time">5 hours ago</div></div></div>
+<div class="feed-item"><div class="feed-icon" style="background:rgba(6,182,212,.1)">📞</div><div><div class="feed-text">Call logged with Sarah Johnson — counter-offer discussed</div><div class="feed-time">Yesterday</div></div></div>
+<div class="feed-item"><div class="feed-icon" style="background:rgba(245,158,11,.1)">🎯</div><div><div class="feed-text">Q2 Revenue goal updated — now at <strong>68%</strong></div><div class="feed-time">Yesterday</div></div></div>
+</div>
+<div style="display:flex;flex-direction:column;gap:1.2rem">
+<div class="card">
+<h3>Tasks Due Today <span class="more">Board →</span></h3>
+<div class="task-item"><div class="task-check"></div><div class="task-text">Follow up with Henderson about offer</div><span class="task-priority high">HIGH</span></div>
+<div class="task-item"><div class="task-check"></div><div class="task-text">Send listing photos to marketing</div><span class="task-priority med">MED</span></div>
+<div class="task-item"><div class="task-check"></div><div class="task-text">Review closing docs for 742 Elm</div><span class="task-priority high">HIGH</span></div>
+<div class="task-item"><div class="task-check"></div><div class="task-text">Prepare CMA for new listing</div><span class="task-priority med">MED</span></div>
+</div>
+<div class="card">
+<h3>Pipeline <span class="more">CRM →</span></h3>
+<div class="pipe-stage"><div class="pipe-name"><div class="pipe-dot" style="background:var(--dim)"></div>New Lead</div><div><span class="pipe-val">$45K</span> <span class="pipe-count">(2)</span></div></div>
+<div class="pipe-stage"><div class="pipe-name"><div class="pipe-dot" style="background:var(--blue)"></div>Showing</div><div><span class="pipe-val">$85K</span> <span class="pipe-count">(1)</span></div></div>
+<div class="pipe-stage"><div class="pipe-name"><div class="pipe-dot" style="background:var(--purple)"></div>Negotiation</div><div><span class="pipe-val">$130K</span> <span class="pipe-count">(2)</span></div></div>
+<div class="pipe-stage"><div class="pipe-name"><div class="pipe-dot" style="background:var(--green)"></div>Under Contract</div><div><span class="pipe-val">$25K</span> <span class="pipe-count">(1)</span></div></div>
+<div class="health"><span class="gr">🟢 12 Healthy</span><span class="yl">🟡 5 At Risk</span><span class="rd">🔴 3 Cold</span></div>
+</div>
+</div>
+</div>
+
+<!-- FAVORITES -->
+<div class="card" style="margin-bottom:2rem">
+<h3>⭐ Pinned <span class="more">Edit Pins →</span></h3>
+<div style="display:flex;gap:.8rem;flex-wrap:wrap">
+<div class="topbar-btn">👤 Sarah Johnson</div>
+<div class="topbar-btn">🤝 Henderson Deal</div>
+<div class="topbar-btn">🧾 INV-0043 (Draft)</div>
+<div class="topbar-btn">📋 Closing Checklist</div>
+<div class="topbar-btn">📅 30-min Call Link</div>
+</div>
+</div>
+
+</div>
+</div>
+
+<!-- QUICK CAPTURE FAB -->
+<div class="capture"><button class="capture-btn" title="Quick Capture (⌘.)">⚡</button></div>
+
+<script>
+// Sidebar active state
+document.querySelectorAll('.sb-item').forEach(item=>{
+    item.addEventListener('click',()=>{
+        document.querySelectorAll('.sb-item').forEach(i=>i.classList.remove('active'));
+        item.classList.add('active');
+    });
+});
+// Task checkbox toggle
+document.querySelectorAll('.task-check').forEach(c=>{
+    c.addEventListener('click',()=>{
+        c.style.background=c.style.background?'':'var(--green)';
+        c.style.borderColor=c.style.borderColor==='var(--green)'?'':'var(--green)';
+        const text=c.nextElementSibling;
+        text.style.textDecoration=text.style.textDecoration?'':'line-through';
+        text.style.opacity=text.style.opacity==='0.4'?'1':'0.4';
+    });
+});
+// Search focus
+document.addEventListener('keydown',e=>{if((e.metaKey||e.ctrlKey)&&e.key==='k'){e.preventDefault();document.querySelector('.sb-search input').focus()}});
+</script>
+</body></html>

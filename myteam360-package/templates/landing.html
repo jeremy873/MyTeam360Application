@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MyTeam360 — Your AI Team</title>
+<meta name="description" content="18 AI agents. 8 departments. One platform. Your complete AI team — secured, private, and ready to work.">
+<meta property="og:title" content="MyTeam360 — Your AI Team">
+<meta property="og:description" content="18 AI agents across 8 departments. Enterprise security. Bring your own AI keys. Your team is ready.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://myteam360.ai">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+/* ══════════════════════════════════════════════════════════════ */
+/*  TOKENS                                                       */
+/* ══════════════════════════════════════════════════════════════ */
+:root {
+  --void: #030306;
+  --deep: #08080f;
+  --surface: #0e0e1a;
+  --surface2: #141425;
+  --surface3: #1a1a30;
+  --border: rgba(255,255,255,0.05);
+  --border2: rgba(255,255,255,0.1);
+  --text: #f0f0f8;
+  --text2: #aaaacc;
+  --text3: #666688;
+  --text4: #3a3a55;
+  --accent: #8b5cf6;
+  --accent2: #a78bfa;
+  --accent-d: #6d28d9;
+  --accent-glow: rgba(139,92,246,0.2);
+  --green: #34d399;
+  --red: #fb7185;
+  --amber: #fbbf24;
+  --blue: #60a5fa;
+  --pink: #f472b6;
+  --cyan: #22d3ee;
+  --display: 'Syne', sans-serif;
+  --body: 'DM Sans', sans-serif;
+  --mono: 'JetBrains Mono', monospace;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--void); color: var(--text); font-family: var(--body);
+  -webkit-font-smoothing: antialiased; overflow-x: hidden;
+}
+::selection { background: var(--accent); color: white; }
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--void); }
+::-webkit-scrollbar-thumb { background: var(--surface3); border-radius: 6px; }
+a { color: var(--accent2); text-decoration: none; }
+
+.wrap { max-width: 1200px; margin: 0 auto; padding: 0 40px; }
+
+/* ══════════════════════════════════════════════════════════════ */
+/*  SCROLL REVEAL                                                */
+/* ══════════════════════════════════════════════════════════════ */
+.reveal {
+  opacity: 0; transform: translateY(40px);
+  transition: opacity 0.8s cubic-bezier(0.4,0,0.2,1), transform 0.8s cubic-bezier(0.4,0,0.2,1);
+}
+.reveal.visible { opacity: 1; transform: translateY(0); }
+.reveal.d1 { transition-delay: 0.1s; }
+.reveal.d2 { transition-delay: 0.2s; }
+.reveal.d3 { transition-delay: 0.3s; }
+.reveal.d4 { transition-delay: 0.4s; }
+.reveal.d5 { transition-delay: 0.5s; }
+
+/* ══════════════════════════════════════════════════════════════ */
+/*  NAV                                                          */
+/* ══════════════════════════════════════════════════════════════ */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  padding: 20px 40px; display: flex; align-items: center;
+  background: rgba(3,3,6,0.8); backdrop-filter: blur(20px) saturate(1.5);
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.3s;
+}
+nav.scrolled { border-color: var(--border); }
+
+.nav-orb {
+  width: 28px; height: 28px; border-radius: 50%;
+  background: radial-gradient(circle at 38% 35%, #c4b5fd, #7c3aed, #4c1d95);
+  box-shadow: 0 0 20px rgba(139,92,246,0.4);
+  animation: orbPulse 4s ease-in-out infinite;
+  margin-right: 14px;
+}
+@keyframes orbPulse {
+  0%,100% { transform: scale(1); } 50% { transform: scale(1.08); }
+}
+
+.nav-brand { font-family: var(--display); font-weight: 800; font-size: 18px; letter-spacing: -0.5px; }
+.nav-links { margin-left: auto; display: flex; gap: 32px; align-items: center; }
+.nav-link {
+  font-size: 13px; color: var(--text3); transition: color 0.3s;
+  font-weight: 500; letter-spacing: 0.3px;
+}
+.nav-link:hover { color: var(--text); }
+.nav-cta {
+  padding: 10px 24px; border-radius: 10px; font-size: 13px; font-weight: 600;
+  background: var(--accent); color: white; transition: all 0.3s;
+  font-family: var(--body);
+}
+.nav-cta:hover { background: var(--accent-d); transform: translateY(-1px); box-shadow: 0 4px 20px rgba(139,92,246,0.4); }
+
+/* ══════════════════════════════════════════════════════════════ */
+/*  HERO                                                         */
+/* ══════════════════════════════════════════════════════════════ */
+.hero {
+  min-height: 100vh; display: flex; flex-direction: column;
+  align-items: center; justify-content: center; text-align: center;
+  position: relative; overflow: hidden;
+  padding: 120px 40px 80px;
+}
+
+/* Ambient glow */
+.hero::before {
+  content: ''; position: absolute;
+  width: 800px; height: 800px; top: -200px;
+  background: radial-gradient(circle, rgba(139,92,246,0.06) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero::after {
+  content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 200px;
+  background: linear-gradient(to top, var(--void), transparent);
+  pointer-events: none;
+}
+
+/* Particle canvas */
+#hero-particles {
+  position: absolute; inset: 0; pointer-events: none;
+}
+
+/* The Orb */
+.hero-orb {
+  position: relative; width: 180px; height: 180px;
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 56px;
+}
+.hero-orb-core {
+  width: 110px; height: 110px; border-radius: 50%;
+  background: radial-gradient(circle at 35% 33%, #ddd6fe, #a78bfa 30%, #7c3aed 55%, #4c1d95 80%, #2e1065);
+  box-shadow: 0 0 80px rgba(139,92,246,0.5), 0 0 200px rgba(139,92,246,0.15), inset 0 0 40px rgba(255,255,255,0.1);
+  animation: heroOrb 6s ease-in-out infinite;
+}
+@keyframes heroOrb {
+  0%,100% { transform: scale(1); filter: brightness(1); }
+  50% { transform: scale(1.08); filter: brightness(1.2); }
+}
+.hero-orb-ring {
+  position: absolute; border-radius: 50%; border: 1px solid rgba(139,92,246,0.12);
+}
+.hero-orb-ring:nth-child(1) { width: 140px; height: 140px; animation: spin 14s linear infinite; }
+.hero-orb-ring:nth-child(2) { width: 170px; height: 170px; animation: spin 20s linear infinite reverse; border-color: rgba(139,92,246,0.06); }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* Floating dots on rings */
+.ring-dot {
+  position: absolute; width: 5px; height: 5px; border-radius: 50%;
+  background: var(--accent2); box-shadow: 0 0 10px rgba(167,139,250,0.6);
+}
+
+.hero-tag {
+  font-family: var(--mono); font-size: 12px; color: var(--accent2);
+  text-transform: uppercase; letter-spacing: 5px; margin-bottom: 28px;
+  animation: fadeIn 1s ease 0.3s both;
+}
+
+.hero-h1 {
+  font-family: var(--display); font-size: clamp(48px, 8vw, 96px);
+  font-weight: 800; letter-spacing: -4px; line-height: 0.95;
+  margin-bottom: 28px;
+  animation: fadeIn 1s ease 0.5s both;
+}
+.hero-h1 span {
+  background: linear-gradient(135deg, #fff 0%, #e0d4ff 30%, #a78bfa 60%, #7c3aed 100%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+
+.hero-sub {
+  font-size: 20px; color: var(--text2); max-width: 560px;
+  line-height: 1.7; font-weight: 300; margin-bottom: 48px;
+  animation: fadeIn 1s ease 0.7s both;
+}
+
+.hero-actions { display: flex; gap: 16px; flex-wrap: wrap; justify-content: center; animation: fadeIn 1s ease 0.9s both; }
+.hero-btn {
+  padding: 18px 40px; border-radius: 14px; font-size: 16px; font-weight: 600;
+  font-family: var(--body); cursor: pointer; transition: all 0.3s; border: none;
+}
+.hero-primary {
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-d) 100%);
+  color: white; box-shadow: 0 4px 32px rgba(139,92,246,0.35);
+}
+.hero-primary:hover { transform: translateY(-3px); box-shadow: 0 12px 48px rgba(139,92,246,0.5); }
+.hero-secondary {
+  background: var(--surface2); color: var(--text2); border: 1px solid var(--border2);
+}
+.hero-secondary:hover { background: var(--surface3); color: var(--text); border-color: var(--accent); }
+
+.hero-scroll {
+  position: absolute; bottom: 40px;
+  font-size: 12px; color: var(--text4); letter-spacing: 3px; text-transform: uppercase;
+  font-family: var(--mono);
+  animation: scrollBounce 2.5s ease-in-out infinite;
+}
+@keyframes scrollBounce { 0%,100% { transform: translateY(0); } 50% { transform: translateY(8px); } }
+
+@keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+/* ══════════════════════════════════════════════════════════════ */
+/*  SOCIAL PROOF BAR                                             */
+/* ══════════════════════════════════════════════════════════════ */
+.proof {
+  padding: 40px 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+  text-align: center;
+}
+.proof-stats { display: flex; justify-content: center; gap: 64px; flex-wrap: wrap; }
+.proof-stat { }
+.proof-num { font-family: var(--display); font-size: 42px; font-weight: 800; letter-spacing: -2px; }
+.proof-num span { color: var(--accent2); }
+.proof-label { font-size: 13px; color: var(--text3); margin-top: 4px; }
+
+/* ══════════════════════════════════════════════════════════════ */
+/*  SECTION: THE VISION                                          */
+/* ══════════════════════════════════════════════════════════════ */
+.sec { padding: 120px 0; position: relative; }
+.sec-tag {
+  font-family: var(--mono); font-size: 11px; color: var(--accent2);
+  text-transform: uppercase; letter-spacing: 4px; margin-bottom: 16px;
+}
+.sec-h2 {
+  font-family: var(--display); font-size: clamp(32px, 4vw, 52px);
+  font-weight: 800; letter-spacing: -2px; line-height: 1.1; margin-bottom: 20px;
+}
+.sec-desc { font-size: 17px; color: var(--text2); max-width: 560px; line-height: 1.7; font-weight: 300; }
+
+.vision-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 60px;
+  align-items: center; margin-top: 0;
+}
+.vision-left { }
+.vision-right { position: relative; }
+
+.vision-card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 20px; padding: 32px; margin-bottom: 16px;
+  transition: all 0.4s; cursor: default;
+}
+.vision-card:hover { border-color: var(--border2); transform: translateX(8px); }
+.vision-icon { font-size: 28px; margin-bottom: 12px; }
+.vision-card h3 { font-family: var(--display); font-size: 18px; font-weight: 700; margin-bottom: 8px; }
+.vision-card p { font-size: 13px; color: var(--text3); line-height: 1.6; }
+
+/* ══════════════════════════════════════════════════════════════ */
+/*  SECTION: DEPARTMENTS                                         */
+/* ══════════════════════════════════════════════════════════════ */
+.depts-header { text-align: center; margin-bottom: 64px; }
+.depts-header .sec-desc { margin: 0 auto; }
+
+.dept-scroll {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+.dept-tile {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 20px; padding: 28px; text-align: center;
+  transition: all 0.4s; position: relative; overflow: hidden;
+}
+.dept-tile::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  background: var(--dept-accent, var(--accent)); opacity: 0;
+  transition: opacity 0.4s;
+}
+.dept-tile:hover { border-color: var(--dept-accent, var(--accent)); transform: translateY(-6px);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.3), 0 0 40px var(--dept-glow, rgba(139,92,246,0.1)); }
+.dept-tile:hover::before { opacity: 1; }
+
+.dept-emoji { font-size: 36px; margin-bottom: 14px; display: block; }
+.dept-tile h3 { font-family: var(--display); font-size: 16px; font-weight: 700; margin-bottom: 4px; }
+.dept-count { font-size: 12px; color: var(--text3); margin-bottom: 12px; }
+.dept-agents { font-size: 11px; color: var(--text4); line-height: 1.6; }
+
+/* ══════════════════════════════════════════════════════════════ */
+/*  SECTION: HOW IT WORKS                                        */
+/* ══════════════════════════════════════════════════════════════ */
+.steps-header { text-align: center; margin-bottom: 64px; }
+.steps-header .sec-desc { margin: 0 auto; }
+
+.steps-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.step-card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 20px; padding: 40px 32px; text-align: center;
+  transition: all 0.4s; position: relative;
+}
+.step-card:hover { border-color: var(--border2); transform: translateY(-4px); }
+
+.step-num {
+  font-family: var(--display); font-size: 64px; font-weight: 800;
+  color: var(--surface3); line-height: 1; margin-bottom: 20px;
+  background: linear-gradient(180deg, var(--text4) 0%, var(--surface3) 100%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+.step-card h3 { font-family: var(--display); font-size: 20px; font-weight: 700; margin-bottom: 10px; }
+.step-card p { font-size: 14px; color: var(--text3); line-height: 1.7; }
+
+.step-connector {
+  position: absolute; right: -24px; top: 50%; width: 24px; height: 2px;
+  background: linear-gradient(90deg, var(--border2), transparent);
+}
+
+/* ══════════════════════════════════════════════════════════════ */
+/*  SECTION: SECURITY                                            */
+/* ══════════════════════════════════════════════════════════════ */
+.sec-security {
+  background: linear-gradient(180deg, var(--void) 0%, rgba(139,92,246,0.03) 50%, var(--void) 100%);
+  border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+}
+
+.security-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 60px;
+  align-items: start; margin-top: 48px;
+}
+
+.sec-threat {
+  background: rgba(251,113,133,0.04); border: 1px solid rgba(251,113,133,0.1);
+  border-radius: 16px; padding: 24px; margin-bottom: 12px;
+}
+.sec-threat h4 { font-size: 14px; font-weight: 600; color: var(--red); margin-bottom: 6px; display: flex; align-items: center; gap: 8px; }
+.sec-threat p { font-size: 12px; color: var(--text3); line-height: 1.6; }
+
+.sec-solution {
+  background: rgba(52,211,153,0.04); border: 1px solid rgba(52,211,153,0.1);
+  border-radius: 16px; padding: 24px; margin-bottom: 12px;
+}
+.sec-solution h4 { font-size: 14px; font-weight: 600; color: var(--green); margin-bottom: 6px; display: flex; align-items: center; gap: 8px; }
+.sec-solution p { font-size: 12px; color: var(--text3); line-height: 1.6; }
+
+.security-link {
+  display: inline-flex; align-items: center; gap: 8px;
+  margin-top: 24px; font-size: 14px; font-weight: 600; color: var(--accent2);
+  transition: gap 0.3s;
+}
+.security-link:hover { gap: 12px; }
+
+/* ══════════════════════════════════════════════════════════════ */
+/*  SECTION: FEATURES                                            */
+/* ══════════════════════════════════════════════════════════════ */
+.feat-header { text-align: center; margin-bottom: 64px; }
+.feat-header .sec-desc { margin: 0 auto; }
+
+.feat-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
+}
+.feat-card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 18px; padding: 28px; transition: all 0.4s;
+}
+.feat-card:hover { border-color: var(--border2); transform: translateY(-3px); }
+.feat-icon { font-size: 24px; margin-bottom: 14px; }
+.feat-card h3 { font-family: var(--display); font-size: 15px; font-weight: 700; margin-bottom: 8px; }
+.feat-card p { font-size: 13px; color: var(--text3); line-height: 1.6; }
+
+/* ══════════════════════════════════════════════════════════════ */
+/*  SECTION: BYOK                                                */
+/* ══════════════════════════════════════════════════════════════ */
+.byok-split { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+
+.byok-providers { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+.byok-chip {
+  padding: 12px 22px; border-radius: 14px;
+  background: var(--surface); border: 1px solid var(--border);
+  font-size: 14px; font-weight: 500; transition: all 0.3s;
+  display: flex; align-items: center; gap: 10px;
+}
+.byok-chip:hover { border-color: var(--border2); background: var(--surface2); }
+.byok-chip-dot { width: 10px; height: 10px; border-radius: 50%; }
+
+.byok-visual {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 20px; padding: 32px; font-family: var(--mono); font-size: 13px;
+  line-height: 2; color: var(--text3);
+}
+.byok-visual .hl { color: var(--green); }
+.byok-visual .dim { color: var(--text4); }
+.byok-visual .key { color: var(--accent2); }
+
+/* ══════════════════════════════════════════════════════════════ */
+/*  CTA                                                          */
+/* ══════════════════════════════════════════════════════════════ */
+.cta {
+  text-align: center; padding: 140px 40px;
+  position: relative;
+}
+.cta::before {
+  content: ''; position: absolute; width: 600px; height: 600px;
+  top: 50%; left: 50%; transform: translate(-50%, -50%);
+  background: radial-gradient(circle, rgba(139,92,246,0.06) 0%, transparent 70%);
+  pointer-events: none;
+}
+.cta-h2 {
+  font-family: var(--display); font-size: clamp(36px, 5vw, 60px);
+  font-weight: 800; letter-spacing: -2.5px; line-height: 1.05; margin-bottom: 20px;
+}
+.cta-h2 span {
+  background: linear-gradient(135deg, #fff 0%, #c4b5fd 50%, #7c3aed 100%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+.cta-sub { font-size: 18px; color: var(--text3); margin-bottom: 40px; }
+.cta-btn {
+  display: inline-block; padding: 20px 56px; border-radius: 16px;
+  background: linear-gradient(135deg, var(--accent), var(--accent-d));
+  color: white; font-family: var(--body); font-size: 18px; font-weight: 700;
+  text-decoration: none; transition: all 0.3s;
+  box-shadow: 0 4px 40px rgba(139,92,246,0.35);
+}
+.cta-btn:hover { transform: translateY(-4px); box-shadow: 0 12px 60px rgba(139,92,246,0.5); }
+
+/* ══════════════════════════════════════════════════════════════ */
+/*  FOOTER                                                       */
+/* ══════════════════════════════════════════════════════════════ */
+footer {
+  border-top: 1px solid var(--border); padding: 40px 0;
+}
+.footer-row { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
+.footer-brand { display: flex; align-items: center; gap: 10px; }
+.footer-orb {
+  width: 18px; height: 18px; border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #a78bfa, #6d28d9);
+}
+.footer-name { font-family: var(--display); font-weight: 700; font-size: 15px; }
+.footer-links { display: flex; gap: 24px; }
+.footer-link { font-size: 13px; color: var(--text3); transition: color 0.3s; }
+.footer-link:hover { color: var(--text); }
+.footer-copy { width: 100%; text-align: center; font-size: 11px; color: var(--text4); margin-top: 24px; }
+
+/* ══════════════════════════════════════════════════════════════ */
+/*  RESPONSIVE                                                   */
+/* ══════════════════════════════════════════════════════════════ */
+@media (max-width: 1024px) {
+  .dept-scroll { grid-template-columns: repeat(2, 1fr); }
+  .feat-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 768px) {
+  .wrap { padding: 0 24px; }
+  nav { padding: 16px 24px; }
+  .nav-links { gap: 16px; }
+  .nav-link { display: none; }
+  .hero { padding: 100px 24px 60px; }
+  .hero-h1 { letter-spacing: -2px; }
+  .vision-grid, .security-grid, .byok-split { grid-template-columns: 1fr; gap: 32px; }
+  .dept-scroll { grid-template-columns: 1fr; }
+  .steps-row { grid-template-columns: 1fr; }
+  .feat-grid { grid-template-columns: 1fr; }
+  .proof-stats { gap: 32px; }
+  .step-connector { display: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- ════════ NAV ════════ -->
+<nav id="nav">
+  <div class="nav-orb"></div>
+  <div class="nav-brand">MyTeam360</div>
+  <div class="nav-links">
+    <a class="nav-link" href="#team">Team</a>
+    <a class="nav-link" href="#security">Security</a>
+    <a class="nav-link" href="#pricing">Pricing</a>
+    <a class="nav-link" href="#features">Features</a>
+    <a class="nav-cta" href="/app">Launch App →</a>
+  </div>
+</nav>
+
+<!-- ════════ HERO ════════ -->
+<section class="hero">
+  <canvas id="hero-particles"></canvas>
+
+  <div class="hero-orb">
+    <div class="hero-orb-ring"><div class="ring-dot" style="top:0;left:50%;transform:translate(-50%,-50%)"></div></div>
+    <div class="hero-orb-ring"><div class="ring-dot" style="bottom:10%;right:0;transform:translate(50%,50%)"></div></div>
+    <div class="hero-orb-core"></div>
+  </div>
+
+  <div class="hero-tag">Now Available</div>
+  <h1 class="hero-h1"><span>Your AI Team<br>Is Ready</span></h1>
+  <p class="hero-sub">18 specialized AI agents across 8 departments. One platform. Enterprise security. Bring your own AI keys. Start working in 30 seconds.</p>
+  <div class="hero-actions">
+    <a class="hero-btn hero-primary" href="/app">Get Started — Free</a>
+    <a class="hero-btn hero-secondary" href="#team">Meet the Team ↓</a>
+  </div>
+  <div class="hero-scroll">scroll</div>
+</section>
+
+<!-- ════════ PROOF ════════ -->
+<section class="proof">
+  <div class="wrap">
+    <div class="proof-stats">
+      <div class="proof-stat reveal"><div class="proof-num"><span>18</span></div><div class="proof-label">AI Agents</div></div>
+      <div class="proof-stat reveal d1"><div class="proof-num"><span>8</span></div><div class="proof-label">Departments</div></div>
+      <div class="proof-stat reveal d2"><div class="proof-num"><span>213</span></div><div class="proof-label">API Endpoints</div></div>
+      <div class="proof-stat reveal d3"><div class="proof-num"><span>0</span></div><div class="proof-label">Open Ports</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════ VISION ════════ -->
+<section class="sec" id="vision">
+  <div class="wrap">
+    <div class="vision-grid">
+      <div class="vision-left">
+        <div class="sec-tag reveal">The Vision</div>
+        <h2 class="sec-h2 reveal d1">One person.<br>Eighteen minds.</h2>
+        <p class="sec-desc reveal d2">Stop switching between ChatGPT, Jasper, and five other AI tools. MyTeam360 gives you an entire company's worth of AI specialists — sales, marketing, legal, finance, HR, engineering — all under one roof, all ready to work.</p>
+      </div>
+      <div class="vision-right">
+        <div class="vision-card reveal d1">
+          <div class="vision-icon">⚡</div>
+          <h3>Instant Expertise</h3>
+          <p>Need a contract reviewed? Ask your legal agent. Sales email? Your sales agent has the tone. Financial forecast? Finance is on it. Each agent knows its domain.</p>
+        </div>
+        <div class="vision-card reveal d2">
+          <div class="vision-icon">🎤</div>
+          <h3>Voice Chat with Personality</h3>
+          <p>Every agent has a unique voice. Talk to them out loud with text-to-speech powered by OpenAI, ElevenLabs, or Google. They talk back.</p>
+        </div>
+        <div class="vision-card reveal d3">
+          <div class="vision-icon">🔐</div>
+          <h3>Your Server. Your Keys. Your Data.</h3>
+          <p>Self-hosted. Bring your own API keys. We never see your conversations, your keys, or your data. Everything stays on your machine.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════ DEPARTMENTS ════════ -->
+<section class="sec" id="team" style="border-top:1px solid var(--border)">
+  <div class="wrap">
+    <div class="depts-header">
+      <div class="sec-tag reveal">Your Team</div>
+      <h2 class="sec-h2 reveal d1">8 departments. Always on.</h2>
+      <p class="sec-desc reveal d2">Each department has specialized agents with deep expertise. They collaborate, cross-reference, and deliver work that a solo AI can't match.</p>
+    </div>
+
+    <div class="dept-scroll">
+      <div class="dept-tile reveal" style="--dept-accent:#8b5cf6;--dept-glow:rgba(139,92,246,0.15)">
+        <span class="dept-emoji">👔</span><h3>Executive</h3><div class="dept-count">2 agents</div>
+        <div class="dept-agents">Chief AI Officer · Strategic Advisor</div>
+      </div>
+      <div class="dept-tile reveal d1" style="--dept-accent:#3b82f6;--dept-glow:rgba(59,130,246,0.15)">
+        <span class="dept-emoji">🎯</span><h3>Sales</h3><div class="dept-count">3 agents</div>
+        <div class="dept-agents">Sales Director · SDR · Account Manager</div>
+      </div>
+      <div class="dept-tile reveal d2" style="--dept-accent:#ec4899;--dept-glow:rgba(236,72,153,0.15)">
+        <span class="dept-emoji">📢</span><h3>Marketing</h3><div class="dept-count">3 agents</div>
+        <div class="dept-agents">CMO · Content Writer · Social Media Manager</div>
+      </div>
+      <div class="dept-tile reveal d3" style="--dept-accent:#22c55e;--dept-glow:rgba(34,197,94,0.15)">
+        <span class="dept-emoji">💰</span><h3>Finance</h3><div class="dept-count">2 agents</div>
+        <div class="dept-agents">CFO · Financial Analyst</div>
+      </div>
+      <div class="dept-tile reveal" style="--dept-accent:#fbbf24;--dept-glow:rgba(251,191,36,0.15)">
+        <span class="dept-emoji">⚖️</span><h3>Legal</h3><div class="dept-count">2 agents</div>
+        <div class="dept-agents">General Counsel · Compliance Officer</div>
+      </div>
+      <div class="dept-tile reveal d1" style="--dept-accent:#22d3ee;--dept-glow:rgba(34,211,238,0.15)">
+        <span class="dept-emoji">🤝</span><h3>HR</h3><div class="dept-count">2 agents</div>
+        <div class="dept-agents">HR Director · Recruiter</div>
+      </div>
+      <div class="dept-tile reveal d2" style="--dept-accent:#6366f1;--dept-glow:rgba(99,102,241,0.15)">
+        <span class="dept-emoji">💻</span><h3>Engineering</h3><div class="dept-count">2 agents</div>
+        <div class="dept-agents">CTO · Senior Developer</div>
+      </div>
+      <div class="dept-tile reveal d3" style="--dept-accent:#f97316;--dept-glow:rgba(249,115,22,0.15)">
+        <span class="dept-emoji">⚡</span><h3>Operations</h3><div class="dept-count">2 agents</div>
+        <div class="dept-agents">COO · Project Manager</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════ HOW IT WORKS ════════ -->
+<section class="sec" style="border-top:1px solid var(--border)">
+  <div class="wrap">
+    <div class="steps-header">
+      <div class="sec-tag reveal">How It Works</div>
+      <h2 class="sec-h2 reveal d1">Three steps. Thirty seconds.</h2>
+      <p class="sec-desc reveal d2">No onboarding calls. No sales demos. No credit card.</p>
+    </div>
+
+    <div class="steps-row">
+      <div class="step-card reveal">
+        <div class="step-num">01</div>
+        <h3>Sign In</h3>
+        <p>Google OAuth or email. One click. You're in. The orb pulses, the particles drift, and your team wakes up.</p>
+        <div class="step-connector"></div>
+      </div>
+      <div class="step-card reveal d1">
+        <div class="step-num">02</div>
+        <h3>Add Your AI Key</h3>
+        <p>Paste your Anthropic, OpenAI, xAI, or Google API key. It's encrypted instantly. You control the costs.</p>
+        <div class="step-connector"></div>
+      </div>
+      <div class="step-card reveal d2">
+        <div class="step-num">03</div>
+        <h3>Start Working</h3>
+        <p>Pick an agent. Ask anything. Draft emails, review contracts, analyze data, brainstorm campaigns. Your team delivers.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════ SECURITY ════════ -->
+<section class="sec sec-security" id="security">
+  <div class="wrap">
+    <div class="sec-tag reveal">Security</div>
+    <h2 class="sec-h2 reveal d1">Built secure. Not bolted on.</h2>
+    <p class="sec-desc reveal d2">After OpenClaw exposed thousands to credential theft and malware, we built MyTeam360 to make those attacks structurally impossible.</p>
+
+    <div class="security-grid">
+      <div>
+        <div class="sec-threat reveal">
+          <h4>✗ OpenClaw: Exposed Ports</h4>
+          <p>Default config listened on all interfaces. Tens of thousands of instances found exposed in healthcare, finance, and government.</p>
+        </div>
+        <div class="sec-threat reveal d1">
+          <h4>✗ OpenClaw: Shell Execution</h4>
+          <p>Agents ran terminal commands with full system access. Microsoft recommended isolated VMs only.</p>
+        </div>
+        <div class="sec-threat reveal d2">
+          <h4>✗ OpenClaw: Malicious Plugins</h4>
+          <p>820+ malicious skills in ClawHub. Crypto stealers, reverse shells, credential harvesters — found within minutes.</p>
+        </div>
+        <div class="sec-threat reveal d3">
+          <h4>✗ OpenClaw: Plaintext Credentials</h4>
+          <p>API keys stored in plaintext config files. Exfiltrated silently by malicious skills via curl to attacker servers.</p>
+        </div>
+      </div>
+      <div>
+        <div class="sec-solution reveal">
+          <h4>✓ MyTeam360: Zero Exposed Ports</h4>
+          <p>Binds to localhost only. Production traffic routes through Cloudflare Tunnel. Server IP hidden. Optional Tailscale VPN.</p>
+        </div>
+        <div class="sec-solution reveal d1">
+          <h4>✓ MyTeam360: No System Access</h4>
+          <p>Agents produce text only. No shell commands, no file access, no web browsing. Zero eval() or exec() in the codebase.</p>
+        </div>
+        <div class="sec-solution reveal d2">
+          <h4>✓ MyTeam360: No Plugin System</h4>
+          <p>No marketplace, no user-submitted code, no third-party skills. 18 built-in agents with fixed capabilities. Nothing external runs.</p>
+        </div>
+        <div class="sec-solution reveal d3">
+          <h4>✓ MyTeam360: AES Encryption</h4>
+          <p>All API keys encrypted with Fernet (AES-256). DLP scanner blocks accidental exposure. Security headers on every response.</p>
+        </div>
+      </div>
+    </div>
+
+    <a href="/security" class="security-link reveal d4">Read the full security comparison →</a>
+  </div>
+</section>
+
+<!-- ════════ FEATURES ════════ -->
+<section class="sec" id="features" style="border-top:1px solid var(--border)">
+  <div class="wrap">
+    <div class="feat-header">
+      <div class="sec-tag reveal">Features</div>
+      <h2 class="sec-h2 reveal d1">Everything your team needs</h2>
+      <p class="sec-desc reveal d2">Built-in modules that took 14,000 lines to get right.</p>
+    </div>
+
+    <div class="feat-grid">
+      <div class="feat-card reveal"><div class="feat-icon">🎤</div><h3>Voice Chat</h3><p>Talk to agents with TTS from OpenAI, ElevenLabs, or Google. Each agent has a unique voice.</p></div>
+      <div class="feat-card reveal d1"><div class="feat-icon">🛡️</div><h3>DLP Scanning</h3><p>Detects SSNs, credit cards, API keys, and other sensitive data before it reaches the AI.</p></div>
+      <div class="feat-card reveal d2"><div class="feat-icon">🔑</div><h3>MFA / TOTP</h3><p>Two-factor with any authenticator app. Brute force protection. Account lockout.</p></div>
+      <div class="feat-card reveal"><div class="feat-icon">📊</div><h3>Analytics</h3><p>Usage tracking, spend monitoring, agent performance metrics. Know what's working.</p></div>
+      <div class="feat-card reveal d1"><div class="feat-icon">📤</div><h3>Export</h3><p>Conversations in Markdown, CSV, or JSON. Your data, your format, your decision.</p></div>
+      <div class="feat-card reveal d2"><div class="feat-icon">🏷️</div><h3>White Label</h3><p>Custom branding, colors, and logos. Make it yours. Remove all MyTeam360 branding.</p></div>
+      <div class="feat-card reveal"><div class="feat-icon">🔄</div><h3>Smart Routing</h3><p>Describe what you need — the system routes you to the right agent automatically.</p></div>
+      <div class="feat-card reveal d1"><div class="feat-icon">📋</div><h3>Audit Trail</h3><p>Every action logged with timestamps, IPs, and user IDs. Exportable compliance-ready logs.</p></div>
+      <div class="feat-card reveal d2"><div class="feat-icon">⚡</div><h3>6 AI Providers</h3><p>Anthropic, OpenAI, xAI, Google, Azure, Ollama. Use one or all. Switch anytime.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════ BYOK ════════ -->
+<section class="sec" style="border-top:1px solid var(--border)">
+  <div class="wrap">
+    <div class="byok-split">
+      <div>
+        <div class="sec-tag reveal">Bring Your Own Key</div>
+        <h2 class="sec-h2 reveal d1">Your keys. Your costs.<br>Your control.</h2>
+        <p class="sec-desc reveal d2">Add your own API keys from any supported provider. You pay the AI providers directly — no markup, no middleman, no surprise bills. Your keys are encrypted and never leave your server.</p>
+        <p style="font-size:12px;color:var(--text3);margin-top:12px;line-height:1.6" class="reveal d2">⚠ AI provider costs vary by model and usage and can be significant with heavy use. We include a spend estimate dashboard, but recommend monitoring costs with your provider directly. <a href="/terms#7" style="color:var(--accent2)">See Terms §7</a></p>
+        <div class="byok-providers reveal d3">
+          <div class="byok-chip"><div class="byok-chip-dot" style="background:#a78bfa"></div>Anthropic</div>
+          <div class="byok-chip"><div class="byok-chip-dot" style="background:#22c55e"></div>OpenAI</div>
+          <div class="byok-chip"><div class="byok-chip-dot" style="background:#60a5fa"></div>xAI</div>
+          <div class="byok-chip"><div class="byok-chip-dot" style="background:#fbbf24"></div>Google</div>
+          <div class="byok-chip"><div class="byok-chip-dot" style="background:#f472b6"></div>Azure</div>
+          <div class="byok-chip"><div class="byok-chip-dot" style="background:#22d3ee"></div>Ollama</div>
+        </div>
+      </div>
+      <div class="byok-visual reveal d2">
+        <span class="dim">// Your keys stay on your server</span><br>
+        <span class="hl">ANTHROPIC_API_KEY</span>=<span class="key">sk-ant-•••••••</span><br>
+        <span class="dim">// Encrypted with Fernet (AES-256)</span><br>
+        <span class="dim">// Stored in your database, not ours</span><br>
+        <span class="dim">// Never transmitted anywhere</span><br>
+        <br>
+        <span class="dim">// We see:</span> <span class="hl">nothing</span><br>
+        <span class="dim">// You see:</span> <span class="hl">your team, working</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════ PRICING ════════ -->
+<section class="sec" id="pricing" style="border-top:1px solid var(--border)">
+  <div class="wrap">
+    <div class="feat-header">
+      <div class="sec-tag reveal">Pricing</div>
+      <h2 class="sec-h2 reveal d1">One plan. Everything included.</h2>
+      <p class="sec-desc reveal d2">No tiers. No feature gating. No "contact sales." Every feature, every agent, every update. Bring your own AI keys — you control the costs.</p>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;max-width:640px;margin:0 auto" class="reveal d3">
+      <!-- Monthly -->
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:36px 28px;text-align:center;transition:all 0.4s" onmouseover="this.style.borderColor='rgba(255,255,255,0.1)';this.style.transform='translateY(-4px)'" onmouseout="this.style.borderColor='rgba(255,255,255,0.05)';this.style.transform='translateY(0)'">
+        <div style="font-size:13px;color:var(--text3);margin-bottom:12px;font-weight:500">Monthly</div>
+        <div style="font-family:var(--display);font-size:48px;font-weight:800;letter-spacing:-2px">$15</div>
+        <div style="font-size:13px;color:var(--text3);margin-bottom:24px">per month</div>
+        <a href="/app" style="display:block;padding:14px;border-radius:12px;background:var(--surface2);border:1px solid var(--border2);color:var(--text);text-decoration:none;font-weight:600;font-size:14px;transition:all 0.3s" onmouseover="this.style.background='var(--surface3)'" onmouseout="this.style.background='var(--surface2)'">Start Free Trial →</a>
+      </div>
+
+      <!-- Annual -->
+      <div style="background:var(--surface);border:2px solid var(--accent);border-radius:20px;padding:36px 28px;text-align:center;position:relative;transition:all 0.4s;box-shadow:0 0 40px rgba(139,92,246,0.1)" onmouseover="this.style.transform='translateY(-4px)';this.style.boxShadow='0 0 60px rgba(139,92,246,0.2)'" onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='0 0 40px rgba(139,92,246,0.1)'">
+        <div style="position:absolute;top:-12px;left:50%;transform:translateX(-50%);padding:4px 14px;border-radius:8px;background:var(--accent);font-size:11px;font-weight:700;color:white">SAVE 28%</div>
+        <div style="font-size:13px;color:var(--accent2);margin-bottom:12px;font-weight:500">Annual</div>
+        <div style="font-family:var(--display);font-size:48px;font-weight:800;letter-spacing:-2px">$129</div>
+        <div style="font-size:13px;color:var(--text3);margin-bottom:24px">per year · $10.75/mo</div>
+        <a href="/app" style="display:block;padding:14px;border-radius:12px;background:linear-gradient(135deg,var(--accent),#6d28d9);color:white;text-decoration:none;font-weight:600;font-size:14px;transition:all 0.3s;box-shadow:0 4px 20px rgba(139,92,246,0.3)" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='translateY(0)'">Start Free Trial →</a>
+      </div>
+    </div>
+
+    <div style="text-align:center;margin-top:36px" class="reveal d4">
+      <div style="display:flex;justify-content:center;gap:32px;flex-wrap:wrap;font-size:13px;color:var(--text3)">
+        <span>✓ 3-day free trial</span>
+        <span>✓ No credit card for trial</span>
+        <span>✓ Cancel anytime</span>
+        <span>✓ 7-day money-back guarantee</span>
+      </div>
+    </div>
+
+    <!-- Privacy callout -->
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:32px;margin-top:48px;text-align:center" class="reveal d5">
+      <div style="font-size:28px;margin-bottom:12px">🔒</div>
+      <div style="font-family:var(--display);font-size:18px;font-weight:700;margin-bottom:8px">We don't track you. At all.</div>
+      <div style="font-size:14px;color:var(--text3);max-width:500px;margin:0 auto;line-height:1.7">We store five things: your email, name, user ID, subscription status, and Stripe customer ID. That's it. No analytics. No usage tracking. No behavioral data. We can't read your conversations — they're encrypted with keys we don't hold.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════ CTA ════════ -->
+<section class="cta">
+  <div class="sec-tag reveal" style="text-align:center;margin-bottom:20px">Ready?</div>
+  <h2 class="cta-h2 reveal d1"><span>Your team is<br>waiting.</span></h2>
+  <p class="cta-sub reveal d2">18 agents. 8 departments. Enterprise security. Free to start.</p>
+  <a class="cta-btn reveal d3" href="/app">Launch MyTeam360 →</a>
+</section>
+
+<!-- ════════ FOOTER ════════ -->
+<footer>
+  <div class="wrap">
+    <div class="footer-row">
+      <div class="footer-brand"><div class="footer-orb"></div><div class="footer-name">MyTeam360</div></div>
+      <div class="footer-links">
+        <a class="footer-link" href="/security">Security</a>
+        <a class="footer-link" href="/terms">Terms</a>
+        <a class="footer-link" href="#pricing">Pricing</a>
+        <a class="footer-link" href="/app">App</a>
+        <a class="footer-link" href="mailto:hello@myteam360.ai">Contact</a>
+      </div>
+    </div>
+    <div class="footer-copy">© 2025 MyTeam360. Built for creators who move fast and demand security.</div>
+  </div>
+</footer>
+
+<!-- ════════ SCRIPTS ════════ -->
+<script>
+// Particles
+(function(){
+  const c=document.getElementById('hero-particles'),x=c.getContext('2d');let W,H,pts=[];
+  function sz(){W=c.width=innerWidth;H=c.height=innerHeight;pts=[];
+    for(let i=0;i<80;i++)pts.push({x:Math.random()*W,y:Math.random()*H,r:Math.random()*1.5+0.3,dx:(Math.random()-0.5)*0.25,dy:(Math.random()-0.5)*0.15,a:Math.random()*0.35+0.05});}
+  function draw(){x.clearRect(0,0,W,H);pts.forEach(p=>{p.x+=p.dx;p.y+=p.dy;
+    if(p.x<0)p.x=W;if(p.x>W)p.x=0;if(p.y<0)p.y=H;if(p.y>H)p.y=0;
+    x.beginPath();x.arc(p.x,p.y,p.r,0,Math.PI*2);x.fillStyle=`rgba(139,92,246,${p.a})`;x.fill();});
+    requestAnimationFrame(draw);}
+  sz();draw();addEventListener('resize',sz);
+})();
+
+// Scroll reveal
+const obs=new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}});
+},{threshold:0.1,rootMargin:'0px 0px -40px 0px'});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+
+// Nav scroll effect
+let ticking=false;
+window.addEventListener('scroll',()=>{
+  if(!ticking){requestAnimationFrame(()=>{
+    document.getElementById('nav').classList.toggle('scrolled',window.scrollY>50);
+    ticking=false;});ticking=true;}
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,263 @@
+<!--
+  MyTeam360 — AI Platform
+  Copyright © 2026 Praxis Holdings LLC. All rights reserved.
+  PROPRIETARY AND CONFIDENTIAL — TRADE SECRET
+  Report IP violations: legal@praxisholdingsllc.com
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>MyTeam360 — Dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Sora:wght@600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --p:#A459F2;--pd:#7C3AED;--pg:rgba(164,89,242,.15);
+  --b:#3B82F6;--t:#06B6D4;--g:#22C55E;--a:#F59E0B;--r:#EF4444;
+  --bg:#08080D;--sidebar:#0C0C14;--card:#12121C;--surface:#181825;
+  --tx:#CBD5E1;--dim:#64748B;--w:#FFF;
+  --brd:rgba(255,255,255,.06);--glow:rgba(164,89,242,.2);--rad:10px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(--tx);display:flex;height:100vh;overflow:hidden;-webkit-font-smoothing:antialiased;letter-spacing:-.01em}
+::selection{background:var(--p);color:#fff}
+::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:rgba(255,255,255,.08);border-radius:3px}
+h1,h2,h3,h4{font-family:'Sora',sans-serif;color:var(--w);letter-spacing:-.02em}
+
+/* ═══ SIDEBAR ═══ */
+.sb{width:240px;background:var(--sidebar);border-right:1px solid var(--brd);display:flex;flex-direction:column;flex-shrink:0}
+.sb-head{padding:1.2rem 1.4rem;display:flex;align-items:center;gap:.6rem;font-family:'Sora',sans-serif;font-weight:700;font-size:1.05rem;color:var(--w);border-bottom:1px solid var(--brd)}
+.sb-head img{height:24px}
+.sb-search{padding:.7rem 1rem}
+.sb-search input{width:100%;background:var(--card);border:1px solid var(--brd);border-radius:7px;padding:.5rem .75rem;color:var(--tx);font-size:.82rem;outline:none;font-family:'Plus Jakarta Sans',sans-serif;transition:.2s}
+.sb-search input:focus{border-color:var(--p);box-shadow:0 0 12px var(--glow)}
+.sb-search input::placeholder{color:var(--dim)}
+.sb-nav{flex:1;overflow-y:auto;padding:.3rem 0}
+.sb-sec{padding:.6rem 1.2rem .2rem;font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:var(--dim)}
+.sb-item{display:flex;align-items:center;gap:.65rem;padding:.5rem 1.2rem;margin:.08rem .5rem;border-radius:7px;cursor:pointer;transition:.15s;font-size:.85rem;color:var(--dim);font-weight:500}
+.sb-item:hover{background:rgba(255,255,255,.03);color:var(--tx)}
+.sb-item.active{background:var(--pg);color:var(--p);font-weight:600}
+.sb-item .icon{font-size:.95rem;width:18px;text-align:center;opacity:.7}
+.sb-item.active .icon{opacity:1}
+.sb-item .badge{margin-left:auto;background:var(--r);color:#fff;font-size:.6rem;padding:.1rem .35rem;border-radius:4px;font-weight:700}
+.sb-foot{padding:1rem;border-top:1px solid var(--brd)}
+.sb-user{display:flex;align-items:center;gap:.6rem;padding:.5rem;border-radius:7px;cursor:pointer;transition:.15s}
+.sb-user:hover{background:rgba(255,255,255,.03)}
+.sb-avatar{width:30px;height:30px;border-radius:8px;background:linear-gradient(135deg,var(--p),var(--b));display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:700;color:#fff}
+.sb-name{font-size:.82rem;font-weight:600;color:var(--tx)}.sb-plan{font-size:.68rem;color:var(--dim)}
+
+/* ═══ MAIN ═══ */
+.main{flex:1;display:flex;flex-direction:column;overflow:hidden;position:relative}
+/* Subtle background glow in app too */
+.main::before{content:'';position:absolute;top:-200px;right:-200px;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(164,89,242,.04),transparent 70%);pointer-events:none;z-index:0}
+
+.topbar{padding:.7rem 2rem;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--brd);background:var(--sidebar);position:relative;z-index:1}
+.topbar h1{font-size:1.15rem;font-weight:700}
+.topbar-r{display:flex;align-items:center;gap:.6rem}
+.tb-btn{background:var(--card);border:1px solid var(--brd);border-radius:7px;padding:.35rem .7rem;font-size:.78rem;color:var(--tx);cursor:pointer;transition:.2s;font-family:'Plus Jakarta Sans',sans-serif;display:flex;align-items:center;gap:.35rem;font-weight:500}
+.tb-btn:hover{border-color:var(--p);color:var(--w)}
+.tb-btn.primary{background:linear-gradient(135deg,#9333EA,#7C3AED);border-color:rgba(255,255,255,.2);color:#fff;font-weight:700;text-shadow:0 1px 2px rgba(0,0,0,.3)}
+
+.content{flex:1;overflow-y:auto;padding:1.5rem 2rem;position:relative;z-index:1}
+
+/* ═══ BRIEFING ═══ */
+.brief{background:linear-gradient(135deg,rgba(164,89,242,.04),rgba(59,130,246,.03));border:1px solid rgba(164,89,242,.12);border-radius:var(--rad);padding:1.5rem;margin-bottom:1.5rem}
+.brief-head{font-size:1rem;font-weight:700;color:var(--w);margin-bottom:1rem;font-family:'Sora',sans-serif}
+.brief-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.7rem}
+.brief-tile{padding:.8rem;background:rgba(0,0,0,.2);border-radius:8px;border:1px solid var(--brd);transition:.2s}
+.brief-tile:hover{border-color:var(--glow)}
+.brief-tile strong{color:var(--w);font-size:.8rem;display:block;margin-bottom:.2rem}
+.brief-tile span{font-size:.75rem;color:var(--dim);line-height:1.4}
+
+/* ═══ STAT CARDS ═══ */
+.stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:.8rem;margin-bottom:1.5rem}
+.stat-card{background:var(--card);border:1px solid var(--brd);border-radius:var(--rad);padding:1.2rem;transition:.2s}
+.stat-card:hover{border-color:var(--glow)}
+.stat-label{font-size:.68rem;color:var(--dim);font-weight:600;text-transform:uppercase;letter-spacing:.06em;margin-bottom:.3rem}
+.stat-val{font-size:1.8rem;font-weight:800;color:var(--w);font-family:'Sora',sans-serif}
+.stat-sub{font-size:.75rem;color:var(--dim);margin-top:.15rem}
+.stat-trend{font-size:.75rem;font-weight:600;margin-top:.3rem}
+.stat-trend.up{color:var(--g)}.stat-trend.dn{color:var(--r)}
+
+/* ═══ SPLIT SECTION ═══ */
+.split{display:grid;grid-template-columns:1.6fr 1fr;gap:.8rem;margin-bottom:1.5rem}
+.card{background:var(--card);border:1px solid var(--brd);border-radius:var(--rad);padding:1.3rem;transition:.2s}
+.card:hover{border-color:var(--glow)}
+.card-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:.8rem}
+.card-head h3{font-size:.9rem;font-weight:700}
+.card-more{font-size:.7rem;color:var(--p);cursor:pointer;font-weight:500}
+
+/* ═══ FEED ═══ */
+.feed-item{display:flex;align-items:flex-start;gap:.7rem;padding:.5rem 0;border-bottom:1px solid var(--brd)}
+.feed-item:last-child{border:none}
+.feed-icon{width:28px;height:28px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:.8rem;flex-shrink:0}
+.feed-text{font-size:.82rem;color:var(--tx)}.feed-text strong{color:var(--w)}
+.feed-time{font-size:.68rem;color:var(--dim);margin-top:.1rem}
+
+/* ═══ TASKS ═══ */
+.task{display:flex;align-items:center;gap:.5rem;padding:.45rem 0;border-bottom:1px solid var(--brd)}
+.task:last-child{border:none}
+.task-chk{width:16px;height:16px;border-radius:4px;border:1.5px solid var(--brd);cursor:pointer;flex-shrink:0;transition:.15s}
+.task-chk:hover{border-color:var(--p)}
+.task-text{font-size:.82rem;flex:1}
+.task-pri{font-size:.58rem;padding:.12rem .35rem;border-radius:3px;font-weight:700;letter-spacing:.03em}
+.pri-h{background:rgba(239,68,68,.12);color:var(--r)}.pri-m{background:rgba(245,158,11,.12);color:var(--a)}
+
+/* ═══ PIPELINE ═══ */
+.pipe{display:flex;align-items:center;justify-content:space-between;padding:.45rem 0;border-bottom:1px solid var(--brd);font-size:.82rem}
+.pipe:last-child{border:none}
+.pipe-name{display:flex;align-items:center;gap:.4rem}
+.pipe-dot{width:7px;height:7px;border-radius:50%}
+.pipe-val{font-weight:600;color:var(--w)}.pipe-ct{color:var(--dim);font-size:.72rem;margin-left:.3rem}
+.health-row{display:flex;gap:.4rem;margin-top:.6rem}
+.health-tag{font-size:.68rem;padding:.15rem .45rem;border-radius:4px;font-weight:600}
+.h-g{background:rgba(34,197,94,.1);color:var(--g)}.h-y{background:rgba(245,158,11,.1);color:var(--a)}.h-r{background:rgba(239,68,68,.1);color:var(--r)}
+
+/* ═══ PINS ═══ */
+.pins{display:flex;gap:.5rem;flex-wrap:wrap}
+.pin{padding:.35rem .7rem;background:var(--card);border:1px solid var(--brd);border-radius:6px;font-size:.78rem;color:var(--tx);cursor:pointer;transition:.2s;font-weight:500}
+.pin:hover{border-color:var(--p);color:var(--w)}
+
+/* ═══ FAB ═══ */
+.fab{position:fixed;bottom:1.5rem;right:1.5rem;z-index:50;width:48px;height:48px;border-radius:12px;background:linear-gradient(135deg,#9333EA,#7C3AED);border:1px solid rgba(255,255,255,.2);color:#fff;font-size:1.2rem;cursor:pointer;box-shadow:0 4px 20px var(--glow);transition:.3s;display:flex;align-items:center;justify-content:center}
+.fab:hover{transform:scale(1.08);box-shadow:0 8px 30px var(--glow)}
+
+@media(max-width:768px){.sb{display:none}.stats-row,.brief-grid{grid-template-columns:1fr}.split{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<div class="sb">
+<div class="sb-head"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 44 44'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' stop-color='%237C3AED'/%3E%3Cstop offset='100%25' stop-color='%23A459F2'/%3E%3C/linearGradient%3E%3C/defs%3E%3Ccircle cx='22' cy='22' r='19' fill='none' stroke='url(%23g)' stroke-width='3.5'/%3E%3Cpath d='M22 7 A15 15 0 0 1 37 22' fill='none' stroke='url(%23g)' stroke-width='3.5' stroke-linecap='round'/%3E%3Ccircle cx='22' cy='22' r='9' fill='none' stroke='url(%23g)' stroke-width='2.5'/%3E%3C/svg%3E" alt="MyTeam360">MyTeam360</div>
+<div class="sb-search"><input type="text" placeholder="Search everything..." id="sbSearch"></div>
+<div class="sb-nav">
+<div class="sb-sec">Home</div>
+<div class="sb-item active"><span class="icon">◆</span>Dashboard</div>
+<div class="sb-item"><span class="icon">◇</span>Daily Briefing<span class="badge">3</span></div>
+<div class="sb-sec">AI</div>
+<div class="sb-item"><span class="icon">◇</span>Conversations</div>
+<div class="sb-item"><span class="icon">◇</span>Roundtables</div>
+<div class="sb-item"><span class="icon">◇</span>AI Agents</div>
+<div class="sb-sec">Business</div>
+<div class="sb-item"><span class="icon">◇</span>CRM<span class="badge">2</span></div>
+<div class="sb-item"><span class="icon">◇</span>Invoicing</div>
+<div class="sb-item"><span class="icon">◇</span>Tasks</div>
+<div class="sb-item"><span class="icon">◇</span>Social Media</div>
+<div class="sb-item"><span class="icon">◇</span>Goals</div>
+<div class="sb-item"><span class="icon">◇</span>Expenses</div>
+<div class="sb-item"><span class="icon">◇</span>Email</div>
+<div class="sb-sec">Intelligence</div>
+<div class="sb-item"><span class="icon">◇</span>Analytics</div>
+<div class="sb-item"><span class="icon">◇</span>Health Scores</div>
+<div class="sb-item"><span class="icon">◇</span>Forecast</div>
+<div class="sb-sec">More</div>
+<div class="sb-item"><span class="icon">◇</span>Notes</div>
+<div class="sb-item"><span class="icon">◇</span>Booking Links</div>
+<div class="sb-item"><span class="icon">◇</span>Automations</div>
+</div>
+<div class="sb-foot">
+<div class="sb-user"><div class="sb-avatar">JB</div><div><div class="sb-name">Jeremy Brown</div><div class="sb-plan">Pro Plan</div></div></div>
+</div>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+<div class="topbar">
+<h1>Good morning, Jeremy</h1>
+<div class="topbar-r">
+<div class="tb-btn primary">Voice Capture</div>
+<div class="tb-btn">Notifications <span style="background:var(--r);color:#fff;font-size:.6rem;padding:.08rem .3rem;border-radius:3px;margin-left:.2rem">3</span></div>
+<div class="tb-btn">Settings</div>
+</div>
+</div>
+<div class="content">
+
+<!-- BRIEFING -->
+<div class="brief">
+<div class="brief-head">Wednesday Briefing — Client Day</div>
+<div class="brief-grid">
+<div class="brief-tile"><strong>4 Meetings Today</strong><span>Next: Henderson showing at 2:00 PM<br>856 Oak Street · Leave by 1:25</span></div>
+<div class="brief-tile"><strong>72°F Sunny</strong><span>Perfect for showings<br>No rain through Friday</span></div>
+<div class="brief-tile"><strong>SW1234 On Time</strong><span>Departs 6:15 PM → Phoenix<br>Gate B12 · Terminal 1</span></div>
+<div class="brief-tile"><strong>7 Unread Emails</strong><span>2 from clients, 1 title company<br>1 counter-offer from Sarah</span></div>
+<div class="brief-tile"><strong>Smart Reminders</strong><span>Oak Street deal — no activity 8 days<br>Follow up with Mike Smith</span></div>
+<div class="brief-tile"><strong>Client Dinner Tonight</strong><span>You prefer Italian, $$$ range<br>Carbone at 7:30 · You close 3x here</span></div>
+</div>
+</div>
+
+<!-- STATS -->
+<div class="stats-row">
+<div class="stat-card"><div class="stat-label">Pipeline Value</div><div class="stat-val">$285K</div><div class="stat-sub">6 active deals</div><div class="stat-trend up">+12% this month</div></div>
+<div class="stat-card"><div class="stat-label">Revenue (March)</div><div class="stat-val">$12,500</div><div class="stat-sub">3 invoices paid</div><div class="stat-trend up">+23% vs Feb</div></div>
+<div class="stat-card"><div class="stat-label">Tasks Completed</div><div class="stat-val">14</div><div class="stat-sub">3 overdue, 7 due today</div><div class="stat-trend dn">3 overdue</div></div>
+</div>
+
+<!-- FEED + TASKS + PIPELINE -->
+<div class="split">
+<div class="card">
+<div class="card-head"><h3>Activity</h3><span class="card-more">View all →</span></div>
+<div class="feed-item"><div class="feed-icon" style="background:rgba(34,197,94,.08)">$</div><div><div class="feed-text">Invoice INV-0042 paid by Acme Corp — <strong>$4,500</strong></div><div class="feed-time">2 hours ago</div></div></div>
+<div class="feed-item"><div class="feed-icon" style="background:rgba(164,89,242,.08)">→</div><div><div class="feed-text">Deal "Henderson Property" moved to <strong>Negotiation</strong></div><div class="feed-time">3 hours ago</div></div></div>
+<div class="feed-item"><div class="feed-icon" style="background:rgba(59,130,246,.08)">↑</div><div><div class="feed-text">5 social posts published across LinkedIn, Instagram</div><div class="feed-time">5 hours ago</div></div></div>
+<div class="feed-item"><div class="feed-icon" style="background:rgba(6,182,212,.08)">←</div><div><div class="feed-text">Call logged with Sarah Johnson — counter-offer discussed</div><div class="feed-time">Yesterday</div></div></div>
+<div class="feed-item"><div class="feed-icon" style="background:rgba(245,158,11,.08)">◆</div><div><div class="feed-text">Q2 Revenue goal updated — now at <strong>68%</strong></div><div class="feed-time">Yesterday</div></div></div>
+</div>
+<div style="display:flex;flex-direction:column;gap:.8rem">
+<div class="card">
+<div class="card-head"><h3>Due Today</h3><span class="card-more">Board →</span></div>
+<div class="task"><div class="task-chk"></div><div class="task-text">Follow up with Henderson</div><span class="task-pri pri-h">HIGH</span></div>
+<div class="task"><div class="task-chk"></div><div class="task-text">Send listing photos</div><span class="task-pri pri-m">MED</span></div>
+<div class="task"><div class="task-chk"></div><div class="task-text">Review closing docs</div><span class="task-pri pri-h">HIGH</span></div>
+<div class="task"><div class="task-chk"></div><div class="task-text">Prepare CMA report</div><span class="task-pri pri-m">MED</span></div>
+</div>
+<div class="card">
+<div class="card-head"><h3>Pipeline</h3><span class="card-more">CRM →</span></div>
+<div class="pipe"><div class="pipe-name"><div class="pipe-dot" style="background:var(--dim)"></div>New Lead</div><div><span class="pipe-val">$45K</span><span class="pipe-ct">(2)</span></div></div>
+<div class="pipe"><div class="pipe-name"><div class="pipe-dot" style="background:var(--b)"></div>Showing</div><div><span class="pipe-val">$85K</span><span class="pipe-ct">(1)</span></div></div>
+<div class="pipe"><div class="pipe-name"><div class="pipe-dot" style="background:var(--p)"></div>Negotiation</div><div><span class="pipe-val">$130K</span><span class="pipe-ct">(2)</span></div></div>
+<div class="pipe"><div class="pipe-name"><div class="pipe-dot" style="background:var(--g)"></div>Under Contract</div><div><span class="pipe-val">$25K</span><span class="pipe-ct">(1)</span></div></div>
+<div class="health-row"><span class="health-tag h-g">12 Healthy</span><span class="health-tag h-y">5 At Risk</span><span class="health-tag h-r">3 Cold</span></div>
+</div>
+</div>
+</div>
+
+<!-- PINS -->
+<div class="card" style="margin-bottom:1.5rem">
+<div class="card-head"><h3>Pinned</h3><span class="card-more">Edit →</span></div>
+<div class="pins">
+<div class="pin">Sarah Johnson</div>
+<div class="pin">Henderson Deal</div>
+<div class="pin">INV-0043 (Draft)</div>
+<div class="pin">Closing Checklist</div>
+<div class="pin">30-min Call Link</div>
+</div>
+</div>
+
+</div>
+</div>
+
+<!-- FAB -->
+<button class="fab" title="Voice Capture">◆</button>
+
+<script>
+document.querySelectorAll('.sb-item').forEach(item=>{
+  item.addEventListener('click',()=>{
+    document.querySelectorAll('.sb-item').forEach(i=>i.classList.remove('active'));
+    item.classList.add('active');
+    item.querySelector('.icon').textContent='◆';
+    document.querySelectorAll('.sb-item:not(.active) .icon').forEach(i=>{i.textContent='◇'});
+  });
+});
+document.querySelectorAll('.task-chk').forEach(c=>{
+  c.addEventListener('click',()=>{
+    const done=c.style.background;
+    c.style.background=done?'':'var(--g)';c.style.borderColor=done?'':'var(--g)';
+    const t=c.nextElementSibling;t.style.textDecoration=done?'':'line-through';t.style.opacity=done?'1':'.35';
+  });
+});
+document.addEventListener('keydown',e=>{if((e.metaKey||e.ctrlKey)&&e.key==='k'){e.preventDefault();document.getElementById('sbSearch').focus()}});
+</script>
+</body>
+</html>

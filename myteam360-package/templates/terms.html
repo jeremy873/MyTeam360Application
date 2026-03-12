@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MyTeam360 — Terms of Service</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --void: #030306; --surface: #0e0e1a; --border: rgba(255,255,255,0.05);
+  --text: #f0f0f8; --text2: #aaaacc; --text3: #666688;
+  --accent: #8b5cf6; --accent2: #a78bfa; --green: #34d399;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { background:var(--void); color:var(--text2); font-family:'DM Sans',sans-serif; -webkit-font-smoothing:antialiased; line-height:1.8; }
+.wrap { max-width:720px; margin:0 auto; padding:80px 32px 120px; }
+h1 { font-family:'Syne',sans-serif; font-size:42px; font-weight:800; letter-spacing:-2px; color:var(--text); margin-bottom:8px; }
+.updated { font-size:13px; color:var(--text3); margin-bottom:48px; font-family:'JetBrains Mono',monospace; }
+h2 { font-family:'Syne',sans-serif; font-size:20px; font-weight:700; color:var(--text); margin:40px 0 12px; letter-spacing:-0.5px; }
+p, li { font-size:15px; margin-bottom:12px; }
+ul { padding-left:24px; margin-bottom:16px; }
+li { margin-bottom:6px; }
+strong { color:var(--text); font-weight:600; }
+.highlight {
+  background: rgba(52,211,153,0.06); border:1px solid rgba(52,211,153,0.15);
+  border-radius:12px; padding:20px 24px; margin:24px 0; font-size:14px;
+}
+.highlight strong { color:var(--green); }
+a { color:var(--accent2); }
+.back { display:inline-block; margin-bottom:32px; font-size:13px; color:var(--text3); text-decoration:none; }
+.back:hover { color:var(--text); }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<a class="back" href="/">← Back to MyTeam360</a>
+
+<h1>Terms of Service</h1>
+<p class="updated">Last updated: March 2026</p>
+
+<div class="highlight">
+<strong>The short version:</strong> MyTeam360 is a platform that connects you to AI agents. You bring your own AI API keys. We store your user ID and subscription status — nothing else. We don't read your conversations, track your usage, or sell your data. Your AI keys are encrypted and never leave your server. You pay $15/month or $129/year for platform access. AI provider charges are separate and are your responsibility — costs vary by model and usage, and we recommend setting limits with your provider.
+</div>
+
+<h2>1. What MyTeam360 Is</h2>
+<p>MyTeam360 ("the Platform", "we", "us") provides a web-based interface for interacting with AI agents powered by third-party AI providers (Anthropic, OpenAI, xAI, Google, and others). The Platform routes your messages to these providers using API keys that <strong>you provide and control</strong>.</p>
+<p>We are not an AI provider. We do not generate AI responses. We provide the interface, agent configurations, and infrastructure that connects you to the AI providers of your choice.</p>
+
+<h2>2. Your Data — What We Store</h2>
+<div class="highlight">
+<strong>We store exactly five things about you:</strong>
+<ul style="margin-top:8px;margin-bottom:0">
+<li>Your email address (for login)</li>
+<li>Your display name</li>
+<li>A unique user ID</li>
+<li>Your subscription status (active, trialing, canceled)</li>
+<li>A Stripe customer ID (for billing)</li>
+</ul>
+</div>
+
+<h2>3. Your Data — What We Do NOT Store or Access</h2>
+<p>We do not store, access, read, analyze, train on, sell, or share:</p>
+<ul>
+<li>Your conversations with AI agents</li>
+<li>Your AI provider API keys (these are encrypted on your server instance and never transmitted to us)</li>
+<li>Your usage patterns, frequency, or behavioral data</li>
+<li>Your IP address (beyond what is required for authentication security)</li>
+<li>Any analytics, telemetry, or tracking data</li>
+</ul>
+<p><strong>We have no technical ability to read your conversations even if compelled to do so.</strong> Conversations are encrypted at rest in your database using AES-256 encryption. We do not hold the encryption keys.</p>
+
+<h2>4. Third-Party AI Providers</h2>
+<p>When you use MyTeam360, your messages are sent to the AI provider associated with your API key (e.g., Anthropic, OpenAI). <strong>Your relationship with that provider is separate from your relationship with us.</strong> You are subject to their terms of service, privacy policies, and usage policies. We strongly recommend reviewing:</p>
+<ul>
+<li>Anthropic's Usage Policy and Privacy Policy</li>
+<li>OpenAI's Terms of Use and Privacy Policy</li>
+<li>xAI's Terms of Service</li>
+<li>Google's AI Terms of Service</li>
+</ul>
+<p>We are not responsible for how AI providers handle your data once it leaves the Platform.</p>
+
+<h2>5. Billing & Subscription</h2>
+<p><strong>Pricing:</strong> $15/month or $129/year. All prices in USD.</p>
+<p><strong>Free Trial:</strong> New accounts receive a 3-day free trial. No credit card required during the trial. Full platform access during trial.</p>
+<p><strong>Payment:</strong> Processed securely by Stripe. We never see, store, or access your credit card number. Stripe handles all payment processing, receipts, and refunds.</p>
+<p><strong>Cancellation:</strong> You may cancel at any time through the billing portal. Your subscription remains active until the end of the current billing period. No partial refunds for unused time.</p>
+<p><strong>Refunds:</strong> We offer a full refund within 7 days of your first payment if you are not satisfied. Contact us at billing@myteam360.ai.</p>
+
+<h2>6. Acceptable Use</h2>
+<p>You agree not to:</p>
+<ul>
+<li>Use the Platform for any unlawful purpose</li>
+<li>Attempt to gain unauthorized access to other users' accounts or data</li>
+<li>Use the Platform to generate content that violates the terms of your AI provider</li>
+<li>Resell or redistribute access to the Platform without written permission</li>
+<li>Attempt to reverse-engineer, decompile, or extract source code from the Platform</li>
+<li>Use automated tools to scrape, crawl, or overload the Platform</li>
+</ul>
+
+<h2>7. Your API Keys & Provider Costs</h2>
+<p>You are solely responsible for your AI provider API keys and all associated costs. You agree to:</p>
+<ul>
+<li>Keep your API keys confidential</li>
+<li>Monitor your usage and costs with your AI provider directly</li>
+<li>Immediately revoke keys if you suspect unauthorized use</li>
+<li>Set spending limits with your AI provider to avoid unexpected charges</li>
+</ul>
+<div class="highlight" style="border-color:rgba(251,191,36,0.2);background:rgba(251,191,36,0.04)">
+<strong style="color:#fbbf24">⚠ API Cost Warning:</strong> AI provider charges (Anthropic, OpenAI, xAI, Google, etc.) are billed directly to you by the provider. These costs are entirely separate from your MyTeam360 subscription. API costs vary significantly based on the model you select and how much you use it. <strong>Heavy usage can result in charges of $50–$500+ per month or more.</strong> MyTeam360 includes a spend estimate dashboard, but this is an approximation only — actual charges are determined solely by your AI provider. <strong>We strongly recommend setting usage limits in your provider's dashboard and reviewing your provider billing regularly.</strong> MyTeam360 is not responsible for, and has no control over, any charges incurred on your AI provider accounts.
+</div>
+<p>We encrypt your keys at rest using AES-256 (Fernet) encryption. However, <strong>we are not liable for charges incurred on your AI provider accounts under any circumstances, including but not limited to unexpected usage, account compromise, or billing errors by the provider.</strong></p>
+
+<h2>8. Account Security</h2>
+<p>You are responsible for maintaining the security of your account credentials. We provide MFA/TOTP support, and we strongly recommend enabling it. We will never ask for your password via email or chat.</p>
+
+<h2>9. Service Availability</h2>
+<p>We aim for high availability but do not guarantee 100% uptime. The Platform may be temporarily unavailable for maintenance, updates, or due to circumstances beyond our control. We are not liable for any losses resulting from service interruptions.</p>
+
+<h2>10. Limitation of Liability</h2>
+<p>The Platform is provided "as is" without warranties of any kind. To the maximum extent permitted by law, we are not liable for any indirect, incidental, special, consequential, or punitive damages, including loss of profits, data, or business opportunities.</p>
+<p>Our total liability to you for any claims arising from your use of the Platform is limited to the amount you have paid us in the 12 months preceding the claim.</p>
+
+<h2>11. Intellectual Property</h2>
+<p>The MyTeam360 platform, including its design, code, agent configurations, and branding, is owned by us. Content generated by AI agents through the Platform belongs to you, subject to the terms of your AI provider.</p>
+
+<h2>12. Termination</h2>
+<p>We may suspend or terminate your account if you violate these terms. You may delete your account at any time by contacting us. Upon termination, your subscription data (user ID, Stripe customer ID, subscription status) will be deleted within 30 days.</p>
+
+<h2>13. Changes to These Terms</h2>
+<p>We may update these terms from time to time. We will notify you of material changes via email or a notice in the Platform. Continued use of the Platform after changes take effect constitutes acceptance of the new terms.</p>
+
+<h2>14. Contact</h2>
+<p>Questions about these terms? Email us at <a href="mailto:legal@myteam360.ai">legal@myteam360.ai</a></p>
+
+<div class="highlight" style="margin-top:48px;">
+<strong>In plain English:</strong> We built MyTeam360 because we believe AI tools shouldn't spy on you. We charge a fair price for the platform. You bring your own AI keys. We don't see your conversations. We don't sell your data. We don't track what you do. We're here to give you the best AI team interface possible — that's it.
+</div>
+
+</div>
+</body>
+</html>

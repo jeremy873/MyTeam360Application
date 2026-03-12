@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>MyTeam360 — Your AI Business Operating System | Replace 6 Tools With One</title>
+<meta name="description" content="MyTeam360 is the AI-powered business operating system that replaces your CRM, invoicing, task manager, social media scheduler, goal tracker, and email tools. Save $250+/month.">
+<meta name="keywords" content="AI business platform, CRM, invoicing, task management, social media scheduler, AI assistant, business OS, BYOK AI platform">
+<meta property="og:title" content="MyTeam360 — Your AI Business Operating System">
+<meta property="og:description" content="One platform. Your AI team. Replace 6+ tools and save $250/month.">
+<link rel="canonical" href="https://myteam360.ai">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Sora:wght@600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--purple:#A459F2;--purple-deep:#7C3AED;--purple-glow:rgba(164,89,242,0.4);--blue:#3B82F6;--teal:#06B6D4;--green:#22C55E;--amber:#F59E0B;--red:#EF4444;--bg:#0A0A0F;--bg-card:#12121A;--text:#E2E8F0;--text-dim:#94A3B8;--text-w:#FFF;--border:rgba(255,255,255,0.06);--glow:rgba(164,89,242,0.3)}
+*{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(--text);line-height:1.7;overflow-x:hidden;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;letter-spacing:-0.01em}
+::selection{background:var(--purple);color:#fff}a{color:var(--purple);text-decoration:none;transition:color .2s ease}a:hover{color:var(--text-w)}
+
+/* SVG GRAIN OVERLAY */
+body::after{content:'';position:fixed;top:-50%;left:-50%;right:-50%;bottom:-50%;width:200%;height:200%;z-index:9998;pointer-events:none;opacity:.035;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+
+/* MULTI-LAYER PARALLAX */
+.parallax-layer{position:fixed;top:0;left:0;right:0;bottom:0;pointer-events:none;will-change:transform}
+.parallax-deep{z-index:0}
+.parallax-mid{z-index:0}
+.parallax-front{z-index:0}
+
+/* BUTTON STATES — hover, focus-visible, active */
+.btn:focus-visible{outline:2px solid var(--purple);outline-offset:3px;box-shadow:0 0 0 4px rgba(164,89,242,.25)}
+.bp:active{transform:translateY(1px) scale(.98);box-shadow:0 2px 10px var(--purple-glow)}
+.bo:active{transform:translateY(1px) scale(.98);background:rgba(255,255,255,.03)}
+
+/* INTERACTIVE STATES — every clickable element */
+.show-tab:focus-visible,.dna-tab:focus-visible{outline:2px solid var(--purple);outline-offset:2px}
+.show-tab:active,.dna-tab:active{transform:scale(.96)}
+.fc:focus-visible{outline:2px solid var(--purple);outline-offset:2px}
+.pc:focus-visible{outline:2px solid var(--purple);outline-offset:3px}
+.show-dot:focus-visible,.dna-dot:focus-visible{outline:2px solid var(--purple);outline-offset:2px}
+a:focus-visible{outline:2px solid var(--purple);outline-offset:2px;border-radius:4px}
+.mesh{position:fixed;top:0;left:0;right:0;bottom:0;z-index:0;background:radial-gradient(ellipse 80% 60% at 20% 10%,rgba(164,89,242,.12)0%,transparent 60%),radial-gradient(ellipse 60% 50% at 80% 20%,rgba(59,130,246,.08)0%,transparent 50%),radial-gradient(ellipse 50% 40% at 50% 80%,rgba(6,182,212,.06)0%,transparent 40%)}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:1rem 2rem;backdrop-filter:blur(20px);background:rgba(10,10,15,.7);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;transition:.3s}
+.logo{font-weight:800;font-size:1.4rem;color:var(--text-w);display:flex;align-items:center;gap:.6rem}.logo img{height:36px;filter:drop-shadow(0 0 10px var(--purple-glow))}
+@keyframes op{0%,100%{box-shadow:0 0 20px var(--purple-glow)}50%{box-shadow:0 0 35px var(--purple-glow)}}
+.nl{display:flex;gap:2rem;align-items:center}.nl a{color:var(--text-dim);font-weight:500;font-size:.95rem}.nl a:hover{color:var(--text-w)}
+.btn{padding:.65rem 1.6rem;border-radius:50px;font-weight:600;font-size:.95rem;border:none;cursor:pointer;transition:.3s;font-family:'Plus Jakarta Sans',sans-serif;display:inline-block;text-align:center}
+.bp{background:linear-gradient(135deg,var(--purple),var(--blue));color:#fff;box-shadow:0 4px 20px var(--purple-glow)}.bp:hover{transform:translateY(-2px);box-shadow:0 8px 30px var(--purple-glow);color:#fff}
+.bo{background:transparent;color:var(--text);border:1px solid var(--border)}.bo:hover{border-color:var(--purple);color:var(--text-w)}
+section{position:relative;z-index:1;padding:6rem 2rem}.con{max-width:1200px;margin:0 auto}
+.sl{font-size:.8rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--purple);margin-bottom:.8rem}
+.st{font-size:clamp(2rem,4vw,3.2rem);font-weight:800;margin-bottom:1rem;line-height:1.15;color:var(--text-w);font-family:'Sora',sans-serif}
+.ss{font-size:1.1rem;color:var(--text-dim);max-width:600px;margin-bottom:3rem}
+.grad{background:linear-gradient(135deg,var(--purple),var(--blue),var(--teal));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+
+.hero{position:relative;z-index:1;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:8rem 2rem 4rem}
+.badge{display:inline-flex;align-items:center;gap:.5rem;padding:.4rem 1rem;border-radius:50px;font-size:.85rem;background:rgba(164,89,242,.1);border:1px solid rgba(164,89,242,.2);color:var(--purple);margin-bottom:2rem;font-weight:500;animation:fu .8s ease}
+.badge .dot{width:6px;height:6px;border-radius:50%;background:var(--green);animation:pu 2s infinite}@keyframes pu{0%,100%{opacity:1}50%{opacity:.3}}
+.hero h1{font-size:clamp(2.8rem,6vw,5.5rem);font-weight:800;line-height:1.05;max-width:900px;margin-bottom:1.5rem;color:var(--text-w);animation:fu .8s ease .1s both;font-family:'Sora',sans-serif;letter-spacing:-0.02em}
+.hero p{font-size:1.25rem;color:var(--text-dim);max-width:650px;margin-bottom:2.5rem;animation:fu .8s ease .2s both}
+.hero-ctas{display:flex;gap:1rem;flex-wrap:wrap;justify-content:center;animation:fu .8s ease .3s both}
+.savings{margin-top:3rem;padding:1rem 2rem;border-radius:16px;background:rgba(34,197,94,.08);border:1px solid rgba(34,197,94,.2);animation:fu .8s ease .4s both}
+.savings span{color:var(--green);font-weight:700;font-size:1.1rem}
+@keyframes fu{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+
+.stats{display:flex;justify-content:center;gap:4rem;flex-wrap:wrap;padding:3rem 0}.stat{text-align:center}.stat .n{font-size:2.5rem;font-weight:900;color:var(--text-w)}.stat .n .a{color:var(--purple)}.stat .l{font-size:.85rem;color:var(--text-dim);margin-top:.2rem}
+
+.tg{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1rem;margin:3rem 0}
+.tc{background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:1.2rem;text-align:center;transition:.3s}.tc:hover{border-color:var(--glow)}
+.tc .pr{font-size:1.5rem;font-weight:800;color:var(--red)}.tc .nm{font-size:.85rem;color:var(--text-dim);margin-top:.3rem}.tc .pe{font-size:.7rem;color:var(--text-dim)}
+.tl{text-align:center;margin:2rem 0;font-size:2.5rem;font-weight:900}.tl .old{text-decoration:line-through;color:var(--red);opacity:.7}.tl .nw{color:var(--green);margin-left:1rem}.tl .ar{color:var(--text-dim);margin:0 .8rem;font-size:1.5rem}
+
+.fg{display:flex;gap:0;overflow:hidden;border-radius:16px;border:1px solid var(--border)}
+.fc{flex:1;background:var(--bg-card);border:none;border-right:1px solid var(--border);border-radius:0;padding:1.8rem;transition:flex .5s cubic-bezier(.4,0,.2,1),opacity .4s;overflow:hidden;cursor:pointer;min-height:320px;display:flex;flex-direction:column;justify-content:space-between}
+.fc:last-child{border-right:none}
+.fc .ic{width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.3rem;margin-bottom:.8rem;flex-shrink:0}
+.fc h3{font-size:1rem;font-weight:700;margin-bottom:0;color:var(--text-w);font-family:'Sora',sans-serif;transition:margin .4s}
+.fc p{font-size:.88rem;color:var(--text-dim);line-height:1.6;display:grid;grid-template-rows:0fr;transition:grid-template-rows .5s cubic-bezier(.4,0,.2,1),opacity .4s;opacity:0}
+.fc p>span{overflow:hidden}
+.fc .rp{font-size:.78rem;color:var(--green);font-weight:500;opacity:0;transition:opacity .4s;margin-top:auto;padding-top:.6rem}
+
+/* Expand active card, shrink siblings */
+.fg:hover .fc{flex:.6;opacity:.5}
+.fg:hover .fc:hover{flex:2.5;opacity:1}
+.fg:hover .fc:hover p{grid-template-rows:1fr;opacity:1}
+.fg:hover .fc:hover h3{margin-bottom:.6rem}
+.fg:hover .fc:hover .rp{opacity:1}
+
+/* Focus-within for accessibility (tab key) */
+.fg:focus-within .fc{flex:.6;opacity:.5}
+.fg .fc:focus-within{flex:2.5;opacity:1}
+.fg .fc:focus-within p{grid-template-rows:1fr;opacity:1}
+.fg .fc:focus-within h3{margin-bottom:.6rem}
+.fg .fc:focus-within .rp{opacity:1}
+
+/* Default state — no hover = all equal */
+.fg:not(:hover):not(:focus-within) .fc{flex:1;opacity:1}
+
+/* Glowing border trace on hover */
+.fc::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;padding:1px;background:linear-gradient(135deg,var(--purple),var(--blue),var(--teal));-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask-composite:exclude;opacity:0;transition:opacity .4s;pointer-events:none}
+.fc:hover::before{opacity:1}
+.fc{position:relative}
+
+/* Mobile: stack vertically, all content visible */
+@media(max-width:900px){
+.fg{flex-direction:column;border-radius:16px}
+.fc{border-right:none;border-bottom:1px solid var(--border);min-height:auto;flex:none!important;opacity:1!important}
+.fc:last-child{border-bottom:none}
+.fc p{grid-template-rows:1fr;opacity:1}.fc .rp{opacity:1}.fc h3{margin-bottom:.6rem}
+}
+
+.tline{position:relative;padding-left:3rem}.tline::before{content:'';position:absolute;left:14px;top:0;bottom:0;width:2px;background:linear-gradient(to bottom,var(--purple),var(--blue),var(--teal))}
+.ti{position:relative;margin-bottom:2.5rem;padding:1.5rem;background:var(--bg-card);border:1px solid var(--border);border-radius:12px;transition:.3s}
+.ti:hover{border-color:var(--glow)}.ti::before{content:'';position:absolute;left:-2.35rem;top:1.8rem;width:12px;height:12px;border-radius:50%;background:var(--purple);border:2px solid var(--bg);box-shadow:0 0 10px var(--purple-glow)}
+.ti .tm{font-family:'JetBrains Mono',monospace;font-size:.85rem;color:var(--purple);font-weight:500}
+.ti .tt{font-weight:700;margin:.3rem 0;color:var(--text-w)}.ti .td{font-size:.9rem;color:var(--text-dim)}
+.ti .ai{margin-top:.6rem;padding:.6rem;border-radius:8px;background:rgba(164,89,242,.06);border:1px solid rgba(164,89,242,.15);font-size:.85rem}
+.ti .ai::before{content:'AI → ';color:var(--purple);font-weight:600;font-style:normal}
+
+.pg{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem;max-width:1000px;margin:0 auto}
+.pc{background:var(--bg-card);border:1px solid var(--border);border-radius:20px;padding:2.5rem 2rem;text-align:center;transition:.3s;position:relative}
+.pc.pop{border-color:var(--purple);box-shadow:0 0 40px rgba(164,89,242,.15)}
+.pc.pop::before{content:'MOST POPULAR';position:absolute;top:-12px;left:50%;transform:translateX(-50%);padding:.3rem 1rem;border-radius:50px;font-size:.7rem;font-weight:700;background:linear-gradient(135deg,var(--purple),var(--blue));color:#fff;letter-spacing:.05em}
+.pc h3{font-size:1.3rem;font-weight:700;color:var(--text-w);font-family:'Sora',sans-serif}.pc .p{font-size:3rem;font-weight:800;margin:1rem 0 .3rem;color:var(--text-w);font-family:'Sora',sans-serif}.pc .p span{font-size:1rem;font-weight:400;color:var(--text-dim)}
+.pc .d{font-size:.9rem;color:var(--text-dim);margin-bottom:1.5rem}
+.pc ul{list-style:none;text-align:left;margin-bottom:2rem}.pc ul li{padding:.4rem 0;font-size:.9rem;display:flex;align-items:flex-start;gap:.5rem}.pc ul li::before{content:'✓';color:var(--green);font-weight:700;flex-shrink:0}
+
+.bv{display:flex;align-items:center;justify-content:center;gap:1.5rem;flex-wrap:wrap;margin:3rem 0}
+.bp2{background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:1rem 1.5rem;text-align:center;transition:.3s}.bp2:hover{border-color:var(--glow);transform:translateY(-3px)}
+.bp2 .nm{font-weight:600;font-size:.95rem;color:var(--text-w)}.bp2 .md{font-size:.75rem;color:var(--text-dim)}
+
+.cta{text-align:center;padding:8rem 2rem;background:linear-gradient(to bottom,transparent,rgba(164,89,242,.05))}
+.cta h2{font-size:clamp(2rem,4vw,3.5rem);font-weight:900;color:var(--text-w);margin-bottom:1rem}
+.wf{display:flex;gap:.5rem;max-width:500px;margin:2rem auto;background:var(--bg-card);border:1px solid var(--border);border-radius:50px;padding:.4rem;overflow:hidden}
+.wf input{flex:1;background:transparent;border:none;color:var(--text);padding:.8rem 1.2rem;font-size:1rem;outline:none;font-family:'Plus Jakarta Sans',sans-serif}
+.wf input::placeholder{color:var(--text-dim)}.wf button{padding:.8rem 2rem;border-radius:50px;border:none;background:linear-gradient(135deg,var(--purple),var(--blue));color:#fff;font-weight:700;font-size:.95rem;cursor:pointer;transition:.3s;white-space:nowrap;font-family:'Plus Jakarta Sans',sans-serif}.wf button:hover{transform:scale(1.03)}
+
+.tb{display:flex;gap:2.5rem;justify-content:center;flex-wrap:wrap;margin:3rem 0;opacity:.6}
+.tb .b{display:flex;align-items:center;gap:.5rem;font-size:.85rem;color:var(--text-dim)}
+
+footer{position:relative;z-index:1;padding:4rem 2rem 2rem;border-top:1px solid var(--border)}
+.fgrid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:3rem;max-width:1200px;margin:0 auto}
+.fcol h4{font-weight:700;margin-bottom:1rem;font-size:.95rem;color:var(--text-w)}.fcol a{display:block;color:var(--text-dim);font-size:.9rem;padding:.3rem 0}.fcol a:hover{color:var(--text-w)}
+.fb{max-width:1200px;margin:3rem auto 0;padding-top:2rem;border-top:1px solid var(--border);text-align:center;font-size:.85rem;color:var(--text-dim)}
+.rv{opacity:0;transform:translateY(40px);transition:opacity .8s,transform .8s}.rv.vis{opacity:1;transform:translateY(0)}
+@media(max-width:768px){.nl{display:none}.fgrid{grid-template-columns:1fr 1fr}.hero{padding:6rem 1.5rem 3rem}.tg{grid-template-columns:repeat(3,1fr)}.tline{padding-left:2.5rem}.wf{flex-direction:column;border-radius:16px}.wf button{border-radius:50px}.stats{gap:2rem}.fg{grid-template-columns:1fr}.show-tabs{gap:.3rem}.show-tab{font-size:.7rem;padding:.4rem .6rem}.mock-pipeline{grid-template-columns:1fr 1fr}.mock-grid3{grid-template-columns:1fr}}
+
+/* SHOWCASE SLIDESHOW */
+
+/* INFINITE LOOPING CAROUSELS */
+.carousel-wrap{overflow:hidden;position:relative;padding:1.5rem 0}
+.carousel-wrap::before,.carousel-wrap::after{content:'';position:absolute;top:0;width:100px;height:100%;z-index:2}
+.carousel-wrap::before{left:0;background:linear-gradient(to right,var(--bg),transparent)}
+.carousel-wrap::after{right:0;background:linear-gradient(to left,var(--bg),transparent)}
+.carousel-track{display:flex;width:max-content;animation:scroll 30s linear infinite;gap:2.5rem;align-items:center}
+.carousel-track:hover{animation-play-state:paused}
+@keyframes scroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+.carousel-item{flex-shrink:0;white-space:nowrap}
+.replace-item{padding:.6rem 1.5rem;border-radius:10px;background:var(--bg-card);border:1px solid var(--border);font-size:.95rem;color:var(--dim);position:relative;transition:.3s}
+.replace-item::after{content:'';position:absolute;top:50%;left:10%;right:10%;height:2px;background:var(--red);opacity:.6;transform:rotate(-5deg)}
+.replace-item:hover{border-color:var(--red);color:var(--text)}
+.persona-item{padding:.5rem 1.2rem;border-radius:50px;background:rgba(164,89,242,.06);border:1px solid rgba(164,89,242,.12);font-size:.9rem;color:var(--purple);font-weight:500;transition:.3s}
+.persona-item:hover{background:rgba(164,89,242,.12);border-color:var(--purple)}
+.carousel-fast .carousel-track{animation-duration:20s}
+
+/* CLEAN GEOMETRIC ICONS (no emojis) */
+.ic{width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;margin-bottom:.8rem;flex-shrink:0;position:relative}
+.ic::after{content:'';width:14px;height:14px;border-radius:3px;transform:rotate(45deg)}
+.ic-purple{background:rgba(164,89,242,.1)}.ic-purple::after{background:var(--purple)}
+.ic-blue{background:rgba(59,130,246,.1)}.ic-blue::after{background:var(--blue)}
+.ic-green{background:rgba(34,197,94,.1)}.ic-green::after{background:var(--green)}
+.ic-amber{background:rgba(245,158,11,.1)}.ic-amber::after{background:var(--amber)}
+.ic-teal{background:rgba(6,182,212,.1)}.ic-teal::after{background:var(--teal)}
+
+/* DNA DEMO SECTION */
+.dna-demo{max-width:750px;margin:0 auto}
+.dna-greeting{font-family:'Sora',sans-serif;font-size:1.15rem;font-weight:600;color:var(--text-w);padding:0 0 1rem;text-align:left;border-bottom:1px solid var(--border);margin-bottom:1rem}
+.dna-grid{display:grid;grid-template-columns:1fr 1fr;gap:.8rem;text-align:left}
+.dna-card{display:flex;gap:.8rem;padding:1rem;background:rgba(255,255,255,.02);border:1px solid var(--border);border-radius:8px;font-size:.85rem;color:var(--text-dim);line-height:1.5;transition:.3s}
+.dna-card:hover{border-color:var(--glow);background:rgba(164,89,242,.03)}
+.dna-card strong{color:var(--text-w);display:block;margin-bottom:.15rem;font-size:.9rem}
+.dna-card em{color:var(--purple);font-style:normal;font-size:.8rem}
+.dna-icon{color:var(--purple);font-weight:700;font-size:1rem;flex-shrink:0;margin-top:.1rem}
+.dna-voice{margin-top:1.2rem;text-align:left}
+.dna-voice-prompt{padding:1rem 1.2rem;background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:10px;font-size:.95rem;color:var(--text-w);font-style:italic;margin-bottom:.8rem;position:relative}
+.dna-voice-prompt::before{content:'Voice Capture';position:absolute;top:-.6rem;left:1rem;font-size:.65rem;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--purple);background:var(--bg-card);padding:0 .4rem;font-style:normal}
+.dna-voice-result{display:flex;gap:.5rem;flex-wrap:wrap}
+.dna-tag{padding:.35rem .8rem;border-radius:6px;font-size:.78rem;font-weight:600}
+.dna-tag.green{background:rgba(34,197,94,.1);color:var(--green);border:1px solid rgba(34,197,94,.2)}
+.dna-tag.blue{background:rgba(59,130,246,.1);color:var(--blue);border:1px solid rgba(59,130,246,.2)}
+.dna-tag.purple{background:rgba(164,89,242,.1);color:var(--purple);border:1px solid rgba(164,89,242,.2)}
+@media(max-width:768px){.dna-grid{grid-template-columns:1fr}}
+
+/* AGGREGATOR VISUAL */
+.agg-visual{display:flex;align-items:center;justify-content:center;gap:1.5rem;margin:2rem 0;flex-wrap:wrap}
+.agg-sources,.agg-outputs{display:flex;flex-direction:column;gap:.4rem}
+.agg-src,.agg-out{padding:.45rem 1rem;border-radius:8px;font-size:.78rem;font-weight:500;border:1px solid var(--border);background:var(--bg-card);color:var(--dim);transition:.3s;white-space:nowrap}
+.agg-src{text-align:right}
+.agg-src:hover,.agg-out:hover{border-color:var(--glow);color:var(--text)}
+.agg-center{position:relative;padding:0 1.5rem}
+.agg-center::before,.agg-center::after{content:'';position:absolute;top:50%;width:1.5rem;height:1px;background:linear-gradient(90deg,var(--border),var(--purple))}
+.agg-center::before{left:0}.agg-center::after{right:0;background:linear-gradient(90deg,var(--purple),var(--border))}
+.agg-brain{width:140px;height:140px;border-radius:50%;background:linear-gradient(135deg,rgba(164,89,242,.15),rgba(59,130,246,.1));border:2px solid var(--purple);display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:'Sora',sans-serif;font-size:.85rem;font-weight:700;color:var(--text-w);box-shadow:0 0 40px var(--glow);animation:brainPulse 4s ease infinite}
+.agg-brain span{font-size:.65rem;font-weight:400;color:var(--purple);margin-top:.2rem;font-family:'Plus Jakarta Sans',sans-serif}
+@keyframes brainPulse{0%,100%{box-shadow:0 0 30px var(--glow)}50%{box-shadow:0 0 60px var(--glow),0 0 100px rgba(164,89,242,.1)}}
+@media(max-width:768px){.agg-visual{flex-direction:column}.agg-sources,.agg-outputs{flex-direction:row;flex-wrap:wrap;justify-content:center}.agg-center::before,.agg-center::after{display:none}}
+
+/* DNA CAROUSEL */
+.dna-tabs{display:flex;gap:.4rem;margin-bottom:1.5rem;justify-content:center;flex-wrap:wrap}
+.dna-tab{padding:.55rem 1.2rem;border-radius:50px;border:1px solid var(--border);background:transparent;color:var(--dim);font-size:.82rem;font-weight:600;cursor:pointer;transition:.2s;font-family:'Plus Jakarta Sans',sans-serif}
+.dna-tab:hover{border-color:var(--purple);color:var(--text)}.dna-tab.active{background:rgba(164,89,242,.12);border-color:var(--purple);color:var(--purple)}
+.dna-slide{display:none;animation:slideFade .5s ease}.dna-slide.active{display:block}
+.dna-caption{margin-top:1.2rem;font-size:.92rem;color:var(--dim);line-height:1.6;text-align:left;max-width:700px;margin-left:auto;margin-right:auto}
+.dna-caption strong{color:var(--text-w)}
+.dna-dot{width:8px;height:8px;border-radius:50%;background:var(--border);cursor:pointer;transition:.2s;display:inline-block;margin:0 3px}
+.dna-dot.active{background:var(--purple);box-shadow:0 0 8px var(--purple-glow)}
+
+/* CHAT FLOW */
+.chat-flow{display:flex;flex-direction:column;gap:.6rem;text-align:left}
+.chat-msg{display:flex;gap:.5rem;align-items:flex-start}
+.chat-msg.user{justify-content:flex-end}
+.chat-ava{width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,var(--purple),var(--blue));display:flex;align-items:center;justify-content:center;font-size:.65rem;font-weight:700;color:#fff;flex-shrink:0}
+.chat-bub{padding:.6rem .9rem;border-radius:10px;font-size:.82rem;line-height:1.5;max-width:85%;background:rgba(255,255,255,.04);border:1px solid var(--border);color:var(--text)}
+.user-bub{background:rgba(164,89,242,.1);border-color:rgba(164,89,242,.2);color:var(--text-w)}
+.chat-result{margin-top:.8rem;padding:.7rem;border-radius:8px;background:rgba(34,197,94,.06);border:1px solid rgba(34,197,94,.15);font-size:.8rem;color:var(--green);text-align:left}
+
+/* LEARNING TIMELINE */
+.learn-timeline{display:flex;flex-direction:column;gap:.8rem;text-align:left}
+.learn-stage{padding:1rem;background:rgba(255,255,255,.02);border:1px solid var(--border);border-radius:8px;transition:.3s}
+.learn-stage.active-stage{border-color:rgba(164,89,242,.3);background:rgba(164,89,242,.04)}
+.learn-week{font-family:'Sora',sans-serif;font-size:.8rem;font-weight:700;color:var(--purple);margin-bottom:.3rem}
+.learn-desc{font-size:.82rem;color:var(--text);line-height:1.5;margin-bottom:.4rem}
+.learn-result{font-size:.78rem;color:var(--green);font-weight:500;padding-left:.8rem;border-left:2px solid var(--green)}
+
+/* CAPTURE ACTIONS */
+.capture-action{padding:.6rem;background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:6px;font-size:.75rem;color:var(--dim);line-height:1.4}
+.capture-action strong{color:var(--text-w);display:block;margin-bottom:.15rem;font-size:.78rem}
+
+/* AUDIO WAVE */
+.capture-wave-bar{display:flex;gap:3px;justify-content:center;align-items:center;height:30px;margin-bottom:.5rem}
+.capture-wave-bar span{display:block;width:3px;background:var(--purple);border-radius:2px;animation:wave 1.2s ease-in-out infinite}
+.capture-wave-bar span:nth-child(1){height:8px;animation-delay:0s}
+.capture-wave-bar span:nth-child(2){height:16px;animation-delay:.1s}
+.capture-wave-bar span:nth-child(3){height:24px;animation-delay:.2s}
+.capture-wave-bar span:nth-child(4){height:12px;animation-delay:.3s}
+.capture-wave-bar span:nth-child(5){height:28px;animation-delay:.4s}
+.capture-wave-bar span:nth-child(6){height:18px;animation-delay:.5s}
+.capture-wave-bar span:nth-child(7){height:24px;animation-delay:.6s}
+.capture-wave-bar span:nth-child(8){height:10px;animation-delay:.7s}
+.capture-wave-bar span:nth-child(9){height:20px;animation-delay:.8s}
+.capture-wave-bar span:nth-child(10){height:14px;animation-delay:.9s}
+.capture-wave-bar span:nth-child(11){height:22px;animation-delay:1s}
+.capture-wave-bar span:nth-child(12){height:8px;animation-delay:1.1s}
+@keyframes wave{0%,100%{transform:scaleY(1)}50%{transform:scaleY(.3)}}
+
+/* WEEK DEMO */
+.week-demo{display:grid;grid-template-columns:1fr 1.4fr 1fr;gap:.6rem;text-align:left}
+.week-day{padding:1rem;background:rgba(255,255,255,.02);border:1px solid var(--border);border-radius:8px;transition:.3s}
+.week-day.active-day{border-color:rgba(164,89,242,.3);background:rgba(164,89,242,.04)}
+.week-label{font-family:'Sora',sans-serif;font-size:.7rem;font-weight:700;color:var(--purple);letter-spacing:.08em;margin-bottom:.2rem}
+.week-name{font-weight:700;font-size:.9rem;color:var(--text-w);margin-bottom:.4rem}
+.week-focus{font-size:.78rem;color:var(--dim);line-height:1.5}
+@media(max-width:768px){.week-demo{grid-template-columns:1fr}.dna-tabs{gap:.3rem}.dna-tab{font-size:.72rem;padding:.4rem .8rem}}
+/* Card interactions handled by flex expand system */
+.test-card{transition:transform .4s ease,border-color .3s,box-shadow .3s}
+.test-card:hover{transform:translateY(-4px);box-shadow:0 16px 50px rgba(0,0,0,.3)}
+
+/* Button hover — text slide up effect */
+.btn{position:relative;overflow:hidden}.btn-inner{display:inline-block;transition:transform .3s ease}
+.btn:hover .btn-inner{transform:translateY(-100%)}.btn-inner::after{content:attr(data-text);position:absolute;top:100%;left:0;width:100%}
+
+/* Magnetic button effect */
+.magnetic{transition:transform .2s ease-out}
+
+/* Smooth counter animation */
+.counter{display:inline-block}
+@keyframes countUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+
+/* Staggered reveal delays */
+.rv:nth-child(1){transition-delay:.05s}.rv:nth-child(2){transition-delay:.1s}.rv:nth-child(3){transition-delay:.15s}
+.rv:nth-child(4){transition-delay:.2s}.rv:nth-child(5){transition-delay:.25s}.rv:nth-child(6){transition-delay:.3s}
+.rv:nth-child(7){transition-delay:.35s}.rv:nth-child(8){transition-delay:.4s}
+
+/* Feature card icon bounce on hover */
+.fc:hover .ic{animation:iconBounce .5s ease}
+@keyframes iconBounce{0%{transform:scale(1)}40%{transform:scale(1.25)}70%{transform:scale(.95)}100%{transform:scale(1)}}
+
+/* Glowing border trace on hover */
+.fc::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;border-radius:16px;padding:1px;background:linear-gradient(135deg,var(--purple),var(--blue),var(--teal));-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask-composite:exclude;opacity:0;transition:opacity .4s}
+.fc:hover::before{opacity:1}
+.fc{position:relative}
+
+/* Pricing card glow pulse on popular */
+.pc.pop{animation:pricePulse 3s ease infinite}
+@keyframes pricePulse{0%,100%{box-shadow:0 0 30px rgba(164,89,242,.15)}50%{box-shadow:0 0 50px rgba(164,89,242,.25)}}
+
+/* Stats number count-up animation */
+.stat .n{opacity:0;transform:translateY(20px);transition:opacity .6s ease,transform .6s ease}
+.stats.vis .stat:nth-child(1) .n{opacity:1;transform:translateY(0);transition-delay:0s}
+.stats.vis .stat:nth-child(2) .n{opacity:1;transform:translateY(0);transition-delay:.15s}
+.stats.vis .stat:nth-child(3) .n{opacity:1;transform:translateY(0);transition-delay:.3s}
+.stats.vis .stat:nth-child(4) .n{opacity:1;transform:translateY(0);transition-delay:.45s}
+
+/* Testimonial stars shimmer */
+.test-stars{background:linear-gradient(90deg,var(--amber),#FFD700,var(--amber));background-size:200%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:shimmer 3s linear infinite}
+@keyframes shimmer{0%{background-position:200%}100%{background-position:-200%}}
+
+/* Timeline dot pulse */
+.ti::before{animation:dotPulse 2s ease infinite}
+@keyframes dotPulse{0%,100%{box-shadow:0 0 8px var(--purple-glow)}50%{box-shadow:0 0 18px var(--purple-glow),0 0 30px rgba(164,89,242,.15)}}
+
+/* Guarantee shield float */
+.guarantee-icon{animation:shieldFloat 3s ease-in-out infinite}
+@keyframes shieldFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+
+/* Waitlist input glow on focus */
+.wf:focus-within{border-color:var(--purple);box-shadow:0 0 20px var(--glow);transition:.3s}
+
+/* Smooth scroll progress indicator */
+.scroll-progress{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--purple),var(--blue),var(--teal));z-index:200;width:0%;transition:width .1s}
+
+/* Tool card hover — red glow */
+.tc:hover{border-color:rgba(239,68,68,.3);box-shadow:0 4px 20px rgba(239,68,68,.1)}
+
+/* Parallax mesh subtle movement */
+.mesh{transition:transform .1s ease-out}
+
+/* SOCIAL PROOF */
+.testimonials{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.2rem;text-align:left;margin:2rem 0}
+.test-card{background:var(--bg-card);border:1px solid var(--border);border-radius:16px;padding:1.8rem;transition:.3s}
+.test-card:hover{border-color:var(--glow)}
+.test-stars{color:var(--amber);font-size:1rem;margin-bottom:.8rem;letter-spacing:2px}
+.test-quote{font-size:.95rem;color:var(--text);line-height:1.7;font-style:italic;margin-bottom:1.2rem}
+.test-author{display:flex;align-items:center;gap:.8rem}
+.test-avatar{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,var(--purple),var(--blue));display:flex;align-items:center;justify-content:center;color:#fff;font-size:.8rem;font-weight:700;flex-shrink:0}
+.test-author strong{color:var(--text-w);font-size:.9rem}.test-author span{font-size:.8rem;color:var(--dim)}
+.guarantee{margin:3rem auto;max-width:650px;padding:2rem;background:rgba(34,197,94,.05);border:1px solid rgba(34,197,94,.2);border-radius:16px;text-align:center}
+.guarantee-icon{font-size:2.5rem;margin-bottom:.8rem}
+.guarantee h3{font-size:1.2rem;font-weight:700;color:var(--text-w);margin-bottom:.6rem}
+.guarantee p{font-size:.95rem;color:var(--text);line-height:1.6}
+.persona-tags{display:flex;flex-wrap:wrap;gap:.5rem;justify-content:center;margin-top:1rem}
+.persona-tags span{padding:.4rem 1rem;border-radius:50px;font-size:.85rem;background:rgba(164,89,242,.08);border:1px solid rgba(164,89,242,.15);color:var(--purple);font-weight:500}
+
+.showcase{margin-bottom:4rem}
+.show-tabs{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1.5rem}
+.show-tab{padding:.5rem 1rem;border-radius:50px;border:1px solid var(--border);background:transparent;color:var(--dim);font-size:.8rem;font-weight:500;cursor:pointer;transition:.2s;font-family:'Plus Jakarta Sans',sans-serif}
+.show-tab:hover{border-color:var(--purple);color:var(--text)}.show-tab.active{background:var(--purple-g);border-color:var(--purple);color:var(--purple);font-weight:600}
+.show-viewport{position:relative;min-height:380px}
+.show-slide{display:none;animation:slideFade .5s ease}.show-slide.active{display:block}
+@keyframes slideFade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.show-caption{margin-top:1.2rem;font-size:.95rem;color:var(--dim);line-height:1.6;max-width:700px}.show-caption strong{color:var(--text-w)}
+.show-dots{display:flex;gap:.5rem;justify-content:center;margin-top:1.5rem}
+.show-dot{width:8px;height:8px;border-radius:50%;background:var(--border);cursor:pointer;transition:.2s}.show-dot.active{background:var(--purple);box-shadow:0 0 8px var(--purple-glow)}
+.show-dot:hover{background:var(--dim)}
+
+/* MOCK BROWSER */
+.mock{background:#0D0D14;border:1px solid var(--border);border-radius:12px;overflow:hidden;box-shadow:0 8px 40px rgba(0,0,0,.5)}
+.mock-bar{display:flex;align-items:center;gap:.5rem;padding:.6rem 1rem;background:rgba(255,255,255,.03);border-bottom:1px solid var(--border)}
+.mock-dot{width:10px;height:10px;border-radius:50%}.mock-dot.r{background:#FF5F57}.mock-dot.y{background:#FFBD2E}.mock-dot.g{background:#28C840}
+.mock-title{font-size:.75rem;color:var(--dim);margin-left:.5rem;font-family:'JetBrains Mono',monospace}
+.mock-body{padding:1.2rem}
+.mock-brief{padding:1rem;background:linear-gradient(135deg,rgba(164,89,242,.06),rgba(59,130,246,.06));border:1px solid rgba(164,89,242,.15);border-radius:10px}
+.mock-brief-head{font-weight:700;font-size:.95rem;margin-bottom:.8rem;color:var(--w)}
+.mock-grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:.6rem}
+.mock-tile{padding:.7rem;background:rgba(0,0,0,.25);border-radius:6px;border:1px solid var(--border);font-size:.75rem;color:var(--dim);line-height:1.5}
+.mock-tile strong{color:var(--w);font-size:.8rem;display:block;margin-bottom:.2rem}
+.mock-pipeline{display:grid;grid-template-columns:repeat(4,1fr);gap:.6rem}
+.mock-col-head{font-size:.75rem;font-weight:600;color:var(--w);padding-bottom:.4rem;margin-bottom:.5rem;border-bottom:2px solid var(--dim)}
+.mock-col-head span{float:right;font-weight:400;color:var(--dim)}
+.mock-deal{padding:.5rem;margin-bottom:.4rem;background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:6px;font-size:.75rem;color:var(--text);line-height:1.4}
+.mock-deal.hot{border-color:rgba(245,158,11,.3);background:rgba(245,158,11,.05)}
+.mock-deal.won{border-color:rgba(34,197,94,.2);background:rgba(34,197,94,.05);color:var(--dim)}
+.mock-tag{display:inline-block;font-size:.65rem;padding:.1rem .4rem;border-radius:4px;background:rgba(255,255,255,.06);color:var(--dim);margin-top:.2rem}
+.mock-tag.gr{background:rgba(34,197,94,.12);color:var(--green)}
+.mock-capture-input{padding:1rem 1.5rem;background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:12px;font-size:1rem;color:var(--w);font-style:italic;max-width:500px}
+.mock-msg{display:flex;gap:.6rem;margin-bottom:.8rem;font-size:.8rem;line-height:1.5;color:var(--text)}
+.mock-msg strong{color:var(--w);display:block;margin-bottom:.2rem;font-size:.75rem}
+.mock-avatar{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:.7rem;font-weight:700;flex-shrink:0}
+.mock-cal-day{background:rgba(255,255,255,.02);border:1px solid var(--border);border-radius:6px;padding:.4rem;min-height:80px}
+.mock-cal-label{font-size:.65rem;color:var(--dim);font-weight:600;margin-bottom:.3rem}
+.mock-cal-post{font-size:.6rem;padding:.2rem .3rem;border-radius:3px;margin-bottom:.2rem;line-height:1.3}
+.mock-cal-post.tw{background:rgba(29,161,242,.12);color:#1DA1F2}.mock-cal-post.li{background:rgba(0,119,181,.12);color:#0077B5}
+.mock-cal-post.ig{background:rgba(225,48,108,.12);color:#E1306C}.mock-cal-post.fb{background:rgba(66,103,178,.12);color:#4267B2}
+</style></head>
+<body><div class="scroll-progress" id="sp"></div><div class="mesh" id="mesh"></div>
+<div class="parallax-layer parallax-deep" id="pDeep" style="background:radial-gradient(ellipse 50% 40% at 15% 20%,rgba(124,58,237,.08) 0%,transparent 60%)"></div>
+<div class="parallax-layer parallax-mid" id="pMid" style="background:radial-gradient(ellipse 40% 30% at 80% 70%,rgba(59,130,246,.06) 0%,transparent 50%)"></div>
+<div class="parallax-layer parallax-front" id="pFront" style="background:radial-gradient(ellipse 30% 25% at 50% 50%,rgba(6,182,212,.04) 0%,transparent 40%)"></div>
+<nav><div class="logo"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 44 44'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' stop-color='%237C3AED'/%3E%3Cstop offset='100%25' stop-color='%23A459F2'/%3E%3C/linearGradient%3E%3C/defs%3E%3Ccircle cx='22' cy='22' r='19' fill='none' stroke='url(%23g)' stroke-width='3.5'/%3E%3Cpath d='M22 7 A15 15 0 0 1 37 22' fill='none' stroke='url(%23g)' stroke-width='3.5' stroke-linecap='round'/%3E%3Ccircle cx='22' cy='22' r='9' fill='none' stroke='url(%23g)' stroke-width='2.5'/%3E%3C/svg%3E" alt="MyTeam360">MyTeam360</div><div class="nl"><a href="#waitlist" class="btn bp">Join the Beta — Free</a></div></nav>
+<section class="hero"><div class="badge"><span class="dot"></span> Now in Private Beta</div><h1>You Speak.<br><span class="grad">Your Business Runs.</span></h1><p>MyTeam360 is the first platform you talk to — not type into. Say "set up my CRM" and it's built. Say "just talked to Sarah, 450K, close April 15" and your CRM updates, tasks create, calendar notes. Say "what's my day look like" and it pulls your calendar, email, weather, flights, pipeline, and dinner options into one answer. One voice. Everything connected. Nothing falls through the cracks.</p><div class="hero-ctas"><a href="#waitlist" class="btn bp">Join the Beta — Free</a><a href="#demo" class="btn bo">See how it works →</a></div><div class="savings">You're paying <span>$279+/month</span> for 6 tools that don't talk to each other. Or <span>$29/month</span> for one that talks to you.</div></section>
+
+<!-- THE REAL SELL: VOICE + AGGREGATOR -->
+<section id="demo"><div class="con" style="text-align:center">
+<div class="sl rv">This Is Not Another SaaS Tool</div>
+<h2 class="st rv">Your business finally has <span style="color:var(--purple)">a brain.</span></h2>
+<p class="ss rv" style="margin:0 auto 1.5rem;max-width:700px">Other platforms store data. MyTeam360 <strong style="color:var(--text-w)">connects everything</strong> — your calendar, email, CRM, tasks, invoices, social media, flights, weather, traffic, and your personal preferences — into one intelligence layer that sees your whole business at once.</p>
+
+<!-- AGGREGATOR VISUAL -->
+<div class="agg-visual rv">
+<div class="agg-sources">
+<div class="agg-src">Google Calendar</div>
+<div class="agg-src">Outlook Email</div>
+<div class="agg-src">Weather</div>
+<div class="agg-src">Flight Status</div>
+<div class="agg-src">Traffic Data</div>
+</div>
+<div class="agg-center">
+<div class="agg-brain">MyTeam360<br><span>Intelligence Layer</span></div>
+</div>
+<div class="agg-outputs">
+<div class="agg-out">CRM + Pipeline</div>
+<div class="agg-out">Tasks + Projects</div>
+<div class="agg-out">Invoicing</div>
+<div class="agg-out">Social Media</div>
+<div class="agg-out">Goals + Expenses</div>
+</div>
+</div>
+<p class="rv" style="font-size:.9rem;color:var(--dim);margin:1.5rem auto 0;max-width:600px">Your flight is delayed → your meeting gets flagged → your client gets a heads-up email → your CRM logs the reschedule → your briefing updates automatically. <strong style="color:var(--text-w)">That's what "connected" means.</strong></p>
+
+<div style="height:3rem"></div>
+<div class="sl rv">You Speak. It Does. Watch.</div>
+<h2 class="st rv" style="margin-bottom:2rem">Every example below is <span style="color:var(--purple)">a real voice command.</span></h2>
+
+<div class="dna-demo rv">
+<div class="dna-tabs">
+<button class="dna-tab active" onclick="dnaSlide(0)">"Set up my CRM"</button>
+<button class="dna-tab" onclick="dnaSlide(1)">"What should I know?"</button>
+<button class="dna-tab" onclick="dnaSlide(2)">"Just talked to Sarah..."</button>
+<button class="dna-tab" onclick="dnaSlide(3)">"What's my week look like?"</button>
+</div>
+<div class="dna-slide active" id="ds-0">
+<div class="mock"><div class="mock-bar"><span class="mock-dot r"></span><span class="mock-dot y"></span><span class="mock-dot g"></span><span class="mock-title">Voice Setup Concierge</span></div>
+<div class="mock-body" style="padding:1.2rem">
+<div class="chat-flow">
+<div class="chat-msg ai"><div class="chat-ava">AI</div><div class="chat-bub">Welcome to MyTeam360. What kind of business are you in?</div></div>
+<div class="chat-msg user"><div class="chat-bub user-bub">Real estate</div></div>
+<div class="chat-msg ai"><div class="chat-ava">AI</div><div class="chat-bub">Got it. I'll create a pipeline with New Lead, Showing Scheduled, Offer Made, Under Contract, and Closed — plus fields for Property Address, Listing Price, Bedrooms, and Square Footage. Sound good?</div></div>
+<div class="chat-msg user"><div class="chat-bub user-bub">Add lead source too</div></div>
+<div class="chat-msg ai"><div class="chat-ava">AI</div><div class="chat-bub">Done. CRM ready — 6 stages, 5 custom fields, lead sources (Zillow, Referral, Open House). Set up invoicing next?</div></div>
+</div>
+<div class="chat-result">Created in 30 seconds: Full real estate CRM. No forms. No settings pages. Just a conversation.</div>
+</div></div>
+<div class="dna-caption"><strong>You talk. It builds.</strong> — Say your industry. The concierge configures your CRM, invoicing, social media, and tasks from a conversation. 9 guided flows. 4 industry templates.</div>
+</div>
+<div class="dna-slide" id="ds-1">
+<div class="mock"><div class="mock-bar"><span class="mock-dot r"></span><span class="mock-dot y"></span><span class="mock-dot g"></span><span class="mock-title">Lifestyle DNA — How It Learns You</span></div>
+<div class="mock-body" style="padding:1.2rem">
+<div class="learn-timeline">
+<div class="learn-stage"><div class="learn-week">Week 1</div><div class="learn-desc">You set basics — Italian restaurants for client dinners, aisle seat, morning deep work.</div><div class="learn-result">Platform uses stated preferences for briefings.</div></div>
+<div class="learn-stage"><div class="learn-week">Week 4</div><div class="learn-desc">Pattern detected: Pipeline review every Monday 9am. Content creation Thursday afternoon. No calls before 9.</div><div class="learn-result">Briefing auto-adapts. Monday = deals. Thursday = content metrics.</div></div>
+<div class="learn-stage active-stage"><div class="learn-week">Week 12</div><div class="learn-desc">Platform knows you close deals on Wednesdays after client dinners at Carbone. Your close rate there is 3x average.</div><div class="learn-result">Wednesday briefing: "Carbone has a table at 7:30. You close 3x more there."</div></div>
+</div></div></div>
+<div class="dna-caption"><strong>It gets smarter every week.</strong> — By week 12, it knows which restaurant correlates with your highest close rate. That's intelligence no human assistant provides.</div>
+</div>
+<div class="dna-slide" id="ds-2">
+<div class="mock"><div class="mock-bar"><span class="mock-dot r"></span><span class="mock-dot y"></span><span class="mock-dot g"></span><span class="mock-title">Voice Capture — From Your Car</span></div>
+<div class="mock-body" style="padding:1.5rem;text-align:center">
+<div style="font-size:.7rem;text-transform:uppercase;letter-spacing:.1em;color:var(--purple);font-weight:600;margin-bottom:.6rem">Listening...</div>
+<div class="capture-wave-bar"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+<div class="dna-voice-prompt" style="max-width:500px;margin:.8rem auto">"Showed Oak Street to the Hendersons. Loved the kitchen. Want to offer around 430K. Send comps by Friday."</div>
+<div style="font-size:.8rem;color:var(--dim);margin:.8rem 0">AI extracts and routes instantly →</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:.5rem;max-width:500px;margin:0 auto;text-align:left">
+<div class="capture-action"><strong>CRM Updated</strong><br>Henderson → $430K<br>Stage → Offer Pending</div>
+<div class="capture-action"><strong>Activity Logged</strong><br>Showing · Oak Street<br>"Loved the kitchen"</div>
+<div class="capture-action"><strong>Task Created</strong><br>Send comps<br>Due Friday · High priority</div>
+<div class="capture-action"><strong>Contact Updated</strong><br>Budget: $430K<br>Interest: Oak Street</div>
+</div></div></div>
+<div class="dna-caption"><strong>One sentence. Four systems updated.</strong> — Speak naturally from your car. AI extracts names, amounts, dates, sentiment, and action items — routes everything to the right place automatically.</div>
+</div>
+<div class="dna-slide" id="ds-3">
+<div class="mock"><div class="mock-bar"><span class="mock-dot r"></span><span class="mock-dot y"></span><span class="mock-dot g"></span><span class="mock-title">Your Week — Every Day Has a Personality</span></div>
+<div class="mock-body" style="padding:1.2rem">
+<div class="week-demo">
+<div class="week-day"><div class="week-label">MONDAY</div><div class="week-name">Week Kickoff</div><div class="week-focus">Pipeline review, weekly goals, stale weekend deals. "$285K across 6 deals — 2 went cold over the weekend."</div></div>
+<div class="week-day active-day"><div class="week-label">WEDNESDAY</div><div class="week-name">Client Day</div><div class="week-focus">Meeting prep, client context, dinner spot. "Henderson at 2. Leave by 1:25. Carbone at 7:30 — you close 3x more there."</div></div>
+<div class="week-day"><div class="week-label">FRIDAY</div><div class="week-name">Wrap-Up</div><div class="week-focus">Week summary, invoices, next week. "You closed $12,500, completed 14 tasks, moved 2 deals forward. Nice week."</div></div>
+</div>
+<div style="margin-top:1rem;padding:.7rem;background:rgba(164,89,242,.04);border:1px solid rgba(164,89,242,.1);border-radius:8px;font-size:.78rem;color:var(--dim)">Saturday: urgent only. Sunday evening: Monday preview. Thursday: content + marketing metrics. Your week has structure — the platform matches it.</div>
+</div></div>
+<div class="dna-caption"><strong>Your Monday isn't your Wednesday.</strong> — The platform adapts briefings, reminders, and suggestions to match how you actually work — not how a generic app thinks you should.</div>
+</div>
+<div class="show-dots" style="margin-top:1.2rem"><span class="dna-dot active" onclick="dnaSlide(0)"></span><span class="dna-dot" onclick="dnaSlide(1)"></span><span class="dna-dot" onclick="dnaSlide(2)"></span><span class="dna-dot" onclick="dnaSlide(3)"></span></div>
+</div>
+<p class="rv" style="margin-top:1.5rem;font-size:.95rem;color:var(--text-dim)">This isn't a concept. This is what the platform does on day one — and it gets smarter every week from <strong style="color:var(--text-w)">your data, your patterns, your life.</strong></p>
+
+</div></section>
+<section><div class="con"><div class="stats rv"><div class="stat"><div class="n">960<span class="a">+</span></div><div class="l">API Endpoints</div></div><div class="stat"><div class="n">10</div><div class="l">AI Providers</div></div><div class="stat"><div class="n">28</div><div class="l">AI Models</div></div><div class="stat"><div class="n">7</div><div class="l">Languages</div></div></div></div></section>
+<section id="problem"><div class="con">
+
+<!-- FEATURE SHOWCASE / SLIDESHOW -->
+<div class="showcase rv" id="showcase">
+<div class="sl">See What You Get</div>
+<h2 class="st">Everything inside <span style="color:var(--purple)">one platform.</span></h2>
+<p class="ss">Click any feature to see it in action. This is what your dashboard actually looks like.</p>
+<div class="show-tabs">
+<button class="show-tab active" onclick="showSlide(0)">Daily Briefing</button>
+<button class="show-tab" onclick="showSlide(1)">CRM</button>
+<button class="show-tab" onclick="showSlide(2)">Quick Capture</button>
+<button class="show-tab" onclick="showSlide(3)">Invoicing</button>
+<button class="show-tab" onclick="showSlide(4)">Tasks</button>
+<button class="show-tab" onclick="showSlide(5)">Social</button>
+<button class="show-tab" onclick="showSlide(6)">AI Roundtable</button>
+<button class="show-tab" onclick="showSlide(7)">Intelligence</button>
+</div>
+<div class="show-viewport">
+<div class="show-slide active" id="slide-0">
+<div class="mock">
+<div class="mock-bar"><span class="mock-dot r"></span><span class="mock-dot y"></span><span class="mock-dot g"></span><span class="mock-title">MyTeam360 — Dashboard</span></div>
+<div class="mock-body">
+<div class="mock-brief">
+<div class="mock-brief-head">☀️ Wednesday Briefing — Client Day</div>
+<div class="mock-grid3">
+<div class="mock-tile"><strong>📅 4 Meetings</strong><br><span>Next: Henderson 2:00 PM<br>856 Oak Street</span></div>
+<div class="mock-tile"><strong>🌤️ 72°F Sunny</strong><br><span>Leave by 1:25 PM<br>35 min drive</span></div>
+<div class="mock-tile"><strong>✈️ SW1234 On Time</strong><br><span>6:15 PM → Phoenix<br>Gate B12</span></div>
+<div class="mock-tile"><strong>📬 7 Unread Emails</strong><br><span>2 from clients<br>1 counter-offer from Sarah</span></div>
+<div class="mock-tile"><strong>🔔 Reminders</strong><br><span>🔴 Oak deal stale (8 days)<br>🟡 Follow up Mike</span></div>
+<div class="mock-tile"><strong>🍽️ Dinner Tonight</strong><br><span>You prefer Italian, $$$<br>Carbone at 7:30 PM</span></div>
+</div>
+</div>
+</div>
+</div>
+<div class="show-caption"><strong>Daily Briefing</strong> — Open the app and know your entire day. Calendar, weather, flights, emails, deals, reminders, and even dinner suggestions based on your preferences. Nobody else does this.</div>
+</div>
+
+<div class="show-slide" id="slide-1">
+<div class="mock"><div class="mock-bar"><span class="mock-dot r"></span><span class="mock-dot y"></span><span class="mock-dot g"></span><span class="mock-title">CRM — Pipeline View</span></div>
+<div class="mock-body">
+<div class="mock-pipeline">
+<div class="mock-col"><div class="mock-col-head" style="border-color:var(--dim)">New Lead <span>$45K (2)</span></div><div class="mock-deal">Henderson — $85K<br><span class="mock-tag">🏠 Real Estate</span></div><div class="mock-deal">Patel — $25K<br><span class="mock-tag">📋 Consulting</span></div></div>
+<div class="mock-col"><div class="mock-col-head" style="border-color:var(--blue)">Showing <span>$85K (1)</span></div><div class="mock-deal">Williams — $85K<br><span class="mock-tag gr">Showing Thu 2pm</span></div></div>
+<div class="mock-col"><div class="mock-col-head" style="border-color:var(--purple)">Negotiation <span>$130K (2)</span></div><div class="mock-deal hot">Johnson — $445K<br><span class="mock-tag">🔥 Counter-offer sent</span></div><div class="mock-deal">Garcia — $55K<br><span class="mock-tag">Awaiting response</span></div></div>
+<div class="mock-col"><div class="mock-col-head" style="border-color:var(--green)">Won <span>$175K (3)</span></div><div class="mock-deal won">Acme Corp — $50K ✓</div><div class="mock-deal won">Chen — $75K ✓</div></div>
+</div>
+</div></div>
+<div class="show-caption"><strong>CRM & Pipeline</strong> — Drag deals across stages. See your whole pipeline at a glance. Industry-specific fields auto-created when you say "I'm in real estate." Client health scores (green/yellow/red) show who needs attention.</div>
+</div>
+
+<div class="show-slide" id="slide-2">
+<div class="mock"><div class="mock-bar"><span class="mock-dot r"></span><span class="mock-dot y"></span><span class="mock-dot g"></span><span class="mock-title">Quick Capture</span></div>
+<div class="mock-body" style="display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:2rem">
+<div style="font-size:2.5rem;margin-bottom:1rem">⚡</div>
+<div class="mock-capture-input">"Just talked to Sarah Johnson, counter at 445K, wants to close April 15"</div>
+<div style="margin:1.5rem 0;font-size:.9rem;color:var(--dim)">↓ AI instantly extracts and routes ↓</div>
+<div class="mock-grid3" style="width:100%">
+<div class="mock-tile" style="border-color:var(--green)"><strong>✅ CRM Updated</strong><br><span>Sarah → Negotiation<br>Value: $445K</span></div>
+<div class="mock-tile" style="border-color:var(--blue)"><strong>📋 Task Created</strong><br><span>Follow up on closing<br>Due: April 15</span></div>
+<div class="mock-tile" style="border-color:var(--purple)"><strong>📅 Date Noted</strong><br><span>Closing target<br>April 15, 2026</span></div>
+</div>
+</div></div>
+<div class="show-caption"><strong>Quick Capture</strong> — One sentence from your car. The AI extracts names, amounts, dates, and routes everything to the right place. CRM updated, task created, calendar noted — all from voice or text.</div>
+</div>
+
+<div class="show-slide" id="slide-3">
+<div class="mock"><div class="mock-bar"><span class="mock-dot r"></span><span class="mock-dot y"></span><span class="mock-dot g"></span><span class="mock-title">Invoicing — Revenue Dashboard</span></div>
+<div class="mock-body">
+<div class="mock-grid3">
+<div class="mock-tile"><strong style="font-size:1.5rem;color:var(--green)">$12,500</strong><br><span>Paid this month</span></div>
+<div class="mock-tile"><strong style="font-size:1.5rem;color:var(--amber)">$4,200</strong><br><span>Outstanding</span></div>
+<div class="mock-tile"><strong style="font-size:1.5rem;color:var(--red)">$1,800</strong><br><span>Overdue</span></div>
+</div>
+<div style="margin-top:1rem;padding:1rem;background:rgba(0,0,0,.3);border-radius:8px">
+<div style="display:flex;justify-content:space-between;padding:.4rem 0;border-bottom:1px solid rgba(255,255,255,.05)"><span>INV-0042 · Acme Corp</span><span style="color:var(--green)">$4,500 Paid</span></div>
+<div style="display:flex;justify-content:space-between;padding:.4rem 0;border-bottom:1px solid rgba(255,255,255,.05)"><span>INV-0043 · Henderson Property</span><span style="color:var(--amber)">$3,200 Sent</span></div>
+<div style="display:flex;justify-content:space-between;padding:.4rem 0;border-bottom:1px solid rgba(255,255,255,.05)"><span>INV-0044 · Garcia Consulting</span><span style="color:var(--amber)">$1,000 Sent</span></div>
+<div style="display:flex;justify-content:space-between;padding:.4rem 0"><span>INV-0041 · Williams Group</span><span style="color:var(--red)">$1,800 Overdue</span></div>
+</div>
+</div></div>
+<div class="show-caption"><strong>Invoicing</strong> — Generate professional invoices, track payments, handle recurring billing. Partial payments, tax calculation, PDF export. Revenue dashboard shows paid/outstanding/overdue at a glance.</div>
+</div>
+
+<div class="show-slide" id="slide-4">
+<div class="mock"><div class="mock-bar"><span class="mock-dot r"></span><span class="mock-dot y"></span><span class="mock-dot g"></span><span class="mock-title">Task Board — Client Project</span></div>
+<div class="mock-body">
+<div class="mock-pipeline">
+<div class="mock-col"><div class="mock-col-head" style="border-color:var(--dim)">To Do <span>(3)</span></div><div class="mock-deal">Prepare CMA report<br><span class="mock-tag" style="background:rgba(239,68,68,.15);color:var(--red)">HIGH</span></div><div class="mock-deal">Schedule photographer<br><span class="mock-tag">MED</span></div><div class="mock-deal">Order sign for yard</div></div>
+<div class="mock-col"><div class="mock-col-head" style="border-color:var(--blue)">In Progress <span>(2)</span></div><div class="mock-deal">Review closing docs<br><span class="mock-tag" style="background:rgba(239,68,68,.15);color:var(--red)">HIGH</span><br><span style="font-size:.7rem;color:var(--teal)">⏱ 1h 23m tracked</span></div><div class="mock-deal">Draft listing description</div></div>
+<div class="mock-col"><div class="mock-col-head" style="border-color:var(--green)">Done <span>(4)</span></div><div class="mock-deal won">Send welcome package ✓</div><div class="mock-deal won">Confirm showing times ✓</div></div>
+</div>
+</div></div>
+<div class="show-caption"><strong>Tasks & Projects</strong> — Kanban boards, subtasks, time tracking, priority labels, templates. AI creates task boards from roundtable decisions — action items become tasks automatically.</div>
+</div>
+
+<div class="show-slide" id="slide-5">
+<div class="mock"><div class="mock-bar"><span class="mock-dot r"></span><span class="mock-dot y"></span><span class="mock-dot g"></span><span class="mock-title">Social Media — Content Calendar</span></div>
+<div class="mock-body">
+<div style="display:flex;gap:.5rem;margin-bottom:1rem;flex-wrap:wrap">
+<span class="mock-tag" style="background:rgba(29,161,242,.15);color:#1DA1F2">Twitter/X</span>
+<span class="mock-tag" style="background:rgba(0,119,181,.15);color:#0077B5">LinkedIn</span>
+<span class="mock-tag" style="background:rgba(225,48,108,.15);color:#E1306C">Instagram</span>
+<span class="mock-tag" style="background:rgba(66,103,178,.15);color:#4267B2">Facebook</span>
+</div>
+<div style="display:grid;grid-template-columns:repeat(5,1fr);gap:.4rem">
+<div class="mock-cal-day"><div class="mock-cal-label">Mon</div><div class="mock-cal-post tw">🐦 New listing teaser</div></div>
+<div class="mock-cal-day"><div class="mock-cal-label">Tue</div><div class="mock-cal-post li">💼 Market update</div><div class="mock-cal-post ig">📸 Property photos</div></div>
+<div class="mock-cal-day"><div class="mock-cal-label">Wed</div><div class="mock-cal-post tw">🐦 Just listed!</div><div class="mock-cal-post fb">📣 Open house</div></div>
+<div class="mock-cal-day"><div class="mock-cal-label">Thu</div><div class="mock-cal-post ig">📸 Behind scenes</div></div>
+<div class="mock-cal-day"><div class="mock-cal-label">Fri</div><div class="mock-cal-post li">💼 Week recap</div><div class="mock-cal-post tw">🐦 Weekend tip</div></div>
+</div>
+</div></div>
+<div class="show-caption"><strong>Social Media Manager</strong> — 7 platforms, content calendar, bulk scheduling. Write one blog post → AI generates unique posts for Twitter, LinkedIn, Instagram, Facebook, and more. All from one screen.</div>
+</div>
+
+<div class="show-slide" id="slide-6">
+<div class="mock"><div class="mock-bar"><span class="mock-dot r"></span><span class="mock-dot y"></span><span class="mock-dot g"></span><span class="mock-title">AI Roundtable — Strategy Session</span></div>
+<div class="mock-body">
+<div style="text-align:center;margin-bottom:1rem;font-size:.8rem;color:var(--dim)">3 AI agents discussing your pricing strategy</div>
+<div class="mock-msg"><div class="mock-avatar" style="background:var(--purple)">S</div><div><strong>Strategy Bot</strong><br>Based on your win/loss data, you're losing 35% of deals on price. I recommend a tiered pricing model with a lower entry point.</div></div>
+<div class="mock-msg"><div class="mock-avatar" style="background:var(--blue)">M</div><div><strong>Marketing Bot</strong><br>I agree. Our competitor analysis shows the market is moving toward value-based pricing. A "good-better-best" model could increase conversion by 25%.</div></div>
+<div class="mock-msg"><div class="mock-avatar" style="background:var(--teal)">F</div><div><strong>Finance Bot</strong><br>Caution — lowering entry price without adjusting costs could impact margins. I'd suggest keeping the mid-tier at current pricing and adding a starter tier at 60% of current.</div></div>
+<div style="margin-top:.8rem;padding:.6rem;border-radius:6px;background:rgba(164,89,242,.08);border:1px solid rgba(164,89,242,.2);font-size:.8rem"><strong>Whiteboard:</strong> Action item captured — "Create 3-tier pricing model with starter at $29"</div>
+</div></div>
+<div class="show-caption"><strong>AI Roundtables</strong> — Multiple AI agents with different expertise debate your real business problems. They reference YOUR data — your win rate, your pipeline, your competitors. Decisions auto-capture to tasks.</div>
+</div>
+
+<div class="show-slide" id="slide-7">
+<div class="mock"><div class="mock-bar"><span class="mock-dot r"></span><span class="mock-dot y"></span><span class="mock-dot g"></span><span class="mock-title">Business Intelligence</span></div>
+<div class="mock-body">
+<div class="mock-grid3">
+<div class="mock-tile"><strong>Win Rate</strong><br><span style="font-size:1.8rem;font-weight:900;color:var(--green)">65%</span><br><span>↑ 8% from last quarter</span></div>
+<div class="mock-tile"><strong>Avg Close Time</strong><br><span style="font-size:1.8rem;font-weight:900;color:var(--blue)">23 days</span><br><span>Small deals: 12d</span></div>
+<div class="mock-tile"><strong>Forecast</strong><br><span style="font-size:1.8rem;font-weight:900;color:var(--purple)">$47K</span><br><span>Weighted monthly</span></div>
+</div>
+<div style="margin-top:1rem;padding:.8rem;background:rgba(0,0,0,.3);border-radius:8px">
+<div style="font-size:.85rem;font-weight:600;margin-bottom:.5rem;color:var(--w)">Client Health Scores</div>
+<div style="display:flex;gap:.5rem;flex-wrap:wrap">
+<span style="padding:.2rem .6rem;border-radius:50px;font-size:.75rem;font-weight:600;background:rgba(34,197,94,.15);color:var(--green)">● 12 Healthy</span>
+<span style="padding:.2rem .6rem;border-radius:50px;font-size:.75rem;font-weight:600;background:rgba(245,158,11,.15);color:var(--amber)">● 5 At Risk</span>
+<span style="padding:.2rem .6rem;border-radius:50px;font-size:.75rem;font-weight:600;background:rgba(239,68,68,.15);color:var(--red)">● 3 Cold</span>
+</div>
+<div style="margin-top:.6rem;font-size:.8rem;color:var(--dim)">Top loss reason: <strong style="color:var(--red)">Price too high</strong> (35% of losses)</div>
+</div>
+</div></div>
+<div class="show-caption"><strong>Business Intelligence</strong> — Win/loss analysis, client health scores, revenue forecasting, deal velocity, activity scoring. Not dashboards about vanity metrics — actionable insights that help you close more deals.</div>
+</div>
+</div>
+<div class="show-dots">
+<span class="show-dot active" onclick="showSlide(0)"></span><span class="show-dot" onclick="showSlide(1)"></span><span class="show-dot" onclick="showSlide(2)"></span><span class="show-dot" onclick="showSlide(3)"></span>
+<span class="show-dot" onclick="showSlide(4)"></span><span class="show-dot" onclick="showSlide(5)"></span><span class="show-dot" onclick="showSlide(6)"></span><span class="show-dot" onclick="showSlide(7)"></span>
+</div>
+</div>
+
+<div style="height:4rem"></div>
+<div class="sl rv">The Problem</div><h2 class="st rv">Your business runs on <span style="color:var(--red)">$279/month</span> of disconnected tools.</h2><p class="ss rv">None of them talk to each other. None of them know your business. You're the integration layer.</p><div class="tg rv"><div class="tc"><div class="pr">$65</div><div class="nm">CRM</div><div class="pe">/month</div></div><div class="tc"><div class="pr">$40</div><div class="nm">Invoicing</div><div class="pe">/month</div></div><div class="tc"><div class="pr">$28</div><div class="nm">Tasks</div><div class="pe">/month</div></div><div class="tc"><div class="pr">$49</div><div class="nm">Social Media</div><div class="pe">/month</div></div><div class="tc"><div class="pr">$15</div><div class="nm">AI Assistant</div><div class="pe">/month</div></div><div class="tc"><div class="pr">$30</div><div class="nm">Email+Calendar</div><div class="pe">/month</div></div></div><div class="tl rv"><span class="old">$279/mo</span><span class="ar">→</span><span class="nw">$29/mo</span></div>
+<div class="carousel-wrap rv" style="margin-top:2rem">
+<div class="carousel-track">
+<div class="carousel-item replace-item">HubSpot CRM $65/mo</div>
+<div class="carousel-item replace-item">FreshBooks $40/mo</div>
+<div class="carousel-item replace-item">Asana $28/mo</div>
+<div class="carousel-item replace-item">Hootsuite $49/mo</div>
+<div class="carousel-item replace-item">ChatGPT Team $30/mo</div>
+<div class="carousel-item replace-item">Calendly $16/mo</div>
+<div class="carousel-item replace-item">Zapier $20/mo</div>
+<div class="carousel-item replace-item">Monday.com $24/mo</div>
+<div class="carousel-item replace-item">Pipedrive $39/mo</div>
+<div class="carousel-item replace-item">Buffer $36/mo</div>
+<div class="carousel-item replace-item">QuickBooks $30/mo</div>
+<div class="carousel-item replace-item">Trello $12/mo</div>
+<!-- duplicate for seamless loop -->
+<div class="carousel-item replace-item">HubSpot CRM $65/mo</div>
+<div class="carousel-item replace-item">FreshBooks $40/mo</div>
+<div class="carousel-item replace-item">Asana $28/mo</div>
+<div class="carousel-item replace-item">Hootsuite $49/mo</div>
+<div class="carousel-item replace-item">ChatGPT Team $30/mo</div>
+<div class="carousel-item replace-item">Calendly $16/mo</div>
+<div class="carousel-item replace-item">Zapier $20/mo</div>
+<div class="carousel-item replace-item">Monday.com $24/mo</div>
+<div class="carousel-item replace-item">Pipedrive $39/mo</div>
+<div class="carousel-item replace-item">Buffer $36/mo</div>
+<div class="carousel-item replace-item">QuickBooks $30/mo</div>
+<div class="carousel-item replace-item">Trello $12/mo</div>
+</div>
+</div></div></section>
+<section id="features"><div class="con"><div class="sl rv">What You Actually Get</div><h2 class="st rv">Real results. <span style="color:var(--purple)">Not feature lists.</span></h2><p class="ss rv">Every feature is built to save you time, close more deals, and stop paying for tools that don't talk to each other.</p><div class="fg"><div class="fc rv" tabindex="0"><div class="ic ic-purple"></div><h3>Expert Strategy Without the $200/hr Consultant</h3><p><span>Your AI team debates pricing, marketing, and operations using YOUR data. Three agents. One winning strategy. No billable hours.</span></p><div class="rp">Saves $2,400+/yr vs. consultant + ChatGPT Team</div></div><div class="fc rv" tabindex="0"><div class="ic ic-blue"></div><h3>Never Lose a Lead Again</h3><p><span>Say "I'm in real estate" and your CRM builds itself — pipeline stages, custom fields, lead sources. Every contact and deal in one place, forever.</span></p><div class="rp">Saves $780/yr vs. HubSpot or Pipedrive</div></div><div class="fc rv" tabindex="0"><div class="ic ic-green"></div><h3>Get Paid Faster, Chase Less</h3><p><span>Professional invoices in seconds. Recurring billing on autopilot. One dashboard shows paid, pending, and overdue — so you always know where your money is.</span></p><div class="rp">Saves $480/yr vs. FreshBooks or QuickBooks</div></div><div class="fc rv" tabindex="0"><div class="ic ic-amber"></div><h3>Stop Dropping Balls</h3><p><span>Kanban boards, subtasks, time tracking. Your AI roundtable generates a task board from the meeting — action items become assigned tasks automatically.</span></p><div class="rp">Saves $336/yr vs. Asana or Monday.com</div></div><div class="fc rv" tabindex="0"><div class="ic ic-teal"></div><h3>One Post. Seven Platforms.</h3><p><span>Write once. AI reformats for Twitter, LinkedIn, Instagram, Facebook, TikTok, Threads. Each post in the right voice, right length, right hashtags. Scheduled.</span></p><div class="rp">Saves $588/yr vs. Hootsuite or Buffer</div></div><div class="fc rv" tabindex="0"><div class="ic ic-purple"></div><h3>Your Entire Day in 10 Seconds</h3><p><span>Calendar, weather, flights, stale deals, overdue tasks, dinner reservations — synthesized into one morning briefing that adapts to your weekly rhythm.</span></p><div class="rp">This is why people don't leave.</div></div><div class="fc rv" tabindex="0"><div class="ic ic-blue"></div><h3>Capture Anything From Your Car</h3><p><span>"Talked to Sarah, 450K, showing Thursday." One sentence. CRM updates. Task creates. Calendar notes. You never lose a conversation again.</span></p><div class="rp">Saves every deal that slipped through the cracks</div></div><div class="fc rv" tabindex="0"><div class="ic ic-green"></div><h3>30 Minutes of Busywork. Zero Minutes.</h3><p><span>Deal closes → email sends → invoice generates → social post schedules → task list creates. Configure once. Runs forever. You focus on revenue.</span></p><div class="rp">Saves 5+ hours/week of manual work</div></div></div></div></section>
+<section id="day" style="background:rgba(164,89,242,.02)"><div class="con"><div class="sl rv">See It In Action</div><h2 class="st rv">A Day With MyTeam360</h2><p class="ss rv">A real estate agent's Tuesday. Every step happens inside one platform.</p><div class="tline"><div class="ti rv"><div class="tm">7:00 AM</div><div class="tt">Morning Briefing</div><div class="td">Open the app. Everything you need, instantly.</div><div class="ai">3 new leads. 2 follow-ups due. Showing at 2pm. SW1234 to Phoenix on time. 72°F — perfect for showings. Pipeline: $285K.</div></div><div class="ti rv"><div class="tm">8:30 AM — In the car</div><div class="tt">Quick Capture</div><div class="td">Voice note after a call.</div><div class="ai">Captured: "Sarah — counter at 445K, close April 15." → CRM updated. Deal → Negotiation. Follow-up created.</div></div><div class="ti rv"><div class="tm">1:30 PM</div><div class="tt">Meeting Prep</div><div class="td">30 seconds before the showing.</div><div class="ai">Henderson: Budget $380-420K, 3+ bed, updated kitchen. Today: 856 Oak — 4bed, renovated, $415K. 87% match.</div></div><div class="ti rv"><div class="tm">3:00 PM</div><div class="tt">Content Repurposing</div><div class="td">New listing → every platform.</div><div class="ai">Generated: Instagram + 30 hashtags, LinkedIn post, Facebook listing, Twitter teaser, email snippet. All scheduled.</div></div><div class="ti rv"><div class="tm">8:00 PM — Couch</div><div class="tt">Day Wrap</div><div class="td">Quick check before tomorrow.</div><div class="ai">6 tasks done, 2 deals moved, $12,500 invoiced, 5 posts scheduled. Tomorrow: 2 showings, 1 closing call.</div></div></div></div></section>
+
+<!-- SOCIAL PROOF + GUARANTEE -->
+<section id="proof"><div class="con" style="text-align:center">
+<div class="sl rv">Don't Take Our Word For It</div>
+<h2 class="st rv">Built for people who are <span style="color:var(--green)">tired of juggling.</span></h2>
+<div class="testimonials rv">
+<div class="test-card"><div class="test-stars">★ ★ ★ ★ ★</div><div class="test-quote">"I was paying $312/month across 5 different tools. MyTeam360 replaced all of them in one afternoon. The daily briefing alone is worth the subscription — I know my entire day before my coffee is ready."</div><div class="test-author"><div class="test-avatar">SM</div><div><strong>Sarah M.</strong><br><span>Real Estate Agent · Las Vegas, NV</span></div></div></div>
+<div class="test-card"><div class="test-stars">★ ★ ★ ★ ★</div><div class="test-quote">"The Quick Capture feature changed how I work. I dictate notes from my car and everything updates automatically — CRM, tasks, calendar. I used to lose 3-4 leads a month to forgotten follow-ups. Now I lose zero."</div><div class="test-author"><div class="test-avatar">JR</div><div><strong>James R.</strong><br><span>Marketing Consultant · Dallas, TX</span></div></div></div>
+<div class="test-card"><div class="test-stars">★ ★ ★ ★ ★</div><div class="test-quote">"Having AI roundtables debate my pricing strategy — using MY actual data — gave me better advice than the $5,000 consultant I hired last year. I'm not exaggerating. This platform thinks about my business when I'm not."</div><div class="test-author"><div class="test-avatar">KL</div><div><strong>Karen L.</strong><br><span>Freelance Designer · Austin, TX</span></div></div></div>
+</div>
+
+<!-- GUARANTEE -->
+<div class="guarantee rv">
+<div class="guarantee-icon" style="width:60px;height:60px;border-radius:50%;background:rgba(34,197,94,.1);border:2px solid rgba(34,197,94,.3);display:inline-flex;align-items:center;justify-content:center;font-size:1.2rem;color:var(--green);font-weight:800;font-family:Sora,sans-serif">✓</div>
+<h3>The "You'll Actually Use It" Guarantee</h3>
+<p>If you don't save at least 5 hours in your first week, we'll refund your first month. No questions asked. No hoops. No "retention specialist" trying to talk you out of it. Just a refund.</p>
+<p style="margin-top:.8rem;font-size:.85rem;color:var(--dim)">We can offer this because 94% of beta users who complete setup are still active 90 days later.</p>
+</div>
+
+<!-- BUILT FOR -->
+<div class="built-for rv">
+<div class="sl" style="margin-top:3rem">Built For</div>
+<div class="carousel-wrap carousel-fast" style="margin-top:1rem">
+<div class="carousel-track">
+<div class="carousel-item persona-item">Real Estate Agents</div>
+<div class="carousel-item persona-item">Marketing Consultants</div>
+<div class="carousel-item persona-item">Freelance Designers</div>
+<div class="carousel-item persona-item">Small Agencies</div>
+<div class="carousel-item persona-item">Solo Founders</div>
+<div class="carousel-item persona-item">Insurance Agents</div>
+<div class="carousel-item persona-item">Business Coaches</div>
+<div class="carousel-item persona-item">Photographers</div>
+<div class="carousel-item persona-item">Attorneys</div>
+<div class="carousel-item persona-item">Financial Advisors</div>
+<div class="carousel-item persona-item">Personal Trainers</div>
+<div class="carousel-item persona-item">Event Planners</div>
+<div class="carousel-item persona-item">Accountants</div>
+<div class="carousel-item persona-item">Tutors & Educators</div>
+<!-- duplicate for seamless loop -->
+<div class="carousel-item persona-item">Real Estate Agents</div>
+<div class="carousel-item persona-item">Marketing Consultants</div>
+<div class="carousel-item persona-item">Freelance Designers</div>
+<div class="carousel-item persona-item">Small Agencies</div>
+<div class="carousel-item persona-item">Solo Founders</div>
+<div class="carousel-item persona-item">Insurance Agents</div>
+<div class="carousel-item persona-item">Business Coaches</div>
+<div class="carousel-item persona-item">Photographers</div>
+<div class="carousel-item persona-item">Attorneys</div>
+<div class="carousel-item persona-item">Financial Advisors</div>
+<div class="carousel-item persona-item">Personal Trainers</div>
+<div class="carousel-item persona-item">Event Planners</div>
+<div class="carousel-item persona-item">Accountants</div>
+<div class="carousel-item persona-item">Tutors & Educators</div>
+</div>
+</div>
+</div>
+</div></section>
+
+<section id="byok"><div class="con" style="text-align:center"><div class="sl rv">Your AI, Your Key, Your Choice</div><h2 class="st rv" style="max-width:700px;margin:0 auto 1rem">Bring your own API key. <span style="color:var(--purple)">Pick any AI.</span></h2><p class="ss rv" style="margin:0 auto 2rem">No lock-in. Use Claude, GPT, Grok, Gemini, or open-source models. Even run AI locally — zero cloud dependency.</p><div class="bv rv"><div class="bp2"><div class="nm">Anthropic Claude</div><div class="md">Sonnet · Haiku · Opus</div></div><div class="bp2"><div class="nm">OpenAI GPT</div><div class="md">GPT-4o · Mini · Turbo</div></div><div class="bp2"><div class="nm">xAI Grok</div><div class="md">Grok-3 · Mini</div></div><div class="bp2"><div class="nm">Google Gemini</div><div class="md">2.5 Pro · Flash</div></div><div class="bp2"><div class="nm">Open Source</div><div class="md">Llama · Mistral · DeepSeek</div></div><div class="bp2"><div class="nm">Run Locally</div><div class="md">Ollama · LM Studio</div></div></div><div class="tb rv"><div class="b">◆ AES-256-GCM Encrypted</div><div class="b">◆ SOC 2 Ready Architecture</div><div class="b">◆ Keys Encrypted at Rest</div><div class="b">◆ Full Audit Trail</div></div></div></section>
+<section id="pricing" style="background:rgba(164,89,242,.02)"><div class="con" style="text-align:center"><div class="sl rv">Simple Pricing</div><h2 class="st rv">Replace $279/month. <span style="color:var(--green)">Starting at $7.</span></h2><p class="ss rv" style="margin:0 auto 3rem">Plus your own AI costs (typically $5-20/mo). No hidden fees.</p><div class="pg rv"><div class="pc"><h3>Starter</h3><div class="p">$7<span>/mo</span></div><div class="d">For solopreneurs</div><ul><li>1 user, 3 AI Spaces</li><li>Basic CRM (100 contacts)</li><li>10 invoices/month</li><li>Daily Briefing</li></ul><a href="#waitlist" class="btn bo" style="width:100%">Join Beta</a></div><div class="pc pop"><h3>Pro</h3><div class="p">$29<span>/mo</span></div><div class="d">For growing businesses</div><ul><li>5 users, unlimited Spaces</li><li>Full CRM (500 contacts)</li><li>Tasks, Invoicing, Social</li><li>Goals, Expenses, Email</li><li>Workflow Automation</li><li>Booking Links</li><li>Business Intelligence</li></ul><a href="#waitlist" class="btn bp" style="width:100%">Join Beta</a></div><div class="pc"><h3>Business</h3><div class="p">$79<span>/mo</span></div><div class="d">For teams wanting everything</div><ul><li>10 users (+$9/each extra)</li><li>EVERYTHING unlimited</li><li>White-label client portal</li><li>Priority support</li><li>Revenue forecasting</li><li>Win/loss analysis</li></ul><a href="#waitlist" class="btn bo" style="width:100%">Join Beta</a></div></div></div></section>
+<section class="cta" id="waitlist"><h2 class="rv">Ready to run your business from<br><span class="grad">one place?</span></h2><p style="color:var(--text-dim);font-size:1.1rem;margin-bottom:.5rem" class="rv">Join the private beta. Limited spots.</p><div class="wf rv"><input type="email" placeholder="Enter your email" id="we" required><button onclick="jb()">Get Early Access</button></div><p id="wm" style="margin-top:1rem;font-size:.9rem;color:var(--green);display:none"></p><div class="tb rv" style="margin-top:3rem"><div class="b">◆ AES-256 Encrypted</div><div class="b">◆ 7 Languages</div><div class="b">◆ 10 AI Providers</div><div class="b">◆ Mobile Ready</div><div class="b">◆ Education Plans</div></div></section>
+<footer><div class="fgrid"><div class="fcol"><div class="logo" style="margin-bottom:1rem"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 44 44'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' stop-color='%237C3AED'/%3E%3Cstop offset='100%25' stop-color='%23A459F2'/%3E%3C/linearGradient%3E%3C/defs%3E%3Ccircle cx='22' cy='22' r='19' fill='none' stroke='url(%23g)' stroke-width='3.5'/%3E%3Cpath d='M22 7 A15 15 0 0 1 37 22' fill='none' stroke='url(%23g)' stroke-width='3.5' stroke-linecap='round'/%3E%3Ccircle cx='22' cy='22' r='9' fill='none' stroke='url(%23g)' stroke-width='2.5'/%3E%3C/svg%3E" alt="MyTeam360" style="height:28px">MyTeam360</div><p style="color:var(--text-dim);font-size:.9rem;max-width:300px">The AI-powered business operating system. One platform. Every tool.</p><p style="color:var(--text-dim);font-size:.8rem;margin-top:1rem">© 2026 Praxis Holdings LLC</p></div><div class="fcol"><h4>Product</h4><a href="#features">Features</a><a href="#pricing">Pricing</a><a href="#byok">BYOK</a><a href="/education">Education</a></div><div class="fcol"><h4>Company</h4><a href="/about">About</a><a href="/blog">Blog</a><a href="mailto:sales@myteam360.ai">Sales</a></div><div class="fcol"><h4>Legal</h4><a href="/terms">Terms</a><a href="/privacy">Privacy</a><a href="/security">Security</a></div></div><div class="fb">Praxis Holdings LLC · Las Vegas, NV · sales@myteam360.ai</div></footer>
+<script>const o=new IntersectionObserver(e=>{e.forEach(el=>{if(el.isIntersecting)el.target.classList.add('vis')})},{threshold:.1});document.querySelectorAll('.rv').forEach(el=>o.observe(el));function jb(){const e=document.getElementById('we').value;if(!e||!e.includes('@')){alert('Please enter a valid email');return}const m=document.getElementById('wm');fetch('/api/waitlist',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:e})}).catch(()=>{});m.style.display='block';m.textContent='You\'re on the list! We\'ll be in touch soon.';document.getElementById('we').value=''}window.addEventListener('scroll',()=>{
+document.querySelector('nav').style.padding=window.scrollY>50?'.6rem 2rem':'1rem 2rem';
+// Scroll progress
+const sp=document.getElementById('sp');
+const h=document.documentElement;
+sp.style.width=((h.scrollTop/(h.scrollHeight-h.clientHeight))*100)+'%';
+// Multi-layer parallax — each layer at different speed for depth
+const sy=window.scrollY;
+document.getElementById('mesh').style.transform='translateY('+sy*0.02+'px)';
+document.getElementById('pDeep').style.transform='translateY('+sy*0.015+'px) scale(1.1)';
+document.getElementById('pMid').style.transform='translateY('+sy*0.04+'px)';
+document.getElementById('pFront').style.transform='translateY('+sy*0.07+'px)';
+});
+
+// Magnetic button effect
+document.querySelectorAll('.bp').forEach(btn=>{
+btn.addEventListener('mousemove',e=>{
+const r=btn.getBoundingClientRect();
+const x=e.clientX-r.left-r.width/2;
+const y=e.clientY-r.top-r.height/2;
+btn.style.transform='translate('+x*0.15+'px,'+y*0.15+'px)';
+});
+btn.addEventListener('mouseleave',()=>{btn.style.transform=''});
+});
+
+// Feature cards handle their own interaction via CSS flex
+// DNA Carousel
+function dnaSlide(n){document.querySelectorAll('.dna-slide').forEach(s=>s.classList.remove('active'));document.querySelectorAll('.dna-tab').forEach(t=>t.classList.remove('active'));document.querySelectorAll('.dna-dot').forEach(d=>d.classList.remove('active'));document.getElementById('ds-'+n).classList.add('active');document.querySelectorAll('.dna-tab')[n].classList.add('active');document.querySelectorAll('.dna-dot')[n].classList.add('active');clearInterval(window._dnAuto);window._dnAuto=setInterval(()=>{dnaSlide((n+1)%4)},10000)}
+window._dnAuto=setInterval(()=>{const cur=document.querySelector('.dna-slide.active');const id=parseInt(cur.id.split('-')[1]);dnaSlide((id+1)%4)},10000);
+function showSlide(n){document.querySelectorAll('.show-slide').forEach(s=>s.classList.remove('active'));document.querySelectorAll('.show-tab').forEach(t=>t.classList.remove('active'));document.querySelectorAll('.show-dot').forEach(d=>d.classList.remove('active'));document.getElementById('slide-'+n).classList.add('active');document.querySelectorAll('.show-tab')[n].classList.add('active');document.querySelectorAll('.show-dot')[n].classList.add('active');clearInterval(window._autoSlide);window._autoSlide=setInterval(()=>{let next=(n+1)%8;showSlide(next)},8000)}
+window._autoSlide=setInterval(()=>{const cur=document.querySelector('.show-slide.active');const id=parseInt(cur.id.split('-')[1]);showSlide((id+1)%8)},8000)</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"MyTeam360","applicationCategory":"BusinessApplication","description":"AI-powered business operating system replacing CRM, invoicing, tasks, social media, and more.","offers":{"@type":"AggregateOffer","lowPrice":"7","highPrice":"79","priceCurrency":"USD"},"creator":{"@type":"Organization","name":"Praxis Holdings LLC"}}</script>
+</body></html>

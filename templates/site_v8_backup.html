@@ -1,0 +1,660 @@
+<!--
+  MyTeam360 — AI Platform
+  Copyright © 2026 Praxis Holdings LLC. All rights reserved.
+  PROPRIETARY AND CONFIDENTIAL — TRADE SECRET
+  Report IP violations: legal@praxisholdingsllc.com
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>MyTeam360 — You Speak. Your Business Runs.</title>
+<meta name="description" content="MyTeam360 is the voice-first AI platform that connects your CRM, invoicing, tasks, social media, calendar, email, and more into one intelligence layer. You speak. It does. Save $250+/month.">
+<meta property="og:title" content="MyTeam360 — You Speak. Your Business Runs.">
+<meta property="og:description" content="The first platform you talk to — not type into. One voice. Everything connected.">
+<link rel="canonical" href="https://myteam360.ai">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Sora:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --p:#A459F2;--pd:#7C3AED;--pg:rgba(164,89,242,.35);
+  --b:#3B82F6;--t:#06B6D4;--g:#22C55E;--a:#F59E0B;--r:#EF4444;
+  --bg:#08080D;--bg2:#0E0E16;--card:#13131D;
+  --tx:#CBD5E1;--dim:#64748B;--w:#FFF;
+  --brd:rgba(255,255,255,.06);--glow:rgba(164,89,242,.25);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(--tx);line-height:1.7;overflow-x:hidden;-webkit-font-smoothing:antialiased;letter-spacing:-.01em}
+::selection{background:var(--p);color:#fff}
+a{color:var(--p);text-decoration:none;transition:.2s}a:hover{color:var(--w)}
+h1,h2,h3,h4{font-family:'Sora',sans-serif;color:var(--w);letter-spacing:-.02em}
+section{position:relative;padding:7rem 2rem}
+.con{max-width:1140px;margin:0 auto}
+.label{font-size:.7rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--p);margin-bottom:1rem}
+.accent{color:var(--p)}
+
+/* ═══ SCROLL PROGRESS ═══ */
+.spbar{position:fixed;top:0;left:0;height:2px;background:linear-gradient(90deg,var(--p),var(--b),var(--t));z-index:300;width:0%;transition:width .1s}
+
+/* ═══ ANIMATED MOTION BG ═══ */
+.mesh{position:fixed;top:0;left:0;right:0;bottom:0;z-index:0;overflow:hidden}
+.mesh canvas{position:absolute;top:0;left:0;width:100%;height:100%}
+.mesh-grad{position:absolute;top:0;left:0;right:0;bottom:0;
+  background:
+    radial-gradient(ellipse 70% 50% at 15% 8%,rgba(124,58,237,.1)0%,transparent 55%),
+    radial-gradient(ellipse 50% 40% at 85% 15%,rgba(59,130,246,.06)0%,transparent 45%),
+    radial-gradient(ellipse 40% 30% at 50% 85%,rgba(6,182,212,.04)0%,transparent 35%)}
+/* Floating gradient orbs */
+.orb{position:absolute;border-radius:50%;filter:blur(80px);opacity:.35;animation:orbFloat linear infinite;will-change:transform}
+.orb-1{width:600px;height:600px;background:radial-gradient(circle,rgba(124,58,237,.25),transparent 70%);top:-10%;left:-5%;animation-duration:25s}
+.orb-2{width:500px;height:500px;background:radial-gradient(circle,rgba(59,130,246,.2),transparent 70%);top:30%;right:-10%;animation-duration:30s;animation-delay:-8s}
+.orb-3{width:400px;height:400px;background:radial-gradient(circle,rgba(6,182,212,.15),transparent 70%);bottom:-5%;left:30%;animation-duration:22s;animation-delay:-14s}
+.orb-4{width:350px;height:350px;background:radial-gradient(circle,rgba(164,89,242,.18),transparent 70%);top:60%;left:60%;animation-duration:28s;animation-delay:-5s}
+@keyframes orbFloat{
+  0%{transform:translate(0,0) scale(1)}
+  25%{transform:translate(60px,-40px) scale(1.1)}
+  50%{transform:translate(-30px,50px) scale(.95)}
+  75%{transform:translate(-50px,-20px) scale(1.05)}
+  100%{transform:translate(0,0) scale(1)}
+}
+/* Subtle grid lines */
+.grid-bg{position:absolute;top:0;left:0;right:0;bottom:0;
+  background-image:
+    linear-gradient(rgba(255,255,255,.015) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.015) 1px,transparent 1px);
+  background-size:80px 80px;
+  mask-image:radial-gradient(ellipse 60% 50% at 50% 30%,black,transparent);
+  -webkit-mask-image:radial-gradient(ellipse 60% 50% at 50% 30%,black,transparent)}
+/* Noise texture overlay */
+.noise{position:fixed;top:0;left:0;right:0;bottom:0;z-index:1;pointer-events:none;opacity:.3;
+  background:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.04'/%3E%3C/svg%3E")}
+/* Cursor spotlight */
+.cursor-glow{position:fixed;width:500px;height:500px;border-radius:50%;pointer-events:none;z-index:0;
+  background:radial-gradient(circle,rgba(164,89,242,.06),transparent 70%);
+  transform:translate(-50%,-50%);transition:opacity .3s;opacity:0}
+body:hover .cursor-glow{opacity:1}
+
+/* ═══ NAV ═══ */
+nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:.9rem 2.5rem;backdrop-filter:blur(24px);background:rgba(8,8,13,.75);border-bottom:1px solid var(--brd);display:flex;align-items:center;justify-content:space-between;transition:.3s}
+.logo{display:flex;align-items:center;gap:.7rem;font-family:'Sora',sans-serif;font-weight:700;font-size:1.15rem;color:var(--w)}
+.logo img{height:30px}
+.nav-r{display:flex;align-items:center;gap:1.5rem}
+.nav-r a{font-size:.85rem;color:var(--dim);font-weight:500}.nav-r a:hover{color:var(--w)}
+.btn{padding:.6rem 1.5rem;border-radius:8px;font-weight:600;font-size:.85rem;border:none;cursor:pointer;transition:.3s;font-family:'Plus Jakarta Sans',sans-serif;display:inline-block;text-align:center}
+.btn-p{background:#7C3AED;color:#FFFFFF;font-weight:800;border:none;letter-spacing:.01em;font-size:.88rem}.btn-p:hover{background:#6D28D9;transform:translateY(-1px);box-shadow:0 6px 24px var(--glow);color:#FFFFFF}
+.btn-g{background:transparent;color:var(--tx);border:1px solid var(--brd)}.btn-g:hover{border-color:var(--p);color:var(--w)}
+
+/* ═══ HERO ═══ */
+.hero{position:relative;z-index:1;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:8rem 2rem 4rem}
+.hero h1{font-size:clamp(3rem,7vw,5.5rem);font-weight:800;line-height:1;max-width:800px;margin-bottom:1.5rem}
+.hero h1 .grad{background:linear-gradient(135deg,var(--p),var(--b),var(--t));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-sub{font-size:1.15rem;color:var(--dim);max-width:560px;margin-bottom:2.5rem;line-height:1.7}
+.hero-ctas{display:flex;gap:.8rem;flex-wrap:wrap;justify-content:center;margin-bottom:3rem}
+
+/* ═══ VOICE TICKER ═══ */
+.voice-ticker{overflow:hidden;padding:1rem 0;position:relative;margin:2.5rem 0 0}
+.voice-ticker::before,.voice-ticker::after{content:'';position:absolute;top:0;width:120px;height:100%;z-index:2}
+.voice-ticker::before{left:0;background:linear-gradient(to right,var(--bg),transparent)}
+.voice-ticker::after{right:0;background:linear-gradient(to left,var(--bg),transparent)}
+.vt-track{display:flex;width:max-content;animation:tickScroll 35s linear infinite;gap:1.5rem;align-items:center}
+.vt-track:hover{animation-play-state:paused}
+@keyframes tickScroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+.vt-item{flex-shrink:0;padding:.6rem 1.4rem;border-radius:8px;background:rgba(164,89,242,.06);border:1px solid rgba(164,89,242,.12);font-size:.88rem;color:var(--p);font-weight:500;font-style:italic;white-space:nowrap;transition:.3s}
+.vt-item:hover{background:rgba(164,89,242,.12);border-color:var(--p);color:var(--w)}
+
+/* ═══ PRODUCT HERO SLIDER (stacked 3D cards) ═══ */
+.slider-wrap{position:relative;height:420px;max-width:800px;margin:3rem auto 0;perspective:1200px}
+.slider-card{position:absolute;width:340px;left:50%;top:50%;background:var(--card);border:1px solid var(--brd);border-radius:14px;overflow:hidden;transition:all .7s cubic-bezier(.4,0,.2,1);cursor:pointer;box-shadow:0 8px 30px rgba(0,0,0,.3)}
+.slider-card .hs-bar{display:flex;align-items:center;gap:5px;padding:.5rem .8rem;background:rgba(255,255,255,.02);border-bottom:1px solid var(--brd)}
+.slider-card .hs-dot{width:7px;height:7px;border-radius:50%}.hs-dot.r{background:#FF5F57}.hs-dot.y{background:#FFBD2E}.hs-dot.g{background:#28C840}
+.slider-card .hs-title{margin-left:.4rem;font-size:.65rem;color:var(--dim);font-family:'JetBrains Mono',monospace}
+.slider-card .hs-body{padding:1rem;font-size:.78rem;color:var(--dim);line-height:1.5}
+.slider-card .hs-body strong{color:var(--w);display:block;margin-bottom:.3rem;font-size:.82rem}
+.hs-line{padding:.35rem 0;border-bottom:1px solid var(--brd);display:flex;justify-content:space-between;align-items:center}.hs-line:last-child{border:none}
+.hs-tag{font-size:.65rem;padding:.15rem .45rem;border-radius:4px;font-weight:600}
+.hs-tag-g{background:rgba(34,197,94,.12);color:var(--g)}.hs-tag-a{background:rgba(245,158,11,.12);color:var(--a)}
+.hs-tag-r{background:rgba(239,68,68,.12);color:var(--r)}.hs-tag-p{background:rgba(164,89,242,.12);color:var(--p)}.hs-tag-b{background:rgba(59,130,246,.12);color:var(--b)}
+
+/* Card positions: active=front/center, prev=left/back, next=right/back */
+.slider-card[data-pos="0"]{transform:translate(-50%,-50%) rotateY(0deg) translateZ(30px) scale(1);z-index:3;opacity:1;border-color:var(--glow)}
+.slider-card[data-pos="1"]{transform:translate(-15%,-50%) rotateY(12deg) translateZ(-80px) scale(.88);z-index:2;opacity:.5;filter:brightness(.6)}
+.slider-card[data-pos="2"]{transform:translate(-85%,-50%) rotateY(-12deg) translateZ(-80px) scale(.88);z-index:2;opacity:.5;filter:brightness(.6)}
+.slider-card[data-pos="hidden"]{transform:translate(-50%,-50%) rotateY(0deg) translateZ(-200px) scale(.7);z-index:1;opacity:0;pointer-events:none}
+
+/* Slider nav */
+.slider-nav{display:flex;justify-content:center;gap:.6rem;margin-top:1.5rem}
+.slider-btn{width:40px;height:40px;border-radius:50%;border:1px solid var(--brd);background:var(--card);color:var(--dim);font-size:1rem;cursor:pointer;transition:.2s;display:flex;align-items:center;justify-content:center;font-family:'Plus Jakarta Sans',sans-serif}
+.slider-btn:hover{border-color:var(--p);color:var(--w)}
+.slider-dots{display:flex;gap:6px;align-items:center}
+.slider-dot{width:6px;height:6px;border-radius:50%;background:var(--brd);cursor:pointer;transition:.2s}
+.slider-dot.active{background:var(--p);box-shadow:0 0 8px var(--glow);width:20px;border-radius:3px}
+
+/* Slider text transitions */
+.slider-text{max-width:500px;margin:1.5rem auto 0;text-align:center;min-height:60px}
+.slider-text p{font-size:.9rem;color:var(--dim);line-height:1.6;animation:stFade .5s ease}
+.slider-text strong{color:var(--w)}
+@keyframes stFade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+@media(max-width:700px){.slider-wrap{height:360px}.slider-card{width:280px}
+.slider-card[data-pos="1"]{transform:translate(-20%,-50%) translateZ(-60px) scale(.85);filter:brightness(.5)}
+.slider-card[data-pos="2"]{transform:translate(-80%,-50%) translateZ(-60px) scale(.85);filter:brightness(.5)}}
+
+/* ═══ TRANSFORMATION ═══ */
+.transform-bar{display:flex;align-items:center;justify-content:center;gap:2rem;padding:2rem;margin:3rem auto;max-width:700px}
+.tf-side{font-family:'Sora',sans-serif;font-size:1.8rem;font-weight:300}
+.tf-side.from{color:var(--dim)}
+.tf-side.to{color:var(--w);font-weight:700}
+.tf-arrow{width:60px;height:2px;background:linear-gradient(90deg,var(--dim),var(--p));position:relative}
+.tf-arrow::after{content:'';position:absolute;right:-4px;top:-4px;width:10px;height:10px;border-top:2px solid var(--p);border-right:2px solid var(--p);transform:rotate(45deg)}
+
+/* ═══ AGGREGATOR ═══ */
+.agg{display:flex;align-items:center;justify-content:center;gap:2rem;margin:3rem 0;flex-wrap:wrap}
+.agg-col{display:flex;flex-direction:column;gap:.4rem}
+.agg-pill{padding:.4rem 1rem;border-radius:6px;font-size:.78rem;font-weight:500;border:1px solid var(--brd);background:var(--card);color:var(--dim);transition:.3s;white-space:nowrap}
+.agg-pill:hover{border-color:var(--glow);color:var(--tx)}
+.agg-l .agg-pill{text-align:right}
+.agg-core{width:130px;height:130px;border-radius:50%;background:linear-gradient(135deg,rgba(164,89,242,.12),rgba(59,130,246,.08));border:2px solid var(--p);display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:'Sora',sans-serif;font-size:.8rem;font-weight:700;color:var(--w);box-shadow:0 0 40px var(--glow);flex-shrink:0;animation:corePulse 4s ease infinite}
+.agg-core span{font-size:.6rem;font-weight:400;color:var(--p);margin-top:.15rem;font-family:'Plus Jakarta Sans',sans-serif}
+@keyframes corePulse{0%,100%{box-shadow:0 0 30px var(--glow)}50%{box-shadow:0 0 60px var(--glow),0 0 100px rgba(164,89,242,.08)}}
+.agg-line{width:2rem;height:1px;background:linear-gradient(90deg,var(--brd),var(--p))}
+.agg-line-r{background:linear-gradient(90deg,var(--p),var(--brd))}
+
+/* ═══ VOICE DEMO CARDS ═══ */
+.demos{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;margin-top:3rem}
+.demo-card{background:var(--card);border:1px solid var(--brd);border-radius:14px;padding:2rem;transition:.3s;position:relative;overflow:hidden}
+.demo-card:hover{border-color:var(--glow);transform:translateY(-4px);box-shadow:0 16px 48px rgba(0,0,0,.4)}
+.demo-num{font-family:'Sora',sans-serif;font-size:.65rem;font-weight:700;color:var(--p);letter-spacing:.1em;margin-bottom:1rem}
+.demo-voice{padding:.8rem 1rem;background:rgba(164,89,242,.04);border:1px solid rgba(164,89,242,.1);border-radius:8px;font-size:.88rem;color:var(--w);font-style:italic;margin-bottom:1.2rem;position:relative}
+.demo-voice::before{content:'VOICE';position:absolute;top:-.5rem;left:.8rem;font-size:.55rem;font-weight:700;letter-spacing:.1em;color:var(--p);background:var(--card);padding:0 .3rem;font-style:normal}
+.demo-result{font-size:.82rem;color:var(--dim);line-height:1.6}
+.demo-result strong{color:var(--w)}
+.demo-tags{display:flex;gap:.4rem;flex-wrap:wrap;margin-top:1rem}
+.demo-tag{font-size:.7rem;padding:.2rem .6rem;border-radius:5px;font-weight:600;border:1px solid}
+.dtg{background:rgba(34,197,94,.08);color:var(--g);border-color:rgba(34,197,94,.2)}
+.dtb{background:rgba(59,130,246,.08);color:var(--b);border-color:rgba(59,130,246,.2)}
+.dtp{background:rgba(164,89,242,.08);color:var(--p);border-color:rgba(164,89,242,.2)}
+.dta{background:rgba(245,158,11,.08);color:var(--a);border-color:rgba(245,158,11,.2)}
+
+/* ═══ SCENARIO ═══ */
+.scenario{margin:3rem 0;padding:2rem;background:rgba(164,89,242,.03);border:1px solid rgba(164,89,242,.1);border-radius:14px;max-width:750px;margin-left:auto;margin-right:auto}
+.scenario-chain{display:flex;align-items:center;flex-wrap:wrap;gap:.6rem;font-size:.85rem;color:var(--tx)}
+.scenario-chain .step{padding:.4rem .8rem;background:var(--card);border:1px solid var(--brd);border-radius:6px}
+.scenario-chain .arrow{color:var(--p);font-weight:700}
+
+/* ═══ CONFIDENCE ═══ */
+.conf-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1rem;margin-top:2.5rem}
+.conf-card{padding:1.5rem;border:1px solid var(--brd);border-radius:12px;background:var(--card);transition:.3s}
+.conf-card:hover{border-color:var(--glow)}
+.conf-card h4{font-size:.95rem;margin-bottom:.5rem}
+.conf-card p{font-size:.85rem;color:var(--dim);line-height:1.6}
+
+/* ═══ TOOL CAROUSEL ═══ */
+.carousel-w{overflow:hidden;padding:1.5rem 0;position:relative}
+.carousel-w::before,.carousel-w::after{content:'';position:absolute;top:0;width:100px;height:100%;z-index:2}
+.carousel-w::before{left:0;background:linear-gradient(to right,var(--bg),transparent)}
+.carousel-w::after{right:0;background:linear-gradient(to left,var(--bg),transparent)}
+.c-track{display:flex;width:max-content;animation:tickScroll 28s linear infinite;gap:2rem;align-items:center}
+.c-track:hover{animation-play-state:paused}
+.c-item{flex-shrink:0;padding:.5rem 1.2rem;border-radius:8px;border:1px solid var(--brd);background:var(--card);font-size:.82rem;color:var(--dim);font-weight:500;white-space:nowrap;transition:.3s}
+.c-item:hover{border-color:var(--glow);color:var(--tx)}
+.c-item.replaced{position:relative}.c-item.replaced::after{content:'';position:absolute;top:50%;left:8%;right:8%;height:1.5px;background:var(--r);opacity:.5;transform:rotate(-4deg)}
+
+/* ═══ PRICING ═══ */
+.price-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.2rem;max-width:960px;margin:3rem auto 0}
+.price-card{background:var(--card);border:1px solid var(--brd);border-radius:16px;padding:2.5rem 2rem;text-align:center;transition:.3s;position:relative}
+.price-card.pop{border-color:var(--p);box-shadow:0 0 40px rgba(164,89,242,.12)}
+.price-card.pop::before{content:'MOST POPULAR';position:absolute;top:-11px;left:50%;transform:translateX(-50%);padding:.25rem .9rem;border-radius:6px;font-size:.6rem;font-weight:700;background:var(--p);color:#fff;letter-spacing:.06em}
+.price-card h3{font-size:1.2rem;margin-bottom:.2rem}
+.price-amt{font-size:2.8rem;font-weight:800;margin:.8rem 0 .2rem;color:var(--w);font-family:'Sora',sans-serif}
+.price-amt span{font-size:.9rem;font-weight:400;color:var(--dim)}
+.price-desc{font-size:.85rem;color:var(--dim);margin-bottom:1.5rem}
+.price-card ul{list-style:none;text-align:left;margin-bottom:2rem}
+.price-card ul li{padding:.35rem 0;font-size:.85rem;color:var(--tx);display:flex;gap:.5rem;align-items:flex-start}
+.price-card ul li::before{content:'✓';color:var(--g);font-weight:700;flex-shrink:0}
+
+/* ═══ TESTIMONIAL ═══ */
+.test-block{max-width:700px;margin:3rem auto 0;text-align:center}
+.test-quote{font-size:1.1rem;font-style:italic;color:var(--tx);line-height:1.8;margin-bottom:1.5rem}
+.test-name{font-weight:700;color:var(--w)}.test-role{font-size:.85rem;color:var(--dim)}
+
+/* ═══ GUARANTEE ═══ */
+.guarantee{margin:3rem auto;max-width:600px;padding:2rem;background:rgba(34,197,94,.04);border:1px solid rgba(34,197,94,.15);border-radius:14px;text-align:center}
+.guarantee h3{font-size:1.1rem;margin-bottom:.6rem}
+.guarantee p{font-size:.9rem;color:var(--tx);line-height:1.6}
+
+/* ═══ FAQ ═══ */
+.faq-list{max-width:700px;margin:2.5rem auto 0}
+.faq-item{border-bottom:1px solid var(--brd);padding:1.2rem 0}
+.faq-q{font-weight:600;font-size:.95rem;color:var(--w);cursor:pointer;display:flex;justify-content:space-between;align-items:center}
+.faq-q::after{content:'+';font-size:1.2rem;color:var(--p);transition:transform .3s}
+.faq-item.open .faq-q::after{transform:rotate(45deg)}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .4s ease,padding .4s;font-size:.88rem;color:var(--dim);line-height:1.7}
+.faq-item.open .faq-a{max-height:300px;padding-top:.8rem}
+
+/* ═══ CTA ═══ */
+.cta-section{text-align:center;padding:8rem 2rem;background:linear-gradient(to bottom,transparent,rgba(164,89,242,.04))}
+.cta-section h2{font-size:clamp(2rem,4vw,3rem);margin-bottom:1rem}
+.wl-form{display:flex;gap:.4rem;max-width:480px;margin:2rem auto;background:var(--card);border:1px solid var(--brd);border-radius:10px;padding:.35rem;transition:.3s}
+.wl-form:focus-within{border-color:var(--p);box-shadow:0 0 20px var(--glow)}
+.wl-form input{flex:1;background:transparent;border:none;color:var(--tx);padding:.7rem 1rem;font-size:.95rem;outline:none;font-family:'Plus Jakarta Sans',sans-serif}
+.wl-form input::placeholder{color:var(--dim)}
+.wl-form button{padding:.7rem 1.8rem;border-radius:8px;border:none;background:var(--p);color:#fff;font-weight:700;font-size:.88rem;cursor:pointer;transition:.3s;white-space:nowrap;font-family:'Plus Jakarta Sans',sans-serif}
+.wl-form button:hover{background:var(--pd)}
+
+/* ═══ FOOTER ═══ */
+footer{position:relative;z-index:1;padding:4rem 2rem 2rem;border-top:1px solid var(--brd)}
+.f-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:3rem;max-width:1140px;margin:0 auto}
+.f-col h4{font-weight:700;margin-bottom:.8rem;font-size:.85rem}
+.f-col a{display:block;color:var(--dim);font-size:.85rem;padding:.25rem 0}.f-col a:hover{color:var(--w)}
+.f-bot{max-width:1140px;margin:3rem auto 0;padding-top:1.5rem;border-top:1px solid var(--brd);text-align:center;font-size:.8rem;color:var(--dim)}
+
+/* ═══ REVEAL ═══ */
+.rv{opacity:0;transform:translateY(30px);transition:opacity .7s ease,transform .7s ease}.rv.vis{opacity:1;transform:translateY(0)}
+
+/* ═══ RESPONSIVE ═══ */
+@media(max-width:900px){.demos{grid-template-columns:1fr}.agg{flex-direction:column}.agg-line,.agg-line-r{width:1px;height:1.5rem;margin:0 auto}.transform-bar{flex-direction:column;gap:1rem}.tf-arrow{width:1px;height:30px;background:linear-gradient(to bottom,var(--dim),var(--p))}.tf-arrow::after{right:auto;top:auto;bottom:-4px;left:-4px;border-top:none;border-right:none;border-bottom:2px solid var(--p);border-left:2px solid var(--p);transform:rotate(-45deg)}.f-grid{grid-template-columns:1fr 1fr}.nav-r a:not(.btn){display:none}}
+@media(max-width:600px){.hero h1{font-size:2.6rem}.price-grid{grid-template-columns:1fr}.conf-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="spbar" id="sp"></div>
+<div class="mesh">
+  <div class="mesh-grad"></div>
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+  <div class="orb orb-4"></div>
+  <div class="grid-bg"></div>
+  <canvas id="particles"></canvas>
+</div>
+<div class="noise"></div>
+<div class="cursor-glow" id="cg"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="logo"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 44 44'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' stop-color='%237C3AED'/%3E%3Cstop offset='100%25' stop-color='%23A459F2'/%3E%3C/linearGradient%3E%3C/defs%3E%3Ccircle cx='22' cy='22' r='19' fill='none' stroke='url(%23g)' stroke-width='3.5'/%3E%3Cpath d='M22 7 A15 15 0 0 1 37 22' fill='none' stroke='url(%23g)' stroke-width='3.5' stroke-linecap='round'/%3E%3Ccircle cx='22' cy='22' r='9' fill='none' stroke='url(%23g)' stroke-width='2.5'/%3E%3C/svg%3E" alt="MyTeam360">MyTeam360</div>
+  <div class="nav-r">
+    <a href="#how">How It Works</a>
+    <a href="#pricing">Pricing</a>
+    <a href="#faq">FAQ</a>
+    <a href="#access" class="btn btn-p">Request Access</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <h1>You Speak.<br><span class="grad">Your Business Runs.</span></h1>
+  <p class="hero-sub">The first platform you talk to — not type into. It connects your CRM, calendar, email, invoices, social media, flights, and weather into one intelligence layer. And it learns your patterns, your preferences, your rhythm — until it knows your business better than you do.</p>
+  <div class="hero-ctas">
+    <a href="#access" class="btn btn-p">Request Access</a>
+    <a href="#how" class="btn btn-g">See how it works →</a>
+  </div>
+
+  <!-- VOICE COMMAND TICKER -->
+  <div class="voice-ticker">
+    <div class="vt-track">
+      <div class="vt-item">"Set up my CRM"</div>
+      <div class="vt-item">"What's my day look like?"</div>
+      <div class="vt-item">"Just talked to Sarah, 450K, close April 15"</div>
+      <div class="vt-item">"Post this to all platforms"</div>
+      <div class="vt-item">"Who hasn't paid me yet?"</div>
+      <div class="vt-item">"Send an invoice to Henderson for 4,500"</div>
+      <div class="vt-item">"Where's my flight at?"</div>
+      <div class="vt-item">"What deals are going cold?"</div>
+      <div class="vt-item">"Prep me for my 2pm meeting"</div>
+      <div class="vt-item">"Schedule a post about the new listing"</div>
+      <!-- duplicate -->
+      <div class="vt-item">"Set up my CRM"</div>
+      <div class="vt-item">"What's my day look like?"</div>
+      <div class="vt-item">"Just talked to Sarah, 450K, close April 15"</div>
+      <div class="vt-item">"Post this to all platforms"</div>
+      <div class="vt-item">"Who hasn't paid me yet?"</div>
+      <div class="vt-item">"Send an invoice to Henderson for 4,500"</div>
+      <div class="vt-item">"Where's my flight at?"</div>
+      <div class="vt-item">"What deals are going cold?"</div>
+      <div class="vt-item">"Prep me for my 2pm meeting"</div>
+      <div class="vt-item">"Schedule a post about the new listing"</div>
+    </div>
+  </div>
+
+  <!-- 3D STACKED PRODUCT SLIDER -->
+  <div class="slider-wrap rv">
+    <div class="slider-card" data-pos="0" data-idx="0" onclick="slideNext()">
+      <div class="hs-bar"><span class="hs-dot r"></span><span class="hs-dot y"></span><span class="hs-dot g"></span><span class="hs-title">Daily Briefing</span></div>
+      <div class="hs-body">
+        <strong>Good morning. It's Client Day.</strong>
+        <div class="hs-line"><span>Henderson showing at 2pm</span><span class="hs-tag hs-tag-b">35 min drive</span></div>
+        <div class="hs-line"><span>Johnson deal going cold (8 days)</span><span class="hs-tag hs-tag-r">Action needed</span></div>
+        <div class="hs-line"><span>SW1234 → Phoenix on time</span><span class="hs-tag hs-tag-g">Gate B12</span></div>
+        <div class="hs-line"><span>Carbone at 7:30</span><span class="hs-tag hs-tag-p">You close 3x here</span></div>
+        <div class="hs-line"><span>7 unread emails, 3 tasks due</span><span class="hs-tag hs-tag-a">72°F sunny</span></div>
+      </div>
+    </div>
+    <div class="slider-card" data-pos="1" data-idx="1" onclick="slideNext()">
+      <div class="hs-bar"><span class="hs-dot r"></span><span class="hs-dot y"></span><span class="hs-dot g"></span><span class="hs-title">Voice Capture</span></div>
+      <div class="hs-body" style="text-align:center">
+        <div style="font-size:.6rem;text-transform:uppercase;letter-spacing:.12em;color:var(--p);font-weight:700;margin-bottom:.4rem">Listening...</div>
+        <div style="display:flex;gap:2px;justify-content:center;height:24px;align-items:center;margin-bottom:.7rem" id="wave"></div>
+        <div style="padding:.6rem;background:rgba(164,89,242,.04);border:1px solid rgba(164,89,242,.1);border-radius:6px;font-style:italic;color:var(--w);font-size:.82rem;margin-bottom:.8rem">"Showed Oak Street to the Hendersons. Loved the kitchen. Offer around 430K."</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:.3rem;text-align:left">
+          <div class="hs-line"><span>CRM → $430K</span><span class="hs-tag hs-tag-g">Updated</span></div>
+          <div class="hs-line"><span>Task: Send comps</span><span class="hs-tag hs-tag-b">Created</span></div>
+          <div class="hs-line"><span>Note: "Loved kitchen"</span><span class="hs-tag hs-tag-p">Logged</span></div>
+          <div class="hs-line"><span>Stage → Offer</span><span class="hs-tag hs-tag-a">Moved</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="slider-card" data-pos="2" data-idx="2" onclick="slideNext()">
+      <div class="hs-bar"><span class="hs-dot r"></span><span class="hs-dot y"></span><span class="hs-dot g"></span><span class="hs-title">Pipeline</span></div>
+      <div class="hs-body">
+        <strong>6 active deals — $285K pipeline</strong>
+        <div class="hs-line"><span>Henderson — $430K</span><span class="hs-tag hs-tag-g">Offer Pending</span></div>
+        <div class="hs-line"><span>Johnson — $445K</span><span class="hs-tag hs-tag-a">Negotiation</span></div>
+        <div class="hs-line"><span>Williams — $85K</span><span class="hs-tag hs-tag-b">Showing</span></div>
+        <div class="hs-line"><span>Garcia — $55K</span><span class="hs-tag hs-tag-p">New Lead</span></div>
+        <div style="margin-top:.5rem;display:flex;gap:.3rem">
+          <span class="hs-tag hs-tag-g" style="font-size:.6rem">12 Healthy</span>
+          <span class="hs-tag hs-tag-a" style="font-size:.6rem">5 At Risk</span>
+          <span class="hs-tag hs-tag-r" style="font-size:.6rem">3 Cold</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="slider-nav">
+    <button class="slider-btn" onclick="slidePrev()">←</button>
+    <div class="slider-dots"><span class="slider-dot active" onclick="slideTo(0)"></span><span class="slider-dot" onclick="slideTo(1)"></span><span class="slider-dot" onclick="slideTo(2)"></span></div>
+    <button class="slider-btn" onclick="slideNext()">→</button>
+  </div>
+  <div class="slider-text" id="sliderText">
+    <p><strong>Daily Briefing</strong> — Calendar, weather, flights, stale deals, traffic, dinner suggestions. Everything you need to know, before your coffee is ready.</p>
+  </div>
+</section>
+
+<!-- TRANSFORMATION -->
+<section style="padding:3rem 2rem" id="how"><div class="con">
+  <div class="transform-bar rv">
+    <div class="tf-side from">Disconnected</div>
+    <div class="tf-arrow"></div>
+    <div class="tf-side to">Intelligent</div>
+  </div>
+
+  <!-- TOOLS BEING REPLACED CAROUSEL -->
+  <div class="carousel-w rv">
+    <div class="c-track">
+      <div class="c-item replaced">HubSpot $65/mo</div><div class="c-item replaced">FreshBooks $40/mo</div><div class="c-item replaced">Asana $28/mo</div><div class="c-item replaced">Hootsuite $49/mo</div><div class="c-item replaced">ChatGPT $30/mo</div><div class="c-item replaced">Calendly $16/mo</div><div class="c-item replaced">Zapier $20/mo</div><div class="c-item replaced">Pipedrive $39/mo</div><div class="c-item replaced">Buffer $36/mo</div><div class="c-item replaced">QuickBooks $30/mo</div>
+      <div class="c-item replaced">HubSpot $65/mo</div><div class="c-item replaced">FreshBooks $40/mo</div><div class="c-item replaced">Asana $28/mo</div><div class="c-item replaced">Hootsuite $49/mo</div><div class="c-item replaced">ChatGPT $30/mo</div><div class="c-item replaced">Calendly $16/mo</div><div class="c-item replaced">Zapier $20/mo</div><div class="c-item replaced">Pipedrive $39/mo</div><div class="c-item replaced">Buffer $36/mo</div><div class="c-item replaced">QuickBooks $30/mo</div>
+    </div>
+  </div>
+  <p class="rv" style="text-align:center;font-size:1.6rem;font-family:'Sora',sans-serif;font-weight:800;color:var(--w);margin:1.5rem 0"><span style="text-decoration:line-through;color:var(--r);opacity:.6">$279/mo</span> <span style="margin:0 .6rem;color:var(--dim)">→</span> <span style="color:var(--g)">$29/mo</span></p>
+</div></section>
+
+<!-- AGGREGATOR BRAIN -->
+<section style="background:var(--bg2)"><div class="con" style="text-align:center">
+  <div class="label rv">The Intelligence Layer</div>
+  <h2 class="rv" style="font-size:clamp(1.8rem,3.5vw,2.6rem);margin-bottom:1rem">Your business finally has <span class="accent">a brain.</span></h2>
+  <p class="rv" style="color:var(--dim);max-width:600px;margin:0 auto 2rem;font-size:1rem">Other platforms store data. We <strong style="color:var(--w)">connect everything</strong> — calendar, email, CRM, tasks, invoices, social, flights, weather, traffic, and your personal preferences — into one intelligence that sees your whole business at once.</p>
+
+  <div class="agg rv">
+    <div class="agg-col agg-l">
+      <div class="agg-pill">Google Calendar</div>
+      <div class="agg-pill">Email Inbox</div>
+      <div class="agg-pill">Flight Status</div>
+      <div class="agg-pill">Weather + Traffic</div>
+      <div class="agg-pill">Your Preferences</div>
+    </div>
+    <div class="agg-line"></div>
+    <div class="agg-core">MyTeam360<span>Intelligence</span></div>
+    <div class="agg-line agg-line-r"></div>
+    <div class="agg-col">
+      <div class="agg-pill">CRM + Pipeline</div>
+      <div class="agg-pill">Tasks + Projects</div>
+      <div class="agg-pill">Invoicing</div>
+      <div class="agg-pill">Social Media</div>
+      <div class="agg-pill">Daily Briefing</div>
+    </div>
+  </div>
+
+  <div class="scenario rv">
+    <p style="font-size:.82rem;color:var(--dim);margin-bottom:.8rem">Watch how one event ripples through your entire business:</p>
+    <div class="scenario-chain">
+      <span class="step">Flight delayed</span><span class="arrow">→</span>
+      <span class="step">Meeting flagged</span><span class="arrow">→</span>
+      <span class="step">Client emailed</span><span class="arrow">→</span>
+      <span class="step">CRM updated</span><span class="arrow">→</span>
+      <span class="step">Briefing adjusted</span>
+    </div>
+    <p style="font-size:.82rem;color:var(--w);margin-top:.8rem;font-weight:600">Automatically. That's what "connected" means.</p>
+  </div>
+</div></section>
+
+<!-- VOICE DEMOS -->
+<section><div class="con">
+  <div class="label rv">You Speak. It Does.</div>
+  <h2 class="rv" style="font-size:clamp(1.8rem,3.5vw,2.6rem);margin-bottom:.5rem">Every example is a real voice command.</h2>
+  <p class="rv" style="color:var(--dim);margin-bottom:0;max-width:550px">No buttons. No menus. No training. Just say what you need.</p>
+  <div class="demos">
+    <div class="demo-card rv">
+      <div class="demo-num">01 — SETUP</div>
+      <div class="demo-voice">"I'm a real estate agent. Set up my CRM."</div>
+      <div class="demo-result">The voice concierge creates a <strong>6-stage pipeline</strong>, adds fields for Property Address, Listing Price, Bedrooms, and Square Footage, configures lead sources (Zillow, Referral, Open House), and asks what to set up next. <strong>30 seconds. Zero forms.</strong></div>
+      <div class="demo-tags"><span class="demo-tag dtg">CRM built</span><span class="demo-tag dtb">5 fields</span><span class="demo-tag dtp">6 stages</span></div>
+    </div>
+    <div class="demo-card rv">
+      <div class="demo-num">02 — CAPTURE</div>
+      <div class="demo-voice">"Showed Oak Street to the Hendersons. They loved it. Offer around 430K. Send comps by Friday."</div>
+      <div class="demo-result">One sentence from your car. AI extracts <strong>names, amounts, dates, sentiment, and action items</strong> — updates CRM, logs the showing, creates a task, and notes the budget. <strong>4 systems. One breath.</strong></div>
+      <div class="demo-tags"><span class="demo-tag dtg">CRM updated</span><span class="demo-tag dtb">Task created</span><span class="demo-tag dtp">Note logged</span><span class="demo-tag dta">Stage moved</span></div>
+    </div>
+    <div class="demo-card rv">
+      <div class="demo-num">03 — INTELLIGENCE</div>
+      <div class="demo-voice">"What should I know about today?"</div>
+      <div class="demo-result">It's <strong>Wednesday — Client Day.</strong> Henderson showing at 2pm (leave by 1:25, 35 min with traffic). Johnson deal cold for 8 days. Your flight's on time. <strong>Carbone at 7:30 — you close 3x more there.</strong> The platform learned that pattern from your data.</div>
+      <div class="demo-tags"><span class="demo-tag dtg">Calendar</span><span class="demo-tag dtb">Traffic</span><span class="demo-tag dtp">CRM</span><span class="demo-tag dta">Lifestyle DNA</span></div>
+    </div>
+  </div>
+</div></section>
+
+<!-- CONFIDENCE -->
+<section style="background:var(--bg2)"><div class="con">
+  <div class="label rv">Why Trust Us</div>
+  <h2 class="rv" style="font-size:clamp(1.8rem,3.5vw,2.6rem)">Built for people who can't afford <span class="accent">another tool that fails.</span></h2>
+  <div class="conf-grid">
+    <div class="conf-card rv"><h4>Your AI Keys, Not Ours</h4><p>Bring your own API key from Anthropic, OpenAI, Google, xAI, or open-source models. You pay the AI provider directly. We never touch your usage or billing. Your keys are AES-256 encrypted at rest.</p></div>
+    <div class="conf-card rv"><h4>10 Providers. 28 Models. Your Choice.</h4><p>If one provider raises prices, switch in one click. If all commercial providers disappear, run Llama locally on your laptop. We built the platform to never depend on anyone.</p></div>
+    <div class="conf-card rv"><h4>77% Works Without Any AI</h4><p>CRM, invoicing, tasks, social scheduling, goals, expenses — all work without an AI key. The AI makes it magical. The platform stands on its own.</p></div>
+    <div class="conf-card rv"><h4>30-Second Undo on Everything</h4><p>Accidentally delete a contact? Move a deal to the wrong stage? Every destructive action has a 30-second window to reverse it. No support ticket needed.</p></div>
+    <div class="conf-card rv"><h4>Your Data Stays Yours</h4><p>We never train models on your data. We never share it. Export everything anytime. Full audit trail on every action. SOC 2 ready architecture.</p></div>
+    <div class="conf-card rv"><h4>Built by Operators, Not Just Engineers</h4><p>MyTeam360 was built by someone who runs real operations — transportation, marketing, client services. Every feature exists because a real business needed it.</p></div>
+  </div>
+</div></section>
+
+<!-- WORKS WITH -->
+<section><div class="con" style="text-align:center">
+  <div class="label rv">Works With</div>
+  <div class="carousel-w rv">
+    <div class="c-track" style="animation-duration:22s">
+      <div class="c-item">Anthropic Claude</div><div class="c-item">OpenAI GPT</div><div class="c-item">Google Gemini</div><div class="c-item">xAI Grok</div><div class="c-item">Meta Llama</div><div class="c-item">Mistral</div><div class="c-item">DeepSeek</div><div class="c-item">Ollama (Local)</div><div class="c-item">Together AI</div><div class="c-item">Groq</div>
+      <div class="c-item">Anthropic Claude</div><div class="c-item">OpenAI GPT</div><div class="c-item">Google Gemini</div><div class="c-item">xAI Grok</div><div class="c-item">Meta Llama</div><div class="c-item">Mistral</div><div class="c-item">DeepSeek</div><div class="c-item">Ollama (Local)</div><div class="c-item">Together AI</div><div class="c-item">Groq</div>
+    </div>
+  </div>
+</div></section>
+
+<!-- PRICING -->
+<section id="pricing" style="background:var(--bg2)"><div class="con" style="text-align:center">
+  <div class="label rv">Simple Pricing</div>
+  <h2 class="rv" style="font-size:clamp(1.8rem,3.5vw,2.6rem)">Replace $279/month. <span style="color:var(--g)">Starting at $7.</span></h2>
+  <p class="rv" style="color:var(--dim);margin-bottom:0;font-size:.95rem">Plus your own AI costs (typically $5-20/mo). No hidden fees.</p>
+  <div class="price-grid rv">
+    <div class="price-card"><h3>Starter</h3><div class="price-amt">$7<span>/mo</span></div><div class="price-desc">Solo operators</div><ul><li>1 user, 3 AI Spaces</li><li>CRM (100 contacts)</li><li>10 invoices/month</li><li>Daily Briefing</li><li>Voice Capture</li></ul><a href="#access" class="btn btn-g" style="width:100%">Request Access</a></div>
+    <div class="price-card pop"><h3>Pro</h3><div class="price-amt">$29<span>/mo</span></div><div class="price-desc">Growing businesses</div><ul><li>5 users, unlimited Spaces</li><li>Full CRM (500 contacts)</li><li>Tasks, Invoicing, Social</li><li>Workflow Automation</li><li>Business Intelligence</li><li>Booking Links</li><li>Lifestyle DNA</li></ul><a href="#access" class="btn btn-p" style="width:100%">Request Access</a></div>
+    <div class="price-card"><h3>Business</h3><div class="price-amt">$79<span>/mo</span></div><div class="price-desc">Teams wanting everything</div><ul><li>10 users (+$9/each)</li><li>Everything unlimited</li><li>White-label portal</li><li>Revenue forecasting</li><li>Win/loss analysis</li><li>Priority support</li></ul><a href="#access" class="btn btn-g" style="width:100%">Request Access</a></div>
+  </div>
+</div></section>
+
+<!-- SOCIAL PROOF -->
+<section><div class="con" style="text-align:center">
+  <div class="test-block rv">
+    <div class="test-quote">"I was paying $312/month across 5 different tools. MyTeam360 replaced all of them in one afternoon. The daily briefing alone is worth the subscription — I know my entire day before my coffee is ready."</div>
+    <div class="test-name">Sarah M.</div>
+    <div class="test-role">Real Estate Agent · Las Vegas, NV</div>
+  </div>
+  <div class="guarantee rv">
+    <h3>The "You'll Actually Use It" Guarantee</h3>
+    <p>If you don't save at least 5 hours in your first week, we'll refund your first month. No questions. No hoops. Just a refund.</p>
+    <p style="margin-top:.6rem;font-size:.82rem;color:var(--dim)">We can offer this because 94% of beta users who complete setup are still active 90 days later.</p>
+  </div>
+</div></section>
+
+<!-- FAQ -->
+<section id="faq" style="background:var(--bg2)"><div class="con">
+  <div class="label rv" style="text-align:center">FAQ</div>
+  <h2 class="rv" style="text-align:center;font-size:clamp(1.8rem,3.5vw,2.4rem);margin-bottom:1rem">Common questions, <span class="accent">straight answers.</span></h2>
+  <div class="faq-list">
+    <div class="faq-item rv"><div class="faq-q" onclick="this.parentElement.classList.toggle('open')">Do I need technical skills to use this?</div><div class="faq-a">No. You talk to the platform and it configures itself. The voice concierge walks you through setup in a conversation — no forms, no settings pages, no documentation to read.</div></div>
+    <div class="faq-item rv"><div class="faq-q" onclick="this.parentElement.classList.toggle('open')">What does "Bring Your Own Key" mean?</div><div class="faq-a">You get your own API key from an AI provider (like Anthropic, OpenAI, or Google) and plug it in. You pay them directly for AI usage — typically $5-20/month. We never charge you for AI usage, and we never have access to your conversations.</div></div>
+    <div class="faq-item rv"><div class="faq-q" onclick="this.parentElement.classList.toggle('open')">Can I use it without any AI key?</div><div class="faq-a">Yes. CRM, invoicing, tasks, social scheduling, goals, expenses, booking links, and more all work without an AI key. The AI features (voice capture, briefings, roundtables, content generation) need a key. 77% of the platform works without one.</div></div>
+    <div class="faq-item rv"><div class="faq-q" onclick="this.parentElement.classList.toggle('open')">How is this different from HubSpot or Salesforce?</div><div class="faq-a">Those are databases you type into. MyTeam360 is an intelligence layer you talk to. It connects your calendar, email, weather, flights, and traffic into your CRM and briefings — things no traditional CRM does. And it costs a fraction of the price.</div></div>
+    <div class="faq-item rv"><div class="faq-q" onclick="this.parentElement.classList.toggle('open')">Is my data safe?</div><div class="faq-a">API keys are AES-256-GCM encrypted at rest. We never train models on your data. We never share it with anyone. Full audit trail on every action. SOC 2 ready architecture. You can export everything at any time.</div></div>
+    <div class="faq-item rv"><div class="faq-q" onclick="this.parentElement.classList.toggle('open')">What happens if I want to leave?</div><div class="faq-a">Export all your data anytime. No lock-in contracts. No exit fees. No "retention specialists." Cancel and your data is yours.</div></div>
+  </div>
+</div></section>
+
+<!-- CTA -->
+<section class="cta-section" id="access">
+  <h2 class="rv">Ready to stop typing<br>and start <span class="accent">talking?</span></h2>
+  <p class="rv" style="color:var(--dim);font-size:1rem">100 spots in the private beta. <span id="spots-left"></span></p>
+  <div class="wl-form rv"><input type="email" placeholder="Enter your email" id="we" required><button onclick="joinBeta()">Request Access</button></div>
+  <p id="wm" style="margin-top:1rem;font-size:.88rem;color:var(--g);display:none"></p>
+  <div style="display:flex;gap:2rem;justify-content:center;margin-top:2.5rem;flex-wrap:wrap;opacity:.5" class="rv">
+    <span style="font-size:.8rem;color:var(--dim)">◆ AES-256 Encrypted</span>
+    <span style="font-size:.8rem;color:var(--dim)">◆ 10 AI Providers</span>
+    <span style="font-size:.8rem;color:var(--dim)">◆ 7 Languages</span>
+    <span style="font-size:.8rem;color:var(--dim)">◆ SOC 2 Ready</span>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="f-grid">
+    <div class="f-col"><div class="logo" style="margin-bottom:.8rem"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 44 44'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' stop-color='%237C3AED'/%3E%3Cstop offset='100%25' stop-color='%23A459F2'/%3E%3C/linearGradient%3E%3C/defs%3E%3Ccircle cx='22' cy='22' r='19' fill='none' stroke='url(%23g)' stroke-width='3.5'/%3E%3Cpath d='M22 7 A15 15 0 0 1 37 22' fill='none' stroke='url(%23g)' stroke-width='3.5' stroke-linecap='round'/%3E%3Ccircle cx='22' cy='22' r='9' fill='none' stroke='url(%23g)' stroke-width='2.5'/%3E%3C/svg%3E" alt="MyTeam360" style="height:24px">MyTeam360</div><p style="color:var(--dim);font-size:.85rem;max-width:280px">The voice-first AI platform that connects your entire business into one intelligence layer.</p><p style="color:var(--dim);font-size:.75rem;margin-top:.8rem">© 2026 Praxis Holdings LLC</p></div>
+    <div class="f-col"><h4>Product</h4><a href="#how">How It Works</a><a href="#pricing">Pricing</a><a href="/education">Education</a></div>
+    <div class="f-col"><h4>Company</h4><a href="/about">About</a><a href="mailto:sales@myteam360.ai">Contact Sales</a></div>
+    <div class="f-col"><h4>Legal</h4><a href="/terms">Terms</a><a href="/privacy">Privacy</a><a href="/security">Security</a></div>
+  </div>
+  <div class="f-bot">Praxis Holdings LLC · Las Vegas, NV · sales@myteam360.ai</div>
+</footer>
+
+<script>
+// Cursor glow
+const cg=document.getElementById('cg');
+document.addEventListener('mousemove',e=>{cg.style.left=e.clientX+'px';cg.style.top=e.clientY+'px'});
+
+// ═══ 3D STACKED CARD SLIDER ═══
+const sliderCards=document.querySelectorAll('.slider-card');
+const sliderDots=document.querySelectorAll('.slider-dot');
+const sliderTextEl=document.getElementById('sliderText');
+const sliderTexts=[
+  '<p><strong>Daily Briefing</strong> — Calendar, weather, flights, stale deals, traffic, dinner suggestions. Everything you need to know, before your coffee is ready.</p>',
+  '<p><strong>Voice Capture</strong> — One sentence from your car updates CRM, creates tasks, logs notes, and moves deal stages. Speak naturally. AI does the rest.</p>',
+  '<p><strong>Pipeline</strong> — Every deal, every stage, every health score at a glance. Client health scoring shows who needs attention before they go cold.</p>'
+];
+let currentSlide=0;
+function slideTo(n){
+  currentSlide=n;
+  const positions=['0','1','2','hidden'];
+  sliderCards.forEach((card,i)=>{
+    const offset=(i-n+sliderCards.length)%sliderCards.length;
+    card.setAttribute('data-pos',offset<3?String(offset):'hidden');
+  });
+  sliderDots.forEach((d,i)=>{d.classList.toggle('active',i===n)});
+  if(sliderTextEl)sliderTextEl.innerHTML=sliderTexts[n]||'';
+  clearInterval(window._sliderAuto);
+  window._sliderAuto=setInterval(slideNext,6000);
+}
+function slideNext(){slideTo((currentSlide+1)%sliderCards.length)}
+function slidePrev(){slideTo((currentSlide-1+sliderCards.length)%sliderCards.length)}
+window._sliderAuto=setInterval(slideNext,6000);
+
+// Scroll reveal
+const obs=new IntersectionObserver(e=>{e.forEach(el=>{if(el.isIntersecting)el.target.classList.add('vis')})},{threshold:.08});
+document.querySelectorAll('.rv').forEach(el=>obs.observe(el));
+
+// Scroll progress + nav shrink
+window.addEventListener('scroll',()=>{
+  const h=document.documentElement;
+  document.getElementById('sp').style.width=((h.scrollTop/(h.scrollHeight-h.clientHeight))*100)+'%';
+  document.querySelector('nav').style.padding=window.scrollY>50?'.6rem 2.5rem':'.9rem 2.5rem';
+});
+
+// Audio wave bars
+(function(){const w=document.getElementById('wave');if(!w)return;for(let i=0;i<16;i++){const s=document.createElement('span');s.style.cssText='display:block;width:2px;background:var(--p);border-radius:1px;animation:wv 1.2s ease-in-out infinite;height:'+(6+Math.random()*18)+'px;animation-delay:'+(i*.08)+'s';w.appendChild(s)}})();
+const wvStyle=document.createElement('style');wvStyle.textContent='@keyframes wv{0%,100%{transform:scaleY(1)}50%{transform:scaleY(.25)}}';document.head.appendChild(wvStyle);
+
+// Magnetic CTA buttons
+document.querySelectorAll('.btn-p').forEach(btn=>{
+  btn.addEventListener('mousemove',e=>{const r=btn.getBoundingClientRect();btn.style.transform='translate('+((e.clientX-r.left-r.width/2)*.12)+'px,'+((e.clientY-r.top-r.height/2)*.12)+'px)'});
+  btn.addEventListener('mouseleave',()=>{btn.style.transform=''});
+});
+
+// Waitlist
+function joinBeta(){const e=document.getElementById('we').value;if(!e||!e.includes('@')){alert('Please enter a valid email');return}const m=document.getElementById('wm');fetch('/api/waitlist',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:e})}).then(r=>r.json()).then(d=>{m.style.display='block';m.textContent=d.message||"You're on the list!";document.getElementById('we').value=''}).catch(()=>{m.style.display='block';m.textContent="You're on the list!";document.getElementById('we').value=''})}
+
+// Check spots
+fetch('/api/waitlist/status').then(r=>r.json()).then(d=>{const el=document.getElementById('spots-left');if(d.remaining!==undefined&&d.remaining>0)el.textContent=d.remaining+' spots remaining.';else if(d.remaining===0)el.textContent='Waitlist is full — join the overflow.';}).catch(()=>{});
+
+// ═══ PARTICLE SYSTEM ═══
+(function(){
+  const c=document.getElementById('particles');if(!c)return;
+  const ctx=c.getContext('2d');
+  let w,h,particles=[];
+  function resize(){w=c.width=window.innerWidth;h=c.height=window.innerHeight}
+  resize();window.addEventListener('resize',resize);
+
+  const COUNT=60;
+  const CONNECT_DIST=140;
+  for(let i=0;i<COUNT;i++){
+    particles.push({
+      x:Math.random()*w,y:Math.random()*h,
+      vx:(Math.random()-.5)*.3,vy:(Math.random()-.5)*.3,
+      r:Math.random()*1.5+.5,
+      a:Math.random()*.3+.1
+    });
+  }
+
+  function draw(){
+    ctx.clearRect(0,0,w,h);
+    // Update + draw particles
+    for(let i=0;i<COUNT;i++){
+      const p=particles[i];
+      p.x+=p.vx;p.y+=p.vy;
+      if(p.x<0)p.x=w;if(p.x>w)p.x=0;
+      if(p.y<0)p.y=h;if(p.y>h)p.y=0;
+      ctx.beginPath();
+      ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+      ctx.fillStyle='rgba(164,89,242,'+p.a+')';
+      ctx.fill();
+    }
+    // Draw connections
+    for(let i=0;i<COUNT;i++){
+      for(let j=i+1;j<COUNT;j++){
+        const dx=particles[i].x-particles[j].x;
+        const dy=particles[i].y-particles[j].y;
+        const dist=Math.sqrt(dx*dx+dy*dy);
+        if(dist<CONNECT_DIST){
+          ctx.beginPath();
+          ctx.moveTo(particles[i].x,particles[i].y);
+          ctx.lineTo(particles[j].x,particles[j].y);
+          ctx.strokeStyle='rgba(164,89,242,'+((.08)*(1-dist/CONNECT_DIST))+')';
+          ctx.lineWidth=.5;
+          ctx.stroke();
+        }
+      }
+    }
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"MyTeam360","applicationCategory":"BusinessApplication","description":"Voice-first AI platform connecting CRM, invoicing, tasks, social media, calendar, email into one intelligence layer.","offers":{"@type":"AggregateOffer","lowPrice":"7","highPrice":"79","priceCurrency":"USD"},"creator":{"@type":"Organization","name":"Praxis Holdings LLC"}}</script>
+</body>
+</html>

@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<!--
+  MyTeam360 — AI Platform
+  Copyright © 2026 Praxis Holdings LLC. All rights reserved.
+  
+  PROPRIETARY AND CONFIDENTIAL — TRADE SECRET
+  This software and all associated intellectual property are owned
+  exclusively by Praxis Holdings LLC, a Nevada limited-liability company.
+  Licensed to MyTeam360 LLC for operation.
+  
+  UNAUTHORIZED ACCESS, COPYING, MODIFICATION, DISTRIBUTION, OR USE
+  IS STRICTLY PROHIBITED AND MAY RESULT IN CIVIL LIABILITY AND
+  CRIMINAL PROSECUTION UNDER THE DEFEND TRADE SECRETS ACT
+  (18 U.S.C. § 1836), COMPUTER FRAUD AND ABUSE ACT (18 U.S.C. § 1030),
+  AND NEVADA UNIFORM TRADE SECRETS ACT (NRS 600A).
+  
+  See LICENSE and NOTICE files for full legal terms.
+  Report IP violations: legal@praxisholdingsllc.com
+
+  TRADE DRESS NOTICE:
+  The visual design of this interface — including the MyTeam360 circular swirl mark
+  (animated gold radial gradient with breathing animation), the gold/amber
+  color palette (#a459f2, #c084fc, #7c3aed, #ddd6fe), the dark void
+  background with gold particle field, the card-based Spaces layout, and
+  the overall look and feel — constitutes protectable trade dress owned by
+  Praxis Holdings LLC. 15 U.S.C. § 1125(a).
+-->
+
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>MyTeam360</title>
+<link rel="icon" type="image/png" href="/static/logo-nav.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@200;300;400;500;600;700;800&family=IBM+Plex+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{--void:#0a0f1e;--deep:#08081a;--surf:#0d0d22;--surf2:#13132e;--surf3:#191940;--glass:rgba(13,13,34,0.88);--glass2:rgba(19,19,46,0.92);--bdr:rgba(255,255,255,0.05);--bdr2:rgba(255,255,255,0.1);--bdr3:rgba(255,255,255,0.18);--tx:#f0f0ff;--tx2:#a8a8d0;--tx3:#6060a0;--tx4:#383870;--prp:#a459f2;--prp-l:#c084fc;--prp-d:#7c3aed;--prp-glow:rgba(164,89,242,0.3);--grn:#34d399;--amb:#fbbf24;--red:#fb7185;--cyan:#22d3ee;--font:'Sora',-apple-system,sans-serif;--mono:'IBM Plex Mono',monospace;--ease:cubic-bezier(0.4,0,0.2,1)}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%;overflow:hidden;background:var(--void);color:var(--tx);font-family:var(--font);-webkit-font-smoothing:antialiased}
+::selection{background:#a459f2;color:#fff}
+::-webkit-scrollbar{width:4px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:var(--surf3);border-radius:4px}
+button{font-family:var(--font);cursor:pointer;border:none;outline:none}
+input,textarea{font-family:var(--font);outline:none}
+
+#pf{position:fixed;inset:0;z-index:0;pointer-events:none}
+.ambient{position:fixed;inset:0;z-index:0;pointer-events:none;background:radial-gradient(ellipse 80% 60% at 50% 40%,rgba(164,89,242,0.03) 0%,transparent 70%)}
+.sc{position:fixed;inset:0;z-index:1;display:flex;align-items:center;justify-content:center;flex-direction:column;opacity:0;visibility:hidden;transition:opacity 0.7s var(--ease),visibility 0.7s}
+.sc.on{opacity:1;visibility:visible}
+
+.orb{position:relative;display:flex;align-items:center;justify-content:center}
+.orb.xl{width:200px;height:200px}.orb.lg{width:120px;height:120px}.orb.md{width:64px;height:64px}.orb.sm{width:40px;height:40px}.orb.xs{width:28px;height:28px}
+.orb-c{position:absolute;border-radius:50%;background:radial-gradient(circle at 35% 30%,#ddd6fe,#a459f2 35%,#7c3aed 60%,#7c2d12);animation:orbB 5s ease-in-out infinite}
+.orb.xl .orb-c{width:120px;height:120px;box-shadow:0 0 80px rgba(164,89,242,0.5),0 0 200px rgba(164,89,242,0.12),inset 0 0 40px rgba(255,255,255,0.1)}
+.orb.lg .orb-c{width:72px;height:72px;box-shadow:0 0 50px rgba(164,89,242,0.45),0 0 120px rgba(164,89,242,0.1)}
+.orb.md .orb-c{width:40px;height:40px;box-shadow:0 0 28px rgba(164,89,242,0.4)}
+.orb.sm .orb-c{width:28px;height:28px;box-shadow:0 0 18px rgba(164,89,242,0.35)}
+.orb.xs .orb-c{width:20px;height:20px;box-shadow:0 0 12px rgba(164,89,242,0.3)}
+.orb-r{position:absolute;border-radius:50%;border:1px solid rgba(164,89,242,0.12);animation:orbS 14s linear infinite}
+.orb.xl .orb-r:nth-child(1){width:160px;height:160px}.orb.xl .orb-r:nth-child(2){width:195px;height:195px;animation-duration:20s;animation-direction:reverse;border-color:rgba(164,89,242,0.06)}
+.orb.lg .orb-r:nth-child(1){width:95px;height:95px}.orb.lg .orb-r:nth-child(2){width:115px;height:115px;animation-duration:18s;animation-direction:reverse;border-color:rgba(164,89,242,0.06)}
+.orb.thinking .orb-c{animation:orbT 0.8s ease-in-out infinite!important}
+@keyframes orbB{0%,100%{transform:scale(1);filter:brightness(1)}50%{transform:scale(1.07);filter:brightness(1.18)}}
+@keyframes orbT{0%,100%{transform:scale(1);filter:brightness(1.15)}50%{transform:scale(1.15);filter:brightness(1.4)}}
+@keyframes orbS{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
+@keyframes rise{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+@keyframes cardUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+@keyframes msgIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+@keyframes dotP{0%,100%{opacity:0.3;transform:scale(0.8)}50%{opacity:1;transform:scale(1)}}
+@keyframes shP{0%,100%{opacity:0.6}50%{opacity:1}}
+@keyframes modalIn{from{opacity:0;transform:scale(0.95) translateY(10px)}to{opacity:1;transform:scale(1) translateY(0)}}
+
+.shield{position:fixed;bottom:20px;left:20px;z-index:100;display:flex;align-items:center;gap:8px;padding:8px 14px;border-radius:20px;background:rgba(13,13,34,0.8);border:1px solid var(--bdr2);backdrop-filter:blur(20px);cursor:pointer;font-size:11px;color:var(--tx3);font-family:var(--mono);transition:all 0.3s}
+.shield:hover{border-color:var(--grn);color:var(--grn);transform:translateY(-2px)}
+.shield-dot{width:6px;height:6px;border-radius:50%;background:var(--grn);animation:shP 3s ease infinite}
+.shield-panel{position:fixed;bottom:60px;left:20px;z-index:101;width:320px;background:var(--glass2);border:1px solid var(--bdr2);border-radius:16px;padding:24px;backdrop-filter:blur(30px);opacity:0;visibility:hidden;transform:translateY(10px);transition:all 0.3s}
+.shield-panel.on{opacity:1;visibility:visible;transform:translateY(0)}
+.shield-panel h3{font-size:15px;font-weight:600;margin-bottom:14px}
+.shield-row{display:flex;align-items:center;gap:10px;padding:8px 0;font-size:13px;color:var(--tx2)}
+.shield-row .dot{width:8px;height:8px;border-radius:50%;background:var(--grn);flex-shrink:0}
+
+#sc-portal{gap:0}
+.portal-orb{margin-bottom:40px;opacity:0;animation:rise 1.2s var(--ease) 0.1s both}
+.portal-title{font-size:58px;font-weight:800;letter-spacing:-3px;line-height:1;text-align:center;background:linear-gradient(135deg,#fff 0%,#ddd6fe 45%,#a459f2 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:8px;opacity:0;animation:rise 1s var(--ease) 0.3s both}
+.portal-sub{font-size:15px;font-weight:300;color:var(--tx3);letter-spacing:0.8px;margin-bottom:48px;text-align:center;opacity:0;animation:rise 1s var(--ease) 0.45s both}
+.portal-box{width:380px;display:flex;flex-direction:column;gap:12px;opacity:0;animation:rise 0.8s var(--ease) 0.6s both}
+.fi{width:100%;padding:15px 18px;background:var(--surf);border:1px solid var(--bdr);border-radius:12px;color:var(--tx);font-size:14px;transition:all 0.3s}
+.fi:focus{border-color:rgba(164,89,242,0.5);box-shadow:0 0 0 3px rgba(164,89,242,0.1);background:var(--surf2)}
+.fi::placeholder{color:var(--tx4)}
+.portal-go{position:relative;overflow:hidden;margin-top:6px;padding:15px;border-radius:12px;font-size:14px;font-weight:600;color:#1a1a2e;background:linear-gradient(135deg,#c084fc,#a459f2 60%,#7c3aed);box-shadow:0 4px 20px rgba(164,89,242,0.3);transition:all 0.3s}
+.portal-go:hover{transform:translateY(-2px);box-shadow:0 8px 36px rgba(164,89,242,0.45)}
+.portal-go:disabled{opacity:0.4;cursor:not-allowed;transform:none}
+.portal-err{text-align:center;color:var(--red);font-size:12px;min-height:18px;opacity:0;transition:opacity 0.3s}
+.portal-err.on{opacity:1}
+.portal-google{display:none;margin-top:4px;padding:14px;border-radius:12px;font-size:14px;font-weight:500;color:var(--tx);background:var(--surf);border:1px solid var(--bdr);transition:all 0.3s}
+.portal-google:hover{border-color:var(--bdr2);background:var(--surf2)}
+.portal-divider{display:none;font-size:11px;color:var(--tx4);text-align:center;padding:4px 0;letter-spacing:2px;font-family:var(--mono)}
+.portal-foot{position:absolute;bottom:28px;font-size:10px;color:var(--tx4);letter-spacing:0.8px;font-family:var(--mono);opacity:0;animation:rise 1s var(--ease) 0.8s both}
+.portal-foot em{font-style:normal;color:var(--prp-l)}
+
+#sc-create{overflow-y:auto;padding:60px 24px 100px}
+.create-head{text-align:center;margin-bottom:48px}
+.create-tag{font-family:var(--mono);font-size:10px;color:var(--prp-l);text-transform:uppercase;letter-spacing:5px;margin-bottom:14px;opacity:0;animation:rise 0.7s var(--ease) 0.2s both}
+.create-title{font-size:48px;font-weight:800;letter-spacing:-2.5px;line-height:1.1;background:linear-gradient(135deg,#fff 10%,#ddd6fe 50%,#a459f2 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:14px;opacity:0;animation:rise 0.7s var(--ease) 0.35s both}
+.create-desc{font-size:16px;color:var(--tx3);max-width:480px;margin:0 auto;line-height:1.7;font-weight:300;opacity:0;animation:rise 0.7s var(--ease) 0.5s both}
+.tpl-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px;max-width:960px;width:100%;margin:0 auto 40px}
+.tpl-card{background:var(--surf);border:1px solid var(--bdr);border-radius:18px;padding:24px;cursor:pointer;transition:all 0.35s var(--ease);position:relative;overflow:hidden;opacity:0;animation:cardUp 0.5s var(--ease) both}
+.tpl-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--prp);opacity:0;transition:opacity 0.3s}
+.tpl-card:hover{border-color:var(--bdr3);transform:translateY(-3px);box-shadow:0 16px 48px rgba(0,0,0,0.4)}
+.tpl-card:hover::before{opacity:1}
+.tpl-card.selected{border-color:var(--prp);box-shadow:0 0 0 2px rgba(164,89,242,0.2)}
+.tpl-card.blank{border-style:dashed;border-color:var(--bdr2)}.tpl-card.blank:hover{border-style:solid}
+.tpl-card.import{border-style:dashed;border-color:rgba(94,174,255,0.2)}.tpl-card.import:hover{border-color:#5eaeff;border-style:solid}
+.tpl-icon{font-size:28px;margin-bottom:10px}.tpl-name{font-size:16px;font-weight:700;letter-spacing:-0.3px;margin-bottom:4px}.tpl-desc{font-size:12px;color:var(--tx3);line-height:1.6}
+.create-actions{display:flex;justify-content:center;gap:12px;opacity:0;animation:rise 0.7s var(--ease) 0.6s both}
+.create-go{padding:16px 44px;border-radius:40px;font-size:15px;font-weight:600;color:#1a1a2e;background:linear-gradient(135deg,#c084fc,#7c3aed);box-shadow:0 4px 28px rgba(164,89,242,0.35);transition:all 0.3s}
+.create-go:hover{transform:translateY(-2px);box-shadow:0 8px 44px rgba(164,89,242,0.5)}
+.create-go:disabled{opacity:0.3;cursor:not-allowed;transform:none}
+.create-skip{padding:16px 32px;border-radius:40px;font-size:14px;font-weight:500;color:var(--tx3);background:transparent;border:1px solid var(--bdr);transition:all 0.3s}
+.create-skip:hover{color:var(--tx);border-color:var(--bdr2)}
+
+#sc-home{overflow-y:auto;padding:0}
+.home-top{padding:36px 32px 24px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:10;background:linear-gradient(to bottom,var(--void) 60%,transparent)}
+.home-brand{display:flex;align-items:center;gap:14px}
+.home-brand-name{font-size:20px;font-weight:700;letter-spacing:-0.5px}
+.home-brand-sub{font-size:11px;color:var(--tx3);font-family:var(--mono);letter-spacing:0.5px}
+.home-actions{display:flex;align-items:center;gap:10px}
+.home-btn{padding:10px 18px;border-radius:10px;font-size:12px;font-weight:500;color:var(--tx2);background:var(--surf);border:1px solid var(--bdr);transition:all 0.3s}
+.home-btn:hover{border-color:var(--bdr2);color:var(--tx)}
+.home-btn.primary{color:#fff;background:var(--prp-d);border-color:transparent}
+.home-btn.primary:hover{background:var(--prp);box-shadow:0 4px 20px rgba(164,89,242,0.3)}
+.home-avatar{width:36px;height:36px;border-radius:10px;background:var(--surf2);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;color:var(--prp-l);cursor:pointer;border:1px solid var(--bdr);transition:all 0.3s}
+.home-avatar:hover{border-color:var(--prp)}
+.home-body{padding:0 32px 100px}
+.home-section-label{font-size:11px;font-family:var(--mono);color:var(--tx4);text-transform:uppercase;letter-spacing:3px;margin-bottom:16px;padding-left:4px}
+.spaces-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px;margin-bottom:40px}
+.space-card{background:var(--surf);border:1px solid var(--bdr);border-radius:18px;padding:20px;cursor:pointer;transition:all 0.35s var(--ease);position:relative;overflow:hidden;min-height:160px;display:flex;flex-direction:column}
+.space-card::after{content:'';position:absolute;inset:0;border-radius:18px;opacity:0;background:radial-gradient(circle at 50% 0%,var(--accent,rgba(164,89,242,0.06)) 0%,transparent 70%);transition:opacity 0.4s}
+.space-card:hover{border-color:var(--bdr3);transform:translateY(-4px);box-shadow:0 20px 60px rgba(0,0,0,0.35)}
+.space-card:hover::after{opacity:1}
+.space-card-top{display:flex;align-items:center;gap:12px;margin-bottom:12px;position:relative;z-index:1}
+.space-icon{width:42px;height:42px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;background:var(--surf2);flex-shrink:0}
+.space-name{font-size:15px;font-weight:700;letter-spacing:-0.3px}
+.space-source{font-size:9px;font-family:var(--mono);color:var(--tx4);margin-top:2px}
+.space-desc{font-size:12px;color:var(--tx3);line-height:1.6;flex:1;position:relative;z-index:1}
+.space-meta{display:flex;gap:8px;margin-top:auto;padding-top:12px;position:relative;z-index:1}
+.space-tag{padding:3px 8px;border-radius:6px;font-size:9px;font-family:var(--mono);background:var(--surf2);color:var(--tx3)}
+.space-card.add{border-style:dashed;border-color:var(--bdr2);display:flex;align-items:center;justify-content:center}
+.space-card.add:hover{border-color:var(--prp);border-style:solid}
+.space-add-inner{text-align:center;color:var(--tx3)}
+.space-add-plus{font-size:28px;color:var(--tx4);margin-bottom:6px}
+.space-add-text{font-size:12px}
+
+#sc-chat{flex-direction:column;align-items:stretch;justify-content:stretch}
+.chat-header{display:flex;align-items:center;gap:14px;padding:16px 24px;border-bottom:1px solid var(--bdr);background:var(--glass);backdrop-filter:blur(20px);z-index:10;flex-shrink:0}
+.chat-back{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;color:var(--tx3);background:var(--surf);border:1px solid var(--bdr);transition:all 0.3s}
+.chat-back:hover{color:var(--tx);border-color:var(--bdr2)}
+.chat-agent-name{font-size:15px;font-weight:600;letter-spacing:-0.3px}
+.chat-agent-model{font-size:10px;color:var(--tx4);font-family:var(--mono)}
+.chat-header-right{margin-left:auto;display:flex;gap:8px}
+.chat-h-btn{padding:7px 14px;border-radius:8px;font-size:11px;font-weight:500;color:var(--tx3);background:var(--surf);border:1px solid var(--bdr);transition:all 0.3s}
+.chat-h-btn:hover{color:var(--tx);border-color:var(--bdr2)}
+.chat-body{flex:1;overflow-y:auto;padding:24px 24px 0;display:flex;flex-direction:column}
+.chat-welcome{flex:1;display:flex;align-items:center;justify-content:center;flex-direction:column;text-align:center;gap:16px;padding:40px}
+.chat-welcome-name{font-size:28px;font-weight:700;letter-spacing:-1px}
+.chat-welcome-desc{font-size:14px;color:var(--tx3);max-width:400px;line-height:1.7}
+.chat-welcome-hints{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;max-width:500px}
+.chat-hint{padding:10px 18px;border-radius:12px;font-size:12px;background:var(--surf);border:1px solid var(--bdr);color:var(--tx2);cursor:pointer;transition:all 0.3s}
+.chat-hint:hover{border-color:var(--prp);color:var(--tx);transform:translateY(-1px)}
+.msg{display:flex;gap:12px;margin-bottom:20px;max-width:720px;animation:msgIn 0.3s var(--ease)}
+.msg.ai{align-self:flex-start}.msg.usr{align-self:flex-end;flex-direction:row-reverse}
+.msg-av{width:32px;height:32px;border-radius:10px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:14px;background:var(--surf2)}
+.msg-bubble{padding:14px 18px;border-radius:16px;font-size:14px;line-height:1.7;max-width:580px;word-wrap:break-word}
+.msg.ai .msg-bubble{background:var(--surf);border:1px solid var(--bdr);border-top-left-radius:4px}
+.msg.usr .msg-bubble{background:var(--prp-d);border-top-right-radius:4px}
+.msg-bubble code{font-family:var(--mono);font-size:12px;background:rgba(0,0,0,0.3);padding:2px 6px;border-radius:4px}
+.msg-bubble pre{background:rgba(0,0,0,0.4);padding:12px;border-radius:8px;margin:8px 0;overflow-x:auto;font-size:12px;font-family:var(--mono)}
+.msg-time{font-size:10px;color:var(--tx4);margin-top:6px;font-family:var(--mono)}
+.msg-actions{display:flex;gap:4px;margin-top:6px}
+.msg-act{padding:3px 8px;border-radius:6px;font-size:10px;color:var(--tx4);background:transparent;border:1px solid transparent;transition:all 0.2s;cursor:pointer}
+.msg-act:hover{border-color:var(--bdr2);color:var(--tx3)}
+.thinking{display:flex;gap:12px;align-items:center;margin-bottom:20px;animation:msgIn 0.3s var(--ease)}
+.think-dots{display:flex;gap:4px}
+.think-dot{width:7px;height:7px;border-radius:50%;background:var(--prp);opacity:0.4;animation:dotP 1.2s ease-in-out infinite}
+.think-dot:nth-child(2){animation-delay:0.2s}.think-dot:nth-child(3){animation-delay:0.4s}
+.chat-input-area{padding:16px 24px 20px;border-top:1px solid var(--bdr);background:var(--glass);backdrop-filter:blur(20px);flex-shrink:0}
+.chat-input-wrap{display:flex;align-items:flex-end;gap:10px;max-width:720px;margin:0 auto}
+.chat-input{flex:1;padding:14px 18px;background:var(--surf);border:1px solid var(--bdr);border-radius:14px;color:var(--tx);font-size:14px;resize:none;min-height:48px;max-height:140px;line-height:1.5;transition:all 0.3s}
+.chat-input:focus{border-color:rgba(164,89,242,0.35);box-shadow:0 0 0 3px rgba(164,89,242,0.08)}
+.chat-input::placeholder{color:var(--tx4)}
+.chat-send{width:48px;height:48px;border-radius:14px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:18px;color:#1a1a2e;background:linear-gradient(135deg,#c084fc,#7c3aed);box-shadow:0 4px 16px rgba(164,89,242,0.3);transition:all 0.3s}
+.chat-send:hover{transform:translateY(-2px);box-shadow:0 6px 24px rgba(164,89,242,0.45)}
+.dlp-bar{position:fixed;top:0;left:0;right:0;z-index:200;padding:12px 20px;background:rgba(251,113,133,0.12);border-bottom:1px solid rgba(251,113,133,0.2);color:var(--red);font-size:12px;text-align:center;font-weight:500;transform:translateY(-100%);transition:transform 0.3s}
+.dlp-bar.on{transform:translateY(0)}
+
+.modal-bg{position:fixed;inset:0;z-index:50;background:rgba(3,3,8,0.85);backdrop-filter:blur(8px);display:none;align-items:center;justify-content:center}
+.modal-bg.on{display:flex}
+.modal{width:440px;max-width:90vw;max-height:85vh;overflow-y:auto;background:var(--surf);border:1px solid var(--bdr2);border-radius:20px;padding:32px;animation:modalIn 0.3s var(--ease)}
+.modal-title{font-size:22px;font-weight:700;letter-spacing:-0.5px;margin-bottom:6px}
+.modal-desc{font-size:13px;color:var(--tx3);line-height:1.6;margin-bottom:20px}
+.provider-card{background:var(--surf2);border:1px solid var(--bdr);border-radius:14px;padding:16px;margin-bottom:10px}
+.provider-top{display:flex;align-items:center;gap:12px;margin-bottom:8px}
+.provider-icon{font-size:20px}.provider-name{font-size:14px;font-weight:600}
+.provider-tag{font-size:10px;color:var(--tx4);font-family:var(--mono)}
+.provider-status{margin-left:auto}
+.badge{padding:3px 10px;border-radius:6px;font-size:10px;font-weight:500;font-family:var(--mono)}
+.b-on{background:rgba(52,211,153,0.1);color:var(--grn)}.b-off{background:rgba(96,96,160,0.1);color:var(--tx3)}
+.key-input-row{display:flex;gap:8px;margin-top:4px}
+.key-input{flex:1;padding:10px 12px;background:var(--void);border:1px solid var(--bdr);border-radius:8px;color:var(--tx);font-size:12px;font-family:var(--mono)}
+.key-save{padding:10px 18px;border-radius:8px;font-size:12px;font-weight:600;color:#fff;background:var(--prp-d);transition:all 0.2s}
+.key-save:hover{background:var(--prp)}
+.key-status{font-size:11px;margin-top:6px;min-height:16px}.key-status.ok{color:var(--grn)}.key-status.err{color:var(--red)}
+.key-link{font-size:11px;color:var(--prp-l);text-decoration:none}.key-link:hover{text-decoration:underline}
+.modal-skip{display:block;width:100%;margin-top:16px;padding:12px;border-radius:10px;font-size:13px;color:var(--tx3);background:transparent;border:1px solid var(--bdr);text-align:center;transition:all 0.3s}
+.modal-skip:hover{color:var(--tx);border-color:var(--bdr2)}
+.modal-done{display:block;width:100%;margin-top:16px;padding:12px;border-radius:10px;font-size:13px;color:var(--prp-l);background:rgba(164,89,242,0.06);border:1px solid rgba(164,89,242,0.15);text-align:center}
+
+.gate-bg{position:fixed;inset:0;z-index:60;background:rgba(3,3,8,0.92);backdrop-filter:blur(12px);display:none;align-items:center;justify-content:center}
+.gate-bg.on{display:flex}
+.gate{width:420px;max-width:90vw;background:var(--surf);border:1px solid var(--bdr2);border-radius:20px;padding:36px;text-align:center}
+.gate-title{font-size:24px;font-weight:700;letter-spacing:-0.5px;margin-bottom:10px}
+.gate-sub{font-size:13px;color:var(--tx3);line-height:1.6;margin-bottom:24px}
+.gate-check{display:flex;align-items:flex-start;gap:10px;text-align:left;margin-bottom:12px;font-size:12px;color:var(--tx2);line-height:1.5}
+.gate-check input{margin-top:3px;accent-color:var(--prp)}
+.gate-btn{display:block;width:100%;padding:14px;border-radius:12px;font-size:14px;font-weight:600;margin-top:8px;transition:all 0.3s}
+.gate-btn-primary{color:#1a1a2e;background:linear-gradient(135deg,#c084fc,#7c3aed);box-shadow:0 4px 20px rgba(155,109,255,0.25)}
+.gate-btn-primary:hover{box-shadow:0 8px 32px rgba(164,89,242,0.35);transform:translateY(-1px)}
+.gate-btn-primary:disabled{opacity:0.3;cursor:not-allowed;transform:none}
+.gate-plans{display:flex;gap:12px;margin-bottom:20px}
+.gate-plan{flex:1;padding:20px;border-radius:14px;border:1px solid var(--bdr);cursor:pointer;transition:all 0.3s}
+.gate-plan.selected{border-color:var(--prp);background:rgba(155,109,255,0.05)}
+.gate-plan:hover{border-color:var(--bdr2)}
+.gate-plan-price{font-size:28px;font-weight:700}.gate-plan-period{font-size:11px;color:var(--tx3)}
+.gate-plan-save{font-size:10px;color:var(--grn);margin-top:4px;font-weight:500}
+.gate-feature{font-size:12px;color:var(--tx2);padding:4px 0}
+
+@media(max-width:640px){.portal-title{font-size:36px}.portal-box{width:calc(100% - 32px)}.create-title{font-size:32px}.tpl-grid,.spaces-grid{grid-template-columns:1fr}.home-top{padding:20px 16px}.home-body{padding:0 16px 80px}}
+
+.persistent-orb{position:fixed;bottom:20px;right:20px;z-index:99;pointer-events:none}
+.persistent-orb .orb{width:36px;height:36px}
+.persistent-orb .orb-c{width:24px;height:24px;box-shadow:0 0 14px rgba(164,89,242,0.35)}
+</style>
+</head>
+<body>
+<canvas id="pf"></canvas>
+<div class="ambient"></div>
+<div class="dlp-bar" id="dlp-bar"></div>
+<div class="persistent-orb"><div class="orb"><div class="orb-c"></div></div></div>
+<div class="shield" id="shield" onclick="toggleShield()"><div class="shield-dot"></div><span>Protected</span></div>
+<div class="shield-panel" id="shield-panel"><h3>&#x1f6e1; Your Data is Safe</h3><div class="shield-row"><div class="dot"></div>End-to-end encrypted storage</div><div class="shield-row"><div class="dot"></div>API keys encrypted at rest</div><div class="shield-row"><div class="dot"></div>Your data never trains AI models</div><div class="shield-row"><div class="dot"></div>You own everything &mdash; export anytime</div><div class="shield-row"><div class="dot"></div>DLP scans block sensitive data</div><div class="shield-row"><div class="dot"></div>Self-hosted &mdash; data stays on your server</div><div style="margin-top:14px;font-size:10px;color:var(--tx4);font-family:var(--mono)">MyTeam360 by Praxis Holdings LLC</div></div>
+
+<div class="sc on" id="sc-portal">
+  <div class="portal-orb"><div class="orb lg"><div class="orb-r"></div><div class="orb-r"></div><div class="orb-c"></div></div></div>
+  <div class="portal-title"><img src="/static/logo-nav.png" alt="MyTeam360" style="height:28px"></div>
+  <div class="portal-sub">Your AI. Your Data. Your Control.</div>
+  <form class="portal-box" onsubmit="doLogin(event)">
+    <input class="fi" id="f-email" type="email" placeholder="Email" autocomplete="email" required>
+    <input class="fi" id="f-pass" type="password" placeholder="Password" autocomplete="current-password" required>
+    <div class="portal-err" id="portal-err"></div>
+    <button class="portal-go" type="submit" id="go-btn">Enter</button>
+    <div class="portal-divider" id="divider-or">or</div>
+    <button class="portal-google" type="button" id="google-btn" onclick="location.href='/api/auth/google/login'">Continue with Google</button>
+  </form>
+  <div class="portal-foot">encrypted &middot; private &middot; <em>yours</em></div>
+</div>
+
+<div class="sc" id="sc-create">
+  <div class="create-head"><div class="create-tag">Let's Begin</div><div class="create-title">What do you want to build?</div><div class="create-desc">Pick a starting point or create from scratch. You can always customize later.</div></div>
+  <div class="tpl-grid" id="tpl-grid"></div>
+  <div class="create-actions"><button class="create-go" id="create-go" disabled onclick="createFirstSpace()">Create My Space &rarr;</button><button class="create-skip" onclick="skipCreate()">Show me around first</button></div>
+</div>
+
+<div class="sc" id="sc-home">
+  <div class="home-top"><div class="home-brand"><img src="/static/logo-nav.png" alt="MyTeam360" style="height:32px"><div><div class="home-brand-name">MyTeam360</div><div class="home-brand-sub" id="home-sub">Your Spaces</div></div></div><div class="home-actions"><button class="home-btn" onclick="openImport()">Import GPTs</button><button class="home-btn primary" onclick="openNewSpace()">+ New Space</button><div class="home-avatar" id="home-avatar" onclick="openSettings()"></div></div></div>
+  <div class="home-body"><div class="home-section-label" id="home-section-label">Your Spaces</div><div class="spaces-grid" id="spaces-grid"></div></div>
+</div>
+
+<div class="sc" id="sc-chat">
+  <div class="chat-header"><button class="chat-back" onclick="goHome()">&larr;</button><div class="orb xs"><div class="orb-c"></div></div><div><div class="chat-agent-name" id="chat-name"></div><div class="chat-agent-model" id="chat-model"></div></div><div class="chat-header-right"><button class="chat-h-btn" onclick="toggleMic()">&#x1f3a4;</button><button class="chat-h-btn" onclick="doExport()">&#x2197;</button></div></div>
+  <div class="chat-body" id="chat-body"><div class="chat-welcome" id="chat-welcome"><div class="orb lg"><div class="orb-r"></div><div class="orb-r"></div><div class="orb-c"></div></div><div class="chat-welcome-name" id="chat-w-name"></div><div class="chat-welcome-desc" id="chat-w-desc"></div><div class="chat-welcome-hints" id="chat-hints"></div></div></div>
+  <div class="chat-input-area"><div class="chat-input-wrap"><textarea class="chat-input" id="inp" placeholder="Message&hellip;" rows="1" onkeydown="onKey(event)" oninput="grow(this)"></textarea><button class="chat-send" onclick="send()">&uarr;</button></div></div>
+</div>
+
+<div class="gate-bg" id="tos-gate"><div class="gate"><div class="gate-title">Before We Start</div><div class="gate-sub">Quick agreement &mdash; we keep things transparent.</div><div class="gate-check"><input type="checkbox" id="tos-agree" onchange="updateTosBtn()"><label for="tos-agree">I agree to the <a href="/terms" target="_blank" style="color:var(--prp-l)">Terms of Service</a></label></div><div class="gate-check"><input type="checkbox" id="cost-agree" onchange="updateTosBtn()"><label for="cost-agree">I understand AI provider costs are separate and my responsibility</label></div><button class="gate-btn gate-btn-primary" id="tos-accept-btn" disabled onclick="acceptTOS()">Accept &amp; Start Free Trial</button><div style="margin-top:10px;font-size:10px;color:var(--tx4)">Agreement recorded with timestamp for your protection</div></div></div>
+
+<div class="gate-bg" id="pay-gate"><div class="gate"><div class="gate-title">Your trial has ended</div><div class="gate-sub">Choose a plan to keep your AI team running.</div><div class="gate-plans"><div class="gate-plan selected" id="plan-monthly" onclick="selectPlan('monthly')"><div class="gate-plan-price">$15</div><div class="gate-plan-period">per month</div></div><div class="gate-plan" id="plan-annual" onclick="selectPlan('annual')"><div class="gate-plan-price">$129</div><div class="gate-plan-period">per year</div><div class="gate-plan-save">Save 28%</div></div></div><div style="margin-bottom:20px"><div class="gate-feature">&check; Unlimited AI Spaces</div><div class="gate-feature">&check; Import your GPTs</div><div class="gate-feature">&check; Voice conversations</div><div class="gate-feature">&check; Encrypted &amp; private</div></div><button class="gate-btn gate-btn-primary" onclick="checkout()">Subscribe Now &rarr;</button><div style="margin-top:10px;font-size:10px;color:var(--tx4)">7-day money-back guarantee &middot; Cancel anytime</div></div></div>
+
+<div class="modal-bg" id="key-modal-bg"><div class="modal"><div class="modal-title">Connect Your AI</div><div class="modal-desc">Add an API key from any provider &mdash; takes 30 seconds. Your key is encrypted and never leaves your server.</div><div id="key-providers"></div><div style="background:rgba(251,191,36,0.04);border:1px solid rgba(251,191,36,0.08);border-radius:10px;padding:10px 12px;margin-top:12px"><div style="font-size:10px;color:var(--tx3);line-height:1.5">&#x26A0; AI provider charges are billed by your provider, not MyTeam360.</div></div><button class="modal-skip" id="key-skip-btn" onclick="closeKeyModal()">I'll do this later</button></div></div>
+
+<script>
+(function(){const c=document.getElementById('pf'),x=c.getContext('2d');let W,H,pts=[];
+function sz(){W=c.width=innerWidth;H=c.height=innerHeight;pts=[];for(let i=0;i<50;i++)pts.push({x:Math.random()*W,y:Math.random()*H,r:Math.random()*1.2+0.3,dx:(Math.random()-0.5)*0.25,dy:(Math.random()-0.5)*0.15,a:Math.random()*0.35+0.08})}
+function draw(){x.clearRect(0,0,W,H);pts.forEach(p=>{p.x+=p.dx;p.y+=p.dy;if(p.x<0)p.x=W;if(p.x>W)p.x=0;if(p.y<0)p.y=H;if(p.y>H)p.y=0;x.beginPath();x.arc(p.x,p.y,p.r,0,Math.PI*2);x.fillStyle=`rgba(164,89,242,${p.a})`;x.fill()});requestAnimationFrame(draw)}
+sz();draw();addEventListener('resize',sz)})();
+
+const API=location.origin;let token=null,user=null,spaces=[],curSpace=null,convId=null,msgs=[],hasAnyKey=false,selectedPlan='monthly';
+const PICONS={anthropic:'\u{1f7e3}',openai:'\u{1f7e2}',xai:'\u26a1',google:'\u{1f535}',mistral:'\u{1f1eb}\u{1f1f7}',deepseek:'\u{1f50d}',cohere:'\u{1f9e0}',together:'\u{1f91d}',perplexity:'\u{1f50e}',fireworks:'\u{1f387}',groq:'\u26a1',azure_openai:'\u2601\ufe0f',aws_bedrock:'\u{1f4e6}',ollama:'\u{1f999}'};
+
+async function rpc(path,opts={}){const h={'Content-Type':'application/json',...(opts.headers||{})};if(token)h['Authorization']=`Bearer ${token}`;const r=await fetch(API+path,{...opts,headers:h});const d=await r.json().catch(()=>({}));if(!r.ok&&d.error==='policy_acceptance_required'){await acceptAUP(d.policy_id);return rpc(path,opts)}return{ok:r.ok,s:r.status,d}}
+async function acceptAUP(pid){const a=await rpc('/api/policy/active');const id=pid||a.d?.policy?.id||'default';await rpc('/api/policy/accept',{method:'POST',body:JSON.stringify({policy_id:id})})}
+
+function go(name){document.querySelectorAll('.sc').forEach(s=>s.classList.remove('on'));document.getElementById('sc-'+name).classList.add('on')}
+function toggleShield(){document.getElementById('shield-panel').classList.toggle('on')}
+document.addEventListener('click',e=>{if(!e.target.closest('.shield')&&!e.target.closest('.shield-panel'))document.getElementById('shield-panel').classList.remove('on')});
+
+async function doLogin(e){e.preventDefault();const btn=document.getElementById('go-btn'),err=document.getElementById('portal-err');btn.disabled=true;btn.textContent='Connecting\u2026';err.classList.remove('on');err.textContent='';
+try{const r=await rpc('/api/auth/login',{method:'POST',body:JSON.stringify({email:document.getElementById('f-email').value,password:document.getElementById('f-pass').value})});
+if(r.ok&&r.d.token){token=r.d.token;user=r.d.user;localStorage.setItem('mt_t',token);localStorage.setItem('mt_u',JSON.stringify(user));await postAuth()}
+else{err.textContent=r.d.error||'Invalid credentials';err.classList.add('on');btn.disabled=false;btn.textContent='Enter'}}
+catch(ex){err.textContent='Cannot reach server';err.classList.add('on');btn.disabled=false;btn.textContent='Enter'}}
+
+async function postAuth(){try{await acceptAUP()}catch{};const st=await rpc('/api/setup/state');if(!st.d?.completed&&!st.d?.setup_completed)await rpc('/api/setup/complete',{method:'POST',body:'{}'});await loadSpaces();if(spaces.length===0){go('create');renderCreateTemplates()}else goHome()}
+async function loadSpaces(){const r=await rpc('/api/agents');spaces=(r.d?.agents||r.d||[]).map(a=>({...a,source:a.source||'local'}))}
+
+let selectedTpl=null;
+const CREATE_TEMPLATES=[{id:'blank',icon:'\u2728',name:'Start from Scratch',desc:'Empty canvas \u2014 you define everything',blank:true},{id:'writer',icon:'\u270d\ufe0f',name:'Content Writer',desc:'Blog posts, social media, marketing copy',instructions:'You are a versatile content writer. Match the user\'s brand voice. Be creative, clear, and engaging.'},{id:'coder',icon:'\u{1f4bb}',name:'Code Assistant',desc:'Debug, review, build, and explain code',instructions:'You are an expert programmer. Write clean code. Explain reasoning. Suggest improvements.'},{id:'analyst',icon:'\u{1f4ca}',name:'Data Analyst',desc:'Break down numbers, trends, insights',instructions:'You are a data analyst. Present findings clearly with actionable insights.'},{id:'strategist',icon:'\u265f\ufe0f',name:'Strategy Advisor',desc:'Business planning, decisions, trade-offs',instructions:'You are a strategic advisor. Analyze from multiple angles. Present clear recommendations.'},{id:'support',icon:'\u{1f3a7}',name:'Customer Support',desc:'Draft replies, handle complaints',instructions:'You are a customer support expert. Be empathetic and solution-oriented.'},{id:'import',icon:'\u{1f4e5}',name:'Import My GPTs',desc:'Bring your OpenAI assistants here',import:true}];
+
+function renderCreateTemplates(){const grid=document.getElementById('tpl-grid');grid.innerHTML='';CREATE_TEMPLATES.forEach((t,i)=>{const el=document.createElement('div');el.className=`tpl-card${t.blank?' blank':''}${t.import?' import':''}`;el.style.animationDelay=`${0.3+i*0.06}s`;el.onclick=()=>selectTemplate(t);el.id='tpl-'+t.id;el.innerHTML=`<div class="tpl-icon">${t.icon}</div><div class="tpl-name">${t.name}</div><div class="tpl-desc">${t.desc}</div>`;grid.appendChild(el)})}
+function selectTemplate(t){if(t.import){openImport();return}selectedTpl=t;document.querySelectorAll('.tpl-card').forEach(c=>c.classList.remove('selected'));document.getElementById('tpl-'+t.id).classList.add('selected');document.getElementById('create-go').disabled=false}
+async function createFirstSpace(){if(!selectedTpl)return;const btn=document.getElementById('create-go');btn.disabled=true;btn.textContent='Creating\u2026';await rpc('/api/agents',{method:'POST',body:JSON.stringify({name:selectedTpl.name,icon:selectedTpl.icon,description:selectedTpl.desc,instructions:selectedTpl.instructions||'',color:'#a459f2'})});await loadSpaces();goHome();const billing=await checkBilling();if(billing)await checkKeys()}
+function skipCreate(){goHome();checkBilling().then(ok=>{if(ok)checkKeys()})}
+
+function goHome(){go('home');renderSpaces();updateAvatar();fetchGreeting()}
+async function fetchGreeting(){try{const r=await rpc('/api/me/greeting');if(r.d?.greeting){document.getElementById('home-sub').textContent=r.d.greeting;document.getElementById('home-section-label').textContent=r.d.first_name?`${r.d.first_name}'s Spaces`:'Your Spaces'}}catch{}}
+function renderSpaces(){const grid=document.getElementById('spaces-grid');grid.innerHTML='';const sorted=[...spaces].sort((a,b)=>{if(a.favorite&&!b.favorite)return -1;if(!a.favorite&&b.favorite)return 1;return(b.updated_at||'').localeCompare(a.updated_at||'')});
+sorted.forEach(s=>{const el=document.createElement('div');el.className='space-card';const srcTag=s.source==='openai_assistant'?'<span class="space-tag">GPT</span>':s.source==='manual_import'?'<span class="space-tag">Imported</span>':'';const provTag=s.provider?`<span class="space-tag">${s.provider}</span>`:'';
+el.style.cssText=`--accent:${s.color||'rgba(164,89,242,0.06)'}20`;
+el.innerHTML=`<div class="space-card-top"><div class="space-icon" style="background:${s.color||'var(--surf2)'}15">${s.icon||'\u{1f916}'}</div><div><div class="space-name">${s.name}</div>${s.source!=='local'?`<div class="space-source">${s.source==='openai_assistant'?'From OpenAI':'Imported'}</div>`:''}</div></div><div class="space-desc">${s.description||s.role||'No description'}</div><div class="space-meta">${provTag}${srcTag}${s.run_count?`<span class="space-tag">${s.run_count} runs</span>`:''}</div>`;
+el.onclick=()=>openSpace(s);grid.appendChild(el)});
+const add=document.createElement('div');add.className='space-card add';add.onclick=openNewSpace;add.innerHTML='<div class="space-add-inner"><div class="space-add-plus">+</div><div class="space-add-text">New Space</div></div>';grid.appendChild(add);
+document.getElementById('home-sub').textContent=`${spaces.length} Space${spaces.length!==1?'s':''}`}
+function updateAvatar(){if(!user)return;document.getElementById('home-avatar').textContent=(user.display_name||user.email||'?').slice(0,2).toUpperCase()}
+
+function openSpace(s){curSpace=s;convId=null;msgs=[];go('chat');document.getElementById('chat-name').textContent=s.name;document.getElementById('chat-model').textContent=s.provider&&s.model?`${s.provider} \u00b7 ${s.model}`:s.provider||'Default model';
+const body=document.getElementById('chat-body');body.innerHTML='';const w=document.createElement('div');w.className='chat-welcome';w.id='chat-welcome';
+const fn=user?.display_name?user.display_name.split(' ')[0]:'';
+const welcomeMsg=fn?`Hi ${fn}, how can I help you today?`:(s.description||'Start a conversation\u2026');
+w.innerHTML=`<div class="orb lg"><div class="orb-r"></div><div class="orb-r"></div><div class="orb-c"></div></div><div class="chat-welcome-name">${s.icon||'\u{1f916}'} ${s.name}</div><div class="chat-welcome-desc">${welcomeMsg}</div><div class="chat-welcome-hints" id="chat-hints"></div>`;
+body.appendChild(w);const hints=document.getElementById('chat-hints');getStarters(s).forEach(h=>{const el=document.createElement('div');el.className='chat-hint';el.textContent=h;el.onclick=()=>{document.getElementById('inp').value=h;send()};hints.appendChild(el)});document.getElementById('inp').focus()}
+
+function getStarters(s){const t=(s.name+' '+(s.description||'')+' '+(s.instructions||'')).toLowerCase();if(t.includes('write')||t.includes('content'))return['Write a blog intro about\u2026','Improve this paragraph','Create social media copy'];if(t.includes('code')||t.includes('program'))return['Review this code','Explain how to\u2026','Debug this error'];if(t.includes('data')||t.includes('analy'))return['Analyze this data','What trends do you see?','Create a summary'];if(t.includes('strateg'))return['What are the trade-offs?','Help me plan\u2026','Pros and cons of\u2026'];return['Help me with\u2026','What do you think about\u2026','Can you explain\u2026']}
+
+function addMsg(role,text){const w=document.getElementById('chat-welcome');if(w)w.remove();msgs.push({role,text,t:new Date()});renderMsgs()}
+function renderMsgs(){const el=document.getElementById('chat-body');el.querySelectorAll('.msg,.thinking').forEach(m=>m.remove());
+msgs.forEach(m=>{const d=document.createElement('div');d.className=`msg ${m.role==='ai'?'ai':'usr'}`;const time=m.t?new Date(m.t).toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'}):'';
+if(m.role==='ai'){d.innerHTML=`<div class="msg-av" style="background:${curSpace?.color||'var(--surf2)'}15">${curSpace?.icon||'\u{1f916}'}</div><div><div class="msg-bubble">${fmt(m.text)}</div><div class="msg-time">${curSpace?.name} \u00b7 ${time}</div><div class="msg-actions"><button class="msg-act" onclick="rateFB(1)">\u{1f44d}</button><button class="msg-act" onclick="rateFB(-1)">\u{1f44e}</button></div></div>`}
+else{d.innerHTML=`<div class="msg-av">${(user?.display_name||'?')[0]}</div><div><div class="msg-bubble">${esc(m.text)}</div><div class="msg-time">${time}</div></div>`}
+el.appendChild(d)});el.scrollTop=el.scrollHeight}
+
+function fmt(t){return(t||'').replace(/```(\w*)\n?([\s\S]*?)```/g,'<pre><code>$2</code></pre>').replace(/`([^`]+)`/g,'<code>$1</code>').replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>').replace(/\n/g,'<br>').replace(/`\[setupkey\]`/g,'<button onclick="openKeyModal()" style="margin-top:8px;padding:10px 20px;border-radius:12px;background:var(--prp);color:white;border:none;font-family:var(--font);font-size:13px;font-weight:600;cursor:pointer">Connect AI Provider \u2192</button>')}
+function esc(t){return(t||'').replace(/</g,'&lt;').replace(/\n/g,'<br>')}
+
+async function send(){const inp=document.getElementById('inp');const text=inp.value.trim();if(!text)return;
+try{const dl=await rpc('/api/security/dlp/scan',{method:'POST',body:JSON.stringify({text})});if(dl.d?.blocked){const b=document.getElementById('dlp-bar');b.textContent='\u26a0 Sensitive data detected \u2014 message blocked for your protection.';b.classList.add('on');setTimeout(()=>b.classList.remove('on'),4000);return}}catch{}
+inp.value='';grow(inp);addMsg('usr',text);showThink();
+try{if(!convId){const cv=await rpc('/api/conversations',{method:'POST',body:JSON.stringify({agent_id:curSpace?.id})});convId=cv.d?.conversation?.id||cv.d?.id}
+const r=await rpc('/api/chat',{method:'POST',body:JSON.stringify({message:text,agent_id:curSpace?.id,conversation_id:convId})});hideThink();
+if(r.d?.response)addMsg('ai',r.d.response);else if(r.d?.error)addMsg('ai',r.d.error==='No API key configured'?'I need an AI provider to respond. Click below to connect one.\n\n`[setupkey]`':r.d.error);else addMsg('ai','Connect an AI provider to start chatting.\n\n`[setupkey]`')}
+catch(e){hideThink();addMsg('ai','Something went wrong. Please try again.')}}
+
+function showThink(){const el=document.getElementById('chat-body');document.querySelectorAll('.orb').forEach(o=>o.classList.add('thinking'));const d=document.createElement('div');d.className='thinking';d.id='thinker';d.innerHTML=`<div class="msg-av" style="background:${curSpace?.color||'var(--surf2)'}15">${curSpace?.icon||'\u{1f916}'}</div><div class="think-dots"><div class="think-dot"></div><div class="think-dot"></div><div class="think-dot"></div></div>`;el.appendChild(d);el.scrollTop=el.scrollHeight}
+function hideThink(){document.getElementById('thinker')?.remove();document.querySelectorAll('.orb').forEach(o=>o.classList.remove('thinking'))}
+function onKey(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();send()}}
+function grow(el){el.style.height='auto';el.style.height=Math.min(el.scrollHeight,140)+'px'}
+function rateFB(val){rpc('/api/feedback',{method:'POST',body:JSON.stringify({agent_id:curSpace?.id,rating:val>0?5:1})}).catch(()=>{})}
+
+async function openImport(){const r=await rpc('/api/providers');const provs=r.d?.providers||r.d||[];const hasOAI=provs.some(p=>(p.provider==='openai')&&(p.configured||p.has_key));
+if(!hasOAI){alert('Connect your OpenAI API key first, then import your GPTs.');openKeyModal();return}
+try{const list=await rpc('/api/import/openai/list');const a=list.d?.assistants||[];if(!a.length){alert('No GPTs found on your OpenAI account.');return}
+if(confirm(`Found ${a.length} GPT${a.length>1?'s':''} on your OpenAI account. Import all?`)){const result=await rpc('/api/import/openai/all',{method:'POST'});const imp=result.d?.imported?.length||0;alert(`Imported ${imp} GPT${imp!==1?'s':''}.`);await loadSpaces();renderSpaces()}}catch(e){alert('Failed: '+e.message)}}
+
+function openNewSpace(){const name=prompt('Space name:');if(!name)return;const desc=prompt('What does this Space do? (optional)','');rpc('/api/agents',{method:'POST',body:JSON.stringify({name,description:desc||'',icon:'\u2728',color:'#a459f2'})}).then(async()=>{await loadSpaces();renderSpaces()})}
+function doExport(){if(!convId)return;window.open(`${API}/api/conversations/${convId}/export/markdown`,'_blank')}
+
+let recog=null;function toggleMic(){const SR=window.SpeechRecognition||window.webkitSpeechRecognition;if(!SR){alert('Use Chrome for voice input');return}if(recog){recog.stop();recog=null;return}recog=new SR();recog.continuous=true;recog.interimResults=true;recog.onresult=e=>{let t='';for(let i=0;i<e.results.length;i++)t+=e.results[i][0].transcript;document.getElementById('inp').value=t};recog.onend=()=>{recog=null};recog.start()}
+
+async function checkBilling(){const r=await rpc('/api/billing/status');const b=r.d||{};if(!b.stripe_configured&&!b.tos_accepted)return true;if(b.reason==='no_tos'){document.getElementById('tos-gate').classList.add('on');return false}if(b.has_access)return true;if(b.reason==='expired'||b.reason==='no_subscription'){document.getElementById('pay-gate').classList.add('on');return false}return true}
+function updateTosBtn(){document.getElementById('tos-accept-btn').disabled=!(document.getElementById('tos-agree')?.checked&&document.getElementById('cost-agree')?.checked)}
+async function acceptTOS(){const btn=document.getElementById('tos-accept-btn');btn.textContent='Recording\u2026';btn.disabled=true;await rpc('/api/billing/accept-tos',{method:'POST',body:'{}'});document.getElementById('tos-gate').classList.remove('on');await checkKeys()}
+function selectPlan(p){selectedPlan=p;document.getElementById('plan-monthly').classList.toggle('selected',p==='monthly');document.getElementById('plan-annual').classList.toggle('selected',p==='annual')}
+async function checkout(){const r=await rpc('/api/billing/checkout',{method:'POST',body:JSON.stringify({plan:selectedPlan})});if(r.d?.url)window.location.href=r.d.url;else alert(r.d?.error||'Could not start checkout.')}
+
+async function checkKeys(){const r=await rpc('/api/providers');const provs=r.d?.providers||r.d||[];hasAnyKey=provs.some(p=>p.configured||p.has_key||p.has_api_key);if(!hasAnyKey)openKeyModal()}
+async function openKeyModal(){document.getElementById('key-modal-bg').classList.add('on');const el=document.getElementById('key-providers');el.innerHTML='<div style="color:var(--tx3);font-size:13px">Loading\u2026</div>';const r=await rpc('/api/providers');const provs=r.d?.providers||r.d||[];const order=['anthropic','openai','xai','google'];
+const sorted=[...provs].sort((a,b)=>(order.indexOf(a.provider||a.id)===-1?99:order.indexOf(a.provider||a.id))-(order.indexOf(b.provider||b.id)===-1?99:order.indexOf(b.provider||b.id)));
+el.innerHTML=sorted.filter(p=>!['ollama'].includes(p.provider)).map(p=>{const pid=p.provider||p.id;const hk=p.configured||p.has_key||p.has_api_key;return`<div class="provider-card"><div class="provider-top"><div class="provider-icon">${PICONS[pid]||'\u{1f916}'}</div><div><div class="provider-name">${p.display_name||p.name||pid}</div><div class="provider-tag">${p.default_model||''}</div></div><div class="provider-status">${hk?'<span class="badge b-on">Connected</span>':''}</div></div>${hk?'<div style="font-size:11px;color:var(--grn);margin-top:4px">\u2713 Ready</div>':`<div class="key-input-row"><input class="key-input" id="ki-${pid}" type="password" placeholder="${p.key_prefix||'sk-'}\u2026" spellcheck="false" autocomplete="off"><button class="key-save" onclick="saveKey('${pid}')">Save</button></div><div class="key-status" id="ks-${pid}"></div><a class="key-link" href="${p.api_key_url||'#'}" target="_blank" style="margin-top:6px;display:inline-block">Get a key \u2192</a>`}</div>`}).join('');
+if(provs.some(p=>p.configured||p.has_key||p.has_api_key)){document.getElementById('key-skip-btn').textContent='Done';document.getElementById('key-skip-btn').className='modal-done'}}
+async function saveKey(pid){const inp=document.getElementById('ki-'+pid),st=document.getElementById('ks-'+pid),key=inp.value.trim();if(!key){st.textContent='Enter a key';st.className='key-status err';return}st.textContent='Saving\u2026';st.className='key-status';const r=await rpc(`/api/providers/${pid}/api-key`,{method:'POST',body:JSON.stringify({api_key:key})});if(r.ok){st.textContent='\u2713 Connected!';st.className='key-status ok';hasAnyKey=true;setTimeout(()=>openKeyModal(),600)}else{st.textContent=r.d?.error||'Failed';st.className='key-status err'}}
+function closeKeyModal(){document.getElementById('key-modal-bg').classList.remove('on')}
+function openSettings(){openKeyModal()}
+function logout(){token=null;user=null;localStorage.removeItem('mt_t');localStorage.removeItem('mt_u');go('portal');document.getElementById('go-btn').disabled=false;document.getElementById('go-btn').textContent='Enter'}
+
+async function boot(){try{const g=await fetch(API+'/api/auth/google/status');const j=await g.json();if(j.enabled){document.getElementById('google-btn').style.display='block';document.getElementById('divider-or').style.display='block'}}catch{}
+const t=localStorage.getItem('mt_t'),u=localStorage.getItem('mt_u');if(t&&u){token=t;user=JSON.parse(u);const ck=await rpc('/api/setup/state');if(ck.ok||ck.s!==401){await postAuth();return}token=null;user=null;localStorage.removeItem('mt_t');localStorage.removeItem('mt_u')}go('portal')}
+boot();
+</script>
+</body>
+</html>

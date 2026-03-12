@@ -1,0 +1,140 @@
+<!--
+  MyTeam360 — AI Platform
+  Copyright © 2026 Praxis Holdings LLC. All rights reserved.
+  PROPRIETARY AND CONFIDENTIAL — TRADE SECRET
+  Report IP violations: legal@praxisholdingsllc.com
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>MyTeam360 — Security</title>
+<meta name="description" content="MyTeam360 security practices: AES-256-GCM encryption, BYOK architecture, SOC 2 ready, full audit trails, and provider independence.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Sora:wght@600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--p:#A459F2;--pd:#7C3AED;--pg:rgba(164,89,242,.35);--b:#3B82F6;--t:#06B6D4;--g:#22C55E;--a:#F59E0B;--r:#EF4444;--bg:#08080D;--bg2:#0E0E16;--card:#13131D;--tx:#CBD5E1;--dim:#64748B;--w:#FFF;--brd:rgba(255,255,255,.06);--glow:rgba(164,89,242,.25)}
+*{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}
+body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(--tx);line-height:1.8;-webkit-font-smoothing:antialiased;letter-spacing:-.01em}
+::selection{background:var(--p);color:#fff}a{color:var(--p);text-decoration:none}a:hover{color:var(--w)}
+h1,h2,h3,h4{font-family:'Sora',sans-serif;color:var(--w);letter-spacing:-.02em}
+.con{max-width:800px;margin:0 auto;padding:0 2rem}
+nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:.9rem 2.5rem;backdrop-filter:blur(24px);background:rgba(8,8,13,.75);border-bottom:1px solid var(--brd);display:flex;align-items:center;justify-content:space-between}
+.logo{display:flex;align-items:center;gap:.7rem;font-family:'Sora',sans-serif;font-weight:700;font-size:1.15rem;color:var(--w)}
+.logo img{height:30px}
+.nav-r{display:flex;align-items:center;gap:1.5rem}
+.nav-r a{font-size:.85rem;color:var(--dim);font-weight:500}.nav-r a:hover{color:var(--w)}
+.btn{padding:.6rem 1.5rem;border-radius:8px;font-weight:700;font-size:.85rem;border:none;cursor:pointer;transition:.3s;font-family:'Plus Jakarta Sans',sans-serif;display:inline-block;text-align:center;background:linear-gradient(135deg,#9333EA,#7C3AED);color:#fff;border:1px solid rgba(255,255,255,.25);text-shadow:0 1px 3px rgba(0,0,0,.4)}
+section{padding:5rem 0}
+.hero-sec{padding:8rem 0 4rem;text-align:center;border-bottom:1px solid var(--brd)}
+.hero-sec h1{font-size:clamp(2rem,4vw,3rem);margin-bottom:1rem}
+.hero-sec p{font-size:1.05rem;color:var(--dim);max-width:600px;margin:0 auto}
+.label{font-size:.7rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--p);margin-bottom:1rem}
+.sec-title{font-size:1.6rem;margin-bottom:1.5rem}
+.principle{margin-bottom:3rem;padding-bottom:3rem;border-bottom:1px solid var(--brd)}
+.principle:last-child{border:none}
+.principle h3{font-size:1.15rem;margin-bottom:.8rem;display:flex;align-items:center;gap:.6rem}
+.principle p{color:var(--tx);font-size:.95rem;line-height:1.8;margin-bottom:.8rem}
+.p-num{font-family:'Sora',sans-serif;font-size:.7rem;font-weight:700;color:var(--p);letter-spacing:.1em;width:32px;height:32px;border-radius:8px;background:rgba(164,89,242,.1);border:1px solid rgba(164,89,242,.15);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:.8rem;margin:1.2rem 0}
+.detail-card{padding:1rem;background:var(--card);border:1px solid var(--brd);border-radius:10px;font-size:.85rem;color:var(--dim);line-height:1.6}
+.detail-card strong{color:var(--w);display:block;margin-bottom:.3rem;font-size:.88rem}
+.code-block{padding:1rem;background:var(--card);border:1px solid var(--brd);border-radius:8px;font-family:'JetBrains Mono',monospace;font-size:.8rem;color:var(--g);line-height:1.6;margin:1rem 0;overflow-x:auto}
+.badge-row{display:flex;gap:1rem;flex-wrap:wrap;margin:2rem 0}
+.sec-badge{padding:.8rem 1.2rem;background:var(--card);border:1px solid var(--brd);border-radius:10px;font-size:.85rem;color:var(--tx);font-weight:600;flex:1;min-width:160px;text-align:center}
+.sec-badge span{display:block;font-size:.75rem;color:var(--dim);font-weight:400;margin-top:.3rem}
+footer{padding:3rem 2rem;border-top:1px solid var(--brd);text-align:center;font-size:.8rem;color:var(--dim)}
+@media(max-width:700px){.detail-grid{grid-template-columns:1fr}.badge-row{flex-direction:column}}
+</style>
+</head>
+<body>
+<nav>
+  <a href="/" class="logo"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 44 44'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' stop-color='%237C3AED'/%3E%3Cstop offset='100%25' stop-color='%23A459F2'/%3E%3C/linearGradient%3E%3C/defs%3E%3Ccircle cx='22' cy='22' r='19' fill='none' stroke='url(%23g)' stroke-width='3.5'/%3E%3Cpath d='M22 7 A15 15 0 0 1 37 22' fill='none' stroke='url(%23g)' stroke-width='3.5' stroke-linecap='round'/%3E%3Ccircle cx='22' cy='22' r='9' fill='none' stroke='url(%23g)' stroke-width='2.5'/%3E%3C/svg%3E" alt="MyTeam360">MyTeam360</a>
+  <div class="nav-r"><a href="/">Home</a><a href="/#pricing">Pricing</a><a href="/#access" class="btn">Request Access</a></div>
+</nav>
+
+<div class="con">
+  <section class="hero-sec">
+    <div class="label">Security</div>
+    <h1>Your data is yours.<br>We built it that way.</h1>
+    <p>MyTeam360 is architected from the ground up around a simple principle: we never need access to your data to provide the service. Here's exactly how we protect you.</p>
+  </section>
+
+  <div class="badge-row">
+    <div class="sec-badge">AES-256-GCM<span>Encryption at rest</span></div>
+    <div class="sec-badge">BYOK Model<span>We never hold AI keys</span></div>
+    <div class="sec-badge">SOC 2 Ready<span>Enterprise architecture</span></div>
+    <div class="sec-badge">Full Audit Trail<span>Every action logged</span></div>
+  </div>
+
+  <section>
+    <h2 class="sec-title">Security Principles</h2>
+
+    <div class="principle">
+      <h3><span class="p-num">01</span>Bring Your Own Key (BYOK)</h3>
+      <p>MyTeam360 does not hold AI provider API keys. You bring your own key from Anthropic, OpenAI, Google, xAI, or open-source providers. Your key is stored encrypted in our database and used only when you make an AI request. We never see your conversations, never train on your data, and never pay for your AI usage.</p>
+      <div class="detail-grid">
+        <div class="detail-card"><strong>Your key, your control</strong>You can rotate, revoke, or change your API key at any time from Settings. Changes take effect immediately.</div>
+        <div class="detail-card"><strong>Provider independence</strong>10 providers, 28 models. If one shuts down, switch in one click. Run locally with Ollama for zero cloud dependency.</div>
+      </div>
+    </div>
+
+    <div class="principle">
+      <h3><span class="p-num">02</span>Encryption</h3>
+      <p>All sensitive data — API keys, tokens, and credentials — is encrypted using AES-256-GCM before storage. The encryption key is stored as an environment variable on the server, separate from the database. Even if the database were compromised, encrypted fields are unreadable without the master key.</p>
+      <div class="code-block">Algorithm: AES-256-GCM<br>Nonce: 12 bytes, randomly generated per encryption<br>Key storage: Environment variable (MT360_ENCRYPTION_KEY)<br>Transport: TLS 1.2+ (HTTPS enforced)</div>
+    </div>
+
+    <div class="principle">
+      <h3><span class="p-num">03</span>Platform Key Governance</h3>
+      <p>On the rare occasion the platform itself needs to make an AI API call (system maintenance, update notifications), the call is governed by a strict policy:</p>
+      <div class="detail-grid">
+        <div class="detail-card"><strong>Owner approval required</strong>Every platform-internal use case must be explicitly approved by the platform owner before any API call can be made.</div>
+        <div class="detail-card"><strong>Daily limits enforced</strong>Each approved use case has daily call limits and cost caps that cannot be exceeded.</div>
+        <div class="detail-card"><strong>Full audit trail</strong>Every platform key call is logged: what was called, when, which model, how many tokens, estimated cost.</div>
+        <div class="detail-card"><strong>Hardcoded forbidden list</strong>User conversations, content generation, CRM operations, and any user-facing feature are permanently forbidden from using platform keys. This is enforced in code, not configuration.</div>
+      </div>
+    </div>
+
+    <div class="principle">
+      <h3><span class="p-num">04</span>Safe Integration Policy</h3>
+      <p>MyTeam360 connects to external services (Google Calendar, Outlook, email, flights, weather) using a strict read-only policy we call the OpenClaw Rule:</p>
+      <div class="code-block">READ:   ✓ Always allowed<br>DISPLAY: ✓ Always allowed<br>SUGGEST: ✓ Always allowed<br>CREATE:  ⚠ Only with explicit user confirmation + audit log<br>MODIFY:  ✗ Never<br>DELETE:  ✗ Never<br>MOVE:    ✗ Never</div>
+      <p>We will never send an email on your behalf, delete a calendar event, or modify a file in your cloud storage. We read and display. That's it.</p>
+    </div>
+
+    <div class="principle">
+      <h3><span class="p-num">05</span>Data Ownership</h3>
+      <p>Your data belongs to you. We do not train AI models on your data. We do not sell your data. We do not share your data with third parties. You can export all of your data at any time in standard formats. If you delete your account, your data is purged.</p>
+    </div>
+
+    <div class="principle">
+      <h3><span class="p-num">06</span>Production Security</h3>
+      <p>The platform includes a production readiness check that verifies 10 security requirements before deployment:</p>
+      <div class="detail-grid">
+        <div class="detail-card"><strong>Authentication</strong>Session-based auth with secure, HTTP-only cookies. Rate limiting on login attempts. Password hashing with bcrypt.</div>
+        <div class="detail-card"><strong>Column whitelists</strong>Every API endpoint that modifies data has explicit column whitelists preventing mass-assignment attacks.</div>
+        <div class="detail-card"><strong>CORS enforcement</strong>Cross-origin requests are restricted to configured domains only.</div>
+        <div class="detail-card"><strong>Undo system</strong>Every destructive action has a 30-second undo window, storing reverse data for instant rollback.</div>
+      </div>
+    </div>
+
+    <div class="principle">
+      <h3><span class="p-num">07</span>Incident Response</h3>
+      <p>In the event of a security incident, we will notify affected users within 72 hours via email, provide a detailed incident report, and implement corrective measures. Security issues can be reported to <a href="mailto:security@myteam360.ai">security@myteam360.ai</a>.</p>
+    </div>
+  </section>
+
+  <section style="text-align:center;padding-bottom:6rem">
+    <h2 class="sec-title">Questions about security?</h2>
+    <p style="color:var(--dim);margin-bottom:1.5rem">We're happy to walk you through our architecture in detail.</p>
+    <a href="mailto:security@myteam360.ai" class="btn">Contact Security Team</a>
+  </section>
+</div>
+
+<footer>
+  <p>© 2026 Praxis Holdings LLC · <a href="/terms">Terms</a> · <a href="/privacy">Privacy</a> · <a href="/security">Security</a></p>
+  <p style="margin-top:.5rem">security@myteam360.ai · Las Vegas, NV</p>
+</footer>
+</body>
+</html>

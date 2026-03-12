@@ -1,0 +1,301 @@
+{% extends "base_app.html" %}
+{% set page = "dashboard" %}
+
+{% block title %}Dashboard{% endblock %}
+{% block page_title %}Welcome back, Jeremy{% endblock %}
+{% block page_subtitle %}Wednesday, March 12 — Client Day{% endblock %}
+
+{% block content %}
+
+<!-- BRIEFING BANNER -->
+<div class="brief-banner">
+  <div>
+    <h3>Wednesday Briefing — Client Day</h3>
+    <p>Henderson showing at 2pm · Leave by 1:25 (35 min drive) · Carbone at 7:30 · SW1234 on time · 7 emails, 3 tasks due</p>
+  </div>
+  <a href="/app/briefing" class="brief-tag">View Full Briefing →</a>
+</div>
+
+<!-- STAT CARDS -->
+<div class="stat-grid">
+  <div class="card stat-card">
+    <div class="stat-icon purple">$</div>
+    <div class="stat-label">Pipeline Value</div>
+    <div class="stat-val">$285K</div>
+    <div class="stat-meta">
+      <span class="stat-pct up">↑ 12%</span>
+      <span class="stat-change">+$30.2K this month</span>
+    </div>
+  </div>
+  <div class="card stat-card">
+    <div class="stat-icon blue">≡</div>
+    <div class="stat-label">Monthly Revenue</div>
+    <div class="stat-val">$12,500</div>
+    <div class="stat-meta">
+      <span class="stat-pct up">↑ 23%</span>
+      <span class="stat-change">vs last month</span>
+    </div>
+  </div>
+  <div class="card stat-card">
+    <div class="stat-icon green">✓</div>
+    <div class="stat-label">Deals Closed</div>
+    <div class="stat-val">8</div>
+    <div class="stat-meta">
+      <span class="stat-pct up">↑ 33%</span>
+      <span class="stat-change">this quarter</span>
+    </div>
+  </div>
+  <div class="card stat-card">
+    <div class="stat-icon amber">◎</div>
+    <div class="stat-label">Active Leads</div>
+    <div class="stat-val">24</div>
+    <div class="stat-meta">
+      <span class="stat-pct down">↓ 3</span>
+      <span class="stat-change">need follow-up</span>
+    </div>
+  </div>
+</div>
+
+<!-- REVENUE CHART + PIPELINE -->
+<div class="grid-2">
+  <!-- Revenue Chart -->
+  <div class="card">
+    <div class="card-header">
+      <h3>Revenue</h3>
+      <div style="display:flex;gap:0.3rem">
+        <span class="tag tag-dim">6M</span>
+        <span class="tag tag-purple">1Y</span>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="bar-chart">
+        <div class="bar" style="height:25%"></div>
+        <div class="bar" style="height:40%"></div>
+        <div class="bar" style="height:30%"></div>
+        <div class="bar" style="height:35%"></div>
+        <div class="bar" style="height:50%"></div>
+        <div class="bar" style="height:42%"></div>
+        <div class="bar" style="height:55%"></div>
+        <div class="bar" style="height:48%"></div>
+        <div class="bar" style="height:62%"></div>
+        <div class="bar" style="height:58%"></div>
+        <div class="bar" style="height:70%"></div>
+        <div class="bar current" style="height:80%"></div>
+      </div>
+      <div class="bar-labels">
+        <div class="bar-label">Apr</div><div class="bar-label">May</div><div class="bar-label">Jun</div>
+        <div class="bar-label">Jul</div><div class="bar-label">Aug</div><div class="bar-label">Sep</div>
+        <div class="bar-label">Oct</div><div class="bar-label">Nov</div><div class="bar-label">Dec</div>
+        <div class="bar-label">Jan</div><div class="bar-label">Feb</div><div class="bar-label current">Mar</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Pipeline Breakdown -->
+  <div class="card">
+    <div class="card-header">
+      <h3>Pipeline</h3>
+      <a href="/app/crm" class="tag tag-purple" style="cursor:pointer">View CRM →</a>
+    </div>
+    <div class="card-body">
+      <div class="pipe-row"><div class="pipe-stage"><div class="pipe-dot" style="background:var(--tx-dim)"></div>New Lead</div><div><span class="pipe-val">$45K</span><span class="pipe-ct">(4)</span></div></div>
+      <div class="pipe-row"><div class="pipe-stage"><div class="pipe-dot" style="background:var(--b)"></div>Showing</div><div><span class="pipe-val">$85K</span><span class="pipe-ct">(2)</span></div></div>
+      <div class="pipe-row"><div class="pipe-stage"><div class="pipe-dot" style="background:var(--pl)"></div>Negotiation</div><div><span class="pipe-val">$130K</span><span class="pipe-ct">(3)</span></div></div>
+      <div class="pipe-row"><div class="pipe-stage"><div class="pipe-dot" style="background:var(--a)"></div>Under Contract</div><div><span class="pipe-val">$25K</span><span class="pipe-ct">(1)</span></div></div>
+      <div class="pipe-row"><div class="pipe-stage"><div class="pipe-dot" style="background:var(--g)"></div>Closed Won</div><div><span class="pipe-val">$210K</span><span class="pipe-ct">(8)</span></div></div>
+      <div class="health-row">
+        <span class="h-tag green">12 Healthy</span>
+        <span class="h-tag amber">5 At Risk</span>
+        <span class="h-tag red">3 Cold</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ACTIVITY + TASKS + TOP DEALS -->
+<div class="grid-3">
+  <!-- Recent Activity -->
+  <div class="card">
+    <div class="card-header">
+      <h3>Recent Activity</h3>
+      <span class="tag tag-dim" style="cursor:pointer">View all</span>
+    </div>
+    <div class="card-body">
+      <div class="feed-item">
+        <div class="feed-dot" style="background:var(--g)"></div>
+        <div>
+          <div class="feed-text">Invoice <strong>INV-0042</strong> paid — <strong>$4,500</strong></div>
+          <div class="feed-time">2 hours ago</div>
+        </div>
+      </div>
+      <div class="feed-item">
+        <div class="feed-dot" style="background:var(--pl)"></div>
+        <div>
+          <div class="feed-text">Deal <strong>Henderson</strong> moved to <strong>Negotiation</strong></div>
+          <div class="feed-time">3 hours ago</div>
+        </div>
+      </div>
+      <div class="feed-item">
+        <div class="feed-dot" style="background:var(--b)"></div>
+        <div>
+          <div class="feed-text">5 social posts published — LinkedIn, Instagram</div>
+          <div class="feed-time">5 hours ago</div>
+        </div>
+      </div>
+      <div class="feed-item">
+        <div class="feed-dot" style="background:var(--t)"></div>
+        <div>
+          <div class="feed-text">Call logged — <strong>Sarah Johnson</strong>, counter-offer</div>
+          <div class="feed-time">Yesterday</div>
+        </div>
+      </div>
+      <div class="feed-item">
+        <div class="feed-dot" style="background:var(--a)"></div>
+        <div>
+          <div class="feed-text">Q2 Revenue goal → <strong>68% complete</strong></div>
+          <div class="feed-time">Yesterday</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tasks Due Today -->
+  <div class="card">
+    <div class="card-header">
+      <h3>Due Today</h3>
+      <a href="/app/tasks" class="tag tag-dim" style="cursor:pointer">Board →</a>
+    </div>
+    <div class="card-body">
+      <div class="task-item">
+        <div class="task-check"></div>
+        <div class="task-text">Follow up Henderson showing</div>
+        <span class="task-pri pri-high">HIGH</span>
+      </div>
+      <div class="task-item">
+        <div class="task-check"></div>
+        <div class="task-text">Send listing photos to Johnson</div>
+        <span class="task-pri pri-high">HIGH</span>
+      </div>
+      <div class="task-item">
+        <div class="task-check"></div>
+        <div class="task-text">Review closing documents</div>
+        <span class="task-pri pri-med">MED</span>
+      </div>
+      <div class="task-item">
+        <div class="task-check"></div>
+        <div class="task-text">Prepare CMA report — Oak St</div>
+        <span class="task-pri pri-med">MED</span>
+      </div>
+      <div class="task-item">
+        <div class="task-check"></div>
+        <div class="task-text">Post market update on LinkedIn</div>
+        <span class="task-pri pri-low">LOW</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Top Deals -->
+  <div class="card">
+    <div class="card-header">
+      <h3>Top Deals</h3>
+      <a href="/app/crm" class="tag tag-dim" style="cursor:pointer">CRM →</a>
+    </div>
+    <div class="card-body">
+      <div style="display:flex;flex-direction:column;gap:0.8rem">
+        <div style="display:flex;align-items:center;justify-content:space-between">
+          <div style="display:flex;align-items:center;gap:0.6rem">
+            <div class="avatar" style="background:linear-gradient(135deg,var(--p),var(--b))">H</div>
+            <div>
+              <div style="font-size:0.84rem;font-weight:600;color:var(--w)">Henderson Property</div>
+              <div style="font-size:0.7rem;color:var(--tx-dim)">Offer Pending · 3 days</div>
+            </div>
+          </div>
+          <div style="font-size:0.9rem;font-weight:700;color:var(--w)">$430K</div>
+        </div>
+        <div style="display:flex;align-items:center;justify-content:space-between">
+          <div style="display:flex;align-items:center;gap:0.6rem">
+            <div class="avatar" style="background:linear-gradient(135deg,var(--a),var(--r))">J</div>
+            <div>
+              <div style="font-size:0.84rem;font-weight:600;color:var(--w)">Johnson Deal</div>
+              <div style="font-size:0.7rem;color:var(--r)">Cold · 8 days no contact</div>
+            </div>
+          </div>
+          <div style="font-size:0.9rem;font-weight:700;color:var(--w)">$445K</div>
+        </div>
+        <div style="display:flex;align-items:center;justify-content:space-between">
+          <div style="display:flex;align-items:center;gap:0.6rem">
+            <div class="avatar" style="background:linear-gradient(135deg,var(--g),var(--t))">M</div>
+            <div>
+              <div style="font-size:0.84rem;font-weight:600;color:var(--w)">Martinez Listing</div>
+              <div style="font-size:0.7rem;color:var(--g)">Under Contract · Closing Apr 2</div>
+            </div>
+          </div>
+          <div style="font-size:0.9rem;font-weight:700;color:var(--w)">$380K</div>
+        </div>
+        <div style="display:flex;align-items:center;justify-content:space-between">
+          <div style="display:flex;align-items:center;gap:0.6rem">
+            <div class="avatar" style="background:linear-gradient(135deg,var(--b),var(--pl))">W</div>
+            <div>
+              <div style="font-size:0.84rem;font-weight:600;color:var(--w)">Williams Reno</div>
+              <div style="font-size:0.7rem;color:var(--tx-dim)">New Lead · Hot referral</div>
+            </div>
+          </div>
+          <div style="font-size:0.9rem;font-weight:700;color:var(--w)">$290K</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- RECENT INVOICES TABLE -->
+<div class="card" style="margin-bottom:1.5rem">
+  <div class="card-header">
+    <h3>Recent Invoices</h3>
+    <a href="/app/invoicing" class="tag tag-purple" style="cursor:pointer">View All →</a>
+  </div>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Invoice</th>
+          <th>Client</th>
+          <th>Amount</th>
+          <th>Status</th>
+          <th>Due</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="color:var(--w);font-weight:600">INV-0042</td>
+          <td>Henderson Group</td>
+          <td style="color:var(--w);font-weight:600">$4,500.00</td>
+          <td><span class="tag tag-green">Paid</span></td>
+          <td>Mar 10</td>
+        </tr>
+        <tr>
+          <td style="color:var(--w);font-weight:600">INV-0041</td>
+          <td>Sarah Johnson</td>
+          <td style="color:var(--w);font-weight:600">$2,800.00</td>
+          <td><span class="tag tag-amber">Pending</span></td>
+          <td>Mar 15</td>
+        </tr>
+        <tr>
+          <td style="color:var(--w);font-weight:600">INV-0040</td>
+          <td>Martinez Family</td>
+          <td style="color:var(--w);font-weight:600">$6,200.00</td>
+          <td><span class="tag tag-green">Paid</span></td>
+          <td>Mar 5</td>
+        </tr>
+        <tr>
+          <td style="color:var(--w);font-weight:600">INV-0039</td>
+          <td>Williams LLC</td>
+          <td style="color:var(--w);font-weight:600">$3,100.00</td>
+          <td><span class="tag tag-red">Overdue</span></td>
+          <td>Feb 28</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+{% endblock %}
