@@ -122,6 +122,31 @@ code, .mono { font-family: 'JetBrains Mono', monospace; }
 }
 .sidebar.collapsed { width: var(--sb-collapsed); }
 
+/* Sidebar brand / logo */
+.sb-brand {
+  padding: 1rem 1rem 0.5rem;
+  display: flex;
+  align-items: center;
+}
+.sb-logo-link {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none;
+}
+.sb-logo-icon {
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
+  object-fit: contain;
+}
+.sb-logo-full {
+  height: 28px;
+  object-fit: contain;
+}
+.sidebar.collapsed .sb-logo-full { display: none; }
+.sidebar.collapsed .sb-brand { justify-content: center; padding: 1rem 0.5rem 0.5rem; }
+
 /* Sidebar header with profile at TOP */
 .sb-header {
   padding: 1rem;
