@@ -258,31 +258,42 @@ def _reset_pg_pool():
 def init_database():
     """Create all tables and run migrations."""
     if _USE_POSTGRES:
+        import time
+        t0 = time.time()
         pool = _get_pg_pool()
         conn = pool.getconn()
         try:
             cursor = conn.cursor()
-            # Split schema into individual statements and execute in two passes
-            # to handle foreign-key ordering (e.g. table A references table B
-            # which is defined later in the schema).
+            # Split schema into individual statements
             stmts = [s.strip() for s in re.split(r';\s*\n', SCHEMA_PG) if s.strip()]
+
+            # ── Pass 1: try all statements in ONE transaction (fast, 1 commit)
             failed = []
             for stmt in stmts:
                 try:
                     cursor.execute(stmt)
-                    conn.commit()
                 except Exception:
-                    conn.rollback()
+                    conn.rollback()       # rollback the failed stmt
                     failed.append(stmt)
-            # Pass 2: retry failures (dependent tables now exist)
+            # Commit everything that succeeded in pass 1
+            conn.commit()
+            logger.info(f"Schema pass 1: {len(stmts) - len(failed)}/{len(stmts)} OK, "
+                         f"{len(failed)} deferred  ({time.time()-t0:.1f}s)")
+
+            # ── Pass 2: retry failures (FK deps now resolved)
+            still_failed = 0
             for stmt in failed:
                 try:
                     cursor.execute(stmt)
-                    conn.commit()
                 except Exception as e:
                     conn.rollback()
+                    still_failed += 1
                     logger.warning(f"Schema stmt skipped: {str(e)[:120]}")
-            logger.info(f"PostgreSQL schema initialized ({len(stmts)} statements, {len(failed)} retried)")
+            conn.commit()
+
+            logger.info(f"PostgreSQL schema initialized "
+                         f"({len(stmts)} stmts, {len(failed)} retried, "
+                         f"{still_failed} skipped, {time.time()-t0:.1f}s)")
         finally:
             pool.putconn(conn)
         _migrate_pg()
