@@ -1,0 +1,248 @@
+<!--
+  MyTeam360 — AI Provider Management
+  © 2026 Praxis Holdings LLC. PROPRIETARY AND CONFIDENTIAL.
+-->
+{% extends "base_app.html" %}
+{% set page = "providers" %}
+
+{% block title %}AI Providers{% endblock %}
+{% block page_title %}AI Providers{% endblock %}
+
+{% block content %}
+
+<div class="content-header" style="display:flex;align-items:center;justify-content:space-between">
+  <div>
+    <h1>AI Providers</h1>
+    <p>Bring Your Own Key — connect your preferred AI models</p>
+  </div>
+  <div style="display:flex;gap:0.5rem">
+    <button class="btn btn-ghost btn-sm">Usage Report</button>
+    <button class="btn btn-primary btn-sm" onclick="MT360.openModal('addProviderModal')">+ Add Provider</button>
+  </div>
+</div>
+
+<!-- USAGE SUMMARY -->
+<div class="stat-grid" style="grid-template-columns:repeat(3,1fr);margin-bottom:1.5rem">
+  <div class="card" style="padding:1rem 1.25rem">
+    <div style="display:flex;align-items:center;gap:0.6rem">
+      <div class="stat-icon purple" style="width:32px;height:32px;margin-bottom:0">
+        <svg viewBox="0 0 24 24" width="16" height="16"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+      </div>
+      <div>
+        <div style="font-size:0.72rem;color:var(--tx-dim)">Total API Calls</div>
+        <div style="font-size:1.1rem;font-weight:800;color:var(--w);font-family:'Outfit',sans-serif">1,247</div>
+        <div style="font-size:0.65rem;color:var(--tx-dim)">This month</div>
+      </div>
+    </div>
+  </div>
+  <div class="card" style="padding:1rem 1.25rem">
+    <div style="display:flex;align-items:center;gap:0.6rem">
+      <div class="stat-icon blue" style="width:32px;height:32px;margin-bottom:0">
+        <svg viewBox="0 0 24 24" width="16" height="16"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+      </div>
+      <div>
+        <div style="font-size:0.72rem;color:var(--tx-dim)">Est. Cost</div>
+        <div style="font-size:1.1rem;font-weight:800;color:var(--w);font-family:'Outfit',sans-serif">$18.40</div>
+        <div style="font-size:0.65rem;color:var(--tx-dim)">This month</div>
+      </div>
+    </div>
+  </div>
+  <div class="card" style="padding:1rem 1.25rem">
+    <div style="display:flex;align-items:center;gap:0.6rem">
+      <div class="stat-icon green" style="width:32px;height:32px;margin-bottom:0">
+        <svg viewBox="0 0 24 24" width="16" height="16"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+      </div>
+      <div>
+        <div style="font-size:0.72rem;color:var(--tx-dim)">Uptime</div>
+        <div style="font-size:1.1rem;font-weight:800;color:var(--g);font-family:'Outfit',sans-serif">99.8%</div>
+        <div style="font-size:0.65rem;color:var(--tx-dim)">Last 30 days</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PROVIDER GRID -->
+<div style="display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;margin-bottom:1.5rem">
+
+  <!-- OpenAI -->
+  <div class="card provider-card" style="padding:1.25rem">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem">
+      <div style="display:flex;align-items:center;gap:0.8rem">
+        <div class="avatar-lg avatar" style="background:linear-gradient(135deg,#10A37F,#1A7F64);font-size:0.7rem;font-weight:800">GPT</div>
+        <div>
+          <div style="font-size:0.95rem;font-weight:700;color:var(--w)">OpenAI</div>
+          <div style="font-size:0.72rem;color:var(--tx-dim)">GPT-4o, GPT-4o-mini</div>
+        </div>
+      </div>
+      <span class="tag tag-green">Connected</span>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:0.5rem">
+      <div style="display:flex;justify-content:space-between;font-size:0.78rem">
+        <span style="color:var(--tx-dim)">API Calls</span>
+        <span style="color:var(--w);font-weight:600">842</span>
+      </div>
+      <div style="display:flex;justify-content:space-between;font-size:0.78rem">
+        <span style="color:var(--tx-dim)">Cost</span>
+        <span style="color:var(--w);font-weight:600">$12.60</span>
+      </div>
+      <div style="height:4px;background:var(--bg-card-solid);border-radius:2px;margin-top:0.3rem">
+        <div style="height:100%;width:67%;background:var(--grad-purple);border-radius:2px"></div>
+      </div>
+      <div style="font-size:0.65rem;color:var(--tx-dim)">67% of total usage</div>
+    </div>
+    <div style="display:flex;gap:0.5rem;margin-top:0.8rem">
+      <button class="btn btn-ghost btn-sm" style="font-size:0.7rem" onclick="MT360.toast('Key rotated','success')">Rotate Key</button>
+      <button class="btn btn-ghost btn-sm" style="font-size:0.7rem">Settings</button>
+    </div>
+  </div>
+
+  <!-- Anthropic -->
+  <div class="card provider-card" style="padding:1.25rem">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem">
+      <div style="display:flex;align-items:center;gap:0.8rem">
+        <div class="avatar-lg avatar" style="background:linear-gradient(135deg,#D4A574,#C4916A);font-size:0.65rem;font-weight:800">CL</div>
+        <div>
+          <div style="font-size:0.95rem;font-weight:700;color:var(--w)">Anthropic</div>
+          <div style="font-size:0.72rem;color:var(--tx-dim)">Claude Opus 4, Sonnet 4</div>
+        </div>
+      </div>
+      <span class="tag tag-green">Connected</span>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:0.5rem">
+      <div style="display:flex;justify-content:space-between;font-size:0.78rem">
+        <span style="color:var(--tx-dim)">API Calls</span>
+        <span style="color:var(--w);font-weight:600">305</span>
+      </div>
+      <div style="display:flex;justify-content:space-between;font-size:0.78rem">
+        <span style="color:var(--tx-dim)">Cost</span>
+        <span style="color:var(--w);font-weight:600">$4.80</span>
+      </div>
+      <div style="height:4px;background:var(--bg-card-solid);border-radius:2px;margin-top:0.3rem">
+        <div style="height:100%;width:24%;background:var(--grad-blue);border-radius:2px"></div>
+      </div>
+      <div style="font-size:0.65rem;color:var(--tx-dim)">24% of total usage</div>
+    </div>
+    <div style="display:flex;gap:0.5rem;margin-top:0.8rem">
+      <button class="btn btn-ghost btn-sm" style="font-size:0.7rem" onclick="MT360.toast('Key rotated','success')">Rotate Key</button>
+      <button class="btn btn-ghost btn-sm" style="font-size:0.7rem">Settings</button>
+    </div>
+  </div>
+
+  <!-- Google -->
+  <div class="card provider-card" style="padding:1.25rem">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem">
+      <div style="display:flex;align-items:center;gap:0.8rem">
+        <div class="avatar-lg avatar" style="background:linear-gradient(135deg,#4285F4,#34A853);font-size:0.65rem;font-weight:800">G</div>
+        <div>
+          <div style="font-size:0.95rem;font-weight:700;color:var(--w)">Google AI</div>
+          <div style="font-size:0.72rem;color:var(--tx-dim)">Gemini 2.5 Pro, Flash</div>
+        </div>
+      </div>
+      <span class="tag tag-green">Connected</span>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:0.5rem">
+      <div style="display:flex;justify-content:space-between;font-size:0.78rem">
+        <span style="color:var(--tx-dim)">API Calls</span>
+        <span style="color:var(--w);font-weight:600">100</span>
+      </div>
+      <div style="display:flex;justify-content:space-between;font-size:0.78rem">
+        <span style="color:var(--tx-dim)">Cost</span>
+        <span style="color:var(--w);font-weight:600">$1.00</span>
+      </div>
+      <div style="height:4px;background:var(--bg-card-solid);border-radius:2px;margin-top:0.3rem">
+        <div style="height:100%;width:8%;background:linear-gradient(90deg,#4285F4,#34A853);border-radius:2px"></div>
+      </div>
+      <div style="font-size:0.65rem;color:var(--tx-dim)">8% of total usage</div>
+    </div>
+    <div style="display:flex;gap:0.5rem;margin-top:0.8rem">
+      <button class="btn btn-ghost btn-sm" style="font-size:0.7rem" onclick="MT360.toast('Key rotated','success')">Rotate Key</button>
+      <button class="btn btn-ghost btn-sm" style="font-size:0.7rem">Settings</button>
+    </div>
+  </div>
+
+  <!-- Perplexity -->
+  <div class="card provider-card" style="padding:1.25rem">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem">
+      <div style="display:flex;align-items:center;gap:0.8rem">
+        <div class="avatar-lg avatar" style="background:linear-gradient(135deg,#20B2AA,#008B8B);font-size:0.65rem;font-weight:800">PX</div>
+        <div>
+          <div style="font-size:0.95rem;font-weight:700;color:var(--w)">Perplexity</div>
+          <div style="font-size:0.72rem;color:var(--tx-dim)">Sonar Pro, Sonar</div>
+        </div>
+      </div>
+      <span class="tag tag-dim">Not Connected</span>
+    </div>
+    <div style="font-size:0.78rem;color:var(--tx-dim);line-height:1.5;margin-bottom:0.8rem">Real-time web search and research capabilities for market analysis and lead enrichment.</div>
+    <button class="btn btn-primary btn-sm" style="font-size:0.7rem" onclick="MT360.openModal('addProviderModal')">Connect</button>
+  </div>
+
+  <!-- ElevenLabs -->
+  <div class="card provider-card" style="padding:1.25rem">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem">
+      <div style="display:flex;align-items:center;gap:0.8rem">
+        <div class="avatar-lg avatar" style="background:linear-gradient(135deg,#000,#333);font-size:0.65rem;font-weight:800">11</div>
+        <div>
+          <div style="font-size:0.95rem;font-weight:700;color:var(--w)">ElevenLabs</div>
+          <div style="font-size:0.72rem;color:var(--tx-dim)">Voice synthesis</div>
+        </div>
+      </div>
+      <span class="tag tag-dim">Not Connected</span>
+    </div>
+    <div style="font-size:0.78rem;color:var(--tx-dim);line-height:1.5;margin-bottom:0.8rem">AI voice generation for client communications, voicemail drops, and audio content.</div>
+    <button class="btn btn-primary btn-sm" style="font-size:0.7rem" onclick="MT360.openModal('addProviderModal')">Connect</button>
+  </div>
+
+  <!-- Deepgram -->
+  <div class="card provider-card" style="padding:1.25rem">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem">
+      <div style="display:flex;align-items:center;gap:0.8rem">
+        <div class="avatar-lg avatar" style="background:linear-gradient(135deg,#13EF93,#36D399);font-size:0.65rem;font-weight:800;color:#000">DG</div>
+        <div>
+          <div style="font-size:0.95rem;font-weight:700;color:var(--w)">Deepgram</div>
+          <div style="font-size:0.72rem;color:var(--tx-dim)">Speech-to-text</div>
+        </div>
+      </div>
+      <span class="tag tag-dim">Not Connected</span>
+    </div>
+    <div style="font-size:0.78rem;color:var(--tx-dim);line-height:1.5;margin-bottom:0.8rem">Real-time transcription for meeting notes, call logging, and voice commands.</div>
+    <button class="btn btn-primary btn-sm" style="font-size:0.7rem" onclick="MT360.openModal('addProviderModal')">Connect</button>
+  </div>
+</div>
+
+<!-- ADD PROVIDER MODAL -->
+<div class="modal-overlay" id="addProviderModal">
+  <div class="modal">
+    <div class="modal-header">
+      <h3>Connect Provider</h3>
+      <button class="modal-close" onclick="MT360.closeModal('addProviderModal')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <label class="form-label">Provider</label>
+        <select class="select">
+          <option>Perplexity</option>
+          <option>ElevenLabs</option>
+          <option>Deepgram</option>
+          <option>Mistral</option>
+          <option>Cohere</option>
+          <option>Other</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">API Key</label>
+        <input class="input" type="password" placeholder="sk-...">
+        <div style="font-size:0.65rem;color:var(--tx-dim);margin-top:0.3rem">Your key is encrypted at rest with AES-256. We never store plaintext keys.</div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Default Model</label>
+        <input class="input" placeholder="e.g., sonar-pro">
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost btn-sm" onclick="MT360.closeModal('addProviderModal')">Cancel</button>
+      <button class="btn btn-primary btn-sm" onclick="MT360.closeModal('addProviderModal');MT360.toast('Provider connected','success')">Connect</button>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,241 @@
+<!--
+  MyTeam360 — Social Media Dashboard
+  © 2026 Praxis Holdings LLC. PROPRIETARY AND CONFIDENTIAL.
+-->
+{% extends "base_app.html" %}
+{% set page = "social" %}
+
+{% block title %}Social Media{% endblock %}
+{% block page_title %}Social Media{% endblock %}
+
+{% block content %}
+
+<div class="content-header" style="display:flex;align-items:center;justify-content:space-between">
+  <div>
+    <h1>Social Media</h1>
+    <p>Content calendar, publishing, and analytics</p>
+  </div>
+  <div style="display:flex;gap:0.5rem">
+    <button class="btn btn-ghost btn-sm">Content Library</button>
+    <button class="btn btn-primary btn-sm" onclick="MT360.openModal('newPostModal')">+ New Post</button>
+  </div>
+</div>
+
+<!-- PLATFORM STATS -->
+<div class="stat-grid" style="grid-template-columns:repeat(4,1fr);margin-bottom:1.5rem">
+  <div class="card" style="padding:1rem 1.25rem">
+    <div style="display:flex;align-items:center;gap:0.6rem">
+      <div class="stat-icon blue" style="width:32px;height:32px;margin-bottom:0">
+        <svg viewBox="0 0 24 24" width="16" height="16"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+      </div>
+      <div>
+        <div style="font-size:0.72rem;color:var(--tx-dim)">LinkedIn</div>
+        <div style="font-size:1.1rem;font-weight:800;color:var(--w);font-family:'Outfit',sans-serif">2,847</div>
+        <div style="font-size:0.65rem;color:var(--g)">↑ 12% followers</div>
+      </div>
+    </div>
+  </div>
+  <div class="card" style="padding:1rem 1.25rem">
+    <div style="display:flex;align-items:center;gap:0.6rem">
+      <div class="stat-icon purple" style="width:32px;height:32px;margin-bottom:0">
+        <svg viewBox="0 0 24 24" width="16" height="16"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+      </div>
+      <div>
+        <div style="font-size:0.72rem;color:var(--tx-dim)">Instagram</div>
+        <div style="font-size:1.1rem;font-weight:800;color:var(--w);font-family:'Outfit',sans-serif">1,204</div>
+        <div style="font-size:0.65rem;color:var(--g)">↑ 8% followers</div>
+      </div>
+    </div>
+  </div>
+  <div class="card" style="padding:1rem 1.25rem">
+    <div style="display:flex;align-items:center;gap:0.6rem">
+      <div class="stat-icon green" style="width:32px;height:32px;margin-bottom:0">
+        <svg viewBox="0 0 24 24" width="16" height="16"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+      </div>
+      <div>
+        <div style="font-size:0.72rem;color:var(--tx-dim)">Impressions</div>
+        <div style="font-size:1.1rem;font-weight:800;color:var(--w);font-family:'Outfit',sans-serif">14.2K</div>
+        <div style="font-size:0.65rem;color:var(--g)">↑ 23% this week</div>
+      </div>
+    </div>
+  </div>
+  <div class="card" style="padding:1rem 1.25rem">
+    <div style="display:flex;align-items:center;gap:0.6rem">
+      <div class="stat-icon amber" style="width:32px;height:32px;margin-bottom:0">
+        <svg viewBox="0 0 24 24" width="16" height="16"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+      </div>
+      <div>
+        <div style="font-size:0.72rem;color:var(--tx-dim)">Engagement</div>
+        <div style="font-size:1.1rem;font-weight:800;color:var(--w);font-family:'Outfit',sans-serif">4.8%</div>
+        <div style="font-size:0.65rem;color:var(--a)">— Avg rate</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="grid-2-1">
+  <!-- CONTENT CALENDAR -->
+  <div class="card">
+    <div class="card-header">
+      <h3>Content Calendar — This Week</h3>
+      <div class="chart-tabs">
+        <span class="chart-tab">Week</span>
+        <span class="chart-tab active">Month</span>
+      </div>
+    </div>
+    <div class="card-body">
+      <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:0.5rem;margin-bottom:1rem">
+        <div style="font-size:0.65rem;color:var(--tx-dim);text-align:center;font-weight:600">Mon</div>
+        <div style="font-size:0.65rem;color:var(--tx-dim);text-align:center;font-weight:600">Tue</div>
+        <div style="font-size:0.65rem;color:var(--tx-dim);text-align:center;font-weight:600">Wed</div>
+        <div style="font-size:0.65rem;color:var(--tx-dim);text-align:center;font-weight:600">Thu</div>
+        <div style="font-size:0.65rem;color:var(--tx-dim);text-align:center;font-weight:600">Fri</div>
+        <div style="font-size:0.65rem;color:var(--tx-dim);text-align:center;font-weight:600">Sat</div>
+        <div style="font-size:0.65rem;color:var(--tx-dim);text-align:center;font-weight:600">Sun</div>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:0.5rem">
+        <!-- Week 1 -->
+        <div class="cal-day">
+          <span class="cal-date">10</span>
+          <div class="cal-post" style="background:rgba(59,130,246,0.15);border-left:2px solid var(--b)">
+            <span style="font-size:0.6rem;color:var(--b)">LinkedIn</span>
+          </div>
+        </div>
+        <div class="cal-day">
+          <span class="cal-date">11</span>
+          <div class="cal-post" style="background:rgba(124,58,237,0.15);border-left:2px solid var(--pl)">
+            <span style="font-size:0.6rem;color:var(--pl)">Instagram</span>
+          </div>
+        </div>
+        <div class="cal-day today">
+          <span class="cal-date" style="color:var(--pl);font-weight:700">12</span>
+          <div class="cal-post" style="background:rgba(59,130,246,0.15);border-left:2px solid var(--b)">
+            <span style="font-size:0.6rem;color:var(--b)">Market Update</span>
+          </div>
+        </div>
+        <div class="cal-day">
+          <span class="cal-date">13</span>
+          <div class="cal-post" style="background:rgba(124,58,237,0.15);border-left:2px solid var(--pl)">
+            <span style="font-size:0.6rem;color:var(--pl)">Listing Photos</span>
+          </div>
+        </div>
+        <div class="cal-day">
+          <span class="cal-date">14</span>
+          <div class="cal-post" style="background:rgba(59,130,246,0.15);border-left:2px solid var(--b)">
+            <span style="font-size:0.6rem;color:var(--b)">Tips Post</span>
+          </div>
+          <div class="cal-post" style="background:rgba(124,58,237,0.15);border-left:2px solid var(--pl)">
+            <span style="font-size:0.6rem;color:var(--pl)">Reel</span>
+          </div>
+        </div>
+        <div class="cal-day"><span class="cal-date" style="opacity:0.4">15</span></div>
+        <div class="cal-day"><span class="cal-date" style="opacity:0.4">16</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SIDEBAR -->
+  <div style="display:flex;flex-direction:column;gap:1rem">
+    <!-- Upcoming Posts -->
+    <div class="card">
+      <div class="card-header"><h3>Upcoming Posts</h3></div>
+      <div class="card-body">
+        <div style="display:flex;flex-direction:column;gap:0.7rem">
+          <div style="padding:0.6rem;background:var(--bg-card-solid);border-radius:var(--r-md);border:1px solid var(--brd)">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.3rem">
+              <span class="tag tag-blue" style="font-size:0.6rem">LinkedIn</span>
+              <span style="font-size:0.6rem;color:var(--tx-dim)">Today 12:00</span>
+            </div>
+            <div style="font-size:0.78rem;color:var(--w);font-weight:600">Weekly Market Update</div>
+            <div style="font-size:0.7rem;color:var(--tx-dim);margin-top:0.2rem">Charlotte housing trends and pricing data</div>
+          </div>
+          <div style="padding:0.6rem;background:var(--bg-card-solid);border-radius:var(--r-md);border:1px solid var(--brd)">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.3rem">
+              <span class="tag tag-purple" style="font-size:0.6rem">Instagram</span>
+              <span style="font-size:0.6rem;color:var(--tx-dim)">Tomorrow 10:00</span>
+            </div>
+            <div style="font-size:0.78rem;color:var(--w);font-weight:600">Henderson Property Photos</div>
+            <div style="font-size:0.7rem;color:var(--tx-dim);margin-top:0.2rem">Carousel post — 8 photos from staging</div>
+          </div>
+          <div style="padding:0.6rem;background:var(--bg-card-solid);border-radius:var(--r-md);border:1px solid var(--brd)">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.3rem">
+              <span class="tag tag-blue" style="font-size:0.6rem">LinkedIn</span>
+              <span style="font-size:0.6rem;color:var(--tx-dim)">Fri 9:00</span>
+            </div>
+            <div style="font-size:0.78rem;color:var(--w);font-weight:600">5 Tips for First-Time Buyers</div>
+            <div style="font-size:0.7rem;color:var(--tx-dim);margin-top:0.2rem">Educational content — repurposed from blog</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- AI Content Suggestions -->
+    <div class="card">
+      <div class="card-header"><h3>AI Content Ideas</h3></div>
+      <div class="card-body">
+        <div style="display:flex;flex-direction:column;gap:0.5rem">
+          <div style="font-size:0.78rem;color:var(--tx);padding:0.5rem 0;border-bottom:1px solid var(--brd)">
+            💡 Post Henderson showing results — <strong style="color:var(--w)">social proof builds trust</strong>
+          </div>
+          <div style="font-size:0.78rem;color:var(--tx);padding:0.5rem 0;border-bottom:1px solid var(--brd)">
+            📊 Your market updates get <strong style="color:var(--w)">3.2x more engagement</strong> on Wednesdays
+          </div>
+          <div style="font-size:0.78rem;color:var(--tx);padding:0.5rem 0">
+            🎥 Video tours get <strong style="color:var(--w)">47% more saves</strong> than photo carousels
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- NEW POST MODAL -->
+<div class="modal-overlay" id="newPostModal">
+  <div class="modal">
+    <div class="modal-header">
+      <h3>New Post</h3>
+      <button class="modal-close" onclick="MT360.closeModal('newPostModal')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <label class="form-label">Platforms</label>
+        <div style="display:flex;gap:0.5rem">
+          <label style="display:flex;align-items:center;gap:0.3rem;font-size:0.78rem;color:var(--tx);cursor:pointer">
+            <input type="checkbox" checked> LinkedIn
+          </label>
+          <label style="display:flex;align-items:center;gap:0.3rem;font-size:0.78rem;color:var(--tx);cursor:pointer">
+            <input type="checkbox"> Instagram
+          </label>
+          <label style="display:flex;align-items:center;gap:0.3rem;font-size:0.78rem;color:var(--tx);cursor:pointer">
+            <input type="checkbox"> Facebook
+          </label>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Content</label>
+        <textarea class="textarea" rows="4" placeholder="Write your post..."></textarea>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem">
+        <div class="form-group">
+          <label class="form-label">Schedule Date</label>
+          <input class="input" type="date">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Time</label>
+          <input class="input" type="time">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">AI Assist</label>
+        <button class="btn btn-ghost btn-sm" onclick="MT360.toast('AI drafting content...','info')">Generate with AI</button>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost btn-sm" onclick="MT360.closeModal('newPostModal')">Cancel</button>
+      <button class="btn btn-ghost btn-sm" onclick="MT360.closeModal('newPostModal');MT360.toast('Saved as draft','info')">Save Draft</button>
+      <button class="btn btn-primary btn-sm" onclick="MT360.closeModal('newPostModal');MT360.toast('Post scheduled','success')">Schedule</button>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

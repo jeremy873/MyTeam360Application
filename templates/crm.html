@@ -1,0 +1,294 @@
+<!--
+  MyTeam360 — CRM Pipeline
+  © 2026 Praxis Holdings LLC. PROPRIETARY AND CONFIDENTIAL.
+-->
+{% extends "base_app.html" %}
+{% set page = "crm" %}
+
+{% block title %}CRM{% endblock %}
+{% block page_title %}CRM{% endblock %}
+
+{% block content %}
+
+<div class="content-header" style="display:flex;align-items:center;justify-content:space-between">
+  <div>
+    <h1>Pipeline</h1>
+    <p>20 deals · $285K total value</p>
+  </div>
+  <div style="display:flex;gap:0.5rem">
+    <button class="btn btn-ghost btn-sm" onclick="toggleCRMView('board')">Board</button>
+    <button class="btn btn-ghost btn-sm" onclick="toggleCRMView('list')">List</button>
+    <button class="btn btn-primary btn-sm" onclick="MT360.openModal('newDealModal')">+ New Deal</button>
+  </div>
+</div>
+
+<!-- FILTER BAR -->
+<div class="filter-bar">
+  <span class="filter-chip active">All Stages</span>
+  <span class="filter-chip">New Lead</span>
+  <span class="filter-chip">Showing</span>
+  <span class="filter-chip">Negotiation</span>
+  <span class="filter-chip">Under Contract</span>
+  <span class="filter-chip">Closed</span>
+  <span style="margin-left:auto;display:flex;gap:0.3rem">
+    <span class="filter-chip">Healthy</span>
+    <span class="filter-chip">At Risk</span>
+    <span class="filter-chip">Cold</span>
+  </span>
+</div>
+
+<!-- KANBAN BOARD -->
+<div class="kanban" id="crmBoard">
+  <!-- New Lead -->
+  <div class="kanban-col">
+    <div class="kanban-col-header">
+      <div class="kanban-col-title">
+        <div class="pipe-dot" style="background:var(--tx-dim)"></div>
+        New Lead <span class="kanban-col-count">4</span>
+      </div>
+      <span style="font-size:0.72rem;color:var(--tx-dim);font-weight:600">$45K</span>
+    </div>
+    <div class="kanban-col-body">
+      <div class="kanban-card">
+        <div class="kanban-card-title">Williams Renovation</div>
+        <div class="kanban-card-meta">
+          <div class="avatar-sm avatar" style="background:var(--grad-blue)">W</div>
+          <span class="kanban-card-value">$290K</span>
+          <span class="kanban-card-days">1 day</span>
+          <div class="kanban-card-health" style="background:var(--g)"></div>
+        </div>
+      </div>
+      <div class="kanban-card">
+        <div class="kanban-card-title">Park Avenue Listing</div>
+        <div class="kanban-card-meta">
+          <div class="avatar-sm avatar" style="background:var(--grad-green)">P</div>
+          <span class="kanban-card-value">$180K</span>
+          <span class="kanban-card-days">3 days</span>
+          <div class="kanban-card-health" style="background:var(--g)"></div>
+        </div>
+      </div>
+      <div class="kanban-card">
+        <div class="kanban-card-title">Chen Family Home</div>
+        <div class="kanban-card-meta">
+          <div class="avatar-sm avatar" style="background:linear-gradient(135deg,var(--t),var(--b))">C</div>
+          <span class="kanban-card-value">$320K</span>
+          <span class="kanban-card-days">5 days</span>
+          <div class="kanban-card-health" style="background:var(--a)"></div>
+        </div>
+      </div>
+      <div class="kanban-add">+ Add Deal</div>
+    </div>
+  </div>
+
+  <!-- Showing -->
+  <div class="kanban-col">
+    <div class="kanban-col-header">
+      <div class="kanban-col-title">
+        <div class="pipe-dot" style="background:var(--b)"></div>
+        Showing <span class="kanban-col-count">2</span>
+      </div>
+      <span style="font-size:0.72rem;color:var(--tx-dim);font-weight:600">$85K</span>
+    </div>
+    <div class="kanban-col-body">
+      <div class="kanban-card" onclick="MT360.openPanel('dealPanel')">
+        <div class="kanban-card-title">Henderson Property</div>
+        <div class="kanban-card-meta">
+          <div class="avatar-sm avatar" style="background:var(--grad-purple)">H</div>
+          <span class="kanban-card-value">$430K</span>
+          <span class="kanban-card-days">3 days</span>
+          <div class="kanban-card-health" style="background:var(--g)"></div>
+        </div>
+      </div>
+      <div class="kanban-card">
+        <div class="kanban-card-title">Riverside Condo</div>
+        <div class="kanban-card-meta">
+          <div class="avatar-sm avatar" style="background:linear-gradient(135deg,var(--a),var(--r))">R</div>
+          <span class="kanban-card-value">$215K</span>
+          <span class="kanban-card-days">7 days</span>
+          <div class="kanban-card-health" style="background:var(--a)"></div>
+        </div>
+      </div>
+      <div class="kanban-add">+ Add Deal</div>
+    </div>
+  </div>
+
+  <!-- Negotiation -->
+  <div class="kanban-col">
+    <div class="kanban-col-header">
+      <div class="kanban-col-title">
+        <div class="pipe-dot" style="background:var(--pl)"></div>
+        Negotiation <span class="kanban-col-count">3</span>
+      </div>
+      <span style="font-size:0.72rem;color:var(--tx-dim);font-weight:600">$130K</span>
+    </div>
+    <div class="kanban-col-body">
+      <div class="kanban-card">
+        <div class="kanban-card-title">Johnson Property</div>
+        <div class="kanban-card-meta">
+          <div class="avatar-sm avatar" style="background:linear-gradient(135deg,var(--a),var(--r))">J</div>
+          <span class="kanban-card-value">$445K</span>
+          <span class="kanban-card-days" style="color:var(--r)">8 days</span>
+          <div class="kanban-card-health" style="background:var(--r)"></div>
+        </div>
+      </div>
+      <div class="kanban-card">
+        <div class="kanban-card-title">Oak Street Duplex</div>
+        <div class="kanban-card-meta">
+          <div class="avatar-sm avatar" style="background:var(--grad-green)">O</div>
+          <span class="kanban-card-value">$265K</span>
+          <span class="kanban-card-days">4 days</span>
+          <div class="kanban-card-health" style="background:var(--g)"></div>
+        </div>
+      </div>
+      <div class="kanban-add">+ Add Deal</div>
+    </div>
+  </div>
+
+  <!-- Under Contract -->
+  <div class="kanban-col">
+    <div class="kanban-col-header">
+      <div class="kanban-col-title">
+        <div class="pipe-dot" style="background:var(--a)"></div>
+        Under Contract <span class="kanban-col-count">1</span>
+      </div>
+      <span style="font-size:0.72rem;color:var(--tx-dim);font-weight:600">$380K</span>
+    </div>
+    <div class="kanban-col-body">
+      <div class="kanban-card">
+        <div class="kanban-card-title">Martinez Listing</div>
+        <div class="kanban-card-meta">
+          <div class="avatar-sm avatar" style="background:var(--grad-green)">M</div>
+          <span class="kanban-card-value">$380K</span>
+          <span class="kanban-card-days" style="color:var(--g)">Closing Apr 2</span>
+          <div class="kanban-card-health" style="background:var(--g)"></div>
+        </div>
+      </div>
+      <div class="kanban-add">+ Add Deal</div>
+    </div>
+  </div>
+
+  <!-- Closed -->
+  <div class="kanban-col">
+    <div class="kanban-col-header">
+      <div class="kanban-col-title">
+        <div class="pipe-dot" style="background:var(--g)"></div>
+        Closed Won <span class="kanban-col-count">8</span>
+      </div>
+      <span style="font-size:0.72rem;color:var(--tx-dim);font-weight:600">$210K</span>
+    </div>
+    <div class="kanban-col-body">
+      <div class="kanban-card" style="opacity:0.6">
+        <div class="kanban-card-title">Thompson Residence</div>
+        <div class="kanban-card-meta">
+          <div class="avatar-sm avatar" style="background:var(--grad-green)">T</div>
+          <span class="kanban-card-value">$195K</span>
+          <span class="kanban-card-days">Closed Feb 28</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- DEAL SLIDE-OUT PANEL -->
+<div class="slide-panel" id="dealPanel">
+  <div class="slide-panel-header">
+    <h3>Henderson Property</h3>
+    <button class="modal-close" onclick="MT360.closePanel('dealPanel')">✕</button>
+  </div>
+  <div class="slide-panel-body">
+    <div style="display:flex;align-items:center;gap:1rem;margin-bottom:1.5rem">
+      <div class="avatar-lg avatar" style="background:var(--grad-purple)">H</div>
+      <div>
+        <div style="font-size:1.1rem;font-weight:700;color:var(--w)">$430,000</div>
+        <div style="font-size:0.78rem;color:var(--tx-dim)">Showing · 3 days in stage</div>
+      </div>
+      <span class="tag tag-green" style="margin-left:auto">Healthy</span>
+    </div>
+
+    <div class="form-group">
+      <div class="form-label">Contact</div>
+      <div style="font-size:0.84rem;color:var(--w)">Robert Henderson · (555) 234-5678</div>
+      <div style="font-size:0.78rem;color:var(--tx-dim)">robert@henderson-group.com</div>
+    </div>
+
+    <div class="form-group">
+      <div class="form-label">Property</div>
+      <div style="font-size:0.84rem;color:var(--w)">123 Oak Street, Charlotte NC 28202</div>
+      <div style="font-size:0.78rem;color:var(--tx-dim)">4 bed · 3 bath · 2,400 sqft</div>
+    </div>
+
+    <div class="form-group">
+      <div class="form-label">Next Steps</div>
+      <div class="task-item">
+        <div class="task-check"></div>
+        <div class="task-text">Follow up after showing</div>
+        <span class="task-pri pri-high">HIGH</span>
+      </div>
+      <div class="task-item">
+        <div class="task-check"></div>
+        <div class="task-text">Send comparable analysis</div>
+        <span class="task-pri pri-med">MED</span>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="form-label">Notes</div>
+      <textarea class="textarea" placeholder="Add notes about this deal...">Buyer pre-approved for $450K. Very interested in the backyard and updated kitchen. Wife loves the neighborhood. Showing today at 2pm.</textarea>
+    </div>
+
+    <div style="display:flex;gap:0.5rem;margin-top:1rem">
+      <button class="btn btn-primary btn-sm">Move to Negotiation</button>
+      <button class="btn btn-ghost btn-sm">Log Activity</button>
+    </div>
+  </div>
+</div>
+
+<!-- NEW DEAL MODAL -->
+<div class="modal-overlay" id="newDealModal">
+  <div class="modal">
+    <div class="modal-header">
+      <h3>New Deal</h3>
+      <button class="modal-close" onclick="MT360.closeModal('newDealModal')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <label class="form-label">Deal Name</label>
+        <input class="input" placeholder="e.g., Henderson Property">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Value</label>
+        <input class="input" placeholder="$0.00" type="text">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Stage</label>
+        <select class="select">
+          <option>New Lead</option>
+          <option>Showing</option>
+          <option>Negotiation</option>
+          <option>Under Contract</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Contact Name</label>
+        <input class="input" placeholder="Full name">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Notes</label>
+        <textarea class="textarea" placeholder="Add any notes..."></textarea>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost btn-sm" onclick="MT360.closeModal('newDealModal')">Cancel</button>
+      <button class="btn btn-primary btn-sm" onclick="MT360.closeModal('newDealModal');MT360.toast('Deal created','success')">Create Deal</button>
+    </div>
+  </div>
+</div>
+
+<script>
+function toggleCRMView(view) {
+  // Toggle between board and list view (future enhancement)
+  MT360.toast('Switched to ' + view + ' view', 'info');
+}
+</script>
+
+{% endblock %}

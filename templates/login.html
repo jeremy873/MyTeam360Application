@@ -1,6 +1,6 @@
 <!--
   MyTeam360 — Sign In
-  © 2026 Praxis Holdings LLC. All rights reserved.
+  © 2026 Praxis Holdings LLC. PROPRIETARY AND CONFIDENTIAL.
 -->
 <!DOCTYPE html>
 <html lang="en">
@@ -8,40 +8,43 @@
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>Sign In — MyTeam360</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Sora:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Outfit:wght@600;700;800&display=swap" rel="stylesheet">
 <style>
-:root{--p:#7C3AED;--pl:#A459F2;--pd:#5B21B6;--bg:#0B0B14;--card:rgba(17,17,30,0.7);--brd:rgba(255,255,255,0.06);--tx:#94A3B8;--w:#fff}
+:root{--p:#7C3AED;--pl:#A459F2;--pd:#5B21B6;--bg:#060B26;--card:rgba(12,17,46,0.65);--brd:rgba(255,255,255,0.06);--tx:#94A3B8;--w:#F8FAFC}
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(--tx);height:100vh;display:flex;align-items:center;justify-content:center;-webkit-font-smoothing:antialiased;overflow:hidden}
-.aurora{position:fixed;top:-200px;left:50%;transform:translateX(-50%);width:800px;height:500px;background:radial-gradient(ellipse,rgba(124,58,237,0.2),rgba(59,130,246,0.08),transparent 70%);filter:blur(60px);pointer-events:none}
-.login-card{position:relative;z-index:1;background:var(--card);backdrop-filter:blur(20px);border:1px solid var(--brd);border-radius:18px;padding:2.5rem;width:90%;max-width:400px}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--tx);height:100vh;display:flex;align-items:center;justify-content:center;-webkit-font-smoothing:antialiased;overflow:hidden}
+
+/* Aurora glow */
+body::before{content:'';position:fixed;top:-50%;left:-50%;width:200%;height:200%;background:radial-gradient(ellipse at 20% 50%,rgba(124,58,237,0.12) 0%,transparent 50%),radial-gradient(ellipse at 80% 50%,rgba(59,130,246,0.08) 0%,transparent 50%),radial-gradient(ellipse at 50% 80%,rgba(6,182,212,0.06) 0%,transparent 50%);animation:aurora 20s ease-in-out infinite alternate;z-index:0}
+@keyframes aurora{0%{transform:translate(0,0) rotate(0deg)}100%{transform:translate(-2%,2%) rotate(3deg)}}
+
+.login-card{position:relative;z-index:1;background:var(--card);backdrop-filter:blur(40px);-webkit-backdrop-filter:blur(40px);border:1px solid var(--brd);border-radius:20px;padding:2.5rem;width:90%;max-width:400px;box-shadow:0 20px 60px rgba(0,0,0,0.3)}
 .logo-row{display:flex;align-items:center;gap:0.6rem;margin-bottom:2rem;justify-content:center}
-.logo-row span{font-family:'Sora',sans-serif;font-weight:700;font-size:1.15rem;color:var(--w)}
-h1{font-family:'Sora',sans-serif;font-size:1.4rem;color:var(--w);text-align:center;margin-bottom:0.4rem;font-weight:700}
+.logo-row span{font-family:'Outfit',sans-serif;font-weight:800;font-size:1.3rem;background:linear-gradient(135deg,#7C3AED,#3B82F6);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+h1{font-family:'Outfit',sans-serif;font-size:1.4rem;color:var(--w);text-align:center;margin-bottom:0.4rem;font-weight:700}
 .sub{text-align:center;font-size:0.85rem;color:var(--tx);margin-bottom:2rem}
 .field{margin-bottom:1rem}
-.field label{display:block;font-size:0.78rem;font-weight:600;color:var(--tx);margin-bottom:0.3rem}
-.field input{width:100%;padding:0.6rem 0.85rem;background:rgba(255,255,255,0.04);border:1px solid var(--brd);border-radius:10px;color:var(--w);font-size:0.88rem;outline:none;transition:0.2s;font-family:inherit}
+.field label{display:block;font-size:0.78rem;font-weight:600;color:var(--tx);margin-bottom:0.35rem}
+.field input{width:100%;padding:0.6rem 0.85rem;background:rgba(255,255,255,0.04);border:1px solid var(--brd);border-radius:10px;color:var(--w);font-size:0.84rem;outline:none;transition:0.2s;font-family:'DM Sans',sans-serif}
 .field input:focus{border-color:var(--p);box-shadow:0 0 0 3px rgba(124,58,237,0.15)}
-.field input::placeholder{color:rgba(148,163,184,0.5)}
+.field input::placeholder{color:rgba(148,163,184,0.4)}
 .row{display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5rem;font-size:0.78rem}
 .row label{display:flex;align-items:center;gap:0.3rem;cursor:pointer;color:var(--tx)}
 .row label input{accent-color:var(--p)}
 .row a{color:var(--pl);font-weight:500;text-decoration:none}.row a:hover{text-decoration:underline}
-.btn-login{width:100%;padding:0.7rem;background:var(--p);color:#fff;border:none;border-radius:10px;font-size:0.9rem;font-weight:700;cursor:pointer;transition:0.2s;font-family:'Plus Jakarta Sans',sans-serif}
-.btn-login:hover{background:var(--pd)}
+.btn-login{width:100%;padding:0.7rem;background:linear-gradient(135deg,#7C3AED,#3B82F6);color:#fff;border:none;border-radius:10px;font-size:0.9rem;font-weight:700;cursor:pointer;transition:all 0.2s;font-family:'DM Sans',sans-serif}
+.btn-login:hover{box-shadow:0 4px 20px rgba(124,58,237,0.4);transform:translateY(-1px)}
 .divider{display:flex;align-items:center;gap:0.8rem;margin:1.5rem 0;font-size:0.72rem;color:rgba(148,163,184,0.4)}
 .divider::before,.divider::after{content:'';flex:1;height:1px;background:var(--brd)}
 .social-row{display:flex;gap:0.5rem;margin-bottom:1.5rem}
-.social-btn{flex:1;padding:0.55rem;background:rgba(255,255,255,0.04);border:1px solid var(--brd);border-radius:10px;color:var(--tx);font-size:0.8rem;font-weight:500;cursor:pointer;transition:0.2s;font-family:inherit;text-align:center}
-.social-btn:hover{border-color:rgba(255,255,255,0.12);color:var(--w);background:rgba(255,255,255,0.06)}
+.social-btn{flex:1;display:flex;align-items:center;justify-content:center;gap:0.5rem;padding:0.6rem;background:rgba(255,255,255,0.04);border:1px solid var(--brd);border-radius:10px;color:var(--tx);font-size:0.78rem;font-weight:500;cursor:pointer;transition:0.2s;font-family:'DM Sans',sans-serif}
+.social-btn:hover{border-color:rgba(255,255,255,0.15);color:var(--w);background:rgba(255,255,255,0.06)}
 .footer-text{text-align:center;font-size:0.8rem;color:var(--tx)}
 .footer-text a{color:var(--pl);font-weight:600;text-decoration:none}.footer-text a:hover{text-decoration:underline}
-.voice-hint{text-align:center;margin-top:1.2rem;padding:0.6rem;background:rgba(124,58,237,0.06);border:1px solid rgba(124,58,237,0.1);border-radius:10px;font-size:0.75rem;color:var(--pl)}
+.voice-hint{text-align:center;margin-top:1.2rem;padding:0.6rem;background:rgba(124,58,237,0.06);border:1px solid rgba(124,58,237,0.1);border-radius:10px;font-size:0.72rem;color:var(--pl)}
 </style>
 </head>
 <body>
-<div class="aurora"></div>
 <div class="login-card">
   <div class="logo-row">
     <span>MyTeam360</span>
@@ -67,11 +70,20 @@ h1{font-family:'Sora',sans-serif;font-size:1.4rem;color:var(--w);text-align:cent
 
   <div class="divider">or continue with</div>
   <div class="social-row">
-    <button class="social-btn" onclick="location.href='/auth/google'">Google</button>
-    <button class="social-btn" onclick="location.href='/auth/microsoft'">Microsoft</button>
+    <button class="social-btn" onclick="location.href='/auth/google'">
+      <svg width="14" height="14" viewBox="0 0 24 24"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+      Google
+    </button>
+    <button class="social-btn" onclick="location.href='/auth/microsoft'">
+      <svg width="14" height="14" viewBox="0 0 24 24"><rect x="1" y="1" width="10" height="10" fill="#F25022"/><rect x="13" y="1" width="10" height="10" fill="#7FBA00"/><rect x="1" y="13" width="10" height="10" fill="#00A4EF"/><rect x="13" y="13" width="10" height="10" fill="#FFB900"/></svg>
+      Microsoft
+    </button>
   </div>
-  <p class="footer-text">Don't have an account? <a href="/auth/register">Sign up</a></p>
-  <div class="voice-hint">🎙 Pro tip: After login, say "set up my business" to get started in 30 seconds</div>
+  <p class="footer-text">Don't have an account? <a href="/signup">Sign up</a></p>
+  <div class="voice-hint">
+    <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle;margin-right:4px"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
+    Pro tip: After login, say "set up my business" to get started in 30 seconds
+  </div>
 </div>
 </body>
 </html>

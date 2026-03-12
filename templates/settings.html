@@ -1,0 +1,244 @@
+<!--
+  MyTeam360 — Settings
+  © 2026 Praxis Holdings LLC. PROPRIETARY AND CONFIDENTIAL.
+-->
+{% extends "base_app.html" %}
+{% set page = "settings" %}
+
+{% block title %}Settings{% endblock %}
+{% block page_title %}Settings{% endblock %}
+
+{% block content %}
+
+<div class="content-header">
+  <h1>Settings</h1>
+  <p>Manage your account, preferences, and integrations</p>
+</div>
+
+<div style="display:grid;grid-template-columns:220px 1fr;gap:1.5rem">
+  <!-- SETTINGS NAV -->
+  <div class="card" style="padding:0.5rem;height:fit-content;position:sticky;top:1rem">
+    <div style="display:flex;flex-direction:column;gap:0.15rem">
+      <a class="settings-nav-item active" href="#profile">Profile</a>
+      <a class="settings-nav-item" href="#notifications">Notifications</a>
+      <a class="settings-nav-item" href="#integrations">Integrations</a>
+      <a class="settings-nav-item" href="#billing">Billing</a>
+      <a class="settings-nav-item" href="#data">Data & Export</a>
+      <a class="settings-nav-item" href="#danger">Danger Zone</a>
+    </div>
+  </div>
+
+  <!-- SETTINGS CONTENT -->
+  <div style="display:flex;flex-direction:column;gap:1.5rem">
+
+    <!-- PROFILE -->
+    <div class="card" id="profile">
+      <div class="card-header"><h3>Profile</h3></div>
+      <div class="card-body">
+        <div style="display:flex;align-items:center;gap:1.2rem;margin-bottom:1.5rem">
+          <div class="avatar-lg avatar" style="background:var(--grad-purple);width:64px;height:64px;font-size:1.2rem">JB</div>
+          <div>
+            <div style="font-size:1rem;font-weight:700;color:var(--w)">Jeremy Brown</div>
+            <div style="font-size:0.78rem;color:var(--tx-dim)">jeremy@praxisholdings.com</div>
+            <button class="btn btn-ghost btn-sm" style="margin-top:0.4rem;font-size:0.7rem">Change Avatar</button>
+          </div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem">
+          <div class="form-group">
+            <label class="form-label">First Name</label>
+            <input class="input" value="Jeremy">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Last Name</label>
+            <input class="input" value="Brown">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Email</label>
+            <input class="input" value="jeremy@praxisholdings.com" type="email">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Phone</label>
+            <input class="input" value="(555) 123-4567" type="tel">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Company</label>
+            <input class="input" value="Praxis Holdings LLC">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Role</label>
+            <select class="select">
+              <option selected>Owner / Principal</option>
+              <option>Agent</option>
+              <option>Team Lead</option>
+              <option>Admin</option>
+            </select>
+          </div>
+        </div>
+        <div style="display:flex;gap:0.5rem;margin-top:1rem">
+          <button class="btn btn-primary btn-sm" onclick="MT360.toast('Profile saved','success')">Save Changes</button>
+          <button class="btn btn-ghost btn-sm">Cancel</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- NOTIFICATIONS -->
+    <div class="card" id="notifications">
+      <div class="card-header"><h3>Notifications</h3></div>
+      <div class="card-body">
+        <div style="display:flex;flex-direction:column;gap:0.8rem">
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:0.6rem 0;border-bottom:1px solid var(--brd)">
+            <div>
+              <div style="font-size:0.84rem;font-weight:600;color:var(--w)">Email Notifications</div>
+              <div style="font-size:0.72rem;color:var(--tx-dim)">Receive deal updates, task reminders, and weekly reports</div>
+            </div>
+            <label class="toggle"><input type="checkbox" checked><span class="toggle-slider"></span></label>
+          </div>
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:0.6rem 0;border-bottom:1px solid var(--brd)">
+            <div>
+              <div style="font-size:0.84rem;font-weight:600;color:var(--w)">Push Notifications</div>
+              <div style="font-size:0.72rem;color:var(--tx-dim)">Browser notifications for urgent tasks and deal alerts</div>
+            </div>
+            <label class="toggle"><input type="checkbox" checked><span class="toggle-slider"></span></label>
+          </div>
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:0.6rem 0;border-bottom:1px solid var(--brd)">
+            <div>
+              <div style="font-size:0.84rem;font-weight:600;color:var(--w)">Daily Briefing Email</div>
+              <div style="font-size:0.72rem;color:var(--tx-dim)">AI-generated morning briefing delivered at 7:00 AM</div>
+            </div>
+            <label class="toggle"><input type="checkbox" checked><span class="toggle-slider"></span></label>
+          </div>
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:0.6rem 0;border-bottom:1px solid var(--brd)">
+            <div>
+              <div style="font-size:0.84rem;font-weight:600;color:var(--w)">Cold Deal Alerts</div>
+              <div style="font-size:0.72rem;color:var(--tx-dim)">Notify when a deal has no activity for 5+ days</div>
+            </div>
+            <label class="toggle"><input type="checkbox" checked><span class="toggle-slider"></span></label>
+          </div>
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:0.6rem 0">
+            <div>
+              <div style="font-size:0.84rem;font-weight:600;color:var(--w)">Marketing Analytics</div>
+              <div style="font-size:0.72rem;color:var(--tx-dim)">Weekly social media performance summary</div>
+            </div>
+            <label class="toggle"><input type="checkbox"><span class="toggle-slider"></span></label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- INTEGRATIONS -->
+    <div class="card" id="integrations">
+      <div class="card-header"><h3>Integrations</h3></div>
+      <div class="card-body">
+        <div style="display:flex;flex-direction:column;gap:0.8rem">
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:0.6rem 0;border-bottom:1px solid var(--brd)">
+            <div style="display:flex;align-items:center;gap:0.6rem">
+              <div class="avatar-sm avatar" style="background:linear-gradient(135deg,#4285F4,#34A853)">G</div>
+              <div>
+                <div style="font-size:0.84rem;font-weight:600;color:var(--w)">Google Calendar</div>
+                <div style="font-size:0.72rem;color:var(--g)">Connected</div>
+              </div>
+            </div>
+            <button class="btn btn-ghost btn-sm" style="font-size:0.7rem">Disconnect</button>
+          </div>
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:0.6rem 0;border-bottom:1px solid var(--brd)">
+            <div style="display:flex;align-items:center;gap:0.6rem">
+              <div class="avatar-sm avatar" style="background:linear-gradient(135deg,#0078D4,#005A9E)">O</div>
+              <div>
+                <div style="font-size:0.84rem;font-weight:600;color:var(--w)">Outlook / Office 365</div>
+                <div style="font-size:0.72rem;color:var(--g)">Connected</div>
+              </div>
+            </div>
+            <button class="btn btn-ghost btn-sm" style="font-size:0.7rem">Disconnect</button>
+          </div>
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:0.6rem 0">
+            <div style="display:flex;align-items:center;gap:0.6rem">
+              <div class="avatar-sm avatar" style="background:linear-gradient(135deg,#611f69,#4A154B)">S</div>
+              <div>
+                <div style="font-size:0.84rem;font-weight:600;color:var(--w)">Slack</div>
+                <div style="font-size:0.72rem;color:var(--tx-dim)">Not connected</div>
+              </div>
+            </div>
+            <button class="btn btn-primary btn-sm" style="font-size:0.7rem">Connect</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- BILLING -->
+    <div class="card" id="billing">
+      <div class="card-header"><h3>Billing</h3></div>
+      <div class="card-body">
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:1rem;background:linear-gradient(135deg,rgba(124,58,237,0.1),rgba(59,130,246,0.1));border:1px solid rgba(124,58,237,0.15);border-radius:var(--r-md);margin-bottom:1rem">
+          <div>
+            <div style="font-size:0.95rem;font-weight:700;color:var(--w)">Pro Plan</div>
+            <div style="font-size:0.78rem;color:var(--tx-dim)">$29/month · Next billing Mar 28</div>
+          </div>
+          <button class="btn btn-ghost btn-sm">Manage Plan</button>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:0.5rem">
+          <div style="display:flex;justify-content:space-between;font-size:0.78rem;padding:0.4rem 0;border-bottom:1px solid var(--brd)">
+            <span style="color:var(--tx-dim)">Payment Method</span>
+            <span style="color:var(--w);font-weight:600">Visa ending 4242</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;font-size:0.78rem;padding:0.4rem 0;border-bottom:1px solid var(--brd)">
+            <span style="color:var(--tx-dim)">AI API Spend (MTD)</span>
+            <span style="color:var(--w);font-weight:600">$18.40</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;font-size:0.78rem;padding:0.4rem 0">
+            <span style="color:var(--tx-dim)">Storage Used</span>
+            <span style="color:var(--w);font-weight:600">2.1 GB / 10 GB</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DATA & EXPORT -->
+    <div class="card" id="data">
+      <div class="card-header"><h3>Data & Export</h3></div>
+      <div class="card-body">
+        <div style="display:flex;flex-direction:column;gap:0.8rem">
+          <div style="display:flex;align-items:center;justify-content:space-between">
+            <div>
+              <div style="font-size:0.84rem;font-weight:600;color:var(--w)">Export All Data</div>
+              <div style="font-size:0.72rem;color:var(--tx-dim)">Download a complete archive of your CRM data, contacts, and deals</div>
+            </div>
+            <button class="btn btn-ghost btn-sm" onclick="MT360.toast('Export started — check your email','info')">Export ZIP</button>
+          </div>
+          <div style="display:flex;align-items:center;justify-content:space-between">
+            <div>
+              <div style="font-size:0.84rem;font-weight:600;color:var(--w)">Export Contacts CSV</div>
+              <div style="font-size:0.72rem;color:var(--tx-dim)">Download all contacts in CSV format</div>
+            </div>
+            <button class="btn btn-ghost btn-sm" onclick="MT360.toast('CSV download started','info')">Download</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DANGER ZONE -->
+    <div class="card" id="danger" style="border:1px solid rgba(239,68,68,0.2)">
+      <div class="card-header"><h3 style="color:var(--r)">Danger Zone</h3></div>
+      <div class="card-body">
+        <div style="display:flex;flex-direction:column;gap:0.8rem">
+          <div style="display:flex;align-items:center;justify-content:space-between">
+            <div>
+              <div style="font-size:0.84rem;font-weight:600;color:var(--w)">Reset All Data</div>
+              <div style="font-size:0.72rem;color:var(--tx-dim)">Clear all CRM data, tasks, and history. Cannot be undone.</div>
+            </div>
+            <button class="btn btn-ghost btn-sm" style="color:var(--r);border-color:rgba(239,68,68,0.3)">Reset</button>
+          </div>
+          <div style="display:flex;align-items:center;justify-content:space-between">
+            <div>
+              <div style="font-size:0.84rem;font-weight:600;color:var(--w)">Delete Account</div>
+              <div style="font-size:0.72rem;color:var(--tx-dim)">Permanently delete your account and all associated data.</div>
+            </div>
+            <button class="btn btn-ghost btn-sm" style="color:var(--r);border-color:rgba(239,68,68,0.3)">Delete</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+{% endblock %}

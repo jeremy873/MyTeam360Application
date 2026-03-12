@@ -1,0 +1,204 @@
+<!--
+  MyTeam360 — AI Roundtable
+  © 2026 Praxis Holdings LLC. PROPRIETARY AND CONFIDENTIAL.
+-->
+{% extends "base_app.html" %}
+{% set page = "roundtable" %}
+
+{% block title %}AI Roundtable{% endblock %}
+{% block page_title %}AI Roundtable{% endblock %}
+
+{% block content %}
+
+<div class="content-header" style="display:flex;align-items:center;justify-content:space-between">
+  <div>
+    <h1>AI Roundtable</h1>
+    <p>Multi-agent strategy debate for smarter decisions</p>
+  </div>
+  <div style="display:flex;gap:0.5rem">
+    <button class="btn btn-ghost btn-sm">History</button>
+    <button class="btn btn-primary btn-sm" onclick="MT360.openModal('newDebateModal')">+ New Debate</button>
+  </div>
+</div>
+
+<!-- AGENT CARDS -->
+<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-bottom:1.5rem">
+  <div class="card agent-card" style="padding:1.25rem">
+    <div style="display:flex;align-items:center;gap:0.8rem;margin-bottom:0.8rem">
+      <div class="avatar-lg avatar" style="background:var(--grad-purple)">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+      </div>
+      <div>
+        <div style="font-size:0.95rem;font-weight:700;color:var(--w)">Strategist</div>
+        <div style="font-size:0.72rem;color:var(--pl)">Growth & Revenue</div>
+      </div>
+      <div style="margin-left:auto;width:8px;height:8px;border-radius:50%;background:var(--g)"></div>
+    </div>
+    <div style="font-size:0.78rem;color:var(--tx-dim);line-height:1.5">Analyzes market positioning, revenue optimization, and growth strategies. Focuses on ROI and scaling.</div>
+  </div>
+
+  <div class="card agent-card" style="padding:1.25rem">
+    <div style="display:flex;align-items:center;gap:0.8rem;margin-bottom:0.8rem">
+      <div class="avatar-lg avatar" style="background:var(--grad-blue)">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      </div>
+      <div>
+        <div style="font-size:0.95rem;font-weight:700;color:var(--w)">Relationship Mgr</div>
+        <div style="font-size:0.72rem;color:var(--b)">Client Experience</div>
+      </div>
+      <div style="margin-left:auto;width:8px;height:8px;border-radius:50%;background:var(--g)"></div>
+    </div>
+    <div style="font-size:0.78rem;color:var(--tx-dim);line-height:1.5">Champions client relationships, retention, and satisfaction. Advocates for personalized, human-first approaches.</div>
+  </div>
+
+  <div class="card agent-card" style="padding:1.25rem">
+    <div style="display:flex;align-items:center;gap:0.8rem;margin-bottom:0.8rem">
+      <div class="avatar-lg avatar" style="background:var(--grad-green)">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+      </div>
+      <div>
+        <div style="font-size:0.95rem;font-weight:700;color:var(--w)">Risk Analyst</div>
+        <div style="font-size:0.72rem;color:var(--g)">Compliance & Risk</div>
+      </div>
+      <div style="margin-left:auto;width:8px;height:8px;border-radius:50%;background:var(--g)"></div>
+    </div>
+    <div style="font-size:0.78rem;color:var(--tx-dim);line-height:1.5">Evaluates risks, regulatory concerns, and worst-case scenarios. Ensures decisions are legally sound.</div>
+  </div>
+</div>
+
+<!-- DEBATE THREAD -->
+<div class="card" style="margin-bottom:1.5rem">
+  <div class="card-header">
+    <h3>Should we counter-offer on Johnson at $425K?</h3>
+    <span class="tag tag-amber">In Progress</span>
+  </div>
+  <div class="card-body" style="display:flex;flex-direction:column;gap:1rem">
+
+    <!-- Strategist message -->
+    <div class="chat-msg">
+      <div class="chat-msg-header">
+        <div class="avatar-sm avatar" style="background:var(--grad-purple)">S</div>
+        <span class="chat-msg-name" style="color:var(--pl)">Strategist</span>
+        <span class="chat-msg-time">2 min ago</span>
+      </div>
+      <div class="chat-msg-body">
+        <p>I recommend countering at <strong>$430K</strong>, not $425K. The Johnson property has been sitting at the negotiation stage for 8 days. Market comps in the area support $440-450K. A $430K counter shows flexibility while leaving margin for negotiation. At $425K we leave $15-20K on the table.</p>
+        <div style="margin-top:0.5rem;padding:0.5rem;background:rgba(124,58,237,0.08);border-radius:var(--r-sm);font-size:0.72rem;color:var(--tx-dim)">
+          <strong style="color:var(--pl)">Key data:</strong> Similar properties closed at $438K avg (last 90 days). Current list price $445K.
+        </div>
+      </div>
+    </div>
+
+    <!-- Relationship Mgr message -->
+    <div class="chat-msg">
+      <div class="chat-msg-header">
+        <div class="avatar-sm avatar" style="background:var(--grad-blue)">R</div>
+        <span class="chat-msg-name" style="color:var(--b)">Relationship Mgr</span>
+        <span class="chat-msg-time">1 min ago</span>
+      </div>
+      <div class="chat-msg-body">
+        <p>I agree on moving quickly but want to flag the <strong>relationship angle</strong>. Sarah Johnson is a repeat client — she referred the Martinez deal ($380K closed). A hardline counter could strain the relationship. I'd suggest <strong>$428K with a personal call</strong> before sending the formal counter. Tone matters here.</p>
+        <div style="margin-top:0.5rem;padding:0.5rem;background:rgba(59,130,246,0.08);border-radius:var(--r-sm);font-size:0.72rem;color:var(--tx-dim)">
+          <strong style="color:var(--b)">Client history:</strong> 2 prior deals, $820K total revenue, NPS 9/10.
+        </div>
+      </div>
+    </div>
+
+    <!-- Risk Analyst message -->
+    <div class="chat-msg">
+      <div class="chat-msg-header">
+        <div class="avatar-sm avatar" style="background:var(--grad-green)">A</div>
+        <span class="chat-msg-name" style="color:var(--g)">Risk Analyst</span>
+        <span class="chat-msg-time">Just now</span>
+      </div>
+      <div class="chat-msg-body">
+        <p>Two concerns: (1) The 8-day stall puts this deal in <strong>cold territory</strong> — our data shows deals that stall past 10 days have a 40% failure rate. (2) Inspection contingency expires March 18. Counter above $425K and the buyer's lender may require a new appraisal. <strong>I recommend $425-428K with a 48-hour response deadline</strong> to force urgency.</p>
+        <div style="margin-top:0.5rem;padding:0.5rem;background:rgba(34,197,94,0.08);border-radius:var(--r-sm);font-size:0.72rem;color:var(--tx-dim)">
+          <strong style="color:var(--g)">Risk score:</strong> 6.2/10 — elevated due to timeline pressure.
+        </div>
+      </div>
+    </div>
+
+    <!-- Consensus -->
+    <div style="padding:1rem;background:linear-gradient(135deg,rgba(124,58,237,0.08),rgba(59,130,246,0.08));border:1px solid rgba(124,58,237,0.15);border-radius:var(--r-md)">
+      <div style="font-size:0.78rem;font-weight:700;color:var(--w);margin-bottom:0.4rem">Consensus Recommendation</div>
+      <div style="font-size:0.84rem;color:var(--tx);line-height:1.6">Counter at <strong style="color:var(--w)">$428K</strong> with a personal call from you first. Set a <strong style="color:var(--w)">48-hour response window</strong>. This balances market value, relationship preservation, and deal urgency. Expected close probability: <strong style="color:var(--g)">72%</strong>.</div>
+      <div style="display:flex;gap:0.5rem;margin-top:0.8rem">
+        <button class="btn btn-primary btn-sm" onclick="MT360.toast('Counter-offer drafted','success')">Accept & Draft Counter</button>
+        <button class="btn btn-ghost btn-sm" onclick="MT360.toast('Follow-up question sent','info')">Ask Follow-up</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PREVIOUS DEBATES -->
+<div class="card">
+  <div class="card-header">
+    <h3>Recent Debates</h3>
+  </div>
+  <div class="card-body">
+    <div style="display:flex;flex-direction:column;gap:0.6rem">
+      <div style="display:flex;align-items:center;justify-content:space-between;padding:0.6rem 0;border-bottom:1px solid var(--brd)">
+        <div>
+          <div style="font-size:0.84rem;font-weight:600;color:var(--w)">Pricing strategy for Henderson listing</div>
+          <div style="font-size:0.7rem;color:var(--tx-dim)">Resolved · $430K recommended · Mar 10</div>
+        </div>
+        <span class="tag tag-green">Resolved</span>
+      </div>
+      <div style="display:flex;align-items:center;justify-content:space-between;padding:0.6rem 0;border-bottom:1px solid var(--brd)">
+        <div>
+          <div style="font-size:0.84rem;font-weight:600;color:var(--w)">Should we take the Williams referral?</div>
+          <div style="font-size:0.7rem;color:var(--tx-dim)">Resolved · Yes, accept with conditions · Mar 8</div>
+        </div>
+        <span class="tag tag-green">Resolved</span>
+      </div>
+      <div style="display:flex;align-items:center;justify-content:space-between;padding:0.6rem 0">
+        <div>
+          <div style="font-size:0.84rem;font-weight:600;color:var(--w)">Q2 marketing budget allocation</div>
+          <div style="font-size:0.7rem;color:var(--tx-dim)">Resolved · 60% digital, 40% events · Mar 5</div>
+        </div>
+        <span class="tag tag-green">Resolved</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- NEW DEBATE MODAL -->
+<div class="modal-overlay" id="newDebateModal">
+  <div class="modal">
+    <div class="modal-header">
+      <h3>New Debate</h3>
+      <button class="modal-close" onclick="MT360.closeModal('newDebateModal')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <label class="form-label">Question / Topic</label>
+        <input class="input" placeholder="What should the team debate?">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Context</label>
+        <textarea class="textarea" rows="3" placeholder="Provide background information..."></textarea>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Agents</label>
+        <div style="display:flex;gap:0.5rem">
+          <label style="display:flex;align-items:center;gap:0.3rem;font-size:0.78rem;color:var(--tx);cursor:pointer">
+            <input type="checkbox" checked> Strategist
+          </label>
+          <label style="display:flex;align-items:center;gap:0.3rem;font-size:0.78rem;color:var(--tx);cursor:pointer">
+            <input type="checkbox" checked> Relationship Mgr
+          </label>
+          <label style="display:flex;align-items:center;gap:0.3rem;font-size:0.78rem;color:var(--tx);cursor:pointer">
+            <input type="checkbox" checked> Risk Analyst
+          </label>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost btn-sm" onclick="MT360.closeModal('newDebateModal')">Cancel</button>
+      <button class="btn btn-primary btn-sm" onclick="MT360.closeModal('newDebateModal');MT360.toast('Debate started — agents analyzing...','info')">Start Debate</button>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

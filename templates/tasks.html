@@ -1,0 +1,200 @@
+<!--
+  MyTeam360 — Task Board
+  © 2026 Praxis Holdings LLC. PROPRIETARY AND CONFIDENTIAL.
+-->
+{% extends "base_app.html" %}
+{% set page = "tasks" %}
+
+{% block title %}Tasks{% endblock %}
+{% block page_title %}Tasks{% endblock %}
+
+{% block content %}
+
+<div class="content-header" style="display:flex;align-items:center;justify-content:space-between">
+  <div>
+    <h1>Task Board</h1>
+    <p>12 tasks · 5 due today</p>
+  </div>
+  <div style="display:flex;gap:0.5rem">
+    <button class="btn btn-primary btn-sm" onclick="MT360.openModal('newTaskModal')">+ New Task</button>
+  </div>
+</div>
+
+<!-- FILTER BAR -->
+<div class="filter-bar">
+  <span class="filter-chip active">All</span>
+  <span class="filter-chip">High Priority</span>
+  <span class="filter-chip">Due Today</span>
+  <span class="filter-chip">CRM</span>
+  <span class="filter-chip">Marketing</span>
+  <span class="filter-chip">Admin</span>
+</div>
+
+<!-- KANBAN BOARD -->
+<div class="kanban">
+  <!-- To Do -->
+  <div class="kanban-col">
+    <div class="kanban-col-header">
+      <div class="kanban-col-title">To Do <span class="kanban-col-count">5</span></div>
+    </div>
+    <div class="kanban-col-body">
+      <div class="kanban-card">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.35rem">
+          <span class="task-pri pri-high">HIGH</span>
+          <span style="font-size:0.65rem;color:var(--r)">Due today</span>
+        </div>
+        <div class="kanban-card-title">Follow up Henderson showing</div>
+        <div style="font-size:0.72rem;color:var(--tx-dim);margin-top:0.3rem">CRM · Send thank-you email and comps</div>
+        <div style="display:flex;align-items:center;gap:0.4rem;margin-top:0.5rem">
+          <div class="avatar-sm avatar" style="background:var(--grad-purple)">JB</div>
+          <span style="font-size:0.65rem;color:var(--tx-dim)">Jeremy Brown</span>
+        </div>
+      </div>
+      <div class="kanban-card">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.35rem">
+          <span class="task-pri pri-high">HIGH</span>
+          <span style="font-size:0.65rem;color:var(--r)">Due today</span>
+        </div>
+        <div class="kanban-card-title">Send listing photos to Johnson</div>
+        <div style="font-size:0.72rem;color:var(--tx-dim);margin-top:0.3rem">CRM · 12 photos from photographer</div>
+      </div>
+      <div class="kanban-card">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.35rem">
+          <span class="task-pri pri-med">MED</span>
+          <span style="font-size:0.65rem;color:var(--a)">Due today</span>
+        </div>
+        <div class="kanban-card-title">Review closing documents</div>
+        <div style="font-size:0.72rem;color:var(--tx-dim);margin-top:0.3rem">Admin · Martinez deal paperwork</div>
+      </div>
+      <div class="kanban-card">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.35rem">
+          <span class="task-pri pri-med">MED</span>
+          <span style="font-size:0.65rem;color:var(--tx-dim)">Due Mar 14</span>
+        </div>
+        <div class="kanban-card-title">Prepare CMA report — Oak St</div>
+        <div style="font-size:0.72rem;color:var(--tx-dim);margin-top:0.3rem">CRM · Comparable market analysis</div>
+      </div>
+      <div class="kanban-card">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.35rem">
+          <span class="task-pri pri-low">LOW</span>
+          <span style="font-size:0.65rem;color:var(--tx-dim)">Due today</span>
+        </div>
+        <div class="kanban-card-title">Post market update on LinkedIn</div>
+        <div style="font-size:0.72rem;color:var(--tx-dim);margin-top:0.3rem">Marketing · Weekly market insights</div>
+      </div>
+      <div class="kanban-add" onclick="MT360.openModal('newTaskModal')">+ Add Task</div>
+    </div>
+  </div>
+
+  <!-- In Progress -->
+  <div class="kanban-col">
+    <div class="kanban-col-header">
+      <div class="kanban-col-title">In Progress <span class="kanban-col-count">4</span></div>
+    </div>
+    <div class="kanban-col-body">
+      <div class="kanban-card">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.35rem">
+          <span class="task-pri pri-high">HIGH</span>
+          <span style="font-size:0.65rem;color:var(--tx-dim)">Due Mar 15</span>
+        </div>
+        <div class="kanban-card-title">Finalize Q1 revenue report</div>
+        <div style="font-size:0.72rem;color:var(--tx-dim);margin-top:0.3rem">Admin · 70% complete</div>
+      </div>
+      <div class="kanban-card">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.35rem">
+          <span class="task-pri pri-med">MED</span>
+          <span style="font-size:0.65rem;color:var(--tx-dim)">Due Mar 16</span>
+        </div>
+        <div class="kanban-card-title">Update social media content calendar</div>
+        <div style="font-size:0.72rem;color:var(--tx-dim);margin-top:0.3rem">Marketing · Next 2 weeks of posts</div>
+      </div>
+      <div class="kanban-card">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.35rem">
+          <span class="task-pri pri-low">LOW</span>
+          <span style="font-size:0.65rem;color:var(--tx-dim)">Due Mar 20</span>
+        </div>
+        <div class="kanban-card-title">Research new listing opportunities</div>
+        <div style="font-size:0.72rem;color:var(--tx-dim);margin-top:0.3rem">CRM · South Charlotte area</div>
+      </div>
+      <div class="kanban-add" onclick="MT360.openModal('newTaskModal')">+ Add Task</div>
+    </div>
+  </div>
+
+  <!-- Done -->
+  <div class="kanban-col">
+    <div class="kanban-col-header">
+      <div class="kanban-col-title">Done <span class="kanban-col-count">3</span></div>
+    </div>
+    <div class="kanban-col-body">
+      <div class="kanban-card" style="opacity:0.6">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.35rem">
+          <span class="tag tag-green">Done</span>
+          <span style="font-size:0.65rem;color:var(--tx-dim)">Completed today</span>
+        </div>
+        <div class="kanban-card-title" style="text-decoration:line-through">Send invoice INV-0042</div>
+      </div>
+      <div class="kanban-card" style="opacity:0.6">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.35rem">
+          <span class="tag tag-green">Done</span>
+          <span style="font-size:0.65rem;color:var(--tx-dim)">Yesterday</span>
+        </div>
+        <div class="kanban-card-title" style="text-decoration:line-through">Call Sarah Johnson re: counter-offer</div>
+      </div>
+      <div class="kanban-card" style="opacity:0.6">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.35rem">
+          <span class="tag tag-green">Done</span>
+          <span style="font-size:0.65rem;color:var(--tx-dim)">Yesterday</span>
+        </div>
+        <div class="kanban-card-title" style="text-decoration:line-through">Schedule Henderson showing</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- NEW TASK MODAL -->
+<div class="modal-overlay" id="newTaskModal">
+  <div class="modal">
+    <div class="modal-header">
+      <h3>New Task</h3>
+      <button class="modal-close" onclick="MT360.closeModal('newTaskModal')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <label class="form-label">Task Name</label>
+        <input class="input" placeholder="What needs to be done?">
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem">
+        <div class="form-group">
+          <label class="form-label">Priority</label>
+          <select class="select">
+            <option>High</option>
+            <option selected>Medium</option>
+            <option>Low</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Due Date</label>
+          <input class="input" type="date">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Project</label>
+        <select class="select">
+          <option>CRM</option>
+          <option>Marketing</option>
+          <option>Admin</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Description</label>
+        <textarea class="textarea" placeholder="Add details..."></textarea>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost btn-sm" onclick="MT360.closeModal('newTaskModal')">Cancel</button>
+      <button class="btn btn-primary btn-sm" onclick="MT360.closeModal('newTaskModal');MT360.toast('Task created','success')">Create Task</button>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
