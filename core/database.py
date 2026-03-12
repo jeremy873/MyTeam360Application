@@ -238,6 +238,23 @@ def get_backend():
 # INITIALIZATION
 # ═══════════════════════════════════════════════════════════════
 
+def _reset_pg_pool():
+    """Close and discard the PG pool so forked workers create their own.
+
+    psycopg2 connections are NOT fork-safe — file descriptors shared across
+    processes corrupt each other.  Call this after init_database() when using
+    gunicorn --preload so the master's pool is torn down before fork().
+    """
+    global _pg_pool
+    if _pg_pool is not None:
+        try:
+            _pg_pool.closeall()
+        except Exception:
+            pass
+        _pg_pool = None
+        logger.info("PostgreSQL pool reset (pre-fork cleanup)")
+
+
 def init_database():
     """Create all tables and run migrations."""
     if _USE_POSTGRES:
@@ -269,6 +286,9 @@ def init_database():
         finally:
             pool.putconn(conn)
         _migrate_pg()
+        # ── Fork-safety: destroy the pool so each gunicorn worker creates
+        #    its own fresh connections after os.fork().
+        _reset_pg_pool()
     else:
         import sqlite3
         os.makedirs(os.path.dirname(DB_PATH) or "data", exist_ok=True)

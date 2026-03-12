@@ -30,6 +30,6 @@ HEALTHCHECK --interval=30s --timeout=10s --start-period=60s --retries=3 \
     CMD curl -f http://localhost:8000/health || exit 1
 
 # Production server
-# --preload loads the app once in master process before forking workers,
-# so init_database() runs exactly once instead of 4x concurrently.
-CMD ["sh", "-c", "gunicorn app:app --bind 0.0.0.0:$PORT --workers 4 --threads 2 --timeout 120 --preload --access-logfile - --error-logfile -"]
+# gunicorn_conf.py handles --preload + post_fork hook to reset the PG pool
+# so each worker gets its own fork-safe connections.
+CMD ["gunicorn", "-c", "gunicorn_conf.py", "app:app"]
