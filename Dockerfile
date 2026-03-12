@@ -22,20 +22,14 @@ RUN mkdir -p /app/data && chmod 700 /app/data
 RUN useradd -m mt360 && chown -R mt360:mt360 /app
 USER mt360
 
+ENV PORT=8000
 EXPOSE 8000
 
 # Health check
 HEALTHCHECK --interval=30s --timeout=10s --start-period=60s --retries=3 \
-    CMD curl -f http://localhost:${PORT:-8000}/health || exit 1
+    CMD curl -f http://localhost:8000/health || exit 1
 
-# Production server (Railway injects PORT; default 8000 for local Docker)
+# Production server
 # --preload loads the app once in master process before forking workers,
 # so init_database() runs exactly once instead of 4x concurrently.
-CMD gunicorn app:app \
-    --bind 0.0.0.0:${PORT:-8000} \
-    --workers 4 \
-    --threads 2 \
-    --timeout 120 \
-    --preload \
-    --access-logfile - \
-    --error-logfile -
+CMD ["sh", "-c", "gunicorn app:app --bind 0.0.0.0:$PORT --workers 4 --threads 2 --timeout 120 --preload --access-logfile - --error-logfile -"]
