@@ -14670,10 +14670,15 @@ CREATE TABLE IF NOT EXISTS kb_chunks (
 );
 
 CREATE INDEX IF NOT EXISTS idx_chunks_doc ON kb_chunks(document_id, chunk_index);
-CREATE VIRTUAL TABLE IF NOT EXISTS kb_search USING fts5(
-    chunk_id, content, document_name, tags,
-    tokenize='porter'
+-- PostgreSQL full-text search (replaces SQLite fts5 virtual table)
+CREATE TABLE IF NOT EXISTS kb_search (
+    chunk_id TEXT PRIMARY KEY,
+    content TEXT,
+    document_name TEXT,
+    tags TEXT,
+    search_vector tsvector
 );
+CREATE INDEX IF NOT EXISTS idx_kb_search_vector ON kb_search USING gin(search_vector);
 
 -- WORKFLOWS
 

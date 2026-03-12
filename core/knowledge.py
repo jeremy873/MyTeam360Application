@@ -29,7 +29,7 @@ import uuid
 import json
 import logging
 from datetime import datetime
-from .database import get_db
+from .database import get_db, get_backend
 
 logger = logging.getLogger("MyTeam360.knowledge")
 
@@ -113,10 +113,18 @@ class KnowledgeBase:
                             VALUES (?, ?, ?, ?)
                         """, (chunk_id, doc_id, i, chunk))
                         # Add to FTS index
-                        db.execute("""
-                            INSERT INTO kb_search (chunk_id, content, document_name, tags)
-                            VALUES (?, ?, ?, ?)
-                        """, (chunk_id, chunk, filename, " ".join(tags or [])))
+                        tag_str = " ".join(tags or [])
+                        if get_backend() == "postgres":
+                            db.execute("""
+                                INSERT INTO kb_search (chunk_id, content, document_name, tags, search_vector)
+                                VALUES (?, ?, ?, ?, to_tsvector('english', ? || ' ' || ? || ' ' || ?))
+                            """, (chunk_id, chunk, filename, tag_str,
+                                  chunk, filename, tag_str))
+                        else:
+                            db.execute("""
+                                INSERT INTO kb_search (chunk_id, content, document_name, tags)
+                                VALUES (?, ?, ?, ?)
+                            """, (chunk_id, chunk, filename, tag_str))
 
                     db.execute("""
                         UPDATE kb_documents SET status='ready', page_count=?, processed_at=CURRENT_TIMESTAMP
@@ -187,22 +195,38 @@ class KnowledgeBase:
                limit: int = 10) -> list:
         """Full-text search across knowledge base documents."""
         with get_db() as db:
-            # Use FTS5 for search
+            # Use full-text search (FTS5 for SQLite, tsvector for Postgres)
             try:
-                fts_query = " OR ".join(query.split())
-                rows = db.execute("""
-                    SELECT s.chunk_id, s.content, s.document_name, s.tags,
-                           rank as relevance,
-                           c.document_id, c.chunk_index, c.page_number, c.section_title,
-                           d.folder_id, d.owner_id, d.shared
-                    FROM kb_search s
-                    JOIN kb_chunks c ON s.chunk_id = c.id
-                    JOIN kb_documents d ON c.document_id = d.id
-                    WHERE kb_search MATCH ?
-                    AND d.status='ready'
-                    ORDER BY rank
-                    LIMIT ?
-                """, (fts_query, limit)).fetchall()
+                if get_backend() == "postgres":
+                    ts_query = " | ".join(query.split())
+                    rows = db.execute("""
+                        SELECT s.chunk_id, s.content, s.document_name, s.tags,
+                               ts_rank(s.search_vector, to_tsquery('english', ?)) as relevance,
+                               c.document_id, c.chunk_index, c.page_number, c.section_title,
+                               d.folder_id, d.owner_id, d.shared
+                        FROM kb_search s
+                        JOIN kb_chunks c ON s.chunk_id = c.id
+                        JOIN kb_documents d ON c.document_id = d.id
+                        WHERE s.search_vector @@ to_tsquery('english', ?)
+                        AND d.status='ready'
+                        ORDER BY relevance DESC
+                        LIMIT ?
+                    """, (ts_query, ts_query, limit)).fetchall()
+                else:
+                    fts_query = " OR ".join(query.split())
+                    rows = db.execute("""
+                        SELECT s.chunk_id, s.content, s.document_name, s.tags,
+                               rank as relevance,
+                               c.document_id, c.chunk_index, c.page_number, c.section_title,
+                               d.folder_id, d.owner_id, d.shared
+                        FROM kb_search s
+                        JOIN kb_chunks c ON s.chunk_id = c.id
+                        JOIN kb_documents d ON c.document_id = d.id
+                        WHERE kb_search MATCH ?
+                        AND d.status='ready'
+                        ORDER BY rank
+                        LIMIT ?
+                    """, (fts_query, limit)).fetchall()
             except Exception:
                 # Fallback to LIKE search
                 rows = db.execute("""
