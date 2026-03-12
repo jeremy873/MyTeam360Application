@@ -598,8 +598,17 @@ def serve_logo_hero():
     return send_from_directory("templates", "logo-hero.png", mimetype="image/png")
 
 
+@app.route("/health")
+def health_check():
+    """Lightweight healthcheck for Railway / load balancers — no auth required."""
+    return jsonify({"status": "ok", "service": "myteam360", "backend": get_db.__module__}), 200
+
+
 @app.route("/api/status")
 def api_status():
+    # If no authenticated user, return basic status (healthcheck-safe)
+    if not hasattr(g, 'user_id') or not g.user_id:
+        return jsonify({"status": "ok", "service": "myteam360"}), 200
     u = users.get_user(g.user_id)
     conv_stats = conversations.get_stats(g.user_id)
     kb_stats = kb.get_stats(g.user_id)
