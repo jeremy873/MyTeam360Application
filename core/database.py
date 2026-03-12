@@ -245,9 +245,27 @@ def init_database():
         conn = pool.getconn()
         try:
             cursor = conn.cursor()
-            cursor.execute(SCHEMA_PG)
-            conn.commit()
-            logger.info("PostgreSQL schema initialized")
+            # Split schema into individual statements and execute in two passes
+            # to handle foreign-key ordering (e.g. table A references table B
+            # which is defined later in the schema).
+            stmts = [s.strip() for s in re.split(r';\s*\n', SCHEMA_PG) if s.strip()]
+            failed = []
+            for stmt in stmts:
+                try:
+                    cursor.execute(stmt)
+                    conn.commit()
+                except Exception:
+                    conn.rollback()
+                    failed.append(stmt)
+            # Pass 2: retry failures (dependent tables now exist)
+            for stmt in failed:
+                try:
+                    cursor.execute(stmt)
+                    conn.commit()
+                except Exception as e:
+                    conn.rollback()
+                    logger.warning(f"Schema stmt skipped: {str(e)[:120]}")
+            logger.info(f"PostgreSQL schema initialized ({len(stmts)} statements, {len(failed)} retried)")
         finally:
             pool.putconn(conn)
         _migrate_pg()

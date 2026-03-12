@@ -29,10 +29,13 @@ HEALTHCHECK --interval=30s --timeout=10s --start-period=60s --retries=3 \
     CMD curl -f http://localhost:${PORT:-8000}/health || exit 1
 
 # Production server (Railway injects PORT; default 8000 for local Docker)
+# --preload loads the app once in master process before forking workers,
+# so init_database() runs exactly once instead of 4x concurrently.
 CMD gunicorn app:app \
     --bind 0.0.0.0:${PORT:-8000} \
     --workers 4 \
     --threads 2 \
     --timeout 120 \
+    --preload \
     --access-logfile - \
     --error-logfile -
