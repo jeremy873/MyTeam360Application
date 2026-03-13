@@ -13,9 +13,9 @@
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:'DM Sans',sans-serif;background:#F5F5FA;min-height:100vh;display:flex;align-items:center;justify-content:center}
 .gate{background:#fff;border:1px solid #ECECF2;border-radius:12px;padding:3rem;width:100%;max-width:400px;box-shadow:0 4px 24px rgba(0,0,0,0.06);text-align:center}
-.gate-logo{width:48px;height:48px;margin:0 auto 1rem}
-.gate-logo img{width:100%;height:100%;object-fit:contain}
-.gate h1{font-family:'Outfit',sans-serif;font-size:1.5rem;color:#1C1D21;margin-bottom:0.25rem}
+.gate-logo{width:64px;height:64px;margin:0 auto 1rem}
+.gate-logo img{width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 2px 8px rgba(94,129,244,0.2))}
+.gate h1{font-family:'Outfit',sans-serif;font-size:1.5rem;color:#5E81F4;margin-bottom:0.25rem;letter-spacing:-0.02em}
 .gate p{color:#8181A5;font-size:0.875rem;margin-bottom:2rem}
 .gate-input{width:100%;padding:0.75rem 1rem;font-size:0.9375rem;border:1px solid #ECECF2;border-radius:8px;background:#F5F5FA;color:#1C1D21;font-family:inherit;transition:border-color 0.2s}
 .gate-input:focus{outline:none;border-color:#5E81F4;box-shadow:0 0 0 3px rgba(94,129,244,0.1)}
@@ -33,6 +33,7 @@ body{font-family:'DM Sans',sans-serif;background:#F5F5FA;min-height:100vh;displa
   <input type="password" name="password" class="gate-input" placeholder="Password" autofocus required>
   <button type="submit" class="gate-btn">Enter</button>
   {% if error %}<div class="gate-error">{{ error }}</div>{% endif %}
+  <div style="margin-top:1.25rem;font-size:0.8rem;color:#8181A5">or <a href="/login" style="color:#5E81F4;font-weight:600;text-decoration:none">sign in with your account</a></div>
   <div class="gate-footer">© 2026 Praxis Holdings LLC</div>
 </form>
 </body>

@@ -173,6 +173,13 @@ from core.features import (ConversationExporter, PromptTemplateLibrary,
 init_database()
 providers = ProviderRegistry()
 users = UserManager()
+# ── Seed primary account ──
+try:
+    if not users.get_user_by_email("jeremy@myteam360.ai"):
+        users.create_user("jeremy@myteam360.ai", "Jeremy Brown", "#9721Heights!", "owner")
+        logging.getLogger(__name__).info("✓ Seeded primary account: jeremy@myteam360.ai")
+except Exception:
+    pass  # already exists or DB not ready
 agents = AgentManager(providers, user_manager=users)
 conversations = ConversationManager()
 kb = KnowledgeBase()
@@ -531,10 +538,12 @@ def _track_health(response):
 
 @app.route("/")
 def index():
-    """Go straight to the platform — gate protects access."""
+    """Go straight to the platform — login protects access."""
+    if session.get("user_id"):
+        return redirect("/app/dashboard")
     if session.get("gate_passed"):
         return redirect("/app/dashboard")
-    return redirect("/gate")
+    return redirect("/login")
 
 @app.route("/site")
 def marketing_site():
@@ -564,10 +573,70 @@ def gate_check():
     return render_template("gate.html", error="Invalid password")
 
 def _require_gate():
-    """Redirect to gate if not passed."""
-    if not session.get("gate_passed"):
-        return redirect("/gate")
-    return None
+    """Redirect to login if not authenticated."""
+    if session.get("user_id") or session.get("gate_passed"):
+        return None
+    return redirect("/login")
+
+# ── Login / Signup ─────────────────────────────────────────────
+@app.route("/login")
+def login_page():
+    """Show the login page."""
+    if session.get("user_id") or session.get("gate_passed"):
+        return redirect("/app/dashboard")
+    return render_template("login.html")
+
+@app.route("/login", methods=["POST"])
+def login_submit():
+    """Authenticate user via email + password."""
+    email = request.form.get("email", "").strip().lower()
+    password = request.form.get("password", "")
+    user = users.authenticate(email, password)
+    if user:
+        session["user_id"] = user["id"]
+        session["user_email"] = user["email"]
+        session["user_name"] = user["display_name"]
+        session["gate_passed"] = True  # also satisfy gate checks
+        return redirect("/app/dashboard")
+    return render_template("login.html", error="Invalid email or password")
+
+@app.route("/signup")
+def signup_page():
+    """Show the signup page."""
+    if session.get("user_id"):
+        return redirect("/app/dashboard")
+    return render_template("signup.html")
+
+@app.route("/signup", methods=["POST"])
+def signup_submit():
+    """Create a new user account."""
+    email = request.form.get("email", "").strip().lower()
+    name = request.form.get("name", "").strip()
+    password = request.form.get("password", "")
+    if not email or not password:
+        return render_template("signup.html", error="Email and password are required")
+    if len(password) < 6:
+        return render_template("signup.html", error="Password must be at least 6 characters")
+    try:
+        user = users.create_user(email, name or email.split("@")[0], password, "member")
+        session["user_id"] = user["id"]
+        session["user_email"] = user["email"]
+        session["user_name"] = user["display_name"]
+        session["gate_passed"] = True
+        return redirect("/app/dashboard")
+    except ValueError as e:
+        return render_template("signup.html", error=str(e))
+
+@app.route("/logout")
+def logout():
+    """Sign out and redirect to login."""
+    session.clear()
+    return redirect("/login")
+
+@app.route("/auth/login", methods=["POST"])
+def auth_login_compat():
+    """Compatibility route — login.html form posts here."""
+    return login_submit()
 
 @app.route("/app")
 def app_redirect():
