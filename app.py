@@ -8138,6 +8138,45 @@ def commute_get():
         request.args.get("origin",""), request.args.get("destination","")))
 
 # ═══════════════════════════════════════════════════════════════
+# REAL-TIME EVENT STREAM (SSE)
+# ═══════════════════════════════════════════════════════════════
+
+@app.route("/api/events/stream")
+def events_stream():
+    """Server-Sent Events stream for real-time push to the frontend."""
+    def generate():
+        last_check = time.time()
+        # Send heartbeat on connect
+        yield f"data: {json.dumps({'type':'connected','message':'Real-time stream active'})}\n\n"
+        while True:
+            try:
+                # Poll event bus for new events since last check
+                now = time.time()
+                elapsed_hours = (now - last_check) / 3600.0
+                events = event_bus.get_events(None, limit=10) if elapsed_hours < 1 else []
+                new_events = [e for e in events if e.get("created_at") and
+                              _parse_ts(e["created_at"]) > last_check]
+                for ev in new_events:
+                    yield f"data: {json.dumps(ev)}\n\n"
+                last_check = now
+            except Exception:
+                pass
+            # Heartbeat every 15s to keep connection alive
+            yield f": heartbeat\n\n"
+            time.sleep(3)
+    return Response(generate(), mimetype="text/event-stream",
+                    headers={"Cache-Control": "no-cache", "X-Accel-Buffering": "no",
+                             "Connection": "keep-alive"})
+
+def _parse_ts(ts_str):
+    """Parse ISO timestamp to epoch seconds."""
+    try:
+        dt = datetime.fromisoformat(ts_str.replace("Z", "+00:00"))
+        return dt.timestamp()
+    except Exception:
+        return 0
+
+# ═══════════════════════════════════════════════════════════════
 # UX ESSENTIALS
 # ═══════════════════════════════════════════════════════════════
 

@@ -19,13 +19,22 @@ const MT360 = {
     });
   },
 
-  // ═══ VOICE CAPTURE ═══
+  // ═══ VOICE CONCIERGE (two-way: listen + speak back) ═══
   recording: false,
+  speaking: false,
+  voiceEnabled: true,
 
   initVoice() {
     const fab = document.getElementById('voiceFab');
     if (!fab) return;
     fab.addEventListener('click', () => {
+      if (MT360.speaking) {
+        // Stop speaking if currently talking
+        window.speechSynthesis.cancel();
+        MT360.speaking = false;
+        fab.classList.remove('speaking');
+        return;
+      }
       if (!MT360.recording) {
         MT360.recording = true;
         fab.classList.add('recording');
@@ -37,14 +46,47 @@ const MT360 = {
 
   closeVoice() {
     MT360.recording = false;
+    MT360.speaking = false;
+    window.speechSynthesis.cancel();
     const fab = document.getElementById('voiceFab');
-    if (fab) fab.classList.remove('recording');
+    if (fab) { fab.classList.remove('recording'); fab.classList.remove('speaking'); }
     const overlay = document.getElementById('voiceOverlay');
     if (overlay) overlay.classList.remove('active');
     document.getElementById('voiceResults').style.display = 'none';
     document.getElementById('voiceDone').style.display = 'none';
     document.getElementById('voiceText').textContent = 'Listening...';
     document.getElementById('voiceSub').textContent = 'Speak naturally. Say anything.';
+  },
+
+  speak(text, onEnd) {
+    if (!('speechSynthesis' in window) || !MT360.voiceEnabled) {
+      if (onEnd) onEnd();
+      return;
+    }
+    window.speechSynthesis.cancel();
+    const utter = new SpeechSynthesisUtterance(text);
+    utter.lang = 'en-US';
+    utter.rate = 1.05;
+    utter.pitch = 1.0;
+    // Pick a natural voice if available
+    const voices = window.speechSynthesis.getVoices();
+    const preferred = voices.find(v => v.name.includes('Samantha') || v.name.includes('Google US') || v.name.includes('Alex'));
+    if (preferred) utter.voice = preferred;
+    MT360.speaking = true;
+    const fab = document.getElementById('voiceFab');
+    if (fab) fab.classList.add('speaking');
+    document.getElementById('voiceSub').textContent = 'Speaking...';
+    utter.onend = () => {
+      MT360.speaking = false;
+      if (fab) fab.classList.remove('speaking');
+      if (onEnd) onEnd();
+    };
+    utter.onerror = () => {
+      MT360.speaking = false;
+      if (fab) fab.classList.remove('speaking');
+      if (onEnd) onEnd();
+    };
+    window.speechSynthesis.speak(utter);
   },
 
   startListening() {
@@ -64,6 +106,7 @@ const MT360 = {
     rec.onerror = () => {
       document.getElementById('voiceText').textContent = 'Could not hear you';
       document.getElementById('voiceSub').textContent = 'Tap the mic to try again';
+      MT360.speak('Sorry, I couldn\'t hear you. Tap the mic to try again.');
     };
     rec.onend = () => { document.getElementById('voiceFab').classList.remove('recording'); };
     rec.start();
@@ -80,22 +123,57 @@ const MT360 = {
     .then(data => {
       const results = document.getElementById('voiceResults');
       results.innerHTML = '';
-      if (data.actions) {
-        data.actions.forEach(a => {
+      // Build action list from structured response
+      const actions = data.actions || [];
+      const actionLabel = data.action || '';
+      const detectedType = data.detected_type || '';
+      const entities = data.entities || {};
+
+      if (actions.length) {
+        actions.forEach(a => {
           const d = document.createElement('div');
           d.className = 'voice-result tag-' + (a.color || 'green');
           d.textContent = (a.icon || '✓') + ' ' + a.label;
           results.appendChild(d);
         });
+      } else if (actionLabel) {
+        // Single action from capture response
+        const d = document.createElement('div');
+        d.className = 'voice-result tag-green';
+        d.textContent = '✓ ' + actionLabel;
+        results.appendChild(d);
       }
+
       results.style.display = 'grid';
       document.getElementById('voiceDone').style.display = 'inline-flex';
-      document.getElementById('voiceSub').textContent = (data.actions?.length || 0) + ' actions captured';
+
+      const count = actions.length || (actionLabel ? 1 : 0);
+      document.getElementById('voiceSub').textContent = count + ' action' + (count !== 1 ? 's' : '') + ' captured';
       MT360.toast('Voice captured successfully', 'success');
+
+      // ═══ SPEAK BACK THE RESPONSE ═══
+      let reply = '';
+      if (actionLabel) {
+        reply = 'Got it. I\'ll ' + actionLabel.toLowerCase() + '.';
+      }
+      if (entities.names && entities.names.length) {
+        reply += ' Related to ' + entities.names.join(' and ') + '.';
+      }
+      if (entities.amounts && entities.amounts.length) {
+        reply += ' Amount: ' + entities.amounts.join(', ') + '.';
+      }
+      if (entities.dates && entities.dates.length) {
+        reply += ' Scheduled for ' + entities.dates.join(', ') + '.';
+      }
+      if (!reply) {
+        reply = 'Captured. ' + count + ' action' + (count !== 1 ? 's' : '') + ' processed.';
+      }
+      MT360.speak(reply);
     })
     .catch(() => {
       document.getElementById('voiceSub').textContent = 'Captured — will process when online';
       document.getElementById('voiceDone').style.display = 'inline-flex';
+      MT360.speak('Saved offline. I\'ll process this when we\'re back online.');
     });
   },
 
@@ -332,6 +410,75 @@ const MT360 = {
     });
   },
 
+  // ═══ REAL-TIME EVENT STREAM (SSE) ═══
+  eventSource: null,
+  eventHandlers: {},
+
+  initSSE() {
+    if (MT360.eventSource) return; // already connected
+    try {
+      MT360.eventSource = new EventSource('/api/events/stream');
+      MT360.eventSource.onmessage = (e) => {
+        try {
+          const event = JSON.parse(e.data);
+          MT360.handleRealtimeEvent(event);
+        } catch(err) {}
+      };
+      MT360.eventSource.onerror = () => {
+        // Reconnect after 5s on error
+        if (MT360.eventSource) { MT360.eventSource.close(); MT360.eventSource = null; }
+        setTimeout(() => MT360.initSSE(), 5000);
+      };
+    } catch(err) {
+      // SSE not available, fall back to polling
+    }
+  },
+
+  onEvent(type, handler) {
+    if (!MT360.eventHandlers[type]) MT360.eventHandlers[type] = [];
+    MT360.eventHandlers[type].push(handler);
+  },
+
+  handleRealtimeEvent(event) {
+    const type = event.type || event.event_type || '';
+    // Fire registered handlers
+    const handlers = MT360.eventHandlers[type] || [];
+    handlers.forEach(h => { try { h(event); } catch(e) {} });
+    // Also fire wildcard handlers
+    (MT360.eventHandlers['*'] || []).forEach(h => { try { h(event); } catch(e) {} });
+
+    // Built-in notifications for common events
+    switch(type) {
+      case 'deal.created':
+        MT360.toast('New deal: ' + (event.data?.name || 'Untitled'), 'success');
+        break;
+      case 'deal.won':
+        MT360.toast('Deal won: ' + (event.data?.name || '') + ' 🎉', 'success');
+        break;
+      case 'task.completed':
+        MT360.toast('Task completed: ' + (event.data?.title || ''), 'success');
+        break;
+      case 'invoice.paid':
+        MT360.toast('Invoice paid: $' + (event.data?.amount || '0'), 'success');
+        break;
+      case 'webhook.received':
+        MT360.toast('Webhook received: ' + (event.data?.source || 'external'), 'info');
+        break;
+      case 'automation.triggered':
+        MT360.toast('Automation fired: ' + (event.data?.name || ''), 'info');
+        break;
+      case 'workflow.completed':
+        MT360.toast('Workflow finished: ' + (event.data?.name || ''), 'success');
+        break;
+      case 'voice.captured':
+        // Don't double-toast, voice handler already does it
+        break;
+      default:
+        // Generic event — only show if it has a message
+        if (event.message) MT360.toast(event.message, event.level || 'info');
+    }
+  },
+
   // ═══ INIT ═══
   init() {
     MT360.initSidebar();
@@ -343,6 +490,9 @@ const MT360 = {
     MT360.initCmd();
     MT360.initDragDrop();
     MT360.initDateRanges();
+    MT360.initSSE();
+    // Pre-load voices for TTS
+    if ('speechSynthesis' in window) window.speechSynthesis.getVoices();
   }
 };
 

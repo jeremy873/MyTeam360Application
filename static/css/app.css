@@ -916,6 +916,15 @@ tbody tr:last-child td { border-bottom: none; }
   0%, 100% { transform: scale(1); }
   50% { transform: scale(1.08); }
 }
+.voice-fab.speaking {
+  animation: pulse-speak 1s ease-in-out infinite;
+  background: var(--g);
+  box-shadow: 0 6px 25px rgba(124,231,172,0.35);
+}
+@keyframes pulse-speak {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
 
 /* Voice overlay */
 .voice-overlay {
