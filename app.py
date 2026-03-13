@@ -579,16 +579,8 @@ def _require_gate():
     return redirect("/login")
 
 # ── Login / Signup ─────────────────────────────────────────────
-@app.route("/login")
-def login_page():
-    """Show the login page."""
-    if session.get("user_id") or session.get("gate_passed"):
-        return redirect("/app/dashboard")
-    return render_template("login.html")
-
-@app.route("/login", methods=["POST"])
-def login_submit():
-    """Authenticate user via email + password."""
+def _do_login_form():
+    """Authenticate user via email + password (form POST)."""
     email = request.form.get("email", "").strip().lower()
     password = request.form.get("password", "")
     user = users.authenticate(email, password)
@@ -600,43 +592,44 @@ def login_submit():
         return redirect("/app/dashboard")
     return render_template("login.html", error="Invalid email or password")
 
-@app.route("/signup")
-def signup_page():
-    """Show the signup page."""
+@app.route("/login", methods=["GET", "POST"])
+def web_login():
+    """Show login page (GET) or authenticate (POST)."""
+    if request.method == "POST":
+        return _do_login_form()
+    if session.get("user_id") or session.get("gate_passed"):
+        return redirect("/app/dashboard")
+    return render_template("login.html")
+
+@app.route("/signup", methods=["GET", "POST"])
+def web_signup():
+    """Show signup page (GET) or create account (POST)."""
+    if request.method == "POST":
+        email = request.form.get("email", "").strip().lower()
+        name = request.form.get("name", "").strip()
+        password = request.form.get("password", "")
+        if not email or not password:
+            return render_template("signup.html", error="Email and password are required")
+        if len(password) < 6:
+            return render_template("signup.html", error="Password must be at least 6 characters")
+        try:
+            user = users.create_user(email, name or email.split("@")[0], password, "member")
+            session["user_id"] = user["id"]
+            session["user_email"] = user["email"]
+            session["user_name"] = user["display_name"]
+            session["gate_passed"] = True
+            return redirect("/app/dashboard")
+        except ValueError as e:
+            return render_template("signup.html", error=str(e))
     if session.get("user_id"):
         return redirect("/app/dashboard")
     return render_template("signup.html")
 
-@app.route("/signup", methods=["POST"])
-def signup_submit():
-    """Create a new user account."""
-    email = request.form.get("email", "").strip().lower()
-    name = request.form.get("name", "").strip()
-    password = request.form.get("password", "")
-    if not email or not password:
-        return render_template("signup.html", error="Email and password are required")
-    if len(password) < 6:
-        return render_template("signup.html", error="Password must be at least 6 characters")
-    try:
-        user = users.create_user(email, name or email.split("@")[0], password, "member")
-        session["user_id"] = user["id"]
-        session["user_email"] = user["email"]
-        session["user_name"] = user["display_name"]
-        session["gate_passed"] = True
-        return redirect("/app/dashboard")
-    except ValueError as e:
-        return render_template("signup.html", error=str(e))
-
 @app.route("/logout")
-def logout():
+def web_logout():
     """Sign out and redirect to login."""
     session.clear()
     return redirect("/login")
-
-@app.route("/auth/login", methods=["POST"])
-def auth_login_compat():
-    """Compatibility route — login.html form posts here."""
-    return login_submit()
 
 @app.route("/app")
 def app_redirect():
