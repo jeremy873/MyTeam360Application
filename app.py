@@ -531,11 +531,14 @@ def _track_health(response):
 
 @app.route("/")
 def index():
-    """Marketing site if not logged in, redirect to app if logged in."""
-    if session.get("user_id"):
-        user = users.get_user(session["user_id"])
-        if user and user.get("is_active"):
-            return redirect("/app")
+    """Go straight to the platform — gate protects access."""
+    if session.get("gate_passed"):
+        return redirect("/app/dashboard")
+    return redirect("/gate")
+
+@app.route("/site")
+def marketing_site():
+    """Marketing site available at /site."""
     return send_from_directory("templates", "site.html")
 
 @app.route("/home")
@@ -653,6 +656,12 @@ def team_page():
     gate = _require_gate()
     if gate: return gate
     return render_template("settings.html")
+
+@app.route("/app/automations")
+def automations_page():
+    gate = _require_gate()
+    if gate: return gate
+    return render_template("automations.html")
 
 @app.route("/app/bookings")
 def bookings_page():

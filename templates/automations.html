@@ -1,0 +1,806 @@
+<!--
+  MyTeam360 — Automations & Workflows (n8n-style)
+  © 2026 Praxis Holdings LLC. PROPRIETARY AND CONFIDENTIAL.
+-->
+{% extends "base_app.html" %}
+{% set page = "automations" %}
+
+{% block title %}Automations{% endblock %}
+{% block page_title %}Automations{% endblock %}
+
+{% block content %}
+
+<div class="content-header" style="display:flex;align-items:center;justify-content:space-between">
+  <div>
+    <h1>Automations & Workflows</h1>
+    <p>Build custom automations — connect triggers, conditions, and actions like n8n</p>
+  </div>
+  <div style="display:flex;gap:0.5rem">
+    <button class="btn btn-ghost btn-sm" onclick="loadTemplates()">📋 Templates</button>
+    <button class="btn btn-primary btn-sm" onclick="MT360.openModal('createWorkflowModal')">+ New Workflow</button>
+  </div>
+</div>
+
+<!-- STATS ROW -->
+<div class="stat-grid" style="grid-template-columns:repeat(4,1fr);margin-bottom:1.5rem">
+  <div class="card" style="padding:1rem 1.25rem">
+    <div style="display:flex;align-items:center;gap:0.6rem">
+      <div class="stat-icon blue" style="width:32px;height:32px;margin-bottom:0">
+        <svg viewBox="0 0 24 24" width="16" height="16"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+      </div>
+      <div>
+        <div style="font-size:0.7rem;color:var(--tx,#8181A5);text-transform:uppercase;letter-spacing:0.05em">Active Workflows</div>
+        <div id="statActive" style="font-size:1.25rem;font-weight:700;color:var(--heading,#1C1D21)">—</div>
+      </div>
+    </div>
+  </div>
+  <div class="card" style="padding:1rem 1.25rem">
+    <div style="display:flex;align-items:center;gap:0.6rem">
+      <div class="stat-icon green" style="width:32px;height:32px;margin-bottom:0">
+        <svg viewBox="0 0 24 24" width="16" height="16"><polyline points="20 6 9 17 4 12"/></svg>
+      </div>
+      <div>
+        <div style="font-size:0.7rem;color:var(--tx,#8181A5);text-transform:uppercase;letter-spacing:0.05em">Automations</div>
+        <div id="statAutomations" style="font-size:1.25rem;font-weight:700;color:var(--heading,#1C1D21)">—</div>
+      </div>
+    </div>
+  </div>
+  <div class="card" style="padding:1rem 1.25rem">
+    <div style="display:flex;align-items:center;gap:0.6rem">
+      <div class="stat-icon purple" style="width:32px;height:32px;margin-bottom:0">
+        <svg viewBox="0 0 24 24" width="16" height="16"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+      </div>
+      <div>
+        <div style="font-size:0.7rem;color:var(--tx,#8181A5);text-transform:uppercase;letter-spacing:0.05em">Webhooks</div>
+        <div id="statWebhooks" style="font-size:1.25rem;font-weight:700;color:var(--heading,#1C1D21)">—</div>
+      </div>
+    </div>
+  </div>
+  <div class="card" style="padding:1rem 1.25rem">
+    <div style="display:flex;align-items:center;gap:0.6rem">
+      <div class="stat-icon amber" style="width:32px;height:32px;margin-bottom:0">
+        <svg viewBox="0 0 24 24" width="16" height="16"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+      </div>
+      <div>
+        <div style="font-size:0.7rem;color:var(--tx,#8181A5);text-transform:uppercase;letter-spacing:0.05em">Events (24h)</div>
+        <div id="statEvents" style="font-size:1.25rem;font-weight:700;color:var(--heading,#1C1D21)">—</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TABS -->
+<div data-tab-group="auto-tabs" style="display:flex;gap:0.25rem;margin-bottom:1.25rem">
+  <button class="filter-chip active" data-tab="workflows">Workflows</button>
+  <button class="filter-chip" data-tab="automations">Automations</button>
+  <button class="filter-chip" data-tab="webhooks">Webhooks</button>
+  <button class="filter-chip" data-tab="events">Event Log</button>
+</div>
+
+<!-- ═══ TAB: WORKFLOWS ═══ -->
+<div data-tab-content="auto-tabs" data-tab-panel="workflows">
+  <div class="card" style="padding:0;overflow:hidden">
+    <div style="padding:1rem 1.25rem;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--brd,#ECECF2)">
+      <div style="font-weight:600;color:var(--heading,#1C1D21)">Custom Workflows</div>
+      <button class="btn btn-primary btn-sm" onclick="MT360.openModal('createWorkflowModal')">+ Create</button>
+    </div>
+    <div id="workflowList" style="min-height:120px">
+      <div style="padding:3rem;text-align:center;color:var(--tx,#8181A5)">Loading workflows...</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ TAB: AUTOMATIONS ═══ -->
+<div data-tab-content="auto-tabs" data-tab-panel="automations" style="display:none">
+  <!-- Template Gallery -->
+  <div id="templateGallery" style="margin-bottom:1.5rem;display:none">
+    <h3 style="margin-bottom:0.75rem;font-size:0.9rem;color:var(--heading,#1C1D21)">Quick-Start Templates</h3>
+    <div id="templateCards" class="stat-grid" style="grid-template-columns:repeat(3,1fr)"></div>
+  </div>
+
+  <div class="card" style="padding:0;overflow:hidden">
+    <div style="padding:1rem 1.25rem;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--brd,#ECECF2)">
+      <div style="font-weight:600;color:var(--heading,#1C1D21)">Active Automations</div>
+      <button class="btn btn-primary btn-sm" onclick="MT360.openModal('createAutomationModal')">+ New Automation</button>
+    </div>
+    <div id="automationList" style="min-height:120px">
+      <div style="padding:3rem;text-align:center;color:var(--tx,#8181A5)">Loading automations...</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ TAB: WEBHOOKS ═══ -->
+<div data-tab-content="auto-tabs" data-tab-panel="webhooks" style="display:none">
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem">
+    <!-- INBOUND -->
+    <div class="card" style="padding:0;overflow:hidden">
+      <div style="padding:1rem 1.25rem;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--brd,#ECECF2)">
+        <div>
+          <div style="font-weight:600;color:var(--heading,#1C1D21)">Inbound Webhooks</div>
+          <div style="font-size:0.75rem;color:var(--tx,#8181A5)">Receive data from external services</div>
+        </div>
+        <button class="btn btn-primary btn-sm" onclick="MT360.openModal('createWebhookModal')">+ Add</button>
+      </div>
+      <div id="inboundList" style="min-height:100px">
+        <div style="padding:2rem;text-align:center;color:var(--tx,#8181A5)">Loading...</div>
+      </div>
+    </div>
+
+    <!-- OUTBOUND -->
+    <div class="card" style="padding:0;overflow:hidden">
+      <div style="padding:1rem 1.25rem;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--brd,#ECECF2)">
+        <div>
+          <div style="font-weight:600;color:var(--heading,#1C1D21)">Outbound Webhooks</div>
+          <div style="font-size:0.75rem;color:var(--tx,#8181A5)">Send events to external services</div>
+        </div>
+        <button class="btn btn-primary btn-sm" onclick="MT360.openModal('createOutboundModal')">+ Add</button>
+      </div>
+      <div id="outboundList" style="min-height:100px">
+        <div style="padding:2rem;text-align:center;color:var(--tx,#8181A5)">Loading...</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ TAB: EVENTS ═══ -->
+<div data-tab-content="auto-tabs" data-tab-panel="events" style="display:none">
+  <div class="card" style="padding:0;overflow:hidden">
+    <div style="padding:1rem 1.25rem;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--brd,#ECECF2)">
+      <div style="font-weight:600;color:var(--heading,#1C1D21)">Event Log</div>
+      <select id="eventFilter" onchange="loadEvents()" style="padding:0.35rem 0.6rem;border:1px solid var(--brd,#ECECF2);border-radius:6px;font-size:0.8rem;background:#fff;color:var(--heading,#1C1D21)">
+        <option value="">All Events</option>
+      </select>
+    </div>
+    <div id="eventLog" style="min-height:120px;max-height:500px;overflow-y:auto">
+      <div style="padding:3rem;text-align:center;color:var(--tx,#8181A5)">Loading events...</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ MODAL: CREATE WORKFLOW ═══ -->
+<div class="modal" id="createWorkflowModal">
+  <div class="modal-backdrop" onclick="MT360.closeModal('createWorkflowModal')"></div>
+  <div class="modal-content" style="max-width:560px">
+    <div class="modal-header">
+      <h3>Create Workflow</h3>
+      <button class="modal-close" onclick="MT360.closeModal('createWorkflowModal')">✕</button>
+    </div>
+    <div class="modal-body" style="display:flex;flex-direction:column;gap:1rem">
+      <div>
+        <label style="display:block;font-size:0.8rem;font-weight:500;margin-bottom:0.3rem;color:var(--heading,#1C1D21)">Workflow Name</label>
+        <input id="wfName" type="text" placeholder="e.g. Lead Follow-up" style="width:100%;padding:0.5rem 0.75rem;border:1px solid var(--brd,#ECECF2);border-radius:6px;font-size:0.85rem">
+      </div>
+      <div>
+        <label style="display:block;font-size:0.8rem;font-weight:500;margin-bottom:0.3rem;color:var(--heading,#1C1D21)">Description</label>
+        <textarea id="wfDesc" rows="2" placeholder="What does this workflow do?" style="width:100%;padding:0.5rem 0.75rem;border:1px solid var(--brd,#ECECF2);border-radius:6px;font-size:0.85rem;resize:vertical"></textarea>
+      </div>
+
+      <!-- VISUAL NODE BUILDER -->
+      <div>
+        <label style="display:block;font-size:0.8rem;font-weight:500;margin-bottom:0.3rem;color:var(--heading,#1C1D21)">Workflow Steps</label>
+        <div id="nodeBuilder" style="border:1px solid var(--brd,#ECECF2);border-radius:8px;padding:1rem;background:#FAFAFD;min-height:120px">
+          <div id="nodeChain" style="display:flex;flex-direction:column;gap:0.5rem"></div>
+          <button onclick="addNode()" style="margin-top:0.75rem;padding:0.4rem 0.8rem;border:1px dashed var(--brd,#ECECF2);border-radius:6px;background:transparent;color:var(--primary,#5E81F4);font-size:0.8rem;cursor:pointer;width:100%">+ Add Step</button>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost btn-sm" onclick="MT360.closeModal('createWorkflowModal')">Cancel</button>
+      <button class="btn btn-primary btn-sm" onclick="createWorkflow()">Create Workflow</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ MODAL: CREATE AUTOMATION ═══ -->
+<div class="modal" id="createAutomationModal">
+  <div class="modal-backdrop" onclick="MT360.closeModal('createAutomationModal')"></div>
+  <div class="modal-content" style="max-width:520px">
+    <div class="modal-header">
+      <h3>New Automation</h3>
+      <button class="modal-close" onclick="MT360.closeModal('createAutomationModal')">✕</button>
+    </div>
+    <div class="modal-body" style="display:flex;flex-direction:column;gap:1rem">
+      <div>
+        <label style="display:block;font-size:0.8rem;font-weight:500;margin-bottom:0.3rem">Name</label>
+        <input id="autoName" type="text" placeholder="e.g. Auto-assign new leads" style="width:100%;padding:0.5rem 0.75rem;border:1px solid var(--brd,#ECECF2);border-radius:6px;font-size:0.85rem">
+      </div>
+      <div>
+        <label style="display:block;font-size:0.8rem;font-weight:500;margin-bottom:0.3rem">Trigger</label>
+        <select id="autoTrigger" style="width:100%;padding:0.5rem 0.75rem;border:1px solid var(--brd,#ECECF2);border-radius:6px;font-size:0.85rem;background:#fff">
+          <option value="new_deal">New deal created</option>
+          <option value="deal_stage_change">Deal stage changes</option>
+          <option value="task_completed">Task completed</option>
+          <option value="invoice_paid">Invoice paid</option>
+          <option value="new_contact">New contact added</option>
+          <option value="webhook_received">Webhook received</option>
+          <option value="schedule">On schedule (cron)</option>
+          <option value="voice_command">Voice command</option>
+        </select>
+      </div>
+      <div>
+        <label style="display:block;font-size:0.8rem;font-weight:500;margin-bottom:0.3rem">Conditions (optional JSON)</label>
+        <textarea id="autoConditions" rows="2" placeholder='{"field": "value"}' style="width:100%;padding:0.5rem 0.75rem;border:1px solid var(--brd,#ECECF2);border-radius:6px;font-size:0.85rem;font-family:'JetBrains Mono',monospace;resize:vertical"></textarea>
+      </div>
+      <div>
+        <label style="display:block;font-size:0.8rem;font-weight:500;margin-bottom:0.3rem">Actions (JSON array)</label>
+        <textarea id="autoActions" rows="3" placeholder='[{"type": "send_email", "to": "...", "template": "..."}]' style="width:100%;padding:0.5rem 0.75rem;border:1px solid var(--brd,#ECECF2);border-radius:6px;font-size:0.85rem;font-family:'JetBrains Mono',monospace;resize:vertical"></textarea>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost btn-sm" onclick="MT360.closeModal('createAutomationModal')">Cancel</button>
+      <button class="btn btn-primary btn-sm" onclick="createAutomation()">Create</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ MODAL: CREATE INBOUND WEBHOOK ═══ -->
+<div class="modal" id="createWebhookModal">
+  <div class="modal-backdrop" onclick="MT360.closeModal('createWebhookModal')"></div>
+  <div class="modal-content" style="max-width:480px">
+    <div class="modal-header">
+      <h3>Create Inbound Webhook</h3>
+      <button class="modal-close" onclick="MT360.closeModal('createWebhookModal')">✕</button>
+    </div>
+    <div class="modal-body" style="display:flex;flex-direction:column;gap:1rem">
+      <div>
+        <label style="display:block;font-size:0.8rem;font-weight:500;margin-bottom:0.3rem">Name</label>
+        <input id="whName" type="text" placeholder="e.g. Stripe Payment Hook" style="width:100%;padding:0.5rem 0.75rem;border:1px solid var(--brd,#ECECF2);border-radius:6px;font-size:0.85rem">
+      </div>
+      <div>
+        <label style="display:block;font-size:0.8rem;font-weight:500;margin-bottom:0.3rem">Target URL</label>
+        <input id="whUrl" type="text" placeholder="https://..." style="width:100%;padding:0.5rem 0.75rem;border:1px solid var(--brd,#ECECF2);border-radius:6px;font-size:0.85rem">
+      </div>
+      <div>
+        <label style="display:block;font-size:0.8rem;font-weight:500;margin-bottom:0.3rem">Events (comma-separated)</label>
+        <input id="whEvents" type="text" placeholder="deal.created, task.completed" style="width:100%;padding:0.5rem 0.75rem;border:1px solid var(--brd,#ECECF2);border-radius:6px;font-size:0.85rem">
+      </div>
+      <div>
+        <label style="display:block;font-size:0.8rem;font-weight:500;margin-bottom:0.3rem">Secret (optional)</label>
+        <input id="whSecret" type="text" placeholder="Signing secret for HMAC verification" style="width:100%;padding:0.5rem 0.75rem;border:1px solid var(--brd,#ECECF2);border-radius:6px;font-size:0.85rem">
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost btn-sm" onclick="MT360.closeModal('createWebhookModal')">Cancel</button>
+      <button class="btn btn-primary btn-sm" onclick="createWebhook()">Create</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ MODAL: CREATE OUTBOUND WEBHOOK ═══ -->
+<div class="modal" id="createOutboundModal">
+  <div class="modal-backdrop" onclick="MT360.closeModal('createOutboundModal')"></div>
+  <div class="modal-content" style="max-width:480px">
+    <div class="modal-header">
+      <h3>Create Outbound Webhook</h3>
+      <button class="modal-close" onclick="MT360.closeModal('createOutboundModal')">✕</button>
+    </div>
+    <div class="modal-body" style="display:flex;flex-direction:column;gap:1rem">
+      <div>
+        <label style="display:block;font-size:0.8rem;font-weight:500;margin-bottom:0.3rem">Name</label>
+        <input id="obName" type="text" placeholder="e.g. Slack Notifier" style="width:100%;padding:0.5rem 0.75rem;border:1px solid var(--brd,#ECECF2);border-radius:6px;font-size:0.85rem">
+      </div>
+      <div>
+        <label style="display:block;font-size:0.8rem;font-weight:500;margin-bottom:0.3rem">Endpoint URL</label>
+        <input id="obUrl" type="text" placeholder="https://hooks.slack.com/..." style="width:100%;padding:0.5rem 0.75rem;border:1px solid var(--brd,#ECECF2);border-radius:6px;font-size:0.85rem">
+      </div>
+      <div>
+        <label style="display:block;font-size:0.8rem;font-weight:500;margin-bottom:0.3rem">Events to send</label>
+        <div id="obEventList" style="display:flex;flex-wrap:wrap;gap:0.4rem;margin-top:0.25rem">
+          <span style="color:var(--tx,#8181A5);font-size:0.8rem">Loading event types...</span>
+        </div>
+      </div>
+      <div>
+        <label style="display:block;font-size:0.8rem;font-weight:500;margin-bottom:0.3rem">Secret (optional)</label>
+        <input id="obSecret" type="text" placeholder="Signing secret" style="width:100%;padding:0.5rem 0.75rem;border:1px solid var(--brd,#ECECF2);border-radius:6px;font-size:0.85rem">
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost btn-sm" onclick="MT360.closeModal('createOutboundModal')">Cancel</button>
+      <button class="btn btn-primary btn-sm" onclick="createOutbound()">Create</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ MODAL: WORKFLOW DETAIL / RUN ═══ -->
+<div class="modal" id="workflowDetailModal">
+  <div class="modal-backdrop" onclick="MT360.closeModal('workflowDetailModal')"></div>
+  <div class="modal-content" style="max-width:640px">
+    <div class="modal-header">
+      <h3 id="wfDetailTitle">Workflow</h3>
+      <button class="modal-close" onclick="MT360.closeModal('workflowDetailModal')">✕</button>
+    </div>
+    <div class="modal-body" id="wfDetailBody" style="min-height:200px">
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost btn-sm" onclick="MT360.closeModal('workflowDetailModal')">Close</button>
+      <button class="btn btn-primary btn-sm" id="wfRunBtn" onclick="runWorkflow()">▶ Run Workflow</button>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+(function(){
+  // ═══ DATA ═══
+  let currentWorkflows = [];
+  let currentAutomations = [];
+  let currentWfId = null;
+
+  // ═══ LOAD ALL ═══
+  async function loadAll() {
+    await Promise.allSettled([
+      loadWorkflows(),
+      loadAutomations(),
+      loadWebhooks(),
+      loadOutbound(),
+      loadStats(),
+      loadEventTypes()
+    ]);
+  }
+
+  // ═══ STATS ═══
+  async function loadStats() {
+    try {
+      const [wf, auto, wh, ev] = await Promise.allSettled([
+        fetch('/api/workflows').then(r=>r.json()),
+        fetch('/api/automations').then(r=>r.json()),
+        fetch('/api/webhooks').then(r=>r.json()),
+        fetch('/api/events/counts?hours=24').then(r=>r.json())
+      ]);
+      document.getElementById('statActive').textContent = wf.value?.workflows?.length ?? 0;
+      document.getElementById('statAutomations').textContent = auto.value?.workflows?.length ?? 0;
+      document.getElementById('statWebhooks').textContent = wh.value?.webhooks?.length ?? 0;
+      const totalEvents = ev.value?.counts ? Object.values(ev.value.counts).reduce((a,b)=>a+b,0) : 0;
+      document.getElementById('statEvents').textContent = totalEvents;
+    } catch(e) {
+      // fallback
+      document.getElementById('statActive').textContent = '0';
+      document.getElementById('statAutomations').textContent = '0';
+      document.getElementById('statWebhooks').textContent = '0';
+      document.getElementById('statEvents').textContent = '0';
+    }
+  }
+
+  // ═══ WORKFLOWS ═══
+  async function loadWorkflows() {
+    try {
+      const data = await MT360.api('/api/workflows');
+      currentWorkflows = data.workflows || [];
+      renderWorkflows();
+    } catch(e) {
+      currentWorkflows = [];
+      renderWorkflows();
+    }
+  }
+
+  function renderWorkflows() {
+    const el = document.getElementById('workflowList');
+    if (!currentWorkflows.length) {
+      el.innerHTML = `<div style="padding:3rem;text-align:center">
+        <div style="font-size:2rem;margin-bottom:0.5rem">⚡</div>
+        <div style="color:var(--heading,#1C1D21);font-weight:600;margin-bottom:0.25rem">No workflows yet</div>
+        <div style="color:var(--tx,#8181A5);font-size:0.85rem;margin-bottom:1rem">Create your first automation workflow</div>
+        <button class="btn btn-primary btn-sm" onclick="MT360.openModal('createWorkflowModal')">+ New Workflow</button>
+      </div>`;
+      return;
+    }
+    el.innerHTML = currentWorkflows.map(wf => `
+      <div style="padding:0.85rem 1.25rem;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--brd,#ECECF2);cursor:pointer" onclick="viewWorkflow('${wf.id || wf.workflow_id}')">
+        <div style="display:flex;align-items:center;gap:0.75rem">
+          <div style="width:36px;height:36px;border-radius:8px;background:#EEF2FF;display:flex;align-items:center;justify-content:center">
+            <svg viewBox="0 0 24 24" width="18" height="18" stroke="#5E81F4" fill="none" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+          </div>
+          <div>
+            <div style="font-weight:600;color:var(--heading,#1C1D21);font-size:0.9rem">${wf.name || 'Untitled'}</div>
+            <div style="font-size:0.75rem;color:var(--tx,#8181A5)">${wf.description || wf.steps?.length + ' steps' || 'No description'}</div>
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;gap:0.5rem">
+          <span style="padding:0.2rem 0.6rem;border-radius:99px;font-size:0.7rem;font-weight:600;background:${wf.status === 'active' ? '#E8F8EF' : '#F5F5FA'};color:${wf.status === 'active' ? '#2D9C5E' : '#8181A5'}">${wf.status || 'draft'}</span>
+          <button class="btn btn-ghost btn-sm" onclick="event.stopPropagation();runWorkflowDirect('${wf.id || wf.workflow_id}')" title="Run">▶</button>
+          <button class="btn btn-ghost btn-sm" onclick="event.stopPropagation();deleteWorkflow('${wf.id || wf.workflow_id}')" title="Delete" style="color:var(--coral,#FF808B)">✕</button>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  window.viewWorkflow = async function(id) {
+    currentWfId = id;
+    try {
+      const data = await MT360.api('/api/workflows/' + id);
+      const wf = data.workflow || {};
+      document.getElementById('wfDetailTitle').textContent = wf.name || 'Workflow';
+      const steps = wf.steps || wf.nodes || [];
+      document.getElementById('wfDetailBody').innerHTML = `
+        <div style="margin-bottom:1rem">
+          <div style="font-size:0.8rem;color:var(--tx,#8181A5);margin-bottom:0.25rem">Description</div>
+          <div style="color:var(--heading,#1C1D21)">${wf.description || '—'}</div>
+        </div>
+        <div style="margin-bottom:1rem">
+          <div style="font-size:0.8rem;color:var(--tx,#8181A5);margin-bottom:0.5rem">Steps (${steps.length})</div>
+          <div style="display:flex;flex-direction:column;gap:0.5rem">
+            ${steps.length ? steps.map((s,i) => `
+              <div style="display:flex;align-items:center;gap:0.5rem">
+                <div style="width:28px;height:28px;border-radius:50%;background:#5E81F4;color:#fff;display:flex;align-items:center;justify-content:center;font-size:0.75rem;font-weight:700;flex-shrink:0">${i+1}</div>
+                <div style="flex:1;padding:0.6rem 0.8rem;border:1px solid var(--brd,#ECECF2);border-radius:6px;background:#FAFAFD">
+                  <div style="font-weight:500;font-size:0.85rem;color:var(--heading,#1C1D21)">${s.type || s.action || 'Step'}</div>
+                  <div style="font-size:0.75rem;color:var(--tx,#8181A5)">${s.config ? JSON.stringify(s.config).slice(0,80) : s.prompt || '—'}</div>
+                </div>
+              </div>
+            `).join('') : '<div style="color:var(--tx,#8181A5);font-size:0.85rem">No steps defined</div>'}
+          </div>
+        </div>
+        <div style="font-size:0.75rem;color:var(--tx,#8181A5)">Status: ${wf.status || 'draft'} · Created: ${wf.created_at ? new Date(wf.created_at).toLocaleDateString() : '—'}</div>
+      `;
+      MT360.openModal('workflowDetailModal');
+    } catch(e) {
+      MT360.toast('Could not load workflow', 'error');
+    }
+  };
+
+  window.runWorkflow = async function() {
+    if (!currentWfId) return;
+    try {
+      const result = await MT360.api('/api/workflows/' + currentWfId + '/run', { method: 'POST', body: { input: '' } });
+      MT360.toast('Workflow started', 'success');
+      MT360.closeModal('workflowDetailModal');
+    } catch(e) {}
+  };
+
+  window.runWorkflowDirect = async function(id) {
+    try {
+      await MT360.api('/api/workflows/' + id + '/run', { method: 'POST', body: { input: '' } });
+      MT360.toast('Workflow started', 'success');
+    } catch(e) {}
+  };
+
+  window.deleteWorkflow = async function(id) {
+    if (!confirm('Delete this workflow?')) return;
+    try {
+      await MT360.api('/api/workflows/' + id, { method: 'DELETE' });
+      MT360.toast('Workflow deleted', 'success');
+      loadWorkflows();
+      loadStats();
+    } catch(e) {}
+  };
+
+  window.createWorkflow = async function() {
+    const name = document.getElementById('wfName').value.trim();
+    const desc = document.getElementById('wfDesc').value.trim();
+    if (!name) { MT360.toast('Name is required', 'warning'); return; }
+    const nodes = [];
+    document.querySelectorAll('.node-step').forEach(n => {
+      nodes.push({
+        type: n.querySelector('.node-type')?.value || 'action',
+        action: n.querySelector('.node-action')?.value || '',
+        config: {}
+      });
+    });
+    try {
+      await MT360.api('/api/workflows', { method: 'POST', body: { name, description: desc, steps: nodes } });
+      MT360.toast('Workflow created!', 'success');
+      MT360.closeModal('createWorkflowModal');
+      document.getElementById('wfName').value = '';
+      document.getElementById('wfDesc').value = '';
+      document.getElementById('nodeChain').innerHTML = '';
+      loadWorkflows();
+      loadStats();
+    } catch(e) {}
+  };
+
+  // ═══ NODE BUILDER ═══
+  let nodeCount = 0;
+  window.addNode = function() {
+    nodeCount++;
+    const chain = document.getElementById('nodeChain');
+    const div = document.createElement('div');
+    div.className = 'node-step';
+    div.style.cssText = 'display:flex;align-items:center;gap:0.5rem;padding:0.5rem 0.6rem;border:1px solid var(--brd,#ECECF2);border-radius:6px;background:#fff';
+    div.innerHTML = `
+      <div style="width:24px;height:24px;border-radius:50%;background:#5E81F4;color:#fff;display:flex;align-items:center;justify-content:center;font-size:0.7rem;font-weight:700;flex-shrink:0">${nodeCount}</div>
+      <select class="node-type" style="padding:0.3rem 0.5rem;border:1px solid var(--brd,#ECECF2);border-radius:4px;font-size:0.8rem;background:#fff;width:100px">
+        <option value="trigger">Trigger</option>
+        <option value="condition">Condition</option>
+        <option value="action" selected>Action</option>
+        <option value="ai_call">AI Call</option>
+        <option value="delay">Delay</option>
+        <option value="webhook">Webhook</option>
+      </select>
+      <input class="node-action" type="text" placeholder="Describe this step..." style="flex:1;padding:0.3rem 0.5rem;border:1px solid var(--brd,#ECECF2);border-radius:4px;font-size:0.8rem">
+      <button onclick="this.parentElement.remove()" style="background:none;border:none;color:var(--coral,#FF808B);cursor:pointer;font-size:1rem;padding:0 0.25rem">✕</button>
+    `;
+    chain.appendChild(div);
+  };
+
+  // ═══ AUTOMATIONS ═══
+  async function loadAutomations() {
+    try {
+      const data = await MT360.api('/api/automations');
+      currentAutomations = data.workflows || [];
+      renderAutomations();
+    } catch(e) {
+      currentAutomations = [];
+      renderAutomations();
+    }
+  }
+
+  function renderAutomations() {
+    const el = document.getElementById('automationList');
+    if (!currentAutomations.length) {
+      el.innerHTML = `<div style="padding:3rem;text-align:center">
+        <div style="font-size:2rem;margin-bottom:0.5rem">🤖</div>
+        <div style="color:var(--heading,#1C1D21);font-weight:600;margin-bottom:0.25rem">No automations yet</div>
+        <div style="color:var(--tx,#8181A5);font-size:0.85rem;margin-bottom:1rem">Use templates or create from scratch</div>
+        <button class="btn btn-ghost btn-sm" onclick="loadTemplates()" style="margin-right:0.5rem">📋 Browse Templates</button>
+        <button class="btn btn-primary btn-sm" onclick="MT360.openModal('createAutomationModal')">+ Create</button>
+      </div>`;
+      return;
+    }
+    el.innerHTML = currentAutomations.map(a => `
+      <div style="padding:0.85rem 1.25rem;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--brd,#ECECF2)">
+        <div style="display:flex;align-items:center;gap:0.75rem">
+          <div style="width:36px;height:36px;border-radius:8px;background:${a.enabled ? '#E8F8EF' : '#F5F5FA'};display:flex;align-items:center;justify-content:center">
+            <span style="font-size:1.1rem">${a.enabled ? '⚡' : '⏸'}</span>
+          </div>
+          <div>
+            <div style="font-weight:600;color:var(--heading,#1C1D21);font-size:0.9rem">${a.name || 'Untitled'}</div>
+            <div style="font-size:0.75rem;color:var(--tx,#8181A5)">Trigger: ${a.trigger || '—'}</div>
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;gap:0.5rem">
+          <label style="display:flex;align-items:center;cursor:pointer">
+            <input type="checkbox" ${a.enabled ? 'checked' : ''} onchange="toggleAutomation('${a.id || a.workflow_id}', this.checked)" style="margin-right:0.35rem">
+            <span style="font-size:0.75rem;color:var(--tx,#8181A5)">${a.enabled ? 'On' : 'Off'}</span>
+          </label>
+          <button class="btn btn-ghost btn-sm" onclick="deleteAutomation('${a.id || a.workflow_id}')" style="color:var(--coral,#FF808B)">✕</button>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  window.createAutomation = async function() {
+    const name = document.getElementById('autoName').value.trim();
+    const trigger = document.getElementById('autoTrigger').value;
+    if (!name) { MT360.toast('Name is required', 'warning'); return; }
+    let conditions = null, actions = null;
+    try { conditions = JSON.parse(document.getElementById('autoConditions').value || 'null'); } catch(e) {}
+    try { actions = JSON.parse(document.getElementById('autoActions').value || 'null'); } catch(e) {}
+    try {
+      await MT360.api('/api/automations', { method: 'POST', body: { name, trigger, conditions, actions } });
+      MT360.toast('Automation created!', 'success');
+      MT360.closeModal('createAutomationModal');
+      loadAutomations();
+      loadStats();
+    } catch(e) {}
+  };
+
+  window.toggleAutomation = async function(id, on) {
+    try {
+      await MT360.api('/api/automations/' + id + '/toggle', { method: 'POST' });
+      MT360.toast(on ? 'Automation enabled' : 'Automation paused', 'success');
+      loadAutomations();
+    } catch(e) {}
+  };
+
+  window.deleteAutomation = async function(id) {
+    if (!confirm('Delete this automation?')) return;
+    try {
+      await MT360.api('/api/automations/' + id, { method: 'DELETE' });
+      MT360.toast('Automation deleted', 'success');
+      loadAutomations();
+      loadStats();
+    } catch(e) {}
+  };
+
+  // ═══ TEMPLATES ═══
+  window.loadTemplates = async function() {
+    const gallery = document.getElementById('templateGallery');
+    gallery.style.display = '';
+    try {
+      const data = await MT360.api('/api/automations/templates');
+      const tpls = data.templates || [];
+      if (!tpls.length) {
+        document.getElementById('templateCards').innerHTML = '<div style="color:var(--tx,#8181A5);font-size:0.85rem;padding:1rem">No templates available</div>';
+        return;
+      }
+      document.getElementById('templateCards').innerHTML = tpls.map(t => `
+        <div class="card" style="padding:1rem;cursor:pointer" onclick="useTemplate('${t.id || t.name}')">
+          <div style="font-weight:600;color:var(--heading,#1C1D21);font-size:0.85rem;margin-bottom:0.3rem">${t.name || t.id}</div>
+          <div style="font-size:0.75rem;color:var(--tx,#8181A5);margin-bottom:0.75rem">${t.description || '—'}</div>
+          <button class="btn btn-primary btn-sm" style="width:100%">Use Template</button>
+        </div>
+      `).join('');
+    } catch(e) {
+      document.getElementById('templateCards').innerHTML = '<div style="color:var(--tx,#8181A5);font-size:0.85rem;padding:1rem">Could not load templates</div>';
+    }
+  };
+
+  window.useTemplate = async function(templateId) {
+    try {
+      await MT360.api('/api/automations', { method: 'POST', body: { name: 'From template: ' + templateId, template: templateId, trigger: 'manual' } });
+      MT360.toast('Automation created from template!', 'success');
+      loadAutomations();
+      loadStats();
+    } catch(e) {}
+  };
+
+  // ═══ WEBHOOKS ═══
+  async function loadWebhooks() {
+    try {
+      const data = await MT360.api('/api/webhooks');
+      const hooks = data.webhooks || [];
+      const el = document.getElementById('inboundList');
+      if (!hooks.length) {
+        el.innerHTML = '<div style="padding:2rem;text-align:center;color:var(--tx,#8181A5);font-size:0.85rem">No inbound webhooks configured</div>';
+        return;
+      }
+      el.innerHTML = hooks.map(h => `
+        <div style="padding:0.75rem 1.25rem;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--brd,#ECECF2)">
+          <div>
+            <div style="font-weight:600;font-size:0.85rem;color:var(--heading,#1C1D21)">${h.name || 'Webhook'}</div>
+            <div style="font-size:0.7rem;color:var(--tx,#8181A5);font-family:'JetBrains Mono',monospace">${h.url || h.token ? '/webhook/' + h.token : '—'}</div>
+          </div>
+          <div style="display:flex;gap:0.35rem">
+            <button class="btn btn-ghost btn-sm" onclick="testWebhook('${h.id || h.webhook_id}')" title="Test">🧪</button>
+            <button class="btn btn-ghost btn-sm" onclick="deleteWebhook('${h.id || h.webhook_id}')" style="color:var(--coral,#FF808B)">✕</button>
+          </div>
+        </div>
+      `).join('');
+    } catch(e) {
+      document.getElementById('inboundList').innerHTML = '<div style="padding:2rem;text-align:center;color:var(--tx,#8181A5);font-size:0.85rem">No inbound webhooks</div>';
+    }
+  }
+
+  async function loadOutbound() {
+    try {
+      const data = await MT360.api('/api/webhooks/outbound');
+      const hooks = data.webhooks || [];
+      const el = document.getElementById('outboundList');
+      if (!hooks.length) {
+        el.innerHTML = '<div style="padding:2rem;text-align:center;color:var(--tx,#8181A5);font-size:0.85rem">No outbound webhooks configured</div>';
+        return;
+      }
+      el.innerHTML = hooks.map(h => `
+        <div style="padding:0.75rem 1.25rem;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--brd,#ECECF2)">
+          <div>
+            <div style="font-weight:600;font-size:0.85rem;color:var(--heading,#1C1D21)">${h.name || 'Webhook'}</div>
+            <div style="font-size:0.7rem;color:var(--tx,#8181A5)">${h.events?.join(', ') || '—'}</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:0.35rem">
+            <label style="display:flex;align-items:center;cursor:pointer">
+              <input type="checkbox" ${h.active || h.enabled ? 'checked' : ''} onchange="toggleOutbound('${h.id || h.webhook_id}')" style="margin-right:0.25rem">
+            </label>
+            <button class="btn btn-ghost btn-sm" onclick="deleteOutbound('${h.id || h.webhook_id}')" style="color:var(--coral,#FF808B)">✕</button>
+          </div>
+        </div>
+      `).join('');
+    } catch(e) {
+      document.getElementById('outboundList').innerHTML = '<div style="padding:2rem;text-align:center;color:var(--tx,#8181A5);font-size:0.85rem">No outbound webhooks</div>';
+    }
+  }
+
+  window.createWebhook = async function() {
+    const name = document.getElementById('whName').value.trim();
+    const url = document.getElementById('whUrl').value.trim();
+    if (!name || !url) { MT360.toast('Name and URL required', 'warning'); return; }
+    const events = document.getElementById('whEvents').value.split(',').map(s=>s.trim()).filter(Boolean);
+    const secret = document.getElementById('whSecret').value.trim();
+    try {
+      await MT360.api('/api/webhooks', { method: 'POST', body: { name, url, events, secret } });
+      MT360.toast('Webhook created!', 'success');
+      MT360.closeModal('createWebhookModal');
+      loadWebhooks();
+      loadStats();
+    } catch(e) {}
+  };
+
+  window.testWebhook = async function(id) {
+    try {
+      const r = await MT360.api('/api/webhooks/' + id + '/test', { method: 'POST' });
+      MT360.toast('Webhook test sent! Status: ' + (r.status_code || 'ok'), 'success');
+    } catch(e) {}
+  };
+
+  window.deleteWebhook = async function(id) {
+    if (!confirm('Delete this webhook?')) return;
+    try {
+      await MT360.api('/api/webhooks/' + id, { method: 'DELETE' });
+      MT360.toast('Webhook deleted', 'success');
+      loadWebhooks();
+      loadStats();
+    } catch(e) {}
+  };
+
+  window.createOutbound = async function() {
+    const name = document.getElementById('obName').value.trim();
+    const url = document.getElementById('obUrl').value.trim();
+    if (!name || !url) { MT360.toast('Name and URL required', 'warning'); return; }
+    const selectedEvents = [];
+    document.querySelectorAll('#obEventList input[type=checkbox]:checked').forEach(c => selectedEvents.push(c.value));
+    const secret = document.getElementById('obSecret').value.trim();
+    try {
+      await MT360.api('/api/webhooks/outbound', { method: 'POST', body: { name, url, events: selectedEvents, secret } });
+      MT360.toast('Outbound webhook created!', 'success');
+      MT360.closeModal('createOutboundModal');
+      loadOutbound();
+      loadStats();
+    } catch(e) {}
+  };
+
+  window.toggleOutbound = async function(id) {
+    try {
+      await MT360.api('/api/webhooks/outbound/' + id + '/toggle', { method: 'POST' });
+      loadOutbound();
+    } catch(e) {}
+  };
+
+  window.deleteOutbound = async function(id) {
+    if (!confirm('Delete this outbound webhook?')) return;
+    try {
+      await MT360.api('/api/webhooks/outbound/' + id, { method: 'DELETE' });
+      MT360.toast('Webhook deleted', 'success');
+      loadOutbound();
+      loadStats();
+    } catch(e) {}
+  };
+
+  // ═══ EVENT TYPES ═══
+  async function loadEventTypes() {
+    try {
+      const data = await MT360.api('/api/events/types');
+      const types = data.types || [];
+      const sel = document.getElementById('eventFilter');
+      types.forEach(t => {
+        const opt = document.createElement('option');
+        opt.value = t; opt.textContent = t;
+        sel.appendChild(opt);
+      });
+      // Populate outbound event checkboxes
+      const obEl = document.getElementById('obEventList');
+      if (types.length) {
+        obEl.innerHTML = types.map(t => `
+          <label style="display:flex;align-items:center;gap:0.25rem;padding:0.2rem 0.5rem;border:1px solid var(--brd,#ECECF2);border-radius:4px;font-size:0.75rem;cursor:pointer;background:#FAFAFD">
+            <input type="checkbox" value="${t}">${t}
+          </label>
+        `).join('');
+      } else {
+        obEl.innerHTML = '<span style="color:var(--tx,#8181A5);font-size:0.8rem">No event types available</span>';
+      }
+    } catch(e) {}
+  }
+
+  // ═══ EVENTS LOG ═══
+  window.loadEvents = async function() {
+    const el = document.getElementById('eventLog');
+    const type = document.getElementById('eventFilter').value;
+    try {
+      const url = '/api/events' + (type ? '?type=' + encodeURIComponent(type) : '?limit=50');
+      const data = await MT360.api(url);
+      const events = data.events || [];
+      if (!events.length) {
+        el.innerHTML = '<div style="padding:2rem;text-align:center;color:var(--tx,#8181A5);font-size:0.85rem">No events recorded</div>';
+        return;
+      }
+      el.innerHTML = events.map(ev => `
+        <div style="padding:0.6rem 1.25rem;display:flex;align-items:flex-start;gap:0.75rem;border-bottom:1px solid var(--brd,#ECECF2);font-size:0.8rem">
+          <div style="width:8px;height:8px;border-radius:50%;background:#5E81F4;margin-top:0.35rem;flex-shrink:0"></div>
+          <div style="flex:1">
+            <div style="font-weight:600;color:var(--heading,#1C1D21)">${ev.event_type || ev.type || '—'}</div>
+            <div style="color:var(--tx,#8181A5);font-size:0.75rem">${ev.data ? (typeof ev.data === 'string' ? ev.data.slice(0,100) : JSON.stringify(ev.data).slice(0,100)) : '—'}</div>
+          </div>
+          <div style="font-size:0.7rem;color:var(--tx,#8181A5);white-space:nowrap">${ev.created_at ? new Date(ev.created_at).toLocaleString() : '—'}</div>
+        </div>
+      `).join('');
+    } catch(e) {
+      el.innerHTML = '<div style="padding:2rem;text-align:center;color:var(--tx,#8181A5);font-size:0.85rem">Could not load events</div>';
+    }
+  };
+
+  // ═══ INIT ═══
+  loadAll();
+  loadEvents();
+})();
+</script>
+{% endblock %}

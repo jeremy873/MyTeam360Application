@@ -71,7 +71,7 @@ const MT360 = {
 
   processVoice(text) {
     document.getElementById('voiceSub').textContent = 'Processing...';
-    fetch('/api/voice/capture', {
+    fetch('/api/capture', {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({text})
@@ -194,10 +194,14 @@ const MT360 = {
   // ═══ API HELPER ═══
   async api(url, opts = {}) {
     try {
+      let body = undefined;
+      if (opts.body !== undefined && opts.body !== null) {
+        body = typeof opts.body === 'string' ? opts.body : JSON.stringify(opts.body);
+      }
       const res = await fetch(url, {
         headers: { 'Content-Type': 'application/json', ...opts.headers },
         ...opts,
-        body: opts.body ? JSON.stringify(opts.body) : undefined,
+        body,
       });
       if (!res.ok) throw new Error(`${res.status} ${res.statusText}`);
       return await res.json();
