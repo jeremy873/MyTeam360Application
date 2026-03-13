@@ -9,41 +9,23 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Sign Up — MyTeam360</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Outfit:wght@600;700;800&display=swap" rel="stylesheet">
   <style>
+    :root{--primary:#5E81F4;--primary-hover:#4B6FE0;--green:#7CE7AC;--coral:#FF808B;--amber:#F4BE5E;--bg:#F5F5FA;--card:#FFFFFF;--brd:#ECECF2;--tx:#8181A5;--heading:#1C1D21}
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
       font-family: 'DM Sans', sans-serif;
-      background: #060B26;
-      color: #CBD5E1;
+      background: var(--bg);
+      color: var(--tx);
       min-height: 100vh;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       padding: 2rem;
-      position: relative;
-      overflow-x: hidden;
-    }
-
-    /* Aurora background */
-    body::before {
-      content: '';
-      position: fixed;
-      top: -50%; left: -50%;
-      width: 200%; height: 200%;
-      background:
-        radial-gradient(ellipse at 20% 50%, rgba(124,58,237,0.12) 0%, transparent 50%),
-        radial-gradient(ellipse at 80% 50%, rgba(59,130,246,0.08) 0%, transparent 50%),
-        radial-gradient(ellipse at 50% 80%, rgba(6,182,212,0.06) 0%, transparent 50%);
-      animation: aurora 20s ease-in-out infinite alternate;
-      z-index: 0;
-    }
-
-    @keyframes aurora {
-      0% { transform: translate(0, 0) rotate(0deg); }
-      100% { transform: translate(-2%, 2%) rotate(3deg); }
+      -webkit-font-smoothing: antialiased;
     }
 
     .signup-container {
@@ -56,20 +38,24 @@
     /* Logo */
     .logo {
       text-align: center;
-      margin-bottom: 2rem;
+      margin-bottom: 1.5rem;
     }
-    .logo h1 {
+    .logo-row {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      justify-content: center;
+      margin-bottom: 0.4rem;
+    }
+    .logo-row span {
       font-family: 'Outfit', sans-serif;
-      font-size: 1.8rem;
       font-weight: 800;
-      background: linear-gradient(135deg, #7C3AED, #3B82F6);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+      font-size: 1.5rem;
+      color: var(--primary);
     }
     .logo p {
       font-size: 0.9rem;
-      color: #94A3B8;
+      color: var(--tx);
       margin-top: 0.3rem;
     }
 
@@ -78,8 +64,8 @@
       text-align: center;
       margin-bottom: 2rem;
       padding: 0.8rem 1.5rem;
-      background: rgba(124,58,237,0.08);
-      border: 1px solid rgba(124,58,237,0.15);
+      background: rgba(94,129,244,0.06);
+      border: 1px solid rgba(94,129,244,0.12);
       border-radius: 12px;
       display: inline-flex;
       align-items: center;
@@ -90,16 +76,16 @@
     .beta-counter .dot {
       width: 8px; height: 8px;
       border-radius: 50%;
-      background: #22C55E;
+      background: var(--green);
       animation: pulse 2s ease-in-out infinite;
     }
     @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
     .beta-counter span {
       font-size: 0.84rem;
-      color: #E2E8F0;
+      color: var(--heading);
     }
     .beta-counter strong {
-      color: #7C3AED;
+      color: var(--primary);
       font-weight: 700;
     }
 
@@ -112,23 +98,23 @@
     }
 
     .plan-card {
-      background: rgba(12,17,46,0.65);
-      backdrop-filter: blur(40px);
-      border: 1px solid rgba(255,255,255,0.06);
-      border-radius: 20px;
+      background: var(--card);
+      border: 1px solid var(--brd);
+      border-radius: 16px;
       padding: 1.5rem;
       transition: all 0.3s ease;
       cursor: pointer;
       position: relative;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.06);
     }
     .plan-card:hover {
-      border-color: rgba(124,58,237,0.3);
-      box-shadow: 0 0 30px rgba(124,58,237,0.08);
+      border-color: var(--primary);
+      box-shadow: 0 4px 24px rgba(94,129,244,0.12);
       transform: translateY(-2px);
     }
     .plan-card.featured {
-      border-color: rgba(124,58,237,0.4);
-      box-shadow: 0 0 40px rgba(124,58,237,0.12);
+      border-color: var(--primary);
+      box-shadow: 0 4px 24px rgba(94,129,244,0.15);
     }
     .plan-card.featured::before {
       content: 'Most Popular';
@@ -136,7 +122,7 @@
       top: -10px;
       left: 50%;
       transform: translateX(-50%);
-      background: linear-gradient(135deg, #7C3AED, #3B82F6);
+      background: var(--primary);
       color: #fff;
       font-size: 0.65rem;
       font-weight: 700;
@@ -150,24 +136,24 @@
       font-family: 'Outfit', sans-serif;
       font-size: 1.1rem;
       font-weight: 700;
-      color: #F8FAFC;
+      color: var(--heading);
       margin-bottom: 0.3rem;
     }
     .plan-price {
       font-family: 'Outfit', sans-serif;
       font-size: 2rem;
       font-weight: 800;
-      color: #F8FAFC;
+      color: var(--heading);
       margin-bottom: 0.15rem;
     }
     .plan-price span {
       font-size: 0.84rem;
       font-weight: 500;
-      color: #94A3B8;
+      color: var(--tx);
     }
     .plan-desc {
       font-size: 0.78rem;
-      color: #94A3B8;
+      color: var(--tx);
       margin-bottom: 1rem;
     }
 
@@ -180,7 +166,7 @@
     }
     .plan-features li {
       font-size: 0.78rem;
-      color: #CBD5E1;
+      color: var(--heading);
       display: flex;
       align-items: center;
       gap: 0.4rem;
@@ -189,12 +175,12 @@
       content: '';
       width: 16px; height: 16px;
       border-radius: 50%;
-      background: rgba(34,197,94,0.15);
+      background: rgba(124,231,172,0.15);
       display: flex;
       align-items: center;
       justify-content: center;
       flex-shrink: 0;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 24 24' fill='none' stroke='%2322C55E' stroke-width='3'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E");
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 24 24' fill='none' stroke='%237CE7AC' stroke-width='3'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E");
       background-repeat: no-repeat;
       background-position: center;
     }
@@ -202,7 +188,7 @@
     .plan-btn {
       width: 100%;
       padding: 0.65rem 1rem;
-      border-radius: 10px;
+      border-radius: 8px;
       font-family: 'DM Sans', sans-serif;
       font-size: 0.84rem;
       font-weight: 600;
@@ -211,37 +197,40 @@
       border: none;
     }
     .plan-btn-primary {
-      background: linear-gradient(135deg, #7C3AED, #3B82F6);
+      background: var(--primary);
       color: #fff;
     }
     .plan-btn-primary:hover {
-      box-shadow: 0 4px 20px rgba(124,58,237,0.4);
+      background: var(--primary-hover);
+      box-shadow: 0 4px 16px rgba(94,129,244,0.3);
+      transform: translateY(-1px);
     }
     .plan-btn-ghost {
       background: transparent;
-      color: #CBD5E1;
-      border: 1px solid rgba(255,255,255,0.1);
+      color: var(--heading);
+      border: 1px solid var(--brd);
     }
     .plan-btn-ghost:hover {
-      border-color: rgba(124,58,237,0.3);
-      background: rgba(124,58,237,0.05);
+      border-color: var(--primary);
+      background: rgba(94,129,244,0.04);
+      color: var(--primary);
     }
 
     /* Sign-up Form */
     .signup-form {
-      background: rgba(12,17,46,0.65);
-      backdrop-filter: blur(40px);
-      border: 1px solid rgba(255,255,255,0.06);
-      border-radius: 20px;
+      background: var(--card);
+      border: 1px solid var(--brd);
+      border-radius: 16px;
       padding: 2rem;
       max-width: 480px;
       margin: 0 auto;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.06);
     }
     .signup-form h2 {
       font-family: 'Outfit', sans-serif;
       font-size: 1.2rem;
       font-weight: 700;
-      color: #F8FAFC;
+      color: var(--heading);
       margin-bottom: 1.2rem;
       text-align: center;
     }
@@ -250,26 +239,26 @@
       display: block;
       font-size: 0.78rem;
       font-weight: 600;
-      color: #94A3B8;
+      color: var(--tx);
       margin-bottom: 0.35rem;
     }
     .input {
       width: 100%;
-      padding: 0.6rem 0.8rem;
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 10px;
-      color: #F8FAFC;
+      padding: 0.7rem 0.85rem;
+      background: var(--bg);
+      border: 1px solid var(--brd);
+      border-radius: 8px;
+      color: var(--heading);
       font-family: 'DM Sans', sans-serif;
-      font-size: 0.84rem;
+      font-size: 0.875rem;
       transition: border-color 0.2s;
+      outline: none;
     }
     .input:focus {
-      outline: none;
-      border-color: #7C3AED;
-      box-shadow: 0 0 0 3px rgba(124,58,237,0.15);
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(94,129,244,0.1);
     }
-    .input::placeholder { color: #525A6A; }
+    .input::placeholder { color: #B8B8D0; }
 
     .divider {
       display: flex;
@@ -277,13 +266,13 @@
       gap: 0.8rem;
       margin: 1.2rem 0;
       font-size: 0.72rem;
-      color: #525A6A;
+      color: #B8B8D0;
     }
     .divider::before, .divider::after {
       content: '';
       flex: 1;
       height: 1px;
-      background: rgba(255,255,255,0.06);
+      background: var(--brd);
     }
 
     .sso-row {
@@ -297,10 +286,10 @@
       justify-content: center;
       gap: 0.5rem;
       padding: 0.6rem;
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 10px;
-      color: #CBD5E1;
+      background: var(--bg);
+      border: 1px solid var(--brd);
+      border-radius: 8px;
+      color: var(--tx);
       font-family: 'DM Sans', sans-serif;
       font-size: 0.78rem;
       font-weight: 500;
@@ -308,21 +297,23 @@
       transition: all 0.2s;
     }
     .sso-btn:hover {
-      border-color: rgba(255,255,255,0.15);
-      background: rgba(255,255,255,0.06);
+      border-color: var(--primary);
+      color: var(--heading);
+      background: #fff;
     }
 
     .footer-text {
       text-align: center;
-      font-size: 0.78rem;
-      color: #94A3B8;
+      font-size: 0.8rem;
+      color: var(--tx);
       margin-top: 1.2rem;
     }
     .footer-text a {
-      color: #7C3AED;
+      color: var(--primary);
       text-decoration: none;
       font-weight: 600;
     }
+    .footer-text a:hover { text-decoration: underline; }
 
     /* Responsive */
     @media (max-width: 768px) {
@@ -334,7 +325,11 @@
   <div class="signup-container">
     <!-- LOGO -->
     <div class="logo">
-      <img src="/static/logo.png" alt="MyTeam360 — The AI Integration Platform" style="max-width:320px;height:auto;margin:0 auto;display:block">
+      <div class="logo-row">
+        <img src="/static/icon_circle.png" alt="" width="40" height="40">
+        <span>MyTeam360</span>
+      </div>
+      <p>The AI-powered CRM for modern teams</p>
     </div>
 
     <!-- BETA COUNTER -->
@@ -402,53 +397,60 @@
       <h2>Create Your Account</h2>
 
       <div class="sso-row">
-        <button class="sso-btn">
-          <svg width="16" height="16" viewBox="0 0 24 24"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+        <button class="sso-btn" onclick="location.href='/auth/google'">
+          <svg width="14" height="14" viewBox="0 0 24 24"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
           Google
         </button>
-        <button class="sso-btn">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="#00A4EF"><path d="M1 1h10.5v10.5H1V1zm12.5 0H24v10.5H13.5V1zM1 13.5h10.5V24H1V13.5zm12.5 0H24V24H13.5V13.5z"/></svg>
+        <button class="sso-btn" onclick="location.href='/auth/microsoft'">
+          <svg width="14" height="14" viewBox="0 0 24 24"><rect x="1" y="1" width="10" height="10" fill="#F25022"/><rect x="13" y="1" width="10" height="10" fill="#7FBA00"/><rect x="1" y="13" width="10" height="10" fill="#00A4EF"/><rect x="13" y="13" width="10" height="10" fill="#FFB900"/></svg>
           Microsoft
         </button>
       </div>
 
       <div class="divider">or sign up with email</div>
 
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.8rem">
-        <div class="form-group">
-          <label class="form-label">First Name</label>
-          <input class="input" placeholder="Jeremy">
+      <form action="/auth/signup" method="POST">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.8rem">
+          <div class="form-group">
+            <label class="form-label">First Name</label>
+            <input class="input" name="first_name" placeholder="Jeremy" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Last Name</label>
+            <input class="input" name="last_name" placeholder="Brown" required>
+          </div>
         </div>
         <div class="form-group">
-          <label class="form-label">Last Name</label>
-          <input class="input" placeholder="Brown">
+          <label class="form-label">Email</label>
+          <input class="input" type="email" name="email" placeholder="you@company.com" required>
         </div>
-      </div>
-      <div class="form-group">
-        <label class="form-label">Email</label>
-        <input class="input" type="email" placeholder="you@company.com">
-      </div>
-      <div class="form-group">
-        <label class="form-label">Password</label>
-        <input class="input" type="password" placeholder="Min. 8 characters">
-      </div>
+        <div class="form-group">
+          <label class="form-label">Password</label>
+          <input class="input" type="password" name="password" placeholder="Min. 8 characters" required minlength="8">
+        </div>
+        <input type="hidden" name="plan" id="selectedPlan" value="pro">
 
-      <button class="plan-btn plan-btn-primary" style="margin-top:0.5rem">Create Account</button>
+        <button type="submit" class="plan-btn plan-btn-primary" style="margin-top:0.5rem">Create Account</button>
+      </form>
 
       <div class="footer-text">
         Already have an account? <a href="/login">Sign in</a>
       </div>
     </div>
 
-    <div style="text-align:center;margin-top:2rem;font-size:0.7rem;color:#525A6A">
+    <div style="text-align:center;margin-top:2rem;font-size:0.7rem;color:var(--tx)">
       © 2026 Praxis Holdings LLC. All rights reserved.
     </div>
   </div>
 
   <script>
     function selectPlan(plan) {
-      document.querySelectorAll('.plan-card').forEach(c => c.style.borderColor = 'rgba(255,255,255,0.06)');
-      event.target.closest('.plan-card').style.borderColor = 'rgba(124,58,237,0.5)';
+      document.querySelectorAll('.plan-card').forEach(c => {
+        c.style.borderColor = '';
+        c.classList.remove('selected');
+      });
+      event.target.closest('.plan-card').style.borderColor = 'var(--primary)';
+      document.getElementById('selectedPlan').value = plan;
     }
   </script>
 </body>

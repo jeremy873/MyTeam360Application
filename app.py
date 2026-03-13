@@ -30,7 +30,7 @@ import time
 import secrets
 import logging
 from datetime import datetime, timedelta
-from flask import Flask, request, jsonify, Response, g, session, send_from_directory, send_file, redirect
+from flask import Flask, request, jsonify, Response, g, session, send_from_directory, send_file, redirect, render_template
 from flask_cors import CORS
 
 # ── Native app support: bridge DATA_DIR to DB_PATH ──
@@ -543,9 +543,122 @@ def marketing_home():
     """Always show marketing site (even if logged in)."""
     return send_from_directory("templates", "site.html")
 
+@app.route("/gate")
+def gate_page():
+    """Password gate — protects the app during development."""
+    if session.get("gate_passed"):
+        return redirect("/app/dashboard")
+    return render_template("gate.html")
+
+@app.route("/gate", methods=["POST"])
+def gate_check():
+    """Validate gate password."""
+    pw = request.form.get("password", "")
+    gate_pw = os.getenv("GATE_PASSWORD", "mt360preview")
+    if pw == gate_pw:
+        session["gate_passed"] = True
+        return redirect("/app/dashboard")
+    return render_template("gate.html", error="Invalid password")
+
+def _require_gate():
+    """Redirect to gate if not passed."""
+    if not session.get("gate_passed"):
+        return redirect("/gate")
+    return None
+
 @app.route("/app")
-def app_page():
-    return send_from_directory("templates", "app.html")
+def app_redirect():
+    return redirect("/app/dashboard")
+
+@app.route("/app/dashboard")
+def dashboard_page():
+    gate = _require_gate()
+    if gate: return gate
+    return render_template("dashboard.html")
+
+@app.route("/app/briefing")
+def briefing_page():
+    gate = _require_gate()
+    if gate: return gate
+    return render_template("briefing.html")
+
+@app.route("/app/crm")
+def crm_page():
+    gate = _require_gate()
+    if gate: return gate
+    return render_template("crm.html")
+
+@app.route("/app/tasks")
+def tasks_page():
+    gate = _require_gate()
+    if gate: return gate
+    return render_template("tasks.html")
+
+@app.route("/app/invoicing")
+def invoicing_page():
+    gate = _require_gate()
+    if gate: return gate
+    return render_template("invoicing.html")
+
+@app.route("/app/social")
+def social_page():
+    gate = _require_gate()
+    if gate: return gate
+    return render_template("social.html")
+
+@app.route("/app/roundtable")
+def roundtable_page():
+    gate = _require_gate()
+    if gate: return gate
+    return render_template("roundtable.html")
+
+@app.route("/app/providers")
+def providers_page():
+    gate = _require_gate()
+    if gate: return gate
+    return render_template("providers.html")
+
+@app.route("/app/settings")
+def settings_page():
+    gate = _require_gate()
+    if gate: return gate
+    return render_template("settings.html")
+
+@app.route("/app/spaces")
+def spaces_page():
+    gate = _require_gate()
+    if gate: return gate
+    return render_template("dashboard.html")
+
+@app.route("/app/goals")
+def goals_page():
+    gate = _require_gate()
+    if gate: return gate
+    return render_template("dashboard.html")
+
+@app.route("/app/analytics")
+def analytics_page():
+    gate = _require_gate()
+    if gate: return gate
+    return render_template("dashboard.html")
+
+@app.route("/app/dna")
+def dna_page():
+    gate = _require_gate()
+    if gate: return gate
+    return render_template("dashboard.html")
+
+@app.route("/app/team")
+def team_page():
+    gate = _require_gate()
+    if gate: return gate
+    return render_template("settings.html")
+
+@app.route("/app/bookings")
+def bookings_page():
+    gate = _require_gate()
+    if gate: return gate
+    return render_template("dashboard.html")
 
 @app.route("/security")
 def security_page():

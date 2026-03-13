@@ -13,7 +13,7 @@
 <div class="content-header" style="display:flex;align-items:center;justify-content:space-between">
   <div>
     <h1>Task Board</h1>
-    <p>12 tasks · 5 due today</p>
+    <p id="taskBoardStats">Loading tasks&hellip;</p>
   </div>
   <div style="display:flex;gap:0.5rem">
     <button class="btn btn-primary btn-sm" onclick="MT360.openModal('newTaskModal')">+ New Task</button>
@@ -21,133 +21,39 @@
 </div>
 
 <!-- FILTER BAR -->
-<div class="filter-bar">
-  <span class="filter-chip active">All</span>
-  <span class="filter-chip">High Priority</span>
-  <span class="filter-chip">Due Today</span>
-  <span class="filter-chip">CRM</span>
-  <span class="filter-chip">Marketing</span>
-  <span class="filter-chip">Admin</span>
+<div class="filter-bar" id="filterBar">
+  <span class="filter-chip active" data-filter="all">All</span>
+  <span class="filter-chip" data-filter="high">High Priority</span>
+  <span class="filter-chip" data-filter="due_today">Due Today</span>
+  <span class="filter-chip" data-filter="crm">CRM</span>
+  <span class="filter-chip" data-filter="marketing">Marketing</span>
+  <span class="filter-chip" data-filter="admin">Admin</span>
 </div>
 
 <!-- KANBAN BOARD -->
-<div class="kanban">
+<div class="kanban" data-sortable="task-board">
   <!-- To Do -->
   <div class="kanban-col">
     <div class="kanban-col-header">
-      <div class="kanban-col-title">To Do <span class="kanban-col-count">5</span></div>
+      <div class="kanban-col-title">To Do <span class="kanban-col-count" id="countTodo">0</span></div>
     </div>
-    <div class="kanban-col-body">
-      <div class="kanban-card">
-        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.35rem">
-          <span class="task-pri pri-high">HIGH</span>
-          <span style="font-size:0.65rem;color:var(--r)">Due today</span>
-        </div>
-        <div class="kanban-card-title">Follow up Henderson showing</div>
-        <div style="font-size:0.72rem;color:var(--tx-dim);margin-top:0.3rem">CRM · Send thank-you email and comps</div>
-        <div style="display:flex;align-items:center;gap:0.4rem;margin-top:0.5rem">
-          <div class="avatar-sm avatar" style="background:var(--grad-purple)">JB</div>
-          <span style="font-size:0.65rem;color:var(--tx-dim)">Jeremy Brown</span>
-        </div>
-      </div>
-      <div class="kanban-card">
-        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.35rem">
-          <span class="task-pri pri-high">HIGH</span>
-          <span style="font-size:0.65rem;color:var(--r)">Due today</span>
-        </div>
-        <div class="kanban-card-title">Send listing photos to Johnson</div>
-        <div style="font-size:0.72rem;color:var(--tx-dim);margin-top:0.3rem">CRM · 12 photos from photographer</div>
-      </div>
-      <div class="kanban-card">
-        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.35rem">
-          <span class="task-pri pri-med">MED</span>
-          <span style="font-size:0.65rem;color:var(--a)">Due today</span>
-        </div>
-        <div class="kanban-card-title">Review closing documents</div>
-        <div style="font-size:0.72rem;color:var(--tx-dim);margin-top:0.3rem">Admin · Martinez deal paperwork</div>
-      </div>
-      <div class="kanban-card">
-        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.35rem">
-          <span class="task-pri pri-med">MED</span>
-          <span style="font-size:0.65rem;color:var(--tx-dim)">Due Mar 14</span>
-        </div>
-        <div class="kanban-card-title">Prepare CMA report — Oak St</div>
-        <div style="font-size:0.72rem;color:var(--tx-dim);margin-top:0.3rem">CRM · Comparable market analysis</div>
-      </div>
-      <div class="kanban-card">
-        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.35rem">
-          <span class="task-pri pri-low">LOW</span>
-          <span style="font-size:0.65rem;color:var(--tx-dim)">Due today</span>
-        </div>
-        <div class="kanban-card-title">Post market update on LinkedIn</div>
-        <div style="font-size:0.72rem;color:var(--tx-dim);margin-top:0.3rem">Marketing · Weekly market insights</div>
-      </div>
-      <div class="kanban-add" onclick="MT360.openModal('newTaskModal')">+ Add Task</div>
-    </div>
+    <div class="kanban-col-body" data-column="todo" id="colTodo"></div>
   </div>
 
   <!-- In Progress -->
   <div class="kanban-col">
     <div class="kanban-col-header">
-      <div class="kanban-col-title">In Progress <span class="kanban-col-count">4</span></div>
+      <div class="kanban-col-title">In Progress <span class="kanban-col-count" id="countInProgress">0</span></div>
     </div>
-    <div class="kanban-col-body">
-      <div class="kanban-card">
-        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.35rem">
-          <span class="task-pri pri-high">HIGH</span>
-          <span style="font-size:0.65rem;color:var(--tx-dim)">Due Mar 15</span>
-        </div>
-        <div class="kanban-card-title">Finalize Q1 revenue report</div>
-        <div style="font-size:0.72rem;color:var(--tx-dim);margin-top:0.3rem">Admin · 70% complete</div>
-      </div>
-      <div class="kanban-card">
-        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.35rem">
-          <span class="task-pri pri-med">MED</span>
-          <span style="font-size:0.65rem;color:var(--tx-dim)">Due Mar 16</span>
-        </div>
-        <div class="kanban-card-title">Update social media content calendar</div>
-        <div style="font-size:0.72rem;color:var(--tx-dim);margin-top:0.3rem">Marketing · Next 2 weeks of posts</div>
-      </div>
-      <div class="kanban-card">
-        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.35rem">
-          <span class="task-pri pri-low">LOW</span>
-          <span style="font-size:0.65rem;color:var(--tx-dim)">Due Mar 20</span>
-        </div>
-        <div class="kanban-card-title">Research new listing opportunities</div>
-        <div style="font-size:0.72rem;color:var(--tx-dim);margin-top:0.3rem">CRM · South Charlotte area</div>
-      </div>
-      <div class="kanban-add" onclick="MT360.openModal('newTaskModal')">+ Add Task</div>
-    </div>
+    <div class="kanban-col-body" data-column="in_progress" id="colInProgress"></div>
   </div>
 
   <!-- Done -->
   <div class="kanban-col">
     <div class="kanban-col-header">
-      <div class="kanban-col-title">Done <span class="kanban-col-count">3</span></div>
+      <div class="kanban-col-title">Done <span class="kanban-col-count" id="countDone">0</span></div>
     </div>
-    <div class="kanban-col-body">
-      <div class="kanban-card" style="opacity:0.6">
-        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.35rem">
-          <span class="tag tag-green">Done</span>
-          <span style="font-size:0.65rem;color:var(--tx-dim)">Completed today</span>
-        </div>
-        <div class="kanban-card-title" style="text-decoration:line-through">Send invoice INV-0042</div>
-      </div>
-      <div class="kanban-card" style="opacity:0.6">
-        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.35rem">
-          <span class="tag tag-green">Done</span>
-          <span style="font-size:0.65rem;color:var(--tx-dim)">Yesterday</span>
-        </div>
-        <div class="kanban-card-title" style="text-decoration:line-through">Call Sarah Johnson re: counter-offer</div>
-      </div>
-      <div class="kanban-card" style="opacity:0.6">
-        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.35rem">
-          <span class="tag tag-green">Done</span>
-          <span style="font-size:0.65rem;color:var(--tx-dim)">Yesterday</span>
-        </div>
-        <div class="kanban-card-title" style="text-decoration:line-through">Schedule Henderson showing</div>
-      </div>
-    </div>
+    <div class="kanban-col-body" data-column="done" id="colDone"></div>
   </div>
 </div>
 
@@ -156,45 +62,371 @@
   <div class="modal">
     <div class="modal-header">
       <h3>New Task</h3>
-      <button class="modal-close" onclick="MT360.closeModal('newTaskModal')">✕</button>
+      <button class="modal-close" onclick="MT360.closeModal('newTaskModal')">&#10005;</button>
     </div>
     <div class="modal-body">
       <div class="form-group">
-        <label class="form-label">Task Name</label>
-        <input class="input" placeholder="What needs to be done?">
+        <label class="form-label" for="newTaskTitle">Task Name</label>
+        <input class="input" id="newTaskTitle" placeholder="What needs to be done?">
       </div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem">
         <div class="form-group">
-          <label class="form-label">Priority</label>
-          <select class="select">
-            <option>High</option>
-            <option selected>Medium</option>
-            <option>Low</option>
+          <label class="form-label" for="newTaskPriority">Priority</label>
+          <select class="select" id="newTaskPriority">
+            <option value="high">High</option>
+            <option value="medium" selected>Medium</option>
+            <option value="low">Low</option>
           </select>
         </div>
         <div class="form-group">
-          <label class="form-label">Due Date</label>
-          <input class="input" type="date">
+          <label class="form-label" for="newTaskDue">Due Date</label>
+          <input class="input" id="newTaskDue" type="date">
         </div>
       </div>
       <div class="form-group">
-        <label class="form-label">Project</label>
-        <select class="select">
-          <option>CRM</option>
-          <option>Marketing</option>
-          <option>Admin</option>
+        <label class="form-label" for="newTaskProject">Project</label>
+        <select class="select" id="newTaskProject">
+          <option value="CRM">CRM</option>
+          <option value="Marketing">Marketing</option>
+          <option value="Admin">Admin</option>
         </select>
       </div>
       <div class="form-group">
-        <label class="form-label">Description</label>
-        <textarea class="textarea" placeholder="Add details..."></textarea>
+        <label class="form-label" for="newTaskDesc">Description</label>
+        <textarea class="textarea" id="newTaskDesc" placeholder="Add details..."></textarea>
       </div>
     </div>
     <div class="modal-footer">
       <button class="btn btn-ghost btn-sm" onclick="MT360.closeModal('newTaskModal')">Cancel</button>
-      <button class="btn btn-primary btn-sm" onclick="MT360.closeModal('newTaskModal');MT360.toast('Task created','success')">Create Task</button>
+      <button class="btn btn-primary btn-sm" id="btnCreateTask">Create Task</button>
     </div>
   </div>
 </div>
 
+{% endblock %}
+
+{% block scripts %}
+<script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.6/Sortable.min.js"></script>
+<script>
+(function(){
+  "use strict";
+
+  /* ── State ── */
+  let allTasks = [];        // flat array of task objects
+  let activeFilter = "all";
+  const today = new Date().toISOString().slice(0,10);
+
+  /* ── Demo / fallback data ── */
+  const DEMO_TASKS = [
+    {id:"demo_1",title:"Follow up Henderson showing",column_id:"todo",priority:"high",due_date:today,description:"CRM \u00b7 Send thank-you email and comps",assigned_to:"Jeremy Brown",labels:["CRM"],project_tag:"CRM"},
+    {id:"demo_2",title:"Send listing photos to Johnson",column_id:"todo",priority:"high",due_date:today,description:"CRM \u00b7 12 photos from photographer",assigned_to:"",labels:["CRM"],project_tag:"CRM"},
+    {id:"demo_3",title:"Review closing documents",column_id:"todo",priority:"medium",due_date:today,description:"Admin \u00b7 Martinez deal paperwork",assigned_to:"",labels:["Admin"],project_tag:"Admin"},
+    {id:"demo_4",title:"Prepare CMA report \u2014 Oak St",column_id:"todo",priority:"medium",due_date:"2026-03-14",description:"CRM \u00b7 Comparable market analysis",assigned_to:"",labels:["CRM"],project_tag:"CRM"},
+    {id:"demo_5",title:"Post market update on LinkedIn",column_id:"todo",priority:"low",due_date:today,description:"Marketing \u00b7 Weekly market insights",assigned_to:"",labels:["Marketing"],project_tag:"Marketing"},
+    {id:"demo_6",title:"Finalize Q1 revenue report",column_id:"in_progress",priority:"high",due_date:"2026-03-15",description:"Admin \u00b7 70% complete",assigned_to:"",labels:["Admin"],project_tag:"Admin"},
+    {id:"demo_7",title:"Update social media content calendar",column_id:"in_progress",priority:"medium",due_date:"2026-03-16",description:"Marketing \u00b7 Next 2 weeks of posts",assigned_to:"",labels:["Marketing"],project_tag:"Marketing"},
+    {id:"demo_8",title:"Research new listing opportunities",column_id:"in_progress",priority:"low",due_date:"2026-03-20",description:"CRM \u00b7 South Charlotte area",assigned_to:"",labels:["CRM"],project_tag:"CRM"},
+    {id:"demo_9",title:"Send invoice INV-0042",column_id:"done",priority:"medium",due_date:"",description:"",assigned_to:"",labels:[],project_tag:"Admin",completed_at:today,status:"completed"},
+    {id:"demo_10",title:"Call Sarah Johnson re: counter-offer",column_id:"done",priority:"medium",due_date:"",description:"",assigned_to:"",labels:[],project_tag:"CRM",completed_at:"2026-03-11",status:"completed"},
+    {id:"demo_11",title:"Schedule Henderson showing",column_id:"done",priority:"medium",due_date:"",description:"",assigned_to:"",labels:[],project_tag:"CRM",completed_at:"2026-03-11",status:"completed"}
+  ];
+
+  /* ── Helpers ── */
+  function priClass(p){ return p==="high"?"pri-high":p==="medium"?"pri-med":"pri-low"; }
+  function priLabel(p){ return (p||"medium").toUpperCase(); }
+
+  function dueBadge(task){
+    if(task.column_id==="done"){
+      var ca = task.completed_at||"";
+      if(ca.slice(0,10)===today) return '<span style="font-size:0.65rem;color:var(--tx-dim)">Completed today</span>';
+      return '<span style="font-size:0.65rem;color:var(--tx-dim)">'+( ca ? friendlyDate(ca) : "" )+'</span>';
+    }
+    if(!task.due_date) return "";
+    if(task.due_date===today) return '<span style="font-size:0.65rem;color:var(--r)">Due today</span>';
+    if(task.due_date<today) return '<span style="font-size:0.65rem;color:var(--r)">Overdue</span>';
+    return '<span style="font-size:0.65rem;color:var(--tx-dim)">Due '+friendlyDate(task.due_date)+'</span>';
+  }
+
+  function friendlyDate(d){
+    if(!d) return "";
+    var dt=new Date(d+"T00:00:00");
+    return dt.toLocaleDateString("en-US",{month:"short",day:"numeric"});
+  }
+
+  function tagForDone(){
+    return '<span class="tag tag-green">Done</span>';
+  }
+
+  function initials(name){
+    if(!name) return "";
+    return name.split(" ").map(function(w){return w[0];}).join("").toUpperCase();
+  }
+
+  function projectTag(task){
+    return task.project_tag || (task.labels && task.labels[0]) || "";
+  }
+
+  /* ── Render a single card ── */
+  function renderCard(task){
+    var isDone = task.column_id==="done" || task.status==="completed";
+    var card = document.createElement("div");
+    card.className = "kanban-card";
+    card.setAttribute("data-task-id", task.id);
+    card.setAttribute("data-priority", task.priority||"medium");
+    card.setAttribute("data-project", (projectTag(task)||"").toLowerCase());
+    card.setAttribute("data-due", task.due_date||"");
+    if(isDone) card.style.opacity = "0.6";
+
+    var topRow = '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.35rem">';
+    if(isDone){
+      topRow += tagForDone();
+    } else {
+      topRow += '<span class="task-pri '+priClass(task.priority)+'">'+priLabel(task.priority)+'</span>';
+    }
+    topRow += dueBadge(task) + '</div>';
+
+    var titleStyle = isDone ? ' style="text-decoration:line-through"' : '';
+    var titleRow = '<div class="kanban-card-title"'+titleStyle+'>'+escHtml(task.title)+'</div>';
+
+    var descRow = '';
+    if(task.description && !isDone){
+      descRow = '<div style="font-size:0.72rem;color:var(--tx-dim);margin-top:0.3rem">'+escHtml(task.description)+'</div>';
+    }
+
+    var assigneeRow = '';
+    if(task.assigned_to && !isDone){
+      assigneeRow = '<div style="display:flex;align-items:center;gap:0.4rem;margin-top:0.5rem">' +
+        '<div class="avatar-sm avatar" style="background:var(--grad-purple)">'+initials(task.assigned_to)+'</div>' +
+        '<span style="font-size:0.65rem;color:var(--tx-dim)">'+escHtml(task.assigned_to)+'</span></div>';
+    }
+
+    card.innerHTML = topRow + titleRow + descRow + assigneeRow;
+    return card;
+  }
+
+  function escHtml(s){
+    if(!s) return "";
+    var d=document.createElement("div"); d.textContent=s; return d.innerHTML;
+  }
+
+  /* ── Render board ── */
+  function renderBoard(){
+    var filtered = filterTasks(allTasks);
+    var buckets = {todo:[],in_progress:[],done:[]};
+    filtered.forEach(function(t){
+      var col = t.column_id || "todo";
+      if(col==="backlog") col="todo";
+      if(col==="review") col="in_progress";
+      if(!buckets[col]) col="todo";
+      buckets[col].push(t);
+    });
+
+    ["todo","in_progress","done"].forEach(function(col){
+      var el = document.getElementById(col==="todo"?"colTodo":col==="in_progress"?"colInProgress":"colDone");
+      el.innerHTML = "";
+      buckets[col].forEach(function(t){ el.appendChild(renderCard(t)); });
+      if(col!=="done"){
+        var add = document.createElement("div");
+        add.className = "kanban-add";
+        add.textContent = "+ Add Task";
+        add.onclick = function(){ MT360.openModal("newTaskModal"); };
+        el.appendChild(add);
+      }
+    });
+
+    document.getElementById("countTodo").textContent = buckets.todo.length;
+    document.getElementById("countInProgress").textContent = buckets.in_progress.length;
+    document.getElementById("countDone").textContent = buckets.done.length;
+
+    updateHeaderStats(filtered);
+    initSortable();
+  }
+
+  /* ── Filtering ── */
+  function filterTasks(tasks){
+    if(activeFilter==="all") return tasks;
+    if(activeFilter==="high") return tasks.filter(function(t){ return t.priority==="high" && t.column_id!=="done"; });
+    if(activeFilter==="due_today") return tasks.filter(function(t){ return t.due_date===today && t.column_id!=="done"; });
+    // project-based filters
+    return tasks.filter(function(t){ return (projectTag(t)||"").toLowerCase()===activeFilter; });
+  }
+
+  /* ── Header stats ── */
+  function updateHeaderStats(filtered){
+    var open = allTasks.filter(function(t){ return t.column_id!=="done" && t.status!=="completed"; });
+    var dueToday = open.filter(function(t){ return t.due_date===today; });
+    document.getElementById("taskBoardStats").textContent =
+      allTasks.length + " tasks \u00b7 " + dueToday.length + " due today";
+  }
+
+  /* ── SortableJS ── */
+  var sortableInstances = [];
+  function initSortable(){
+    sortableInstances.forEach(function(s){ s.destroy(); });
+    sortableInstances = [];
+    if(typeof Sortable==="undefined") return;
+
+    ["colTodo","colInProgress","colDone"].forEach(function(elId){
+      var el = document.getElementById(elId);
+      if(!el) return;
+      var s = Sortable.create(el, {
+        group: "taskBoard",
+        animation: 150,
+        ghostClass: "kanban-card-ghost",
+        filter: ".kanban-add",
+        onEnd: function(evt){
+          var taskId = evt.item.getAttribute("data-task-id");
+          var newCol = evt.to.getAttribute("data-column");
+          if(!taskId || taskId.startsWith("demo_")) return;  // skip demo cards for API
+          if(newCol==="done"){
+            completeTaskAPI(taskId);
+          } else {
+            moveTaskAPI(taskId, newCol, evt.newIndex);
+          }
+          // Update local state
+          var task = allTasks.find(function(t){ return t.id===taskId; });
+          if(task){
+            task.column_id = newCol;
+            if(newCol==="done"){ task.status="completed"; task.completed_at=today; }
+          }
+          updateCounts();
+        }
+      });
+      sortableInstances.push(s);
+    });
+  }
+
+  function updateCounts(){
+    var buckets = {todo:0,in_progress:0,done:0};
+    allTasks.forEach(function(t){
+      var col = t.column_id||"todo";
+      if(col==="backlog") col="todo";
+      if(col==="review") col="in_progress";
+      if(buckets[col]!==undefined) buckets[col]++;
+    });
+    document.getElementById("countTodo").textContent = buckets.todo;
+    document.getElementById("countInProgress").textContent = buckets.in_progress;
+    document.getElementById("countDone").textContent = buckets.done;
+    updateHeaderStats(allTasks);
+  }
+
+  /* ── API calls ── */
+  function completeTaskAPI(taskId){
+    fetch("/api/tasks/"+taskId+"/complete",{method:"POST",headers:{"Content-Type":"application/json"}})
+      .then(function(r){ if(!r.ok) throw new Error(r.status); return r.json(); })
+      .then(function(){ if(MT360&&MT360.toast) MT360.toast("Task completed","success"); })
+      .catch(function(e){ console.warn("complete_task error:",e); });
+  }
+
+  function moveTaskAPI(taskId, column, position){
+    fetch("/api/tasks/"+taskId+"/move",{
+      method:"POST",
+      headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({column:column,position:position})
+    }).catch(function(e){ console.warn("move_task error:",e); });
+  }
+
+  function createTaskAPI(data){
+    return fetch("/api/projects/default/tasks",{
+      method:"POST",
+      headers:{"Content-Type":"application/json"},
+      body:JSON.stringify(data)
+    }).then(function(r){ if(!r.ok) throw new Error(r.status); return r.json(); });
+  }
+
+  /* ── Load tasks ── */
+  function loadTasks(){
+    fetch("/api/tasks/dashboard")
+      .then(function(r){ if(!r.ok) throw new Error(r.status); return r.json(); })
+      .then(function(dashboard){
+        // Dashboard gives stats; try to load board from first project
+        return fetch("/api/projects").then(function(r){ return r.json(); });
+      })
+      .then(function(data){
+        var projects = data.projects||[];
+        if(projects.length===0) throw new Error("no_projects");
+        return fetch("/api/projects/"+projects[0].id+"/board").then(function(r){ return r.json(); });
+      })
+      .then(function(boardData){
+        if(boardData.error) throw new Error(boardData.error);
+        allTasks = [];
+        var board = boardData.board||{};
+        Object.keys(board).forEach(function(colId){
+          (board[colId].tasks||[]).forEach(function(t){
+            t.column_id = t.column_id || colId;
+            t.project_tag = t.project_tag || (t.labels&&t.labels[0]) || "";
+            allTasks.push(t);
+          });
+        });
+        if(allTasks.length===0) throw new Error("empty");
+        renderBoard();
+      })
+      .catch(function(err){
+        console.warn("Task API unavailable, using demo data:", err);
+        allTasks = JSON.parse(JSON.stringify(DEMO_TASKS));
+        renderBoard();
+      });
+  }
+
+  /* ── Filter chip wiring ── */
+  document.getElementById("filterBar").addEventListener("click",function(e){
+    var chip = e.target.closest(".filter-chip");
+    if(!chip) return;
+    document.querySelectorAll("#filterBar .filter-chip").forEach(function(c){ c.classList.remove("active"); });
+    chip.classList.add("active");
+    activeFilter = chip.getAttribute("data-filter")||"all";
+    renderBoard();
+  });
+
+  /* ── Create task wiring ── */
+  document.getElementById("btnCreateTask").addEventListener("click",function(){
+    var title = document.getElementById("newTaskTitle").value.trim();
+    if(!title){ MT360.toast("Task name is required","error"); return; }
+
+    var payload = {
+      title: title,
+      priority: document.getElementById("newTaskPriority").value,
+      due_date: document.getElementById("newTaskDue").value||"",
+      description: document.getElementById("newTaskDesc").value||"",
+      column: "todo",
+      labels: [document.getElementById("newTaskProject").value],
+      source: "manual"
+    };
+
+    // Optimistic local add
+    var localTask = Object.assign({}, payload, {
+      id: "local_"+Date.now(),
+      column_id: "todo",
+      assigned_to: "",
+      project_tag: document.getElementById("newTaskProject").value,
+      status: "open"
+    });
+    allTasks.push(localTask);
+    renderBoard();
+
+    MT360.closeModal("newTaskModal");
+    MT360.toast("Task created","success");
+
+    // Reset form
+    document.getElementById("newTaskTitle").value = "";
+    document.getElementById("newTaskPriority").value = "medium";
+    document.getElementById("newTaskDue").value = "";
+    document.getElementById("newTaskDesc").value = "";
+    document.getElementById("newTaskProject").value = "CRM";
+
+    // Persist to API
+    createTaskAPI(payload)
+      .then(function(resp){
+        // Update local id with real id
+        localTask.id = resp.id || localTask.id;
+        renderBoard();
+      })
+      .catch(function(e){ console.warn("create_task error:",e); });
+  });
+
+  /* ── Init ── */
+  loadTasks();
+
+})();
+</script>
 {% endblock %}

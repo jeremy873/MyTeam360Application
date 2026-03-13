@@ -1,6 +1,6 @@
 <!--
   MyTeam360 — Main Dashboard
-  © 2026 Praxis Holdings LLC. PROPRIETARY AND CONFIDENTIAL.
+  (c) 2026 Praxis Holdings LLC. PROPRIETARY AND CONFIDENTIAL.
 -->
 {% extends "base_app.html" %}
 {% set page = "dashboard" %}
@@ -11,18 +11,18 @@
 {% block content %}
 
 <!-- BRIEFING BANNER -->
-<div class="brief-banner">
+<div class="brief-banner" id="briefBanner">
   <div>
-    <h3>Wednesday Briefing — Client Day</h3>
-    <p>Henderson showing at 2pm · Leave by 1:25 (35 min drive) · Carbone at 7:30 · SW1234 on time · 7 emails, 3 tasks due</p>
+    <h3 id="briefTitle">Wednesday Briefing — Client Day</h3>
+    <p id="briefBody">Henderson showing at 2pm &middot; Leave by 1:25 (35 min drive) &middot; Carbone at 7:30 &middot; SW1234 on time &middot; 7 emails, 3 tasks due</p>
   </div>
-  <a href="/app/briefing" class="brief-tag">View Full Briefing →</a>
+  <a href="/app/briefing" class="brief-tag">View Full Briefing &rarr;</a>
 </div>
 
 <!-- WELCOME CARD -->
-<div class="welcome-card">
-  <h2>Welcome back, Jeremy</h2>
-  <p>You have 3 high-priority tasks and 2 deals requiring attention today. Your pipeline is up 12% this month.</p>
+<div class="welcome-card" id="welcomeCard">
+  <h2 id="welcomeGreeting">Welcome back, Jeremy</h2>
+  <p id="welcomeSubtext">You have 3 high-priority tasks and 2 deals requiring attention today. Your pipeline is up 12% this month.</p>
 </div>
 
 <!-- STAT CARDS -->
@@ -32,9 +32,9 @@
       <svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
     </div>
     <div class="stat-label">Pipeline Value</div>
-    <div class="stat-val">$285K</div>
+    <div class="stat-val" id="statPipeline">$285K</div>
     <div class="stat-meta">
-      <span class="stat-pct up">↑ 12%</span>
+      <span class="stat-pct up">&uarr; 12%</span>
       <span class="stat-change">+$30.2K this month</span>
     </div>
     <canvas id="sparkPipeline" class="stat-sparkline" height="40"></canvas>
@@ -44,9 +44,9 @@
       <svg viewBox="0 0 24 24"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
     </div>
     <div class="stat-label">Monthly Revenue</div>
-    <div class="stat-val">$12,500</div>
+    <div class="stat-val" id="statRevenue">$12,500</div>
     <div class="stat-meta">
-      <span class="stat-pct up">↑ 23%</span>
+      <span class="stat-pct up">&uarr; 23%</span>
       <span class="stat-change">vs last month</span>
     </div>
     <canvas id="sparkRevenue" class="stat-sparkline" height="40"></canvas>
@@ -56,9 +56,9 @@
       <svg viewBox="0 0 24 24"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
     </div>
     <div class="stat-label">Deals Closed</div>
-    <div class="stat-val">8</div>
+    <div class="stat-val" id="statDeals">8</div>
     <div class="stat-meta">
-      <span class="stat-pct up">↑ 33%</span>
+      <span class="stat-pct up">&uarr; 33%</span>
       <span class="stat-change">this quarter</span>
     </div>
     <canvas id="sparkDeals" class="stat-sparkline" height="40"></canvas>
@@ -68,9 +68,9 @@
       <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
     </div>
     <div class="stat-label">Active Leads</div>
-    <div class="stat-val">24</div>
+    <div class="stat-val" id="statLeads">24</div>
     <div class="stat-meta">
-      <span class="stat-pct down">↓ 3</span>
+      <span class="stat-pct down">&darr; 3</span>
       <span class="stat-change">need follow-up</span>
     </div>
     <canvas id="sparkLeads" class="stat-sparkline" height="40"></canvas>
@@ -85,7 +85,7 @@
       <div style="position:relative;width:160px;height:90px;margin:0 auto">
         <canvas id="gaugeWinRate"></canvas>
         <div style="position:absolute;bottom:0;left:50%;transform:translateX(-50%)">
-          <div class="gauge-value">80%</div>
+          <div class="gauge-value" id="gaugeWinRateVal">80%</div>
         </div>
       </div>
       <div class="gauge-label" style="margin-top:0.3rem">8 of 10 deals won</div>
@@ -97,7 +97,7 @@
       <div style="position:relative;width:160px;height:90px;margin:0 auto">
         <canvas id="gaugeHealth"></canvas>
         <div style="position:absolute;bottom:0;left:50%;transform:translateX(-50%)">
-          <div class="gauge-value">9.1</div>
+          <div class="gauge-value" id="gaugeHealthVal">9.1</div>
         </div>
       </div>
       <div class="gauge-label" style="margin-top:0.3rem">Excellent pipeline health</div>
@@ -150,39 +150,41 @@
       <span class="tag tag-dim" style="cursor:pointer">View all</span>
     </div>
     <div class="card-body">
-      <div class="feed-item">
-        <div class="feed-dot" style="background:var(--g)"></div>
-        <div>
-          <div class="feed-text">Invoice <strong>INV-0042</strong> paid — <strong>$4,500</strong></div>
-          <div class="feed-time">2 hours ago</div>
+      <div class="activity-list" id="activityList">
+        <div class="activity-item">
+          <div class="activity-dot" style="background:var(--g)"></div>
+          <div>
+            <div class="feed-text">Invoice <strong>INV-0042</strong> paid &mdash; <strong>$4,500</strong></div>
+            <div class="feed-time">2 hours ago</div>
+          </div>
         </div>
-      </div>
-      <div class="feed-item">
-        <div class="feed-dot" style="background:var(--pl)"></div>
-        <div>
-          <div class="feed-text">Deal <strong>Henderson</strong> moved to <strong>Negotiation</strong></div>
-          <div class="feed-time">3 hours ago</div>
+        <div class="activity-item">
+          <div class="activity-dot" style="background:var(--pl)"></div>
+          <div>
+            <div class="feed-text">Deal <strong>Henderson</strong> moved to <strong>Negotiation</strong></div>
+            <div class="feed-time">3 hours ago</div>
+          </div>
         </div>
-      </div>
-      <div class="feed-item">
-        <div class="feed-dot" style="background:var(--b)"></div>
-        <div>
-          <div class="feed-text">5 social posts published — LinkedIn, Instagram</div>
-          <div class="feed-time">5 hours ago</div>
+        <div class="activity-item">
+          <div class="activity-dot" style="background:var(--b)"></div>
+          <div>
+            <div class="feed-text">5 social posts published &mdash; LinkedIn, Instagram</div>
+            <div class="feed-time">5 hours ago</div>
+          </div>
         </div>
-      </div>
-      <div class="feed-item">
-        <div class="feed-dot" style="background:var(--t)"></div>
-        <div>
-          <div class="feed-text">Call logged — <strong>Sarah Johnson</strong>, counter-offer</div>
-          <div class="feed-time">Yesterday</div>
+        <div class="activity-item">
+          <div class="activity-dot" style="background:var(--t)"></div>
+          <div>
+            <div class="feed-text">Call logged &mdash; <strong>Sarah Johnson</strong>, counter-offer</div>
+            <div class="feed-time">Yesterday</div>
+          </div>
         </div>
-      </div>
-      <div class="feed-item">
-        <div class="feed-dot" style="background:var(--a)"></div>
-        <div>
-          <div class="feed-text">Q2 Revenue goal → <strong>68% complete</strong></div>
-          <div class="feed-time">Yesterday</div>
+        <div class="activity-item">
+          <div class="activity-dot" style="background:var(--a)"></div>
+          <div>
+            <div class="feed-text">Q2 Revenue goal &rarr; <strong>68% complete</strong></div>
+            <div class="feed-time">Yesterday</div>
+          </div>
         </div>
       </div>
     </div>
@@ -192,33 +194,35 @@
   <div class="card">
     <div class="card-header">
       <h3>Due Today</h3>
-      <a href="/app/tasks" class="tag tag-dim" style="cursor:pointer">Board →</a>
+      <a href="/app/tasks" class="tag tag-dim" style="cursor:pointer">Board &rarr;</a>
     </div>
     <div class="card-body">
-      <div class="task-item">
-        <div class="task-check"></div>
-        <div class="task-text">Follow up Henderson showing</div>
-        <span class="task-pri pri-high">HIGH</span>
-      </div>
-      <div class="task-item">
-        <div class="task-check"></div>
-        <div class="task-text">Send listing photos to Johnson</div>
-        <span class="task-pri pri-high">HIGH</span>
-      </div>
-      <div class="task-item">
-        <div class="task-check"></div>
-        <div class="task-text">Review closing documents</div>
-        <span class="task-pri pri-med">MED</span>
-      </div>
-      <div class="task-item">
-        <div class="task-check"></div>
-        <div class="task-text">Prepare CMA report — Oak St</div>
-        <span class="task-pri pri-med">MED</span>
-      </div>
-      <div class="task-item">
-        <div class="task-check"></div>
-        <div class="task-text">Post market update on LinkedIn</div>
-        <span class="task-pri pri-low">LOW</span>
+      <div class="task-list" id="taskList">
+        <div class="task-item">
+          <input type="checkbox" class="task-check" data-task="task-1">
+          <div class="task-text">Follow up Henderson showing</div>
+          <span class="task-pri pri-high">HIGH</span>
+        </div>
+        <div class="task-item">
+          <input type="checkbox" class="task-check" data-task="task-2">
+          <div class="task-text">Send listing photos to Johnson</div>
+          <span class="task-pri pri-high">HIGH</span>
+        </div>
+        <div class="task-item">
+          <input type="checkbox" class="task-check" data-task="task-3">
+          <div class="task-text">Review closing documents</div>
+          <span class="task-pri pri-med">MED</span>
+        </div>
+        <div class="task-item">
+          <input type="checkbox" class="task-check" data-task="task-4">
+          <div class="task-text">Prepare CMA report &mdash; Oak St</div>
+          <span class="task-pri pri-med">MED</span>
+        </div>
+        <div class="task-item">
+          <input type="checkbox" class="task-check" data-task="task-5">
+          <div class="task-text">Post market update on LinkedIn</div>
+          <span class="task-pri pri-low">LOW</span>
+        </div>
       </div>
     </div>
   </div>
@@ -227,47 +231,39 @@
   <div class="card">
     <div class="card-header">
       <h3>Top Deals</h3>
-      <a href="/app/crm" class="tag tag-dim" style="cursor:pointer">CRM →</a>
+      <a href="/app/crm" class="tag tag-dim" style="cursor:pointer">CRM &rarr;</a>
     </div>
     <div class="card-body">
-      <div style="display:flex;flex-direction:column;gap:0.8rem">
-        <div style="display:flex;align-items:center;justify-content:space-between">
-          <div style="display:flex;align-items:center;gap:0.6rem">
-            <div class="avatar" style="background:var(--grad-purple)">H</div>
-            <div>
-              <div style="font-size:0.84rem;font-weight:600;color:var(--w)">Henderson Property</div>
-              <div style="font-size:0.7rem;color:var(--tx-dim)">Offer Pending · 3 days</div>
-            </div>
+      <div class="deal-list" id="dealList">
+        <div class="deal-item">
+          <div class="avatar" style="background:var(--grad-purple)">H</div>
+          <div style="flex:1;min-width:0">
+            <div style="font-size:0.84rem;font-weight:600;color:var(--w)">Henderson Property</div>
+            <div style="font-size:0.7rem;color:var(--tx-dim)">Offer Pending &middot; 3 days</div>
           </div>
           <div style="font-size:0.9rem;font-weight:700;color:var(--w)">$430K</div>
         </div>
-        <div style="display:flex;align-items:center;justify-content:space-between">
-          <div style="display:flex;align-items:center;gap:0.6rem">
-            <div class="avatar" style="background:linear-gradient(135deg,var(--a),var(--r))">J</div>
-            <div>
-              <div style="font-size:0.84rem;font-weight:600;color:var(--w)">Johnson Deal</div>
-              <div style="font-size:0.7rem;color:var(--r)">Cold · 8 days no contact</div>
-            </div>
+        <div class="deal-item">
+          <div class="avatar" style="background:linear-gradient(135deg,var(--a),var(--r))">J</div>
+          <div style="flex:1;min-width:0">
+            <div style="font-size:0.84rem;font-weight:600;color:var(--w)">Johnson Deal</div>
+            <div style="font-size:0.7rem;color:var(--r)">Cold &middot; 8 days no contact</div>
           </div>
           <div style="font-size:0.9rem;font-weight:700;color:var(--w)">$445K</div>
         </div>
-        <div style="display:flex;align-items:center;justify-content:space-between">
-          <div style="display:flex;align-items:center;gap:0.6rem">
-            <div class="avatar" style="background:var(--grad-green)">M</div>
-            <div>
-              <div style="font-size:0.84rem;font-weight:600;color:var(--w)">Martinez Listing</div>
-              <div style="font-size:0.7rem;color:var(--g)">Under Contract · Closing Apr 2</div>
-            </div>
+        <div class="deal-item">
+          <div class="avatar" style="background:var(--grad-green)">M</div>
+          <div style="flex:1;min-width:0">
+            <div style="font-size:0.84rem;font-weight:600;color:var(--w)">Martinez Listing</div>
+            <div style="font-size:0.7rem;color:var(--g)">Under Contract &middot; Closing Apr 2</div>
           </div>
           <div style="font-size:0.9rem;font-weight:700;color:var(--w)">$380K</div>
         </div>
-        <div style="display:flex;align-items:center;justify-content:space-between">
-          <div style="display:flex;align-items:center;gap:0.6rem">
-            <div class="avatar" style="background:var(--grad-blue)">W</div>
-            <div>
-              <div style="font-size:0.84rem;font-weight:600;color:var(--w)">Williams Reno</div>
-              <div style="font-size:0.7rem;color:var(--tx-dim)">New Lead · Hot referral</div>
-            </div>
+        <div class="deal-item">
+          <div class="avatar" style="background:var(--grad-blue)">W</div>
+          <div style="flex:1;min-width:0">
+            <div style="font-size:0.84rem;font-weight:600;color:var(--w)">Williams Reno</div>
+            <div style="font-size:0.7rem;color:var(--tx-dim)">New Lead &middot; Hot referral</div>
           </div>
           <div style="font-size:0.9rem;font-weight:700;color:var(--w)">$290K</div>
         </div>
@@ -276,80 +272,274 @@
   </div>
 </div>
 
-<!-- RECENT INVOICES TABLE -->
-<div class="card" style="margin-bottom:1.5rem">
-  <div class="card-header">
-    <h3>Recent Invoices</h3>
-    <a href="/app/invoicing" class="tag tag-purple" style="cursor:pointer">View All →</a>
-  </div>
-  <div class="table-wrap">
-    <table>
-      <thead>
-        <tr><th>Invoice</th><th>Client</th><th>Amount</th><th>Status</th><th>Due</th></tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td style="color:var(--w);font-weight:600">INV-0042</td>
-          <td>Henderson Group</td>
-          <td style="color:var(--w);font-weight:600">$4,500.00</td>
-          <td><span class="tag tag-green">Paid</span></td>
-          <td>Mar 10</td>
-        </tr>
-        <tr>
-          <td style="color:var(--w);font-weight:600">INV-0041</td>
-          <td>Sarah Johnson</td>
-          <td style="color:var(--w);font-weight:600">$2,800.00</td>
-          <td><span class="tag tag-amber">Pending</span></td>
-          <td>Mar 15</td>
-        </tr>
-        <tr>
-          <td style="color:var(--w);font-weight:600">INV-0040</td>
-          <td>Martinez Family</td>
-          <td style="color:var(--w);font-weight:600">$6,200.00</td>
-          <td><span class="tag tag-green">Paid</span></td>
-          <td>Mar 5</td>
-        </tr>
-        <tr>
-          <td style="color:var(--w);font-weight:600">INV-0039</td>
-          <td>Williams LLC</td>
-          <td style="color:var(--w);font-weight:600">$3,100.00</td>
-          <td><span class="tag tag-red">Overdue</span></td>
-          <td>Feb 28</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-</div>
-
 {% endblock %}
 
 {% block scripts %}
 <script src="/static/js/charts.js"></script>
 <script>
-document.addEventListener('DOMContentLoaded', () => {
-  // Sparklines
-  MT360Charts.createSparkline('sparkPipeline', [180,200,195,220,240,250,260,270,285], '#7C3AED');
-  MT360Charts.createSparkline('sparkRevenue', [8200,8800,9100,9500,10200,10800,11200,11800,12500], '#3B82F6');
-  MT360Charts.createSparkline('sparkDeals', [3,4,4,5,5,6,6,7,8], '#22C55E');
-  MT360Charts.createSparkline('sparkLeads', [30,28,27,26,25,26,25,24,24], '#F59E0B');
+/*
+  MyTeam360 — Dashboard Controller
+  (c) 2026 Praxis Holdings LLC. PROPRIETARY AND CONFIDENTIAL.
+*/
+(function() {
+  'use strict';
 
-  // Gauge charts
-  MT360Charts.createGaugeChart('gaugeWinRate', 80, 100, { color: '#7C3AED' });
-  MT360Charts.createGaugeChart('gaugeHealth', 91, 100, { color: '#22C55E' });
+  /* ════════════════════════════════════════════
+     Theme colors (light-theme palette)
+     ════════════════════════════════════════════ */
+  const CLR = {
+    primary:  '#5E81F4',
+    green:    '#7CE7AC',
+    purple:   '#7C3AED',
+    blue:     '#3B82F6',
+    amber:    '#F59E0B',
+    red:      '#EF4444',
+  };
 
-  // Sales overview area chart
-  MT360Charts.createAreaChart('chartSalesOverview',
-    ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
-    [4200,5100,4800,6200,7100,6800,8200,9500,10200,11200,11800,12500],
-    { label: 'Revenue', prefix: '$' }
-  );
+  /* ════════════════════════════════════════════
+     API helper — uses MT360.api if available,
+     otherwise falls back to plain fetch
+     ════════════════════════════════════════════ */
+  async function apiGet(url) {
+    if (typeof MT360 !== 'undefined' && typeof MT360.api === 'function') {
+      return MT360.api(url);
+    }
+    const res = await fetch(url);
+    if (!res.ok) throw new Error(`API ${res.status}`);
+    return res.json();
+  }
 
-  // Monthly deals bar chart
-  MT360Charts.createBarChart('chartMonthlyDeals',
-    ['Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec','Jan','Feb','Mar'],
-    [3,4,3,5,4,6,5,7,6,8,7,8],
-    { label: 'Deals Closed' }
-  );
-});
+  /* ════════════════════════════════════════════
+     Demo / fallback data
+     ════════════════════════════════════════════ */
+  const DEMO = {
+    briefing: {
+      title:   'Wednesday Briefing \u2014 Client Day',
+      body:    'Henderson showing at 2pm \u00b7 Leave by 1:25 (35 min drive) \u00b7 Carbone at 7:30 \u00b7 SW1234 on time \u00b7 7 emails, 3 tasks due',
+      greeting: 'Welcome back, Jeremy',
+      subtext:  'You have 3 high-priority tasks and 2 deals requiring attention today. Your pipeline is up 12% this month.'
+    },
+    sparklines: {
+      pipeline: [180,200,195,220,240,250,260,270,285],
+      revenue:  [8200,8800,9100,9500,10200,10800,11200,11800,12500],
+      deals:    [3,4,4,5,5,6,6,7,8],
+      leads:    [30,28,27,26,25,26,25,24,24],
+    },
+    salesOverview: {
+      labels: ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
+      data:   [4200,5100,4800,6200,7100,6800,8200,9500,10200,11200,11800,12500],
+    },
+    monthlyDeals: {
+      labels: ['Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec','Jan','Feb','Mar'],
+      data:   [3,4,3,5,4,6,5,7,6,8,7,8],
+    },
+    gauges: {
+      winRate: 80,
+      health:  91,
+    },
+  };
+
+  /* ════════════════════════════════════════════
+     Briefing banner — fetch from API
+     ════════════════════════════════════════════ */
+  async function loadBriefing() {
+    let data = DEMO.briefing;
+    try {
+      const res = await apiGet('/api/briefing');
+      if (res && res.title) data = res;
+    } catch (_) {
+      /* fallback to demo data — already set */
+    }
+
+    const titleEl   = document.getElementById('briefTitle');
+    const bodyEl    = document.getElementById('briefBody');
+    const greetEl   = document.getElementById('welcomeGreeting');
+    const subEl     = document.getElementById('welcomeSubtext');
+
+    if (titleEl) titleEl.textContent = data.title;
+    if (bodyEl)  bodyEl.textContent  = data.body;
+    if (greetEl) greetEl.textContent = data.greeting || DEMO.briefing.greeting;
+    if (subEl)   subEl.textContent   = data.subtext  || DEMO.briefing.subtext;
+  }
+
+  /* ════════════════════════════════════════════
+     Sparkline charts (stat cards)
+     ════════════════════════════════════════════ */
+  function initSparklines() {
+    const sp = DEMO.sparklines;
+    MT360Charts.createSparkline('sparkPipeline', sp.pipeline, CLR.primary);
+    MT360Charts.createSparkline('sparkRevenue',  sp.revenue,  CLR.blue);
+    MT360Charts.createSparkline('sparkDeals',    sp.deals,    CLR.green);
+    MT360Charts.createSparkline('sparkLeads',    sp.leads,    CLR.amber);
+  }
+
+  /* ════════════════════════════════════════════
+     Gauge charts — Win Rate & Health Score
+     ════════════════════════════════════════════ */
+  function initGauges() {
+    MT360Charts.createGaugeChart('gaugeWinRate', DEMO.gauges.winRate, 100, { color: CLR.primary });
+    MT360Charts.createGaugeChart('gaugeHealth',  DEMO.gauges.health,  100, { color: CLR.green });
+  }
+
+  /* ════════════════════════════════════════════
+     Sales Overview — area chart (12 months)
+     ════════════════════════════════════════════ */
+  function initSalesOverview() {
+    const ctx = document.getElementById('chartSalesOverview');
+    if (!ctx) return;
+
+    const gradient = ctx.getContext('2d').createLinearGradient(0, 0, 0, 250);
+    gradient.addColorStop(0, 'rgba(94,129,244,0.30)');
+    gradient.addColorStop(1, 'rgba(94,129,244,0.01)');
+
+    const so = DEMO.salesOverview;
+    new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: so.labels,
+        datasets: [{
+          label: 'Revenue',
+          data: so.data,
+          borderColor: CLR.primary,
+          backgroundColor: gradient,
+          borderWidth: 2.5,
+          fill: true,
+          tension: 0.4,
+          pointRadius: 0,
+          pointHoverRadius: 6,
+          pointHoverBackgroundColor: CLR.primary,
+          pointHoverBorderColor: '#fff',
+          pointHoverBorderWidth: 2,
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        animation: { duration: 800, easing: 'easeOutQuart' },
+        interaction: { mode: 'index', intersect: false },
+        plugins: {
+          legend: { display: false },
+          tooltip: MT360Charts.tooltipConfig(),
+        },
+        scales: {
+          x: {
+            grid: { display: false },
+            ticks: { color: '#525A6A', font: MT360Charts.defaultFont },
+          },
+          y: {
+            grid: MT360Charts.gridConfig(),
+            ticks: {
+              color: '#525A6A',
+              font: MT360Charts.defaultFont,
+              callback: function(v) { return '$' + v.toLocaleString(); },
+            },
+            beginAtZero: true,
+          }
+        }
+      }
+    });
+  }
+
+  /* ════════════════════════════════════════════
+     Monthly Deals — bar chart
+     ════════════════════════════════════════════ */
+  function initMonthlyDeals() {
+    const ctx = document.getElementById('chartMonthlyDeals');
+    if (!ctx) return;
+
+    const gradient = ctx.getContext('2d').createLinearGradient(0, 200, 0, 0);
+    gradient.addColorStop(0, 'rgba(94,129,244,0.30)');
+    gradient.addColorStop(1, 'rgba(124,231,172,0.80)');
+
+    const md = DEMO.monthlyDeals;
+    new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: md.labels,
+        datasets: [{
+          label: 'Deals Closed',
+          data: md.data,
+          backgroundColor: gradient,
+          borderRadius: 6,
+          borderSkipped: false,
+          barPercentage: 0.6,
+          categoryPercentage: 0.7,
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        animation: { duration: 800, easing: 'easeOutQuart' },
+        plugins: {
+          legend: { display: false },
+          tooltip: MT360Charts.tooltipConfig(),
+        },
+        scales: {
+          x: {
+            grid: { display: false },
+            ticks: { color: '#525A6A', font: MT360Charts.defaultFont },
+          },
+          y: {
+            grid: MT360Charts.gridConfig(),
+            ticks: { color: '#525A6A', font: MT360Charts.defaultFont },
+            beginAtZero: true,
+          }
+        }
+      }
+    });
+  }
+
+  /* ════════════════════════════════════════════
+     Task checkbox interactions
+     ════════════════════════════════════════════ */
+  function initTaskChecks() {
+    document.querySelectorAll('.task-check').forEach(function(cb) {
+      cb.addEventListener('change', function() {
+        var item = this.closest('.task-item');
+        if (this.checked) {
+          item.style.opacity = '0.45';
+          item.querySelector('.task-text').style.textDecoration = 'line-through';
+        } else {
+          item.style.opacity = '1';
+          item.querySelector('.task-text').style.textDecoration = 'none';
+        }
+      });
+    });
+  }
+
+  /* ════════════════════════════════════════════
+     Chart tab switching (range selectors)
+     ════════════════════════════════════════════ */
+  function initChartTabs() {
+    document.querySelectorAll('.chart-tabs').forEach(function(group) {
+      group.querySelectorAll('.chart-tab').forEach(function(tab) {
+        tab.addEventListener('click', function() {
+          group.querySelectorAll('.chart-tab').forEach(function(t) { t.classList.remove('active'); });
+          this.classList.add('active');
+          /* TODO: reload chart data based on data-range when API is ready */
+        });
+      });
+    });
+  }
+
+  /* ════════════════════════════════════════════
+     Boot — run everything on DOMContentLoaded
+     ════════════════════════════════════════════ */
+  document.addEventListener('DOMContentLoaded', function() {
+    /* Fetch briefing data from API (falls back to demo) */
+    loadBriefing();
+
+    /* Initialize all Chart.js visualizations */
+    initSparklines();
+    initGauges();
+    initSalesOverview();
+    initMonthlyDeals();
+
+    /* Interactive behaviors */
+    initTaskChecks();
+    initChartTabs();
+  });
+
+})();
 </script>
 {% endblock %}

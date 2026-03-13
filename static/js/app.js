@@ -120,10 +120,12 @@ const MT360 = {
     document.addEventListener('keydown', (e) => {
       if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
         e.preventDefault();
-        const search = document.getElementById('searchTrigger');
-        if (search) search.click();
+        MT360.openCmd();
       }
-      if (e.key === 'Escape' && MT360.recording) MT360.closeVoice();
+      if (e.key === 'Escape') {
+        if (MT360.recording) MT360.closeVoice();
+        MT360.closeCmd();
+      }
     });
   },
 
@@ -189,6 +191,143 @@ const MT360 = {
     });
   },
 
+  // ═══ API HELPER ═══
+  async api(url, opts = {}) {
+    try {
+      const res = await fetch(url, {
+        headers: { 'Content-Type': 'application/json', ...opts.headers },
+        ...opts,
+        body: opts.body ? JSON.stringify(opts.body) : undefined,
+      });
+      if (!res.ok) throw new Error(`${res.status} ${res.statusText}`);
+      return await res.json();
+    } catch (err) {
+      MT360.toast(err.message || 'Request failed', 'error');
+      throw err;
+    }
+  },
+
+  // ═══ COMMAND PALETTE ═══
+  initCmd() {
+    const palette = document.getElementById('cmdPalette');
+    const input = document.getElementById('cmdInput');
+    if (!palette || !input) return;
+
+    input.addEventListener('input', () => {
+      const query = input.value.toLowerCase();
+      const items = palette.querySelectorAll('.cmd-item');
+      let firstVisible = null;
+      items.forEach(item => {
+        const match = item.textContent.toLowerCase().includes(query);
+        item.style.display = match ? '' : 'none';
+        item.classList.remove('highlight');
+        if (match && !firstVisible) firstVisible = item;
+      });
+      if (firstVisible) firstVisible.classList.add('highlight');
+    });
+
+    input.addEventListener('keydown', (e) => {
+      const items = Array.from(palette.querySelectorAll('.cmd-item')).filter(i => i.style.display !== 'none');
+      const current = items.findIndex(i => i.classList.contains('highlight'));
+
+      if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        if (current >= 0) items[current].classList.remove('highlight');
+        const next = current + 1 < items.length ? current + 1 : 0;
+        if (items[next]) items[next].classList.add('highlight');
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        if (current >= 0) items[current].classList.remove('highlight');
+        const prev = current - 1 >= 0 ? current - 1 : items.length - 1;
+        if (items[prev]) items[prev].classList.add('highlight');
+      } else if (e.key === 'Enter') {
+        e.preventDefault();
+        const highlighted = palette.querySelector('.cmd-item.highlight');
+        if (highlighted) {
+          const href = highlighted.dataset.href || highlighted.getAttribute('href');
+          if (href) window.location.href = href;
+        }
+        MT360.closeCmd();
+      }
+    });
+
+    palette.addEventListener('click', (e) => {
+      if (e.target === palette) MT360.closeCmd();
+    });
+  },
+
+  openCmd() {
+    const p = document.getElementById('cmdPalette');
+    if (p) { p.classList.add('active'); document.getElementById('cmdInput')?.focus(); }
+  },
+
+  closeCmd() {
+    const p = document.getElementById('cmdPalette');
+    if (p) { p.classList.remove('active'); const inp = document.getElementById('cmdInput'); if (inp) inp.value = ''; }
+  },
+
+  // ═══ DRAG-DROP ═══
+  initDragDrop() {
+    if (!window.Sortable) return;
+    document.querySelectorAll('[data-sortable]').forEach(el => {
+      new Sortable(el, {
+        group: el.dataset.sortable,
+        animation: 150,
+        ghostClass: 'drag-ghost',
+        dragClass: 'drag-active',
+        handle: '.drag-handle',
+        onEnd: MT360.onDragEnd,
+      });
+    });
+  },
+
+  onDragEnd(evt) {
+    const item = evt.item;
+    const moveUrl = item?.dataset?.moveUrl;
+    if (!moveUrl) return;
+    MT360.api(moveUrl, {
+      method: 'POST',
+      body: {
+        from: evt.oldIndex,
+        to: evt.newIndex,
+        fromColumn: evt.from.dataset.column,
+        toColumn: evt.to.dataset.column,
+      },
+    })
+      .then(() => MT360.toast('Item moved', 'success'))
+      .catch(() => {});
+  },
+
+  // ═══ LOADING SKELETON HELPERS ═══
+  showSkeleton(containerId) {
+    const el = document.getElementById(containerId);
+    if (el) el.classList.add('loading');
+  },
+
+  hideSkeleton(containerId) {
+    const el = document.getElementById(containerId);
+    if (el) el.classList.remove('loading');
+  },
+
+  // ═══ DATE RANGE HANDLER ═══
+  rangeCallbacks: {},
+
+  initDateRanges() {
+    document.querySelectorAll('[data-range-group]').forEach(container => {
+      const groupId = container.dataset.rangeGroup;
+      container.querySelectorAll('[data-range]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          container.querySelectorAll('[data-range]').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          const value = btn.dataset.range;
+          if (MT360.rangeCallbacks[groupId]) {
+            MT360.rangeCallbacks[groupId](value);
+          }
+        });
+      });
+    });
+  },
+
   // ═══ INIT ═══
   init() {
     MT360.initSidebar();
@@ -197,6 +336,9 @@ const MT360 = {
     MT360.initTaskChecks();
     MT360.initTabs();
     MT360.initFilters();
+    MT360.initCmd();
+    MT360.initDragDrop();
+    MT360.initDateRanges();
   }
 };
 

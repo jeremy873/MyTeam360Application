@@ -13,7 +13,7 @@
 <div class="content-header" style="display:flex;align-items:center;justify-content:space-between">
   <div>
     <h1>Pipeline</h1>
-    <p>20 deals · $285K total value</p>
+    <p id="pipelineStats">20 deals · $285K total value</p>
   </div>
   <div style="display:flex;gap:0.5rem">
     <button class="btn btn-ghost btn-sm" onclick="toggleCRMView('board')">Board</button>
@@ -38,18 +38,18 @@
 </div>
 
 <!-- KANBAN BOARD -->
-<div class="kanban" id="crmBoard">
+<div class="kanban" id="crmBoardContainer" data-sortable="crm-pipeline">
   <!-- New Lead -->
-  <div class="kanban-col">
+  <div class="kanban-col" id="col-new_lead">
     <div class="kanban-col-header">
       <div class="kanban-col-title">
         <div class="pipe-dot" style="background:var(--tx-dim)"></div>
         New Lead <span class="kanban-col-count">4</span>
       </div>
-      <span style="font-size:0.72rem;color:var(--tx-dim);font-weight:600">$45K</span>
+      <span class="kanban-col-value" style="font-size:0.72rem;color:var(--tx-dim);font-weight:600">$45K</span>
     </div>
-    <div class="kanban-col-body">
-      <div class="kanban-card">
+    <div class="kanban-col-body" data-column="new_lead">
+      <div class="kanban-card" data-deal-id="demo-1" onclick="openDealPanel(this)">
         <div class="kanban-card-title">Williams Renovation</div>
         <div class="kanban-card-meta">
           <div class="avatar-sm avatar" style="background:var(--grad-blue)">W</div>
@@ -58,7 +58,7 @@
           <div class="kanban-card-health" style="background:var(--g)"></div>
         </div>
       </div>
-      <div class="kanban-card">
+      <div class="kanban-card" data-deal-id="demo-2" onclick="openDealPanel(this)">
         <div class="kanban-card-title">Park Avenue Listing</div>
         <div class="kanban-card-meta">
           <div class="avatar-sm avatar" style="background:var(--grad-green)">P</div>
@@ -67,7 +67,7 @@
           <div class="kanban-card-health" style="background:var(--g)"></div>
         </div>
       </div>
-      <div class="kanban-card">
+      <div class="kanban-card" data-deal-id="demo-3" onclick="openDealPanel(this)">
         <div class="kanban-card-title">Chen Family Home</div>
         <div class="kanban-card-meta">
           <div class="avatar-sm avatar" style="background:linear-gradient(135deg,var(--t),var(--b))">C</div>
@@ -81,16 +81,16 @@
   </div>
 
   <!-- Showing -->
-  <div class="kanban-col">
+  <div class="kanban-col" id="col-showing">
     <div class="kanban-col-header">
       <div class="kanban-col-title">
         <div class="pipe-dot" style="background:var(--b)"></div>
         Showing <span class="kanban-col-count">2</span>
       </div>
-      <span style="font-size:0.72rem;color:var(--tx-dim);font-weight:600">$85K</span>
+      <span class="kanban-col-value" style="font-size:0.72rem;color:var(--tx-dim);font-weight:600">$85K</span>
     </div>
-    <div class="kanban-col-body">
-      <div class="kanban-card" onclick="MT360.openPanel('dealPanel')">
+    <div class="kanban-col-body" data-column="showing">
+      <div class="kanban-card" data-deal-id="demo-4" onclick="openDealPanel(this)">
         <div class="kanban-card-title">Henderson Property</div>
         <div class="kanban-card-meta">
           <div class="avatar-sm avatar" style="background:var(--grad-purple)">H</div>
@@ -99,7 +99,7 @@
           <div class="kanban-card-health" style="background:var(--g)"></div>
         </div>
       </div>
-      <div class="kanban-card">
+      <div class="kanban-card" data-deal-id="demo-5" onclick="openDealPanel(this)">
         <div class="kanban-card-title">Riverside Condo</div>
         <div class="kanban-card-meta">
           <div class="avatar-sm avatar" style="background:linear-gradient(135deg,var(--a),var(--r))">R</div>
@@ -113,16 +113,16 @@
   </div>
 
   <!-- Negotiation -->
-  <div class="kanban-col">
+  <div class="kanban-col" id="col-negotiation">
     <div class="kanban-col-header">
       <div class="kanban-col-title">
         <div class="pipe-dot" style="background:var(--pl)"></div>
         Negotiation <span class="kanban-col-count">3</span>
       </div>
-      <span style="font-size:0.72rem;color:var(--tx-dim);font-weight:600">$130K</span>
+      <span class="kanban-col-value" style="font-size:0.72rem;color:var(--tx-dim);font-weight:600">$130K</span>
     </div>
-    <div class="kanban-col-body">
-      <div class="kanban-card">
+    <div class="kanban-col-body" data-column="negotiation">
+      <div class="kanban-card" data-deal-id="demo-6" onclick="openDealPanel(this)">
         <div class="kanban-card-title">Johnson Property</div>
         <div class="kanban-card-meta">
           <div class="avatar-sm avatar" style="background:linear-gradient(135deg,var(--a),var(--r))">J</div>
@@ -131,7 +131,7 @@
           <div class="kanban-card-health" style="background:var(--r)"></div>
         </div>
       </div>
-      <div class="kanban-card">
+      <div class="kanban-card" data-deal-id="demo-7" onclick="openDealPanel(this)">
         <div class="kanban-card-title">Oak Street Duplex</div>
         <div class="kanban-card-meta">
           <div class="avatar-sm avatar" style="background:var(--grad-green)">O</div>
@@ -145,16 +145,16 @@
   </div>
 
   <!-- Under Contract -->
-  <div class="kanban-col">
+  <div class="kanban-col" id="col-under_contract">
     <div class="kanban-col-header">
       <div class="kanban-col-title">
         <div class="pipe-dot" style="background:var(--a)"></div>
         Under Contract <span class="kanban-col-count">1</span>
       </div>
-      <span style="font-size:0.72rem;color:var(--tx-dim);font-weight:600">$380K</span>
+      <span class="kanban-col-value" style="font-size:0.72rem;color:var(--tx-dim);font-weight:600">$380K</span>
     </div>
-    <div class="kanban-col-body">
-      <div class="kanban-card">
+    <div class="kanban-col-body" data-column="under_contract">
+      <div class="kanban-card" data-deal-id="demo-8" onclick="openDealPanel(this)">
         <div class="kanban-card-title">Martinez Listing</div>
         <div class="kanban-card-meta">
           <div class="avatar-sm avatar" style="background:var(--grad-green)">M</div>
@@ -168,16 +168,16 @@
   </div>
 
   <!-- Closed -->
-  <div class="kanban-col">
+  <div class="kanban-col" id="col-closed_won">
     <div class="kanban-col-header">
       <div class="kanban-col-title">
         <div class="pipe-dot" style="background:var(--g)"></div>
         Closed Won <span class="kanban-col-count">8</span>
       </div>
-      <span style="font-size:0.72rem;color:var(--tx-dim);font-weight:600">$210K</span>
+      <span class="kanban-col-value" style="font-size:0.72rem;color:var(--tx-dim);font-weight:600">$210K</span>
     </div>
-    <div class="kanban-col-body">
-      <div class="kanban-card" style="opacity:0.6">
+    <div class="kanban-col-body" data-column="closed_won">
+      <div class="kanban-card" data-deal-id="demo-9" style="opacity:0.6" onclick="openDealPanel(this)">
         <div class="kanban-card-title">Thompson Residence</div>
         <div class="kanban-card-meta">
           <div class="avatar-sm avatar" style="background:var(--grad-green)">T</div>
@@ -192,53 +192,55 @@
 <!-- DEAL SLIDE-OUT PANEL -->
 <div class="slide-panel" id="dealPanel">
   <div class="slide-panel-header">
-    <h3>Henderson Property</h3>
-    <button class="modal-close" onclick="MT360.closePanel('dealPanel')">✕</button>
+    <h3 id="dealPanelTitle">Henderson Property</h3>
+    <button class="modal-close" onclick="MT360.closePanel('dealPanel')">&#10005;</button>
   </div>
   <div class="slide-panel-body">
     <div style="display:flex;align-items:center;gap:1rem;margin-bottom:1.5rem">
-      <div class="avatar-lg avatar" style="background:var(--grad-purple)">H</div>
+      <div class="avatar-lg avatar" id="dealPanelAvatar" style="background:var(--grad-purple)">H</div>
       <div>
-        <div style="font-size:1.1rem;font-weight:700;color:var(--w)">$430,000</div>
-        <div style="font-size:0.78rem;color:var(--tx-dim)">Showing · 3 days in stage</div>
+        <div style="font-size:1.1rem;font-weight:700;color:var(--w)" id="dealPanelValue">$430,000</div>
+        <div style="font-size:0.78rem;color:var(--tx-dim)" id="dealPanelStageInfo">Showing · 3 days in stage</div>
       </div>
-      <span class="tag tag-green" style="margin-left:auto">Healthy</span>
+      <span class="tag tag-green" id="dealPanelHealth" style="margin-left:auto">Healthy</span>
     </div>
 
     <div class="form-group">
       <div class="form-label">Contact</div>
-      <div style="font-size:0.84rem;color:var(--w)">Robert Henderson · (555) 234-5678</div>
-      <div style="font-size:0.78rem;color:var(--tx-dim)">robert@henderson-group.com</div>
+      <div style="font-size:0.84rem;color:var(--w)" id="dealPanelContact">Robert Henderson · (555) 234-5678</div>
+      <div style="font-size:0.78rem;color:var(--tx-dim)" id="dealPanelEmail">robert@henderson-group.com</div>
     </div>
 
     <div class="form-group">
       <div class="form-label">Property</div>
-      <div style="font-size:0.84rem;color:var(--w)">123 Oak Street, Charlotte NC 28202</div>
-      <div style="font-size:0.78rem;color:var(--tx-dim)">4 bed · 3 bath · 2,400 sqft</div>
+      <div style="font-size:0.84rem;color:var(--w)" id="dealPanelProperty">123 Oak Street, Charlotte NC 28202</div>
+      <div style="font-size:0.78rem;color:var(--tx-dim)" id="dealPanelPropertyDetails">4 bed · 3 bath · 2,400 sqft</div>
     </div>
 
     <div class="form-group">
       <div class="form-label">Next Steps</div>
-      <div class="task-item">
-        <div class="task-check"></div>
-        <div class="task-text">Follow up after showing</div>
-        <span class="task-pri pri-high">HIGH</span>
-      </div>
-      <div class="task-item">
-        <div class="task-check"></div>
-        <div class="task-text">Send comparable analysis</div>
-        <span class="task-pri pri-med">MED</span>
+      <div id="dealPanelTasks">
+        <div class="task-item">
+          <div class="task-check"></div>
+          <div class="task-text">Follow up after showing</div>
+          <span class="task-pri pri-high">HIGH</span>
+        </div>
+        <div class="task-item">
+          <div class="task-check"></div>
+          <div class="task-text">Send comparable analysis</div>
+          <span class="task-pri pri-med">MED</span>
+        </div>
       </div>
     </div>
 
     <div class="form-group">
       <div class="form-label">Notes</div>
-      <textarea class="textarea" placeholder="Add notes about this deal...">Buyer pre-approved for $450K. Very interested in the backyard and updated kitchen. Wife loves the neighborhood. Showing today at 2pm.</textarea>
+      <textarea class="textarea" id="dealPanelNotes" placeholder="Add notes about this deal...">Buyer pre-approved for $450K. Very interested in the backyard and updated kitchen. Wife loves the neighborhood. Showing today at 2pm.</textarea>
     </div>
 
     <div style="display:flex;gap:0.5rem;margin-top:1rem">
-      <button class="btn btn-primary btn-sm">Move to Negotiation</button>
-      <button class="btn btn-ghost btn-sm">Log Activity</button>
+      <button class="btn btn-primary btn-sm" id="moveDealBtn">Move to Negotiation</button>
+      <button class="btn btn-ghost btn-sm" id="logActivityBtn">Log Activity</button>
     </div>
   </div>
 </div>
@@ -248,38 +250,40 @@
   <div class="modal">
     <div class="modal-header">
       <h3>New Deal</h3>
-      <button class="modal-close" onclick="MT360.closeModal('newDealModal')">✕</button>
+      <button class="modal-close" onclick="MT360.closeModal('newDealModal')">&#10005;</button>
     </div>
     <div class="modal-body">
-      <div class="form-group">
-        <label class="form-label">Deal Name</label>
-        <input class="input" placeholder="e.g., Henderson Property">
-      </div>
-      <div class="form-group">
-        <label class="form-label">Value</label>
-        <input class="input" placeholder="$0.00" type="text">
-      </div>
-      <div class="form-group">
-        <label class="form-label">Stage</label>
-        <select class="select">
-          <option>New Lead</option>
-          <option>Showing</option>
-          <option>Negotiation</option>
-          <option>Under Contract</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label class="form-label">Contact Name</label>
-        <input class="input" placeholder="Full name">
-      </div>
-      <div class="form-group">
-        <label class="form-label">Notes</label>
-        <textarea class="textarea" placeholder="Add any notes..."></textarea>
-      </div>
+      <form id="newDealForm">
+        <div class="form-group">
+          <label class="form-label">Deal Name</label>
+          <input class="input" id="dealName" name="name" placeholder="e.g., Henderson Property" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Value</label>
+          <input class="input" id="dealValue" name="value" placeholder="$0.00" type="text">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Stage</label>
+          <select class="select" id="dealStage" name="stage">
+            <option value="new_lead">New Lead</option>
+            <option value="showing">Showing</option>
+            <option value="negotiation">Negotiation</option>
+            <option value="under_contract">Under Contract</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Contact Name</label>
+          <input class="input" id="dealContact" name="contact_name" placeholder="Full name">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Notes</label>
+          <textarea class="textarea" id="dealNotes" name="notes" placeholder="Add any notes..."></textarea>
+        </div>
+      </form>
     </div>
     <div class="modal-footer">
       <button class="btn btn-ghost btn-sm" onclick="MT360.closeModal('newDealModal')">Cancel</button>
-      <button class="btn btn-primary btn-sm" onclick="MT360.closeModal('newDealModal');MT360.toast('Deal created','success')">Create Deal</button>
+      <button class="btn btn-primary btn-sm" id="createDealBtn">Create Deal</button>
     </div>
   </div>
 </div>
@@ -291,4 +295,335 @@ function toggleCRMView(view) {
 }
 </script>
 
+{% endblock %}
+
+{% block scripts %}
+<script>
+(function() {
+  /* ── Stage config ────────────────────────────────────────── */
+  const STAGE_META = {
+    new_lead:       { label: 'New Lead',        dot: 'var(--tx-dim)', nextStage: 'showing' },
+    showing:        { label: 'Showing',         dot: 'var(--b)',      nextStage: 'negotiation' },
+    negotiation:    { label: 'Negotiation',     dot: 'var(--pl)',     nextStage: 'under_contract' },
+    under_contract: { label: 'Under Contract',  dot: 'var(--a)',      nextStage: 'closed_won' },
+    closed_won:     { label: 'Closed Won',      dot: 'var(--g)',      nextStage: null }
+  };
+
+  const HEALTH_COLORS = { healthy: 'var(--g)', at_risk: 'var(--a)', cold: 'var(--r)' };
+  const HEALTH_LABELS = { healthy: 'Healthy', at_risk: 'At Risk', cold: 'Cold' };
+  const HEALTH_TAG    = { healthy: 'tag-green', at_risk: 'tag-yellow', cold: 'tag-red' };
+
+  const AVATAR_GRADIENTS = [
+    'var(--grad-blue)', 'var(--grad-green)', 'var(--grad-purple)',
+    'linear-gradient(135deg,var(--t),var(--b))',
+    'linear-gradient(135deg,var(--a),var(--r))'
+  ];
+
+  let activeDealId = null;
+  let dealsMap = {};          // id -> deal object (populated from API)
+
+  /* ── Helpers ─────────────────────────────────────────────── */
+  function fmtMoney(v) {
+    if (v == null) return '$0';
+    var n = Number(v);
+    if (n >= 1000) return '$' + Math.round(n / 1000) + 'K';
+    return '$' + n.toLocaleString();
+  }
+
+  function fmtMoneyFull(v) {
+    if (v == null) return '$0';
+    return '$' + Number(v).toLocaleString();
+  }
+
+  function avatarGrad(name) {
+    var code = 0;
+    for (var i = 0; i < (name || '').length; i++) code += name.charCodeAt(i);
+    return AVATAR_GRADIENTS[code % AVATAR_GRADIENTS.length];
+  }
+
+  function initial(name) {
+    return (name || '?').charAt(0).toUpperCase();
+  }
+
+  /* ── Render a single kanban card ─────────────────────────── */
+  function renderCard(deal) {
+    var health = deal.health || 'healthy';
+    var card = document.createElement('div');
+    card.className = 'kanban-card';
+    card.dataset.dealId = deal.id;
+    card.onclick = function() { openDealPanel(card); };
+    if (deal.stage === 'closed_won') card.style.opacity = '0.6';
+
+    var daysText = deal.days_in_stage != null
+      ? deal.days_in_stage + ' day' + (deal.days_in_stage !== 1 ? 's' : '')
+      : '';
+    if (deal.close_date) daysText = deal.close_date;
+
+    card.innerHTML =
+      '<div class="kanban-card-title">' + (deal.name || 'Untitled') + '</div>' +
+      '<div class="kanban-card-meta">' +
+        '<div class="avatar-sm avatar" style="background:' + avatarGrad(deal.name) + '">' + initial(deal.name) + '</div>' +
+        '<span class="kanban-card-value">' + fmtMoney(deal.value) + '</span>' +
+        '<span class="kanban-card-days"' + (health === 'cold' ? ' style="color:var(--r)"' : '') + '>' + daysText + '</span>' +
+        (deal.stage !== 'closed_won' ? '<div class="kanban-card-health" style="background:' + (HEALTH_COLORS[health] || 'var(--g)') + '"></div>' : '') +
+      '</div>';
+    return card;
+  }
+
+  /* ── Render the full board from API data ─────────────────── */
+  function renderBoard(pipeline) {
+    var stages = pipeline.stages || {};
+    var totalDeals = 0;
+    var totalValue = 0;
+    dealsMap = {};
+
+    Object.keys(STAGE_META).forEach(function(stageKey) {
+      var col = document.querySelector('[data-column="' + stageKey + '"]');
+      if (!col) return;
+
+      // Remove existing cards but keep the "+ Add Deal" element
+      var addBtn = col.querySelector('.kanban-add');
+      col.innerHTML = '';
+
+      var stageData = stages[stageKey] || { deals: [], total_value: 0 };
+      var deals = stageData.deals || [];
+
+      deals.forEach(function(deal) {
+        deal.stage = stageKey;
+        dealsMap[deal.id] = deal;
+        col.appendChild(renderCard(deal));
+        totalDeals++;
+        totalValue += Number(deal.value) || 0;
+      });
+
+      if (addBtn) col.appendChild(addBtn);
+      else if (stageKey !== 'closed_won') {
+        var ab = document.createElement('div');
+        ab.className = 'kanban-add';
+        ab.textContent = '+ Add Deal';
+        col.appendChild(ab);
+      }
+
+      // Update column header count + value
+      var colEl = col.closest('.kanban-col');
+      if (colEl) {
+        var countEl = colEl.querySelector('.kanban-col-count');
+        if (countEl) countEl.textContent = deals.length;
+        var valEl = colEl.querySelector('.kanban-col-value');
+        if (valEl) valEl.textContent = fmtMoney(stageData.total_value || 0);
+      }
+    });
+
+    // Update header stats
+    if (pipeline.total_deals != null) totalDeals = pipeline.total_deals;
+    if (pipeline.total_value != null) totalValue = pipeline.total_value;
+    var statsEl = document.getElementById('pipelineStats');
+    if (statsEl) statsEl.textContent = totalDeals + ' deals \u00b7 ' + fmtMoney(totalValue) + ' total value';
+  }
+
+  /* ── Build dealsMap from demo cards already in the DOM ────── */
+  function indexDemoCards() {
+    document.querySelectorAll('.kanban-card[data-deal-id]').forEach(function(card) {
+      var id = card.dataset.dealId;
+      var col = card.closest('[data-column]');
+      dealsMap[id] = {
+        id: id,
+        name:  (card.querySelector('.kanban-card-title') || {}).textContent || '',
+        value: ((card.querySelector('.kanban-card-value') || {}).textContent || '').replace(/[^0-9.]/g, '') * 1000,
+        stage: col ? col.dataset.column : 'new_lead',
+        health: 'healthy',
+        _demo: true
+      };
+    });
+  }
+
+  /* ── Open deal slide-out panel ───────────────────────────── */
+  window.openDealPanel = function(cardEl) {
+    var dealId = cardEl.dataset.dealId;
+    activeDealId = dealId;
+    var deal = dealsMap[dealId];
+
+    var titleEl      = document.getElementById('dealPanelTitle');
+    var avatarEl     = document.getElementById('dealPanelAvatar');
+    var valueEl      = document.getElementById('dealPanelValue');
+    var stageInfoEl  = document.getElementById('dealPanelStageInfo');
+    var healthEl     = document.getElementById('dealPanelHealth');
+    var contactEl    = document.getElementById('dealPanelContact');
+    var emailEl      = document.getElementById('dealPanelEmail');
+    var propertyEl   = document.getElementById('dealPanelProperty');
+    var propDetEl    = document.getElementById('dealPanelPropertyDetails');
+    var notesEl      = document.getElementById('dealPanelNotes');
+    var moveBtn      = document.getElementById('moveDealBtn');
+
+    if (deal) {
+      if (titleEl)     titleEl.textContent = deal.name || 'Untitled';
+      if (avatarEl) {
+        avatarEl.style.background = avatarGrad(deal.name);
+        avatarEl.textContent = initial(deal.name);
+      }
+      if (valueEl)     valueEl.textContent = fmtMoneyFull(deal.value);
+
+      var stageLabel = (STAGE_META[deal.stage] || {}).label || deal.stage;
+      var days = deal.days_in_stage != null ? deal.days_in_stage + ' days in stage' : '';
+      if (stageInfoEl) stageInfoEl.textContent = stageLabel + (days ? ' \u00b7 ' + days : '');
+
+      var h = deal.health || 'healthy';
+      if (healthEl) {
+        healthEl.textContent = HEALTH_LABELS[h] || 'Healthy';
+        healthEl.className = 'tag ' + (HEALTH_TAG[h] || 'tag-green');
+      }
+
+      if (contactEl)   contactEl.textContent  = deal.contact_name || deal.name || '';
+      if (emailEl)     emailEl.textContent     = deal.contact_email || '';
+      if (propertyEl)  propertyEl.textContent  = deal.property_address || '';
+      if (propDetEl)   propDetEl.textContent   = deal.property_details || '';
+      if (notesEl)     notesEl.value           = deal.notes || '';
+
+      // Update move button label
+      var next = (STAGE_META[deal.stage] || {}).nextStage;
+      if (moveBtn) {
+        if (next) {
+          moveBtn.textContent = 'Move to ' + (STAGE_META[next] || {}).label;
+          moveBtn.style.display = '';
+        } else {
+          moveBtn.style.display = 'none';
+        }
+      }
+    }
+
+    MT360.openPanel('dealPanel');
+  };
+
+  /* ── Move deal to next stage ─────────────────────────────── */
+  document.getElementById('moveDealBtn')?.addEventListener('click', async function() {
+    if (!activeDealId) return;
+    var deal = dealsMap[activeDealId];
+    if (!deal) return;
+    var nextStage = (STAGE_META[deal.stage] || {}).nextStage;
+    if (!nextStage) return;
+
+    try {
+      await MT360.api('/api/crm/deals/' + activeDealId + '/move', {
+        method: 'PUT',
+        body: { stage: nextStage }
+      });
+      MT360.toast('Deal moved to ' + (STAGE_META[nextStage] || {}).label, 'success');
+      MT360.closePanel('dealPanel');
+      loadPipeline();   // refresh the board
+    } catch(e) {
+      // Offline / demo mode: move card in DOM
+      deal.stage = nextStage;
+      var destCol = document.querySelector('[data-column="' + nextStage + '"]');
+      var card = document.querySelector('[data-deal-id="' + activeDealId + '"]');
+      if (destCol && card) {
+        var addBtn = destCol.querySelector('.kanban-add');
+        if (addBtn) destCol.insertBefore(card, addBtn);
+        else destCol.appendChild(card);
+      }
+      MT360.toast('Deal moved (offline)', 'info');
+      MT360.closePanel('dealPanel');
+    }
+  });
+
+  /* ── Create new deal ─────────────────────────────────────── */
+  document.getElementById('createDealBtn')?.addEventListener('click', async function() {
+    var form = document.getElementById('newDealForm');
+    var nameVal    = document.getElementById('dealName').value.trim();
+    var valueVal   = document.getElementById('dealValue').value.replace(/[^0-9.]/g, '');
+    var stageVal   = document.getElementById('dealStage').value;
+    var contactVal = document.getElementById('dealContact').value.trim();
+    var notesVal   = document.getElementById('dealNotes').value.trim();
+
+    if (!nameVal) {
+      MT360.toast('Deal name is required', 'error');
+      return;
+    }
+
+    var payload = {
+      name:         nameVal,
+      value:        parseFloat(valueVal) || 0,
+      stage:        stageVal,
+      contact_name: contactVal,
+      notes:        notesVal
+    };
+
+    try {
+      var result = await MT360.api('/api/crm/deals', {
+        method: 'POST',
+        body: payload
+      });
+      MT360.closeModal('newDealModal');
+      MT360.toast('Deal created', 'success');
+      form.reset();
+      loadPipeline();   // refresh
+    } catch(e) {
+      // Offline / demo: add card to DOM
+      var demoId = 'demo-' + Date.now();
+      var deal = Object.assign({ id: demoId, health: 'healthy', days_in_stage: 0 }, payload);
+      dealsMap[demoId] = deal;
+
+      var col = document.querySelector('[data-column="' + stageVal + '"]');
+      if (col) {
+        var addBtn = col.querySelector('.kanban-add');
+        var card = renderCard(deal);
+        if (addBtn) col.insertBefore(card, addBtn);
+        else col.appendChild(card);
+      }
+
+      MT360.closeModal('newDealModal');
+      MT360.toast('Deal created (offline)', 'info');
+      form.reset();
+    }
+  });
+
+  /* ── Load pipeline from API ──────────────────────────────── */
+  async function loadPipeline() {
+    try {
+      var data = await MT360.api('/api/crm/pipeline');
+      renderBoard(data);
+    } catch(e) {
+      // Fallback: keep existing demo data in the DOM
+      console.log('CRM: Using demo data:', e.message);
+      indexDemoCards();
+    }
+  }
+
+  /* ── Init SortableJS drag-drop ───────────────────────────── */
+  function initSortable() {
+    if (!window.Sortable) return;
+    document.querySelectorAll('.kanban-col-body').forEach(function(col) {
+      new Sortable(col, {
+        group: 'crm-pipeline',
+        animation: 150,
+        ghostClass: 'drag-ghost',
+        draggable: '.kanban-card',
+        filter: '.kanban-add',
+        onEnd: function(evt) {
+          var dealId  = evt.item.dataset.dealId;
+          var toStage = evt.to.dataset.column;
+          if (dealId && toStage) {
+            // Update local map
+            if (dealsMap[dealId]) dealsMap[dealId].stage = toStage;
+
+            MT360.api('/api/crm/deals/' + dealId + '/move', {
+              method: 'PUT',
+              body: { stage: toStage }
+            }).then(function() {
+              MT360.toast('Deal moved', 'success');
+            }).catch(function() {
+              MT360.toast('Deal moved (offline)', 'info');
+            });
+          }
+        }
+      });
+    });
+  }
+
+  /* ── Boot ─────────────────────────────────────────────────── */
+  document.addEventListener('DOMContentLoaded', async function() {
+    await loadPipeline();
+    initSortable();
+  });
+})();
+</script>
 {% endblock %}

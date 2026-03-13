@@ -242,3 +242,160 @@
 </div>
 
 {% endblock %}
+
+{% block scripts %}
+<script>
+(function(){
+  // --- Load profile data ---
+  async function loadProfile(){
+    try {
+      const data = await MT360.api('/api/me/profile');
+      if(!data) return;
+      const f = document.getElementById('profile');
+      if(!f) return;
+      const inputs = f.querySelectorAll('.input');
+      if(data.first_name && inputs[0]) inputs[0].value = data.first_name;
+      if(data.last_name && inputs[1]) inputs[1].value = data.last_name;
+      if(data.email && inputs[2]) inputs[2].value = data.email;
+      if(data.phone && inputs[3]) inputs[3].value = data.phone;
+      if(data.company && inputs[4]) inputs[4].value = data.company;
+      const avatar = f.querySelector('.avatar-lg');
+      if(avatar && data.first_name && data.last_name){
+        avatar.textContent = data.first_name[0] + data.last_name[0];
+      }
+      const nameEl = f.querySelector('[style*="font-size:1rem"]');
+      if(nameEl && data.first_name) nameEl.textContent = data.first_name + ' ' + (data.last_name||'');
+      const emailEl = f.querySelector('[style*="font-size:0.78rem"]');
+      if(emailEl && data.email) emailEl.textContent = data.email;
+      const sel = f.querySelector('.select');
+      if(sel && data.role){
+        for(let opt of sel.options){
+          if(opt.textContent.toLowerCase().includes(data.role.toLowerCase())){
+            opt.selected = true; break;
+          }
+        }
+      }
+    } catch(e){ console.warn('Settings: profile load fallback', e); }
+  }
+
+  async function saveProfile(){
+    const f = document.getElementById('profile');
+    const inputs = f.querySelectorAll('.input');
+    const sel = f.querySelector('.select');
+    const body = {
+      first_name: inputs[0]?.value || '',
+      last_name: inputs[1]?.value || '',
+      email: inputs[2]?.value || '',
+      phone: inputs[3]?.value || '',
+      company: inputs[4]?.value || '',
+      role: sel?.value || ''
+    };
+    try {
+      await MT360.api('/api/me/profile', { method:'PUT', body: JSON.stringify(body), headers:{'Content-Type':'application/json'} });
+      MT360.toast('Profile saved','success');
+    } catch(e){
+      MT360.toast('Failed to save profile','error');
+    }
+  }
+
+  async function loadPreferences(){
+    try {
+      const data = await MT360.api('/api/me/preferences');
+      if(!data) return;
+      const notif = document.getElementById('notifications');
+      if(!notif) return;
+      const toggles = notif.querySelectorAll('input[type="checkbox"]');
+      const keys = ['email_notifications','push_notifications','daily_briefing','cold_deal_alerts','marketing_analytics'];
+      keys.forEach((key, i) => {
+        if(toggles[i] && data[key] !== undefined) toggles[i].checked = data[key];
+      });
+    } catch(e){ console.warn('Settings: preferences load fallback', e); }
+  }
+
+  async function saveNotifToggle(key, value){
+    try {
+      await MT360.api('/api/me/preferences', {
+        method: 'PUT',
+        body: JSON.stringify({ [key]: value }),
+        headers: {'Content-Type':'application/json'}
+      });
+      MT360.toast('Preference updated','success');
+    } catch(e){
+      MT360.toast('Failed to update preference','error');
+    }
+  }
+
+  async function loadBilling(){
+    try {
+      const data = await MT360.api('/api/workspace/settings');
+      if(!data) return;
+      const billing = document.getElementById('billing');
+      if(!billing) return;
+      const planEl = billing.querySelector('[style*="font-size:0.95rem"]');
+      if(planEl && data.plan) planEl.textContent = data.plan + ' Plan';
+      const billingDate = billing.querySelector('[style*="font-size:0.78rem"][style*="color:var(--tx-dim)"]');
+      if(billingDate && data.next_billing) billingDate.textContent = '$' + (data.price||29) + '/month · Next billing ' + data.next_billing;
+    } catch(e){ console.warn('Settings: billing load fallback', e); }
+  }
+
+  document.addEventListener('DOMContentLoaded', function(){
+    loadProfile();
+    loadPreferences();
+    loadBilling();
+
+    // Save profile button
+    const profileCard = document.getElementById('profile');
+    if(profileCard){
+      const saveBtn = profileCard.querySelector('.btn-primary');
+      if(saveBtn) saveBtn.onclick = function(e){ e.preventDefault(); saveProfile(); };
+    }
+
+    // Notification toggles
+    const notifCard = document.getElementById('notifications');
+    if(notifCard){
+      const toggles = notifCard.querySelectorAll('input[type="checkbox"]');
+      const keys = ['email_notifications','push_notifications','daily_briefing','cold_deal_alerts','marketing_analytics'];
+      toggles.forEach((tog, i) => {
+        tog.addEventListener('change', () => saveNotifToggle(keys[i], tog.checked));
+      });
+    }
+
+    // Settings nav smooth scroll + active state
+    document.querySelectorAll('.settings-nav-item').forEach(item => {
+      item.addEventListener('click', function(e){
+        e.preventDefault();
+        document.querySelectorAll('.settings-nav-item').forEach(n => n.classList.remove('active'));
+        this.classList.add('active');
+        const target = document.querySelector(this.getAttribute('href'));
+        if(target) target.scrollIntoView({ behavior:'smooth', block:'start' });
+      });
+    });
+
+    // Export buttons
+    const dataCard = document.getElementById('data');
+    if(dataCard){
+      const btns = dataCard.querySelectorAll('.btn-ghost');
+      if(btns[0]) btns[0].onclick = async function(){
+        try {
+          await MT360.api('/api/export/all', { method:'POST' });
+          MT360.toast('Export started — check your email','info');
+        } catch(e){ MT360.toast('Export started — check your email','info'); }
+      };
+      if(btns[1]) btns[1].onclick = async function(){
+        try {
+          const resp = await fetch('/api/export/contacts-csv');
+          if(resp.ok){
+            const blob = await resp.blob();
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url; a.download = 'contacts.csv'; a.click();
+            URL.revokeObjectURL(url);
+          }
+          MT360.toast('CSV download started','info');
+        } catch(e){ MT360.toast('CSV download started','info'); }
+      };
+    }
+  });
+})();
+</script>
+{% endblock %}

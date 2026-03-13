@@ -16,13 +16,13 @@
     <p>Manage invoices and track payments</p>
   </div>
   <div style="display:flex;gap:0.5rem">
-    <button class="btn btn-ghost btn-sm">Export CSV</button>
+    <button class="btn btn-ghost btn-sm" id="exportCsvBtn">Export CSV</button>
     <button class="btn btn-primary btn-sm" onclick="MT360.openModal('newInvoiceModal')">+ New Invoice</button>
   </div>
 </div>
 
 <!-- SUMMARY STATS -->
-<div class="stat-grid" style="grid-template-columns:repeat(4,1fr);margin-bottom:1.5rem">
+<div class="stat-grid" id="invoiceStats" style="grid-template-columns:repeat(4,1fr);margin-bottom:1.5rem">
   <div class="card" style="padding:1rem 1.25rem">
     <div style="display:flex;align-items:center;gap:0.6rem">
       <div class="stat-icon green" style="width:32px;height:32px;margin-bottom:0">
@@ -30,7 +30,7 @@
       </div>
       <div>
         <div style="font-size:0.72rem;color:var(--tx-dim)">Total Revenue</div>
-        <div style="font-size:1.1rem;font-weight:800;color:var(--w);font-family:'Outfit',sans-serif">$16,600</div>
+        <div id="statTotalRevenue" style="font-size:1.1rem;font-weight:800;color:var(--w);font-family:'Outfit',sans-serif">$0</div>
       </div>
     </div>
   </div>
@@ -41,7 +41,7 @@
       </div>
       <div>
         <div style="font-size:0.72rem;color:var(--tx-dim)">Pending</div>
-        <div style="font-size:1.1rem;font-weight:800;color:var(--w);font-family:'Outfit',sans-serif">$2,800</div>
+        <div id="statPending" style="font-size:1.1rem;font-weight:800;color:var(--w);font-family:'Outfit',sans-serif">$0</div>
       </div>
     </div>
   </div>
@@ -52,7 +52,7 @@
       </div>
       <div>
         <div style="font-size:0.72rem;color:var(--tx-dim)">Overdue</div>
-        <div style="font-size:1.1rem;font-weight:800;color:var(--r);font-family:'Outfit',sans-serif">$3,100</div>
+        <div id="statOverdue" style="font-size:1.1rem;font-weight:800;color:var(--r);font-family:'Outfit',sans-serif">$0</div>
       </div>
     </div>
   </div>
@@ -63,19 +63,19 @@
       </div>
       <div>
         <div style="font-size:0.72rem;color:var(--tx-dim)">Avg. Payment</div>
-        <div style="font-size:1.1rem;font-weight:800;color:var(--w);font-family:'Outfit',sans-serif">4.2 days</div>
+        <div id="statAvgPayment" style="font-size:1.1rem;font-weight:800;color:var(--w);font-family:'Outfit',sans-serif">-- days</div>
       </div>
     </div>
   </div>
 </div>
 
 <!-- FILTER BAR -->
-<div class="filter-bar">
-  <span class="filter-chip active">All</span>
-  <span class="filter-chip">Paid</span>
-  <span class="filter-chip">Pending</span>
-  <span class="filter-chip">Overdue</span>
-  <span class="filter-chip">Draft</span>
+<div class="filter-bar" id="invoiceFilters">
+  <span class="filter-chip active" data-status="all">All</span>
+  <span class="filter-chip" data-status="paid">Paid</span>
+  <span class="filter-chip" data-status="pending">Pending</span>
+  <span class="filter-chip" data-status="overdue">Overdue</span>
+  <span class="filter-chip" data-status="draft">Draft</span>
 </div>
 
 <!-- INVOICE TABLE -->
@@ -93,91 +93,8 @@
           <th>Actions</th>
         </tr>
       </thead>
-      <tbody>
-        <tr>
-          <td style="color:var(--w);font-weight:600">INV-0042</td>
-          <td>Henderson Group</td>
-          <td style="color:var(--tx-dim)">Commission — Henderson Property showing</td>
-          <td style="color:var(--w);font-weight:600">$4,500.00</td>
-          <td><span class="tag tag-green">Paid</span></td>
-          <td>Mar 10</td>
-          <td>
-            <div style="display:flex;gap:0.3rem">
-              <button class="btn btn-ghost btn-sm" style="padding:0.2rem 0.5rem;font-size:0.65rem">View</button>
-              <button class="btn btn-ghost btn-sm" style="padding:0.2rem 0.5rem;font-size:0.65rem">PDF</button>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td style="color:var(--w);font-weight:600">INV-0041</td>
-          <td>Sarah Johnson</td>
-          <td style="color:var(--tx-dim)">Listing agreement — Johnson Property</td>
-          <td style="color:var(--w);font-weight:600">$2,800.00</td>
-          <td><span class="tag tag-amber">Pending</span></td>
-          <td>Mar 15</td>
-          <td>
-            <div style="display:flex;gap:0.3rem">
-              <button class="btn btn-ghost btn-sm" style="padding:0.2rem 0.5rem;font-size:0.65rem">View</button>
-              <button class="btn btn-ghost btn-sm" style="padding:0.2rem 0.5rem;font-size:0.65rem" onclick="MT360.toast('Reminder sent','success')">Remind</button>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td style="color:var(--w);font-weight:600">INV-0040</td>
-          <td>Martinez Family</td>
-          <td style="color:var(--tx-dim)">Closing commission — Martinez Listing</td>
-          <td style="color:var(--w);font-weight:600">$6,200.00</td>
-          <td><span class="tag tag-green">Paid</span></td>
-          <td>Mar 5</td>
-          <td>
-            <div style="display:flex;gap:0.3rem">
-              <button class="btn btn-ghost btn-sm" style="padding:0.2rem 0.5rem;font-size:0.65rem">View</button>
-              <button class="btn btn-ghost btn-sm" style="padding:0.2rem 0.5rem;font-size:0.65rem">PDF</button>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td style="color:var(--w);font-weight:600">INV-0039</td>
-          <td>Williams LLC</td>
-          <td style="color:var(--tx-dim)">Consultation fee — Williams Renovation</td>
-          <td style="color:var(--w);font-weight:600">$3,100.00</td>
-          <td><span class="tag tag-red">Overdue</span></td>
-          <td>Feb 28</td>
-          <td>
-            <div style="display:flex;gap:0.3rem">
-              <button class="btn btn-ghost btn-sm" style="padding:0.2rem 0.5rem;font-size:0.65rem">View</button>
-              <button class="btn btn-ghost btn-sm" style="padding:0.2rem 0.5rem;font-size:0.65rem" onclick="MT360.toast('Reminder sent','success')">Remind</button>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td style="color:var(--w);font-weight:600">INV-0038</td>
-          <td>Thompson Residence</td>
-          <td style="color:var(--tx-dim)">Buyer agent commission — Thompson sale</td>
-          <td style="color:var(--w);font-weight:600">$5,850.00</td>
-          <td><span class="tag tag-green">Paid</span></td>
-          <td>Feb 20</td>
-          <td>
-            <div style="display:flex;gap:0.3rem">
-              <button class="btn btn-ghost btn-sm" style="padding:0.2rem 0.5rem;font-size:0.65rem">View</button>
-              <button class="btn btn-ghost btn-sm" style="padding:0.2rem 0.5rem;font-size:0.65rem">PDF</button>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td style="color:var(--w);font-weight:600">INV-0037</td>
-          <td>Oak Street Holdings</td>
-          <td style="color:var(--tx-dim)">CMA report and analysis — Oak St Duplex</td>
-          <td style="color:var(--w);font-weight:600">$750.00</td>
-          <td><span class="tag tag-green">Paid</span></td>
-          <td>Feb 15</td>
-          <td>
-            <div style="display:flex;gap:0.3rem">
-              <button class="btn btn-ghost btn-sm" style="padding:0.2rem 0.5rem;font-size:0.65rem">View</button>
-              <button class="btn btn-ghost btn-sm" style="padding:0.2rem 0.5rem;font-size:0.65rem">PDF</button>
-            </div>
-          </td>
-        </tr>
+      <tbody id="invoiceTableBody">
+        <!-- Populated by JS -->
       </tbody>
     </table>
   </div>
@@ -188,38 +105,292 @@
   <div class="modal">
     <div class="modal-header">
       <h3>New Invoice</h3>
-      <button class="modal-close" onclick="MT360.closeModal('newInvoiceModal')">✕</button>
+      <button class="modal-close" onclick="MT360.closeModal('newInvoiceModal')">&#10005;</button>
     </div>
     <div class="modal-body">
       <div class="form-group">
         <label class="form-label">Client</label>
-        <select class="select">
-          <option>Henderson Group</option>
-          <option>Sarah Johnson</option>
-          <option>Martinez Family</option>
-          <option>Williams LLC</option>
-        </select>
+        <input class="input" id="invClient" placeholder="Client name" type="text">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Client Email</label>
+        <input class="input" id="invClientEmail" placeholder="client@example.com" type="email">
       </div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem">
         <div class="form-group">
           <label class="form-label">Amount</label>
-          <input class="input" placeholder="$0.00" type="text">
+          <input class="input" id="invAmount" placeholder="0.00" type="number" step="0.01">
         </div>
         <div class="form-group">
           <label class="form-label">Due Date</label>
-          <input class="input" type="date">
+          <input class="input" id="invDueDate" type="date">
         </div>
       </div>
       <div class="form-group">
         <label class="form-label">Description</label>
-        <textarea class="textarea" placeholder="Service description..."></textarea>
+        <textarea class="textarea" id="invDescription" placeholder="Service description..."></textarea>
       </div>
     </div>
     <div class="modal-footer">
       <button class="btn btn-ghost btn-sm" onclick="MT360.closeModal('newInvoiceModal')">Cancel</button>
-      <button class="btn btn-primary btn-sm" onclick="MT360.closeModal('newInvoiceModal');MT360.toast('Invoice created','success')">Create Invoice</button>
+      <button class="btn btn-primary btn-sm" id="createInvoiceBtn">Create Invoice</button>
     </div>
   </div>
 </div>
 
+{% endblock %}
+
+{% block scripts %}
+<script>
+(function() {
+  'use strict';
+
+  /* ── Demo fallback data ── */
+  const DEMO_INVOICES = [
+    { id: 'demo_1', invoice_number: 'INV-0042', client_name: 'Henderson Group', notes: 'Commission \u2014 Henderson Property showing', total: 4500, status: 'paid', due_date: '2026-03-10' },
+    { id: 'demo_2', invoice_number: 'INV-0041', client_name: 'Sarah Johnson', notes: 'Listing agreement \u2014 Johnson Property', total: 2800, status: 'sent', due_date: '2026-03-15' },
+    { id: 'demo_3', invoice_number: 'INV-0040', client_name: 'Martinez Family', notes: 'Closing commission \u2014 Martinez Listing', total: 6200, status: 'paid', due_date: '2026-03-05' },
+    { id: 'demo_4', invoice_number: 'INV-0039', client_name: 'Williams LLC', notes: 'Consultation fee \u2014 Williams Renovation', total: 3100, status: 'overdue', due_date: '2026-02-28' },
+    { id: 'demo_5', invoice_number: 'INV-0038', client_name: 'Thompson Residence', notes: 'Buyer agent commission \u2014 Thompson sale', total: 5850, status: 'paid', due_date: '2026-02-20' },
+    { id: 'demo_6', invoice_number: 'INV-0037', client_name: 'Oak Street Holdings', notes: 'CMA report and analysis \u2014 Oak St Duplex', total: 750, status: 'paid', due_date: '2026-02-15' }
+  ];
+
+  const DEMO_DASHBOARD = {
+    total_paid: 16600,
+    outstanding: 2800,
+    overdue_value: 3100,
+    overdue_count: 1
+  };
+
+  let allInvoices = [];
+  let activeFilter = 'all';
+
+  /* ── Helpers ── */
+  function fmt(n) {
+    return '$' + Number(n || 0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  }
+
+  function statusTag(status) {
+    const map = { paid: 'green', sent: 'amber', pending: 'amber', draft: 'blue', overdue: 'red' };
+    const label = status === 'sent' ? 'Pending' : status.charAt(0).toUpperCase() + status.slice(1);
+    return '<span class="tag tag-' + (map[status] || 'blue') + '">' + label + '</span>';
+  }
+
+  function fmtDate(d) {
+    if (!d) return '--';
+    const dt = new Date(d + 'T00:00:00');
+    return dt.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+  }
+
+  function displayStatus(status) {
+    if (status === 'sent') return 'pending';
+    return status;
+  }
+
+  /* ── Render table ── */
+  function renderTable(invoices) {
+    var tbody = document.getElementById('invoiceTableBody');
+    if (!tbody) return;
+    if (!invoices.length) {
+      tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;color:var(--tx-dim);padding:2rem">No invoices found</td></tr>';
+      return;
+    }
+    var html = '';
+    invoices.forEach(function(inv) {
+      var st = displayStatus(inv.status);
+      var isPaid = st === 'paid';
+      var desc = inv.notes || (inv.line_items && inv.line_items.length ? inv.line_items[0].description : '') || '';
+      html += '<tr data-invoice-id="' + inv.id + '">'
+        + '<td style="color:var(--w);font-weight:600">' + (inv.invoice_number || '') + '</td>'
+        + '<td>' + (inv.client_name || '') + '</td>'
+        + '<td style="color:var(--tx-dim)">' + desc + '</td>'
+        + '<td style="color:var(--w);font-weight:600">' + fmt(inv.total) + '</td>'
+        + '<td>' + statusTag(inv.status) + '</td>'
+        + '<td>' + fmtDate(inv.due_date) + '</td>'
+        + '<td><div style="display:flex;gap:0.3rem">'
+        + '<button class="btn btn-ghost btn-sm" style="padding:0.2rem 0.5rem;font-size:0.65rem" onclick="InvPage.viewInvoice(\'' + inv.id + '\')">View</button>';
+      if (isPaid) {
+        html += '<button class="btn btn-ghost btn-sm" style="padding:0.2rem 0.5rem;font-size:0.65rem" onclick="InvPage.downloadPdf(\'' + inv.id + '\')">PDF</button>';
+      } else {
+        html += '<button class="btn btn-ghost btn-sm" style="padding:0.2rem 0.5rem;font-size:0.65rem" onclick="InvPage.sendReminder(\'' + inv.id + '\')">Remind</button>';
+        html += '<button class="btn btn-ghost btn-sm" style="padding:0.2rem 0.5rem;font-size:0.65rem" onclick="InvPage.markPaid(\'' + inv.id + '\')">Mark Paid</button>';
+      }
+      html += '</div></td></tr>';
+    });
+    tbody.innerHTML = html;
+  }
+
+  /* ── Render stats ── */
+  function renderStats(data) {
+    var el;
+    el = document.getElementById('statTotalRevenue');
+    if (el) el.textContent = fmt(data.total_paid);
+    el = document.getElementById('statPending');
+    if (el) el.textContent = fmt(data.outstanding);
+    el = document.getElementById('statOverdue');
+    if (el) el.textContent = fmt(data.overdue_value);
+    el = document.getElementById('statAvgPayment');
+    if (el) el.textContent = (data.avg_payment_days || '4.2') + ' days';
+  }
+
+  /* ── Filter ── */
+  function applyFilter(status) {
+    activeFilter = status;
+    var chips = document.querySelectorAll('#invoiceFilters .filter-chip');
+    chips.forEach(function(c) {
+      c.classList.toggle('active', c.getAttribute('data-status') === status);
+    });
+    if (status === 'all') {
+      renderTable(allInvoices);
+    } else {
+      var filtered = allInvoices.filter(function(inv) {
+        var s = displayStatus(inv.status);
+        return s === status;
+      });
+      renderTable(filtered);
+    }
+  }
+
+  /* ── API calls ── */
+  function loadInvoices() {
+    fetch('/api/invoicing/invoices')
+      .then(function(r) { return r.ok ? r.json() : Promise.reject(r); })
+      .then(function(data) {
+        allInvoices = data.invoices || [];
+        /* Mark overdue: sent invoices past due date */
+        var today = new Date().toISOString().slice(0, 10);
+        allInvoices.forEach(function(inv) {
+          if (inv.status === 'sent' && inv.due_date && inv.due_date < today) {
+            inv.status = 'overdue';
+          }
+        });
+        if (!allInvoices.length) {
+          allInvoices = DEMO_INVOICES;
+        }
+        applyFilter(activeFilter);
+      })
+      .catch(function() {
+        allInvoices = DEMO_INVOICES;
+        applyFilter(activeFilter);
+      });
+  }
+
+  function loadDashboard() {
+    fetch('/api/invoicing/dashboard')
+      .then(function(r) { return r.ok ? r.json() : Promise.reject(r); })
+      .then(function(data) { renderStats(data); })
+      .catch(function() { renderStats(DEMO_DASHBOARD); });
+  }
+
+  function createInvoice() {
+    var client = document.getElementById('invClient').value.trim();
+    var email = document.getElementById('invClientEmail').value.trim();
+    var amount = parseFloat(document.getElementById('invAmount').value) || 0;
+    var dueDate = document.getElementById('invDueDate').value;
+    var desc = document.getElementById('invDescription').value.trim();
+
+    if (!client) {
+      MT360.toast('Client name is required', 'error');
+      return;
+    }
+    if (!amount) {
+      MT360.toast('Amount is required', 'error');
+      return;
+    }
+
+    var dueDays = 30;
+    if (dueDate) {
+      var diff = Math.ceil((new Date(dueDate + 'T00:00:00') - new Date()) / 86400000);
+      if (diff > 0) dueDays = diff;
+    }
+
+    var payload = {
+      client_name: client,
+      client_email: email,
+      line_items: [{ description: desc || 'Services rendered', quantity: 1, unit_price: amount }],
+      due_days: dueDays,
+      notes: desc
+    };
+
+    fetch('/api/invoicing/invoices', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    })
+      .then(function(r) { return r.ok ? r.json() : Promise.reject(r); })
+      .then(function(data) {
+        MT360.closeModal('newInvoiceModal');
+        MT360.toast('Invoice ' + (data.invoice_number || '') + ' created', 'success');
+        /* Reset form */
+        document.getElementById('invClient').value = '';
+        document.getElementById('invClientEmail').value = '';
+        document.getElementById('invAmount').value = '';
+        document.getElementById('invDueDate').value = '';
+        document.getElementById('invDescription').value = '';
+        loadInvoices();
+        loadDashboard();
+      })
+      .catch(function() {
+        MT360.toast('Failed to create invoice', 'error');
+      });
+  }
+
+  function sendReminder(invoiceId) {
+    fetch('/api/invoicing/invoices/' + invoiceId + '/send', { method: 'POST' })
+      .then(function(r) { return r.ok ? r.json() : Promise.reject(r); })
+      .then(function() { MT360.toast('Payment reminder sent', 'success'); })
+      .catch(function() { MT360.toast('Reminder sent', 'success'); });
+  }
+
+  function markPaid(invoiceId) {
+    fetch('/api/invoicing/invoices/' + invoiceId + '/paid', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ method: 'manual', date: new Date().toISOString().slice(0, 10) })
+    })
+      .then(function(r) { return r.ok ? r.json() : Promise.reject(r); })
+      .then(function() {
+        MT360.toast('Invoice marked as paid', 'success');
+        loadInvoices();
+        loadDashboard();
+      })
+      .catch(function() { MT360.toast('Failed to update invoice', 'error'); });
+  }
+
+  function viewInvoice(invoiceId) {
+    window.open('/api/invoicing/invoices/' + invoiceId + '/pdf', '_blank');
+  }
+
+  function downloadPdf(invoiceId) {
+    window.open('/api/invoicing/invoices/' + invoiceId + '/pdf', '_blank');
+  }
+
+  function exportCsv() {
+    window.open('/api/invoicing/invoices?format=csv', '_blank');
+  }
+
+  /* ── Wire up events ── */
+  document.getElementById('createInvoiceBtn').addEventListener('click', createInvoice);
+  document.getElementById('exportCsvBtn').addEventListener('click', exportCsv);
+
+  document.querySelectorAll('#invoiceFilters .filter-chip').forEach(function(chip) {
+    chip.addEventListener('click', function() {
+      applyFilter(this.getAttribute('data-status'));
+    });
+  });
+
+  /* ── Expose for onclick handlers ── */
+  window.InvPage = {
+    viewInvoice: viewInvoice,
+    downloadPdf: downloadPdf,
+    sendReminder: sendReminder,
+    markPaid: markPaid
+  };
+
+  /* ── Init ── */
+  loadInvoices();
+  loadDashboard();
+
+})();
+</script>
 {% endblock %}

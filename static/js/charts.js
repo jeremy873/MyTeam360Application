@@ -6,17 +6,17 @@
 const MT360Charts = {
   // ═══ SHARED DEFAULTS ═══
   colors: {
-    purple: '#7C3AED',
-    purpleLight: '#A459F2',
-    blue: '#3B82F6',
-    blueLight: '#60A5FA',
-    teal: '#06B6D4',
-    green: '#22C55E',
-    amber: '#F59E0B',
-    red: '#EF4444',
-    text: '#94A3B8',
-    textDim: '#525A6A',
-    grid: 'rgba(255,255,255,0.04)',
+    purple: '#5E81F4',
+    purpleLight: '#7BA0F6',
+    blue: '#54C7EC',
+    blueLight: '#7DD8F2',
+    teal: '#54C7EC',
+    green: '#7CE7AC',
+    amber: '#F4BE5E',
+    red: '#FF808B',
+    text: '#8181A5',
+    textDim: '#B8B8D0',
+    grid: 'rgba(0,0,0,0.04)',
     white: '#FFFFFF',
   },
 
@@ -32,8 +32,8 @@ const MT360Charts = {
 
   tooltipConfig() {
     return {
-      backgroundColor: 'rgba(16,22,56,0.95)',
-      borderColor: 'rgba(255,255,255,0.1)',
+      backgroundColor: 'rgba(28,29,33,0.95)',
+      borderColor: 'rgba(0,0,0,0.1)',
       borderWidth: 1,
       titleFont: { family: "'Outfit', sans-serif", size: 13, weight: 700 },
       bodyFont: { family: "'DM Sans', sans-serif", size: 12 },
@@ -49,8 +49,8 @@ const MT360Charts = {
     const ctx = document.getElementById(canvasId);
     if (!ctx) return null;
     const gradient = ctx.getContext('2d').createLinearGradient(0, 0, 0, 250);
-    gradient.addColorStop(0, 'rgba(124,58,237,0.3)');
-    gradient.addColorStop(1, 'rgba(124,58,237,0.01)');
+    gradient.addColorStop(0, 'rgba(94,129,244,0.15)');
+    gradient.addColorStop(1, 'rgba(94,129,244,0.01)');
 
     return new Chart(ctx, {
       type: 'line',
@@ -104,8 +104,8 @@ const MT360Charts = {
     const ctx = document.getElementById(canvasId);
     if (!ctx) return null;
     const gradient = ctx.getContext('2d').createLinearGradient(0, 200, 0, 0);
-    gradient.addColorStop(0, 'rgba(59,130,246,0.3)');
-    gradient.addColorStop(1, 'rgba(124,58,237,0.8)');
+    gradient.addColorStop(0, 'rgba(94,129,244,0.3)');
+    gradient.addColorStop(1, 'rgba(94,129,244,0.8)');
 
     return new Chart(ctx, {
       type: 'bar',
@@ -155,7 +155,7 @@ const MT360Charts = {
       data: {
         datasets: [{
           data: [value, max - value],
-          backgroundColor: [color, 'rgba(255,255,255,0.04)'],
+          backgroundColor: [color, 'rgba(0,0,0,0.04)'],
           borderWidth: 0,
           borderRadius: 8,
         }]
@@ -245,7 +245,7 @@ const MT360Charts = {
   createLineChart(canvasId, labels, datasets) {
     const ctx = document.getElementById(canvasId);
     if (!ctx) return null;
-    const chartColors = [this.colors.purple, this.colors.blue, this.colors.green, this.colors.amber];
+    const chartColors = [this.colors.purple, this.colors.green, this.colors.red, this.colors.amber];
 
     return new Chart(ctx, {
       type: 'line',

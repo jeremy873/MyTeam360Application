@@ -11,7 +11,7 @@
 {% block content %}
 
 <div class="content-header">
-  <h1>Wednesday, March 12 — Client Day</h1>
+  <h1 id="briefingDate">Wednesday, March 12 — Client Day</h1>
   <p>Your personalized daily briefing powered by AI</p>
 </div>
 
@@ -24,7 +24,7 @@
       </div>
       <div>
         <div style="font-size:0.72rem;color:var(--tx-dim)">Meetings</div>
-        <div style="font-size:1.1rem;font-weight:800;color:var(--w);font-family:'Outfit',sans-serif">3</div>
+        <div id="statMeetings" style="font-size:1.1rem;font-weight:800;color:var(--w);font-family:'Outfit',sans-serif">3</div>
       </div>
     </div>
   </div>
@@ -35,7 +35,7 @@
       </div>
       <div>
         <div style="font-size:0.72rem;color:var(--tx-dim)">Tasks Due</div>
-        <div style="font-size:1.1rem;font-weight:800;color:var(--w);font-family:'Outfit',sans-serif">5</div>
+        <div id="statTasks" style="font-size:1.1rem;font-weight:800;color:var(--w);font-family:'Outfit',sans-serif">5</div>
       </div>
     </div>
   </div>
@@ -46,7 +46,7 @@
       </div>
       <div>
         <div style="font-size:0.72rem;color:var(--tx-dim)">Unread Emails</div>
-        <div style="font-size:1.1rem;font-weight:800;color:var(--w);font-family:'Outfit',sans-serif">7</div>
+        <div id="statEmails" style="font-size:1.1rem;font-weight:800;color:var(--w);font-family:'Outfit',sans-serif">7</div>
       </div>
     </div>
   </div>
@@ -57,7 +57,7 @@
       </div>
       <div>
         <div style="font-size:0.72rem;color:var(--tx-dim)">Drive Time</div>
-        <div style="font-size:1.1rem;font-weight:800;color:var(--w);font-family:'Outfit',sans-serif">35m</div>
+        <div id="statDrive" style="font-size:1.1rem;font-weight:800;color:var(--w);font-family:'Outfit',sans-serif">35m</div>
       </div>
     </div>
   </div>
@@ -68,9 +68,9 @@
   <div class="card">
     <div class="card-header">
       <h3>Today's Schedule</h3>
-      <span class="tag tag-purple">6 events</span>
+      <span class="tag tag-purple" id="scheduleCount">6 events</span>
     </div>
-    <div class="card-body">
+    <div class="card-body" id="scheduleBody">
       <div class="time-block">
         <div class="time-label">8:00</div>
         <div class="time-event">
@@ -121,26 +121,26 @@
     <!-- Weather & Travel -->
     <div class="card">
       <div class="card-header"><h3>Weather & Travel</h3></div>
-      <div class="card-body">
+      <div class="card-body" id="weatherBody">
         <div style="display:flex;align-items:center;gap:0.8rem;margin-bottom:1rem">
-          <div style="font-size:2rem">☀️</div>
+          <div style="font-size:2rem" id="weatherIcon">☀️</div>
           <div>
-            <div style="font-size:1.2rem;font-weight:700;color:var(--w);font-family:'Outfit',sans-serif">72°F</div>
-            <div style="font-size:0.72rem;color:var(--tx-dim)">Sunny · High 75° / Low 58°</div>
+            <div style="font-size:1.2rem;font-weight:700;color:var(--w);font-family:'Outfit',sans-serif" id="weatherTemp">72°F</div>
+            <div style="font-size:0.72rem;color:var(--tx-dim)" id="weatherDesc">Sunny · High 75° / Low 58°</div>
           </div>
         </div>
         <div style="display:flex;flex-direction:column;gap:0.5rem">
           <div style="display:flex;justify-content:space-between;font-size:0.78rem">
-            <span style="color:var(--tx-dim)">Flight SW1234</span>
-            <span class="tag tag-green">On Time</span>
+            <span style="color:var(--tx-dim)" id="flightLabel">Flight SW1234</span>
+            <span class="tag tag-green" id="flightStatus">On Time</span>
           </div>
           <div style="display:flex;justify-content:space-between;font-size:0.78rem">
-            <span style="color:var(--tx-dim)">To Henderson showing</span>
-            <span style="color:var(--w);font-weight:600">35 min drive</span>
+            <span style="color:var(--tx-dim)" id="driveLabel">To Henderson showing</span>
+            <span style="color:var(--w);font-weight:600" id="driveTime">35 min drive</span>
           </div>
           <div style="display:flex;justify-content:space-between;font-size:0.78rem">
             <span style="color:var(--tx-dim)">Traffic</span>
-            <span class="tag tag-green">Light</span>
+            <span class="tag tag-green" id="trafficStatus">Light</span>
           </div>
         </div>
       </div>
@@ -149,7 +149,7 @@
     <!-- Deal Alerts -->
     <div class="card">
       <div class="card-header"><h3>Deal Alerts</h3></div>
-      <div class="card-body">
+      <div class="card-body" id="dealAlertsBody">
         <div style="display:flex;flex-direction:column;gap:0.7rem">
           <div style="padding:0.7rem;background:rgba(239,68,68,0.06);border:1px solid rgba(239,68,68,0.1);border-radius:var(--r-md)">
             <div style="font-size:0.78rem;font-weight:600;color:var(--r);margin-bottom:0.15rem">Cold Deal — Johnson</div>
@@ -170,7 +170,7 @@
     <!-- AI Suggestions -->
     <div class="card">
       <div class="card-header"><h3>AI Suggestions</h3></div>
-      <div class="card-body">
+      <div class="card-body" id="aiSuggestionsBody">
         <div style="display:flex;flex-direction:column;gap:0.6rem">
           <div style="font-size:0.78rem;color:var(--tx);padding:0.5rem 0;border-bottom:1px solid var(--brd)">
             💡 You close <strong style="color:var(--w)">3x more deals</strong> at Carbone dinners. Good choice tonight.
@@ -187,4 +187,171 @@
   </div>
 </div>
 
+{% endblock %}
+
+{% block scripts %}
+<script>
+/*
+  MyTeam360 — Briefing Controller
+  (c) 2026 Praxis Holdings LLC. PROPRIETARY AND CONFIDENTIAL.
+*/
+(function() {
+  'use strict';
+
+  /* ════════════════════════════════════════════
+     API helper — uses MT360.api if available,
+     otherwise falls back to plain fetch
+     ════════════════════════════════════════════ */
+  async function apiGet(url) {
+    if (typeof MT360 !== 'undefined' && typeof MT360.api === 'function') {
+      return MT360.api(url);
+    }
+    const res = await fetch(url);
+    if (!res.ok) throw new Error(`API ${res.status}`);
+    return res.json();
+  }
+
+  /* ════════════════════════════════════════════
+     Demo / fallback data
+     ════════════════════════════════════════════ */
+  const DEMO = {
+    date_title: 'Wednesday, March 12 — Client Day',
+    stats: { meetings: 3, tasks_due: 5, unread_emails: 7, drive_time: '35m' },
+    schedule: [
+      { time: '8:00',  title: 'Morning Review', desc: 'Check overnight emails, review pipeline status, prep for Henderson showing', type: '' },
+      { time: '10:00', title: 'Call with Sarah Johnson', desc: 'Discuss counter-offer on Johnson property · $445K listing', type: '' },
+      { time: '12:00', title: 'Lunch Break', desc: 'Post LinkedIn market update before heading out', type: 'social' },
+      { time: '1:25',  title: 'Leave for Henderson Showing', desc: '35 minute drive · Take I-85 S (light traffic expected)', type: 'travel' },
+      { time: '2:00',  title: 'Henderson Property Showing', desc: '$430K listing · Buyer pre-approved · Bring CMA report · 123 Oak Street', type: 'highlight' },
+      { time: '7:30',  title: 'Dinner at Carbone', desc: 'Client dinner with Williams · Hot referral deal · $290K renovation project', type: 'highlight' },
+    ],
+    weather: {
+      icon: '☀️', temp: '72°F', desc: 'Sunny · High 75° / Low 58°',
+      flight_label: 'Flight SW1234', flight_status: 'On Time',
+      drive_label: 'To Henderson showing', drive_time: '35 min drive',
+      traffic: 'Light',
+    },
+    deal_alerts: [
+      { level: 'danger', title: 'Cold Deal — Johnson', desc: 'No contact for 8 days. $445K at risk. Call today.' },
+      { level: 'warning', title: 'Closing Soon — Martinez', desc: '$380K closing on Apr 2. Review docs this week.' },
+      { level: 'success', title: 'Hot Lead — Williams', desc: 'Referral from Martinez. Dinner tonight at Carbone.' },
+    ],
+    suggestions: [
+      { icon: '💡', text: 'You close <strong style="color:var(--w)">3x more deals</strong> at Carbone dinners. Good choice tonight.' },
+      { icon: '📊', text: 'Johnson deal typically requires a <strong style="color:var(--w)">counter-offer within 5 days</strong>. Day 8 now.' },
+      { icon: '📧', text: 'Send Henderson follow-up email <strong style="color:var(--w)">within 2 hours</strong> of showing for best results.' },
+    ],
+  };
+
+  /* ════════════════════════════════════════════
+     Render helpers
+     ════════════════════════════════════════════ */
+  function renderSchedule(events) {
+    const container = document.getElementById('scheduleBody');
+    if (!container || !events || !events.length) return;
+    container.innerHTML = events.map(e => `
+      <div class="time-block">
+        <div class="time-label">${e.time}</div>
+        <div class="time-event ${e.type || ''}">
+          <div class="time-event-title">${e.title}</div>
+          <div class="time-event-desc">${e.desc}</div>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  const ALERT_COLORS = {
+    danger:  { bg: 'rgba(239,68,68,0.06)', brd: 'rgba(239,68,68,0.1)', color: 'var(--r)' },
+    warning: { bg: 'rgba(245,158,11,0.06)', brd: 'rgba(245,158,11,0.1)', color: 'var(--a)' },
+    success: { bg: 'rgba(34,197,94,0.06)',  brd: 'rgba(34,197,94,0.1)',  color: 'var(--g)' },
+  };
+
+  function renderDealAlerts(alerts) {
+    const container = document.getElementById('dealAlertsBody');
+    if (!container || !alerts || !alerts.length) return;
+    container.innerHTML = '<div style="display:flex;flex-direction:column;gap:0.7rem">' +
+      alerts.map(a => {
+        const c = ALERT_COLORS[a.level] || ALERT_COLORS.warning;
+        return `<div style="padding:0.7rem;background:${c.bg};border:1px solid ${c.brd};border-radius:var(--r-md)">
+          <div style="font-size:0.78rem;font-weight:600;color:${c.color};margin-bottom:0.15rem">${a.title}</div>
+          <div style="font-size:0.72rem;color:var(--tx-dim)">${a.desc}</div>
+        </div>`;
+      }).join('') + '</div>';
+  }
+
+  function renderSuggestions(items) {
+    const container = document.getElementById('aiSuggestionsBody');
+    if (!container || !items || !items.length) return;
+    container.innerHTML = '<div style="display:flex;flex-direction:column;gap:0.6rem">' +
+      items.map((s, i) => {
+        const border = i < items.length - 1 ? 'border-bottom:1px solid var(--brd)' : '';
+        return `<div style="font-size:0.78rem;color:var(--tx);padding:0.5rem 0;${border}">
+          ${s.icon || '💡'} ${s.text}
+        </div>`;
+      }).join('') + '</div>';
+  }
+
+  function applyStats(stats) {
+    const s = stats || DEMO.stats;
+    const set = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val; };
+    set('statMeetings', s.meetings);
+    set('statTasks',    s.tasks_due);
+    set('statEmails',   s.unread_emails);
+    set('statDrive',    s.drive_time);
+  }
+
+  function applyWeather(w) {
+    const d = w || DEMO.weather;
+    const set = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val; };
+    set('weatherIcon',   d.icon);
+    set('weatherTemp',   d.temp);
+    set('weatherDesc',   d.desc);
+    set('flightLabel',   d.flight_label);
+    set('flightStatus',  d.flight_status);
+    set('driveLabel',    d.drive_label);
+    set('driveTime',     d.drive_time);
+    set('trafficStatus', d.traffic);
+  }
+
+  /* ════════════════════════════════════════════
+     Load briefing data from API
+     ════════════════════════════════════════════ */
+  async function loadBriefing() {
+    let data = DEMO;
+    try {
+      const res = await apiGet('/api/briefing');
+      if (res) data = res;
+    } catch (_) {
+      /* fallback to demo data — already set */
+    }
+
+    /* Date headline */
+    const dateEl = document.getElementById('briefingDate');
+    if (dateEl && data.date_title) dateEl.textContent = data.date_title;
+
+    /* Quick stats */
+    applyStats(data.stats);
+
+    /* Schedule */
+    const scheduleCountEl = document.getElementById('scheduleCount');
+    const events = data.schedule || DEMO.schedule;
+    if (scheduleCountEl) scheduleCountEl.textContent = events.length + ' events';
+    renderSchedule(events);
+
+    /* Weather & Travel */
+    applyWeather(data.weather);
+
+    /* Deal Alerts */
+    renderDealAlerts(data.deal_alerts || DEMO.deal_alerts);
+
+    /* AI Suggestions */
+    renderSuggestions(data.suggestions || DEMO.suggestions);
+  }
+
+  /* ════════════════════════════════════════════
+     Init on DOM ready
+     ════════════════════════════════════════════ */
+  document.addEventListener('DOMContentLoaded', loadBriefing);
+})();
+</script>
 {% endblock %}

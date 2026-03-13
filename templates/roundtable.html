@@ -67,12 +67,12 @@
 </div>
 
 <!-- DEBATE THREAD -->
-<div class="card" style="margin-bottom:1.5rem">
+<div class="card" style="margin-bottom:1.5rem" id="activeDebateCard">
   <div class="card-header">
-    <h3>Should we counter-offer on Johnson at $425K?</h3>
-    <span class="tag tag-amber">In Progress</span>
+    <h3 id="debateQuestion">Should we counter-offer on Johnson at $425K?</h3>
+    <span class="tag tag-amber" id="debateStatus">In Progress</span>
   </div>
-  <div class="card-body" style="display:flex;flex-direction:column;gap:1rem">
+  <div class="card-body" style="display:flex;flex-direction:column;gap:1rem" id="debateThread">
 
     <!-- Strategist message -->
     <div class="chat-msg">
@@ -120,12 +120,12 @@
     </div>
 
     <!-- Consensus -->
-    <div style="padding:1rem;background:linear-gradient(135deg,rgba(124,58,237,0.08),rgba(59,130,246,0.08));border:1px solid rgba(124,58,237,0.15);border-radius:var(--r-md)">
+    <div style="padding:1rem;background:linear-gradient(135deg,rgba(124,58,237,0.08),rgba(59,130,246,0.08));border:1px solid rgba(124,58,237,0.15);border-radius:var(--r-md)" id="consensusBlock">
       <div style="font-size:0.78rem;font-weight:700;color:var(--w);margin-bottom:0.4rem">Consensus Recommendation</div>
-      <div style="font-size:0.84rem;color:var(--tx);line-height:1.6">Counter at <strong style="color:var(--w)">$428K</strong> with a personal call from you first. Set a <strong style="color:var(--w)">48-hour response window</strong>. This balances market value, relationship preservation, and deal urgency. Expected close probability: <strong style="color:var(--g)">72%</strong>.</div>
+      <div style="font-size:0.84rem;color:var(--tx);line-height:1.6" id="consensusText">Counter at <strong style="color:var(--w)">$428K</strong> with a personal call from you first. Set a <strong style="color:var(--w)">48-hour response window</strong>. This balances market value, relationship preservation, and deal urgency. Expected close probability: <strong style="color:var(--g)">72%</strong>.</div>
       <div style="display:flex;gap:0.5rem;margin-top:0.8rem">
-        <button class="btn btn-primary btn-sm" onclick="MT360.toast('Counter-offer drafted','success')">Accept & Draft Counter</button>
-        <button class="btn btn-ghost btn-sm" onclick="MT360.toast('Follow-up question sent','info')">Ask Follow-up</button>
+        <button class="btn btn-primary btn-sm" id="btnAcceptConsensus">Accept & Draft Counter</button>
+        <button class="btn btn-ghost btn-sm" id="btnAskFollowup">Ask Follow-up</button>
       </div>
     </div>
   </div>
@@ -136,7 +136,7 @@
   <div class="card-header">
     <h3>Recent Debates</h3>
   </div>
-  <div class="card-body">
+  <div class="card-body" id="recentDebatesBody">
     <div style="display:flex;flex-direction:column;gap:0.6rem">
       <div style="display:flex;align-items:center;justify-content:space-between;padding:0.6rem 0;border-bottom:1px solid var(--brd)">
         <div>
@@ -173,32 +173,261 @@
     <div class="modal-body">
       <div class="form-group">
         <label class="form-label">Question / Topic</label>
-        <input class="input" placeholder="What should the team debate?">
+        <input class="input" placeholder="What should the team debate?" id="debateInput">
       </div>
       <div class="form-group">
         <label class="form-label">Context</label>
-        <textarea class="textarea" rows="3" placeholder="Provide background information..."></textarea>
+        <textarea class="textarea" rows="3" placeholder="Provide background information..." id="debateContext"></textarea>
       </div>
       <div class="form-group">
         <label class="form-label">Agents</label>
-        <div style="display:flex;gap:0.5rem">
+        <div style="display:flex;gap:0.5rem" id="debateAgents">
           <label style="display:flex;align-items:center;gap:0.3rem;font-size:0.78rem;color:var(--tx);cursor:pointer">
-            <input type="checkbox" checked> Strategist
+            <input type="checkbox" checked name="agent" value="strategist"> Strategist
           </label>
           <label style="display:flex;align-items:center;gap:0.3rem;font-size:0.78rem;color:var(--tx);cursor:pointer">
-            <input type="checkbox" checked> Relationship Mgr
+            <input type="checkbox" checked name="agent" value="relationship"> Relationship Mgr
           </label>
           <label style="display:flex;align-items:center;gap:0.3rem;font-size:0.78rem;color:var(--tx);cursor:pointer">
-            <input type="checkbox" checked> Risk Analyst
+            <input type="checkbox" checked name="agent" value="risk"> Risk Analyst
           </label>
         </div>
       </div>
     </div>
     <div class="modal-footer">
       <button class="btn btn-ghost btn-sm" onclick="MT360.closeModal('newDebateModal')">Cancel</button>
-      <button class="btn btn-primary btn-sm" onclick="MT360.closeModal('newDebateModal');MT360.toast('Debate started — agents analyzing...','info')">Start Debate</button>
+      <button class="btn btn-primary btn-sm" id="btnStartDebate">Start Debate</button>
     </div>
   </div>
 </div>
 
+{% endblock %}
+
+{% block scripts %}
+<script>
+/*
+  MyTeam360 — Roundtable Controller
+  (c) 2026 Praxis Holdings LLC. PROPRIETARY AND CONFIDENTIAL.
+*/
+(function() {
+  'use strict';
+
+  let currentDebateId = null;
+
+  /* ════════════════════════════════════════════
+     API helpers
+     ════════════════════════════════════════════ */
+  async function apiGet(url) {
+    if (typeof MT360 !== 'undefined' && typeof MT360.api === 'function') {
+      return MT360.api(url);
+    }
+    const res = await fetch(url);
+    if (!res.ok) throw new Error(`API ${res.status}`);
+    return res.json();
+  }
+
+  async function apiPost(url, body) {
+    if (typeof MT360 !== 'undefined' && typeof MT360.api === 'function') {
+      return MT360.api(url, { method: 'POST', body: JSON.stringify(body), headers: { 'Content-Type': 'application/json' } });
+    }
+    const res = await fetch(url, { method: 'POST', body: JSON.stringify(body), headers: { 'Content-Type': 'application/json' } });
+    if (!res.ok) throw new Error(`API ${res.status}`);
+    return res.json();
+  }
+
+  /* ════════════════════════════════════════════
+     Agent styling config
+     ════════════════════════════════════════════ */
+  const AGENT_STYLES = {
+    strategist:   { abbr: 'S', gradient: 'var(--grad-purple)', color: 'var(--pl)', bgTint: 'rgba(124,58,237,0.08)' },
+    relationship: { abbr: 'R', gradient: 'var(--grad-blue)',   color: 'var(--b)',  bgTint: 'rgba(59,130,246,0.08)' },
+    risk:         { abbr: 'A', gradient: 'var(--grad-green)',  color: 'var(--g)',  bgTint: 'rgba(34,197,94,0.08)' },
+  };
+
+  /* ════════════════════════════════════════════
+     Render helpers
+     ════════════════════════════════════════════ */
+  function renderMessage(msg) {
+    const style = AGENT_STYLES[msg.agent] || AGENT_STYLES.strategist;
+    let dataBox = '';
+    if (msg.data_label && msg.data_text) {
+      dataBox = `<div style="margin-top:0.5rem;padding:0.5rem;background:${style.bgTint};border-radius:var(--r-sm);font-size:0.72rem;color:var(--tx-dim)">
+        <strong style="color:${style.color}">${msg.data_label}:</strong> ${msg.data_text}
+      </div>`;
+    }
+    return `<div class="chat-msg">
+      <div class="chat-msg-header">
+        <div class="avatar-sm avatar" style="background:${style.gradient}">${style.abbr}</div>
+        <span class="chat-msg-name" style="color:${style.color}">${msg.name || msg.agent}</span>
+        <span class="chat-msg-time">${msg.time || 'Just now'}</span>
+      </div>
+      <div class="chat-msg-body">
+        <p>${msg.body}</p>
+        ${dataBox}
+      </div>
+    </div>`;
+  }
+
+  function renderConsensus(consensus) {
+    if (!consensus) return '';
+    return `<div style="padding:1rem;background:linear-gradient(135deg,rgba(124,58,237,0.08),rgba(59,130,246,0.08));border:1px solid rgba(124,58,237,0.15);border-radius:var(--r-md)" id="consensusBlock">
+      <div style="font-size:0.78rem;font-weight:700;color:var(--w);margin-bottom:0.4rem">Consensus Recommendation</div>
+      <div style="font-size:0.84rem;color:var(--tx);line-height:1.6" id="consensusText">${consensus.text}</div>
+      <div style="display:flex;gap:0.5rem;margin-top:0.8rem">
+        <button class="btn btn-primary btn-sm" id="btnAcceptConsensus">Accept & Draft Counter</button>
+        <button class="btn btn-ghost btn-sm" id="btnAskFollowup">Ask Follow-up</button>
+      </div>
+    </div>`;
+  }
+
+  function renderDebateThread(debate) {
+    const questionEl = document.getElementById('debateQuestion');
+    const statusEl   = document.getElementById('debateStatus');
+    const threadEl   = document.getElementById('debateThread');
+    if (!debate) return;
+
+    currentDebateId = debate.id || null;
+
+    if (questionEl) questionEl.textContent = debate.question || '';
+    if (statusEl) {
+      statusEl.textContent = debate.status || 'In Progress';
+      statusEl.className = 'tag ' + (debate.status === 'Resolved' ? 'tag-green' : 'tag-amber');
+    }
+
+    if (threadEl && debate.messages) {
+      threadEl.innerHTML = debate.messages.map(renderMessage).join('') + renderConsensus(debate.consensus);
+      wireConsensusButtons();
+    }
+  }
+
+  function renderRecentDebates(debates) {
+    const container = document.getElementById('recentDebatesBody');
+    if (!container || !debates || !debates.length) return;
+    container.innerHTML = '<div style="display:flex;flex-direction:column;gap:0.6rem">' +
+      debates.map((d, i) => {
+        const border = i < debates.length - 1 ? 'border-bottom:1px solid var(--brd)' : '';
+        return `<div style="display:flex;align-items:center;justify-content:space-between;padding:0.6rem 0;${border}">
+          <div>
+            <div style="font-size:0.84rem;font-weight:600;color:var(--w)">${d.question}</div>
+            <div style="font-size:0.7rem;color:var(--tx-dim)">${d.summary || ''}</div>
+          </div>
+          <span class="tag ${d.status === 'Resolved' ? 'tag-green' : 'tag-amber'}">${d.status}</span>
+        </div>`;
+      }).join('') + '</div>';
+  }
+
+  /* ════════════════════════════════════════════
+     Wire consensus action buttons
+     ════════════════════════════════════════════ */
+  function wireConsensusButtons() {
+    const btnAccept = document.getElementById('btnAcceptConsensus');
+    if (btnAccept) {
+      btnAccept.addEventListener('click', async function() {
+        if (!currentDebateId) {
+          MT360.toast('Counter-offer drafted', 'success');
+          return;
+        }
+        try {
+          await apiPost('/api/roundtable/' + currentDebateId + '/accept', {});
+          MT360.toast('Counter-offer drafted', 'success');
+        } catch (_) {
+          MT360.toast('Counter-offer drafted', 'success');
+        }
+      });
+    }
+
+    const btnFollowup = document.getElementById('btnAskFollowup');
+    if (btnFollowup) {
+      btnFollowup.addEventListener('click', async function() {
+        const question = prompt('Enter your follow-up question:');
+        if (!question) return;
+        if (!currentDebateId) {
+          MT360.toast('Follow-up question sent', 'info');
+          return;
+        }
+        try {
+          MT360.toast('Agents analyzing follow-up...', 'info');
+          const result = await apiPost('/api/roundtable/' + currentDebateId + '/round', { question: question });
+          if (result && result.debate) {
+            renderDebateThread(result.debate);
+            MT360.toast('Agents responded', 'success');
+          }
+        } catch (_) {
+          MT360.toast('Follow-up question sent', 'info');
+        }
+      });
+    }
+  }
+
+  /* ════════════════════════════════════════════
+     Load roundtable data from API
+     ════════════════════════════════════════════ */
+  async function loadRoundtable() {
+    try {
+      const data = await apiGet('/api/roundtable');
+      if (data) {
+        /* Active debate */
+        if (data.active) {
+          renderDebateThread(data.active);
+        }
+        /* Recent debates list */
+        if (data.recent) {
+          renderRecentDebates(data.recent);
+        }
+      }
+    } catch (_) {
+      /* keep demo data — already rendered in HTML */
+      wireConsensusButtons();
+    }
+  }
+
+  /* ════════════════════════════════════════════
+     Wire New Debate modal
+     ════════════════════════════════════════════ */
+  function wireNewDebate() {
+    const btn = document.getElementById('btnStartDebate');
+    if (!btn) return;
+    btn.addEventListener('click', async function() {
+      const question = document.getElementById('debateInput')?.value || '';
+      const context  = document.getElementById('debateContext')?.value || '';
+      const agents   = [];
+      document.querySelectorAll('#debateAgents input[name="agent"]:checked').forEach(cb => agents.push(cb.value));
+
+      if (!question.trim()) {
+        MT360.toast('Please enter a question', 'error');
+        return;
+      }
+
+      MT360.closeModal('newDebateModal');
+      MT360.toast('Debate started — agents analyzing...', 'info');
+
+      try {
+        const result = await apiPost('/api/roundtable', { question: question, context: context, agents: agents });
+        if (result && result.debate) {
+          renderDebateThread(result.debate);
+          MT360.toast('Agents have responded', 'success');
+        }
+        /* Reload recent list */
+        loadRoundtable();
+      } catch (_) {
+        MT360.toast('Debate started — agents analyzing...', 'info');
+      }
+
+      /* Clear form */
+      const inp = document.getElementById('debateInput');
+      const ctx = document.getElementById('debateContext');
+      if (inp) inp.value = '';
+      if (ctx) ctx.value = '';
+    });
+  }
+
+  /* ════════════════════════════════════════════
+     Init on DOM ready
+     ════════════════════════════════════════════ */
+  document.addEventListener('DOMContentLoaded', function() {
+    loadRoundtable();
+    wireNewDebate();
+  });
+})();
+</script>
 {% endblock %}

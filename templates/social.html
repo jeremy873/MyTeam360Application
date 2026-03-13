@@ -22,7 +22,7 @@
 </div>
 
 <!-- PLATFORM STATS -->
-<div class="stat-grid" style="grid-template-columns:repeat(4,1fr);margin-bottom:1.5rem">
+<div class="stat-grid" id="platformStats" style="grid-template-columns:repeat(4,1fr);margin-bottom:1.5rem">
   <div class="card" style="padding:1rem 1.25rem">
     <div style="display:flex;align-items:center;gap:0.6rem">
       <div class="stat-icon blue" style="width:32px;height:32px;margin-bottom:0">
@@ -30,8 +30,8 @@
       </div>
       <div>
         <div style="font-size:0.72rem;color:var(--tx-dim)">LinkedIn</div>
-        <div style="font-size:1.1rem;font-weight:800;color:var(--w);font-family:'Outfit',sans-serif">2,847</div>
-        <div style="font-size:0.65rem;color:var(--g)">↑ 12% followers</div>
+        <div id="statLinkedin" style="font-size:1.1rem;font-weight:800;color:var(--w);font-family:'Outfit',sans-serif">2,847</div>
+        <div id="statLinkedinDelta" style="font-size:0.65rem;color:var(--g)">↑ 12% followers</div>
       </div>
     </div>
   </div>
@@ -42,8 +42,8 @@
       </div>
       <div>
         <div style="font-size:0.72rem;color:var(--tx-dim)">Instagram</div>
-        <div style="font-size:1.1rem;font-weight:800;color:var(--w);font-family:'Outfit',sans-serif">1,204</div>
-        <div style="font-size:0.65rem;color:var(--g)">↑ 8% followers</div>
+        <div id="statInstagram" style="font-size:1.1rem;font-weight:800;color:var(--w);font-family:'Outfit',sans-serif">1,204</div>
+        <div id="statInstagramDelta" style="font-size:0.65rem;color:var(--g)">↑ 8% followers</div>
       </div>
     </div>
   </div>
@@ -54,8 +54,8 @@
       </div>
       <div>
         <div style="font-size:0.72rem;color:var(--tx-dim)">Impressions</div>
-        <div style="font-size:1.1rem;font-weight:800;color:var(--w);font-family:'Outfit',sans-serif">14.2K</div>
-        <div style="font-size:0.65rem;color:var(--g)">↑ 23% this week</div>
+        <div id="statImpressions" style="font-size:1.1rem;font-weight:800;color:var(--w);font-family:'Outfit',sans-serif">14.2K</div>
+        <div id="statImpressionsDelta" style="font-size:0.65rem;color:var(--g)">↑ 23% this week</div>
       </div>
     </div>
   </div>
@@ -66,8 +66,8 @@
       </div>
       <div>
         <div style="font-size:0.72rem;color:var(--tx-dim)">Engagement</div>
-        <div style="font-size:1.1rem;font-weight:800;color:var(--w);font-family:'Outfit',sans-serif">4.8%</div>
-        <div style="font-size:0.65rem;color:var(--a)">— Avg rate</div>
+        <div id="statEngagement" style="font-size:1.1rem;font-weight:800;color:var(--w);font-family:'Outfit',sans-serif">4.8%</div>
+        <div id="statEngagementDelta" style="font-size:0.65rem;color:var(--a)">— Avg rate</div>
       </div>
     </div>
   </div>
@@ -83,7 +83,7 @@
         <span class="chart-tab active">Month</span>
       </div>
     </div>
-    <div class="card-body">
+    <div class="card-body" id="calendarBody">
       <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:0.5rem;margin-bottom:1rem">
         <div style="font-size:0.65rem;color:var(--tx-dim);text-align:center;font-weight:600">Mon</div>
         <div style="font-size:0.65rem;color:var(--tx-dim);text-align:center;font-weight:600">Tue</div>
@@ -93,7 +93,7 @@
         <div style="font-size:0.65rem;color:var(--tx-dim);text-align:center;font-weight:600">Sat</div>
         <div style="font-size:0.65rem;color:var(--tx-dim);text-align:center;font-weight:600">Sun</div>
       </div>
-      <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:0.5rem">
+      <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:0.5rem" id="calendarGrid">
         <!-- Week 1 -->
         <div class="cal-day">
           <span class="cal-date">10</span>
@@ -139,7 +139,7 @@
     <!-- Upcoming Posts -->
     <div class="card">
       <div class="card-header"><h3>Upcoming Posts</h3></div>
-      <div class="card-body">
+      <div class="card-body" id="upcomingPostsBody">
         <div style="display:flex;flex-direction:column;gap:0.7rem">
           <div style="padding:0.6rem;background:var(--bg-card-solid);border-radius:var(--r-md);border:1px solid var(--brd)">
             <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.3rem">
@@ -172,7 +172,7 @@
     <!-- AI Content Suggestions -->
     <div class="card">
       <div class="card-header"><h3>AI Content Ideas</h3></div>
-      <div class="card-body">
+      <div class="card-body" id="aiContentIdeas">
         <div style="display:flex;flex-direction:column;gap:0.5rem">
           <div style="font-size:0.78rem;color:var(--tx);padding:0.5rem 0;border-bottom:1px solid var(--brd)">
             💡 Post Henderson showing results — <strong style="color:var(--w)">social proof builds trust</strong>
@@ -199,43 +199,237 @@
     <div class="modal-body">
       <div class="form-group">
         <label class="form-label">Platforms</label>
-        <div style="display:flex;gap:0.5rem">
+        <div style="display:flex;gap:0.5rem" id="postPlatforms">
           <label style="display:flex;align-items:center;gap:0.3rem;font-size:0.78rem;color:var(--tx);cursor:pointer">
-            <input type="checkbox" checked> LinkedIn
+            <input type="checkbox" checked name="platform" value="linkedin"> LinkedIn
           </label>
           <label style="display:flex;align-items:center;gap:0.3rem;font-size:0.78rem;color:var(--tx);cursor:pointer">
-            <input type="checkbox"> Instagram
+            <input type="checkbox" name="platform" value="instagram"> Instagram
           </label>
           <label style="display:flex;align-items:center;gap:0.3rem;font-size:0.78rem;color:var(--tx);cursor:pointer">
-            <input type="checkbox"> Facebook
+            <input type="checkbox" name="platform" value="facebook"> Facebook
           </label>
         </div>
       </div>
       <div class="form-group">
         <label class="form-label">Content</label>
-        <textarea class="textarea" rows="4" placeholder="Write your post..."></textarea>
+        <textarea class="textarea" rows="4" placeholder="Write your post..." id="postContent"></textarea>
       </div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem">
         <div class="form-group">
           <label class="form-label">Schedule Date</label>
-          <input class="input" type="date">
+          <input class="input" type="date" id="postDate">
         </div>
         <div class="form-group">
           <label class="form-label">Time</label>
-          <input class="input" type="time">
+          <input class="input" type="time" id="postTime">
         </div>
       </div>
       <div class="form-group">
         <label class="form-label">AI Assist</label>
-        <button class="btn btn-ghost btn-sm" onclick="MT360.toast('AI drafting content...','info')">Generate with AI</button>
+        <button class="btn btn-ghost btn-sm" id="btnGenerateAI">Generate with AI</button>
       </div>
     </div>
     <div class="modal-footer">
       <button class="btn btn-ghost btn-sm" onclick="MT360.closeModal('newPostModal')">Cancel</button>
-      <button class="btn btn-ghost btn-sm" onclick="MT360.closeModal('newPostModal');MT360.toast('Saved as draft','info')">Save Draft</button>
-      <button class="btn btn-primary btn-sm" onclick="MT360.closeModal('newPostModal');MT360.toast('Post scheduled','success')">Schedule</button>
+      <button class="btn btn-ghost btn-sm" id="btnSaveDraft">Save Draft</button>
+      <button class="btn btn-primary btn-sm" id="btnSchedulePost">Schedule</button>
     </div>
   </div>
 </div>
 
+{% endblock %}
+
+{% block scripts %}
+<script>
+/*
+  MyTeam360 — Social Controller
+  (c) 2026 Praxis Holdings LLC. PROPRIETARY AND CONFIDENTIAL.
+*/
+(function() {
+  'use strict';
+
+  /* ════════════════════════════════════════════
+     API helpers
+     ════════════════════════════════════════════ */
+  async function apiGet(url) {
+    if (typeof MT360 !== 'undefined' && typeof MT360.api === 'function') {
+      return MT360.api(url);
+    }
+    const res = await fetch(url);
+    if (!res.ok) throw new Error(`API ${res.status}`);
+    return res.json();
+  }
+
+  async function apiPost(url, body) {
+    if (typeof MT360 !== 'undefined' && typeof MT360.api === 'function') {
+      return MT360.api(url, { method: 'POST', body: JSON.stringify(body), headers: { 'Content-Type': 'application/json' } });
+    }
+    const res = await fetch(url, { method: 'POST', body: JSON.stringify(body), headers: { 'Content-Type': 'application/json' } });
+    if (!res.ok) throw new Error(`API ${res.status}`);
+    return res.json();
+  }
+
+  /* ════════════════════════════════════════════
+     Demo / fallback data
+     ════════════════════════════════════════════ */
+  const DEMO_CAMPAIGNS = {
+    linkedin:    { followers: '2,847', delta: '↑ 12% followers' },
+    instagram:   { followers: '1,204', delta: '↑ 8% followers' },
+    impressions: { count: '14.2K', delta: '↑ 23% this week' },
+    engagement:  { rate: '4.8%',  delta: '— Avg rate' },
+  };
+
+  const DEMO_QUEUE = [
+    { platform: 'linkedin', tag_class: 'tag-blue', scheduled: 'Today 12:00', title: 'Weekly Market Update', desc: 'Charlotte housing trends and pricing data' },
+    { platform: 'instagram', tag_class: 'tag-purple', scheduled: 'Tomorrow 10:00', title: 'Henderson Property Photos', desc: 'Carousel post — 8 photos from staging' },
+    { platform: 'linkedin', tag_class: 'tag-blue', scheduled: 'Fri 9:00', title: '5 Tips for First-Time Buyers', desc: 'Educational content — repurposed from blog' },
+  ];
+
+  /* ════════════════════════════════════════════
+     Render helpers
+     ════════════════════════════════════════════ */
+  function applyStats(data) {
+    const c = data || DEMO_CAMPAIGNS;
+    const set = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val; };
+    set('statLinkedin',         c.linkedin?.followers   || DEMO_CAMPAIGNS.linkedin.followers);
+    set('statLinkedinDelta',    c.linkedin?.delta       || DEMO_CAMPAIGNS.linkedin.delta);
+    set('statInstagram',        c.instagram?.followers  || DEMO_CAMPAIGNS.instagram.followers);
+    set('statInstagramDelta',   c.instagram?.delta      || DEMO_CAMPAIGNS.instagram.delta);
+    set('statImpressions',      c.impressions?.count    || DEMO_CAMPAIGNS.impressions.count);
+    set('statImpressionsDelta', c.impressions?.delta    || DEMO_CAMPAIGNS.impressions.delta);
+    set('statEngagement',       c.engagement?.rate      || DEMO_CAMPAIGNS.engagement.rate);
+    set('statEngagementDelta',  c.engagement?.delta     || DEMO_CAMPAIGNS.engagement.delta);
+  }
+
+  function renderQueue(posts) {
+    const container = document.getElementById('upcomingPostsBody');
+    if (!container || !posts || !posts.length) return;
+    container.innerHTML = '<div style="display:flex;flex-direction:column;gap:0.7rem">' +
+      posts.map(p => `
+        <div style="padding:0.6rem;background:var(--bg-card-solid);border-radius:var(--r-md);border:1px solid var(--brd)">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.3rem">
+            <span class="tag ${p.tag_class || 'tag-blue'}" style="font-size:0.6rem">${p.platform}</span>
+            <span style="font-size:0.6rem;color:var(--tx-dim)">${p.scheduled}</span>
+          </div>
+          <div style="font-size:0.78rem;color:var(--w);font-weight:600">${p.title}</div>
+          <div style="font-size:0.7rem;color:var(--tx-dim);margin-top:0.2rem">${p.desc}</div>
+        </div>
+      `).join('') + '</div>';
+  }
+
+  /* ════════════════════════════════════════════
+     Load social data from APIs
+     ════════════════════════════════════════════ */
+  async function loadSocial() {
+    /* Campaign stats */
+    try {
+      const campaigns = await apiGet('/api/social/campaigns');
+      applyStats(campaigns);
+    } catch (_) {
+      applyStats(DEMO_CAMPAIGNS);
+    }
+
+    /* Calendar — update grid if API returns data */
+    try {
+      const calendar = await apiGet('/api/social/calendar');
+      if (calendar && calendar.html) {
+        const grid = document.getElementById('calendarGrid');
+        if (grid) grid.innerHTML = calendar.html;
+      }
+    } catch (_) {
+      /* keep demo calendar */
+    }
+
+    /* Upcoming queue */
+    try {
+      const queue = await apiGet('/api/social/queue');
+      if (queue && queue.posts) renderQueue(queue.posts);
+    } catch (_) {
+      /* keep demo queue */
+    }
+  }
+
+  /* ════════════════════════════════════════════
+     Collect form data from New Post modal
+     ════════════════════════════════════════════ */
+  function collectPostData() {
+    const platforms = [];
+    document.querySelectorAll('#postPlatforms input[name="platform"]:checked').forEach(cb => platforms.push(cb.value));
+    return {
+      platforms:     platforms,
+      content:       document.getElementById('postContent')?.value || '',
+      schedule_date: document.getElementById('postDate')?.value || '',
+      schedule_time: document.getElementById('postTime')?.value || '',
+    };
+  }
+
+  /* ════════════════════════════════════════════
+     Wire modal buttons
+     ════════════════════════════════════════════ */
+  function wireButtons() {
+    /* Generate with AI */
+    const btnAI = document.getElementById('btnGenerateAI');
+    if (btnAI) {
+      btnAI.addEventListener('click', async function() {
+        MT360.toast('AI drafting content...', 'info');
+        try {
+          const result = await apiPost('/api/social/generate', { context: collectPostData().content || 'general real estate post' });
+          const textarea = document.getElementById('postContent');
+          if (textarea && result && result.content) {
+            textarea.value = result.content;
+            MT360.toast('AI content generated', 'success');
+          }
+        } catch (_) {
+          MT360.toast('AI generation unavailable — write manually', 'error');
+        }
+      });
+    }
+
+    /* Save Draft */
+    const btnDraft = document.getElementById('btnSaveDraft');
+    if (btnDraft) {
+      btnDraft.addEventListener('click', async function() {
+        const data = collectPostData();
+        data.status = 'draft';
+        try {
+          await apiPost('/api/social/posts', data);
+          MT360.closeModal('newPostModal');
+          MT360.toast('Saved as draft', 'success');
+          loadSocial();
+        } catch (_) {
+          MT360.closeModal('newPostModal');
+          MT360.toast('Saved as draft', 'info');
+        }
+      });
+    }
+
+    /* Schedule Post */
+    const btnSchedule = document.getElementById('btnSchedulePost');
+    if (btnSchedule) {
+      btnSchedule.addEventListener('click', async function() {
+        const data = collectPostData();
+        data.status = 'scheduled';
+        try {
+          await apiPost('/api/social/posts', data);
+          MT360.closeModal('newPostModal');
+          MT360.toast('Post scheduled', 'success');
+          loadSocial();
+        } catch (_) {
+          MT360.closeModal('newPostModal');
+          MT360.toast('Post scheduled', 'success');
+        }
+      });
+    }
+  }
+
+  /* ════════════════════════════════════════════
+     Init on DOM ready
+     ════════════════════════════════════════════ */
+  document.addEventListener('DOMContentLoaded', function() {
+    loadSocial();
+    wireButtons();
+  });
+})();
+</script>
 {% endblock %}
